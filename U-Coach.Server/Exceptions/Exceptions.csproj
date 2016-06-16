@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="Auth\InvalidPasswordException.cs" />
     <Compile Include="Auth\InvalidPasswordFormatException.cs" />
+    <Compile Include="Auth\InvalidTokenException.cs" />
     <Compile Include="Auth\LoginNotSetException.cs" />
+    <Compile Include="Auth\NotLoggedInException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

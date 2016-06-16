@@ -1,6 +1,4 @@
-﻿using PVDevelop.UCoach.Server.AuthService;
-using PVDevelop.UCoach.Server.Mongo;
-using System.Linq;
+﻿using System.Linq;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {

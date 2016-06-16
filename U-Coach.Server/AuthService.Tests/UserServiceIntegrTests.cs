@@ -75,7 +75,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         }
 
         [Test]
-        public void Logout_LoggedInUser_SetsNotLoggedIn()
+        public void LogoutByPassword_LoggedInUser_SetsNotLoggedIn()
         {
             var settings = MongoHelper.CreateSettings();
 
@@ -97,12 +97,13 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
 
             userService.Logon(authUserParams);
 
-            var logoutUserParams = new LogoutUserParams()
+            var logoutUserParams = new LogoutByPasswordUserParams()
             {
-                Login = "some_login"
+                Login = "some_login",
+                Password = "some_password"
             };
 
-            userService.Logout(logoutUserParams);
+            userService.LogoutByPassword(logoutUserParams);
 
             MongoHelper.WithDb(settings, db =>
             {

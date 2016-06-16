@@ -57,6 +57,7 @@
     <Compile Include="HelpExecutor.cs" />
     <Compile Include="IExecutor.cs" />
     <Compile Include="LogonExecutor.cs" />
+    <Compile Include="LogoutByPasswordExecutor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

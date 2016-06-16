@@ -3,6 +3,8 @@
     public interface IUserService
     {
         void Create(CreateUserParams userParams);
-        void Logon(LogonUserParams userParams);
+        string Logon(LogonUserParams userParams);
+        void LogoutByPassword(LogoutByPasswordUserParams userParams);
+        void ValidateToken(ValidateTokenParams tokenParams);
     }
 }

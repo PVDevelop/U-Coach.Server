@@ -40,7 +40,8 @@ namespace PVDevelop.UCoach.Server.AuthService
         /// Проверяет параметры пользователя и если они верны, аутентифицирует пользователя
         /// </summary>
         /// <param name="userParams">Параметры аутентификацити</param>
-        public void Logon(LogonUserParams userParams)
+        /// <returns>Токен аутентификации</returns>
+        public string Logon(LogonUserParams userParams)
         {
             if (userParams == null)
             {
@@ -48,15 +49,17 @@ namespace PVDevelop.UCoach.Server.AuthService
             }
 
             var user = _repository.Find(USER_COLLECITION_NAME, u => u.Login == userParams.Login);
-            user.Logon(userParams.Password);
+            var token = user.Logon(userParams.Password);
             _repository.Replace(USER_COLLECITION_NAME, user);
+
+            return token;
         }
 
         /// <summary>
         /// Выводит пользователя из системы
         /// </summary>
         /// <param name="userParams">Параметры пользователя</param>
-        public void Logout(LogoutUserParams userParams)
+        public void LogoutByPassword(LogoutByPasswordUserParams userParams)
         {
             if (userParams == null)
             {
@@ -64,8 +67,23 @@ namespace PVDevelop.UCoach.Server.AuthService
             }
 
             var user = _repository.Find(USER_COLLECITION_NAME, u => u.Login == userParams.Login);
-            user.Logout();
+            user.Logout(userParams.Password);
             _repository.Replace(USER_COLLECITION_NAME, user);
+        }
+
+        /// <summary>
+        /// Проверяет токен пользователя
+        /// </summary>
+        /// <param name="tokenParams">Параметры токена</param>
+        public void ValidateToken(ValidateTokenParams tokenParams)
+        {
+            if (tokenParams == null)
+            {
+                throw new ArgumentNullException("tokenParams");
+            }
+
+            var user = _repository.Find(USER_COLLECITION_NAME, u => u.Login == tokenParams.Login);
+            user.ValidateToken(tokenParams.Token);
         }
     }
 }

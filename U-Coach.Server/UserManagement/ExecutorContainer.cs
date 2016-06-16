@@ -43,8 +43,17 @@ namespace PVDevelop.UCoach.Server.UserManagement
                 x.For<IMongoRepository<User>>().Use<MongoRepository<User>>();
                 x.For<IUserService>().Use<UserService>();
 
-                x.For<IExecutor>().Use<CreateUserExecutor>();
-                x.For<IExecutor>().Use<LogonExecutor>();
+                foreach(var type in 
+                    Assembly.
+                    GetExecutingAssembly().
+                    GetTypes().
+                    Where(t => t.GetInterface(typeof(IExecutor).Name) != null))
+                {
+                    x.For(typeof(IExecutor)).Use(type);
+                }
+
+                //x.For<IExecutor>().Use<CreateUserExecutor>();
+                //x.For<IExecutor>().Use<LogonExecutor>();
             });
         }
     }

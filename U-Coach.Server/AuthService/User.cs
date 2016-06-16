@@ -70,24 +70,59 @@ namespace PVDevelop.UCoach.Server.AuthService
         /// Проверяет пароль и если задан правильно, то делает пользователя залогиненым
         /// </summary>
         /// <param name="plainPassword">Не кодированный пароль</param>
-        public void Logon(string plainPassword)
+        /// <returns>Токен аутентификации</returns>
+        public string Logon(string plainPassword)
         {
-            bool valid = BCryptHelper.CheckPassword(plainPassword, Password);
-            if(!valid)
-            {
-                throw new InvalidPasswordException();
-            }
+            CheckPassword(plainPassword);
 
             IsLoggedIn = true;
             LastAuthenticationTime = UtcTime.UtcNow;
+
+            var salt = BCryptHelper.GenerateSalt();
+            return BCryptHelper.HashPassword(Password, salt);
         }
 
         /// <summary>
         /// Выводит пользователся из системы
         /// </summary>
-        public void Logout()
+        /// <param name="plainPassword">Не кодированный пароль</param>
+        public void Logout(string plainPassword)
         {
+            CheckPassword(plainPassword);
+
             IsLoggedIn = false;
+        }
+
+        /// <summary>
+        /// Проверяет токен. Если не залогинен, кидает NotLoggedInException. Если токен неверный, кидает InvalidTokenException.
+        /// </summary>
+        public void ValidateToken(string token)
+        {
+            if(!IsLoggedIn)
+            {
+                throw new NotLoggedInException();
+            }
+
+            try
+            {
+                if (!BCryptHelper.CheckPassword(Password, token))
+                {
+                    throw new InvalidTokenException();
+                }
+            }
+            catch(ArgumentException)
+            {
+                throw new InvalidTokenException();
+            }
+        }
+
+        private void CheckPassword(string plainPassword)
+        {
+            bool valid = BCryptHelper.CheckPassword(plainPassword, Password);
+            if (!valid)
+            {
+                throw new InvalidPasswordException();
+            }
         }
     }
 }

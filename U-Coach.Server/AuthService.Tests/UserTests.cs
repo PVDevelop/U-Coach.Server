@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using DevOne.Security.Cryptography.BCrypt;
+using NUnit.Framework;
 using PVDevelop.UCoach.Server;
 using PVDevelop.UCoach.Server.AuthService;
 using PVDevelop.UCoach.Server.Exceptions.Auth;
@@ -62,6 +63,17 @@ namespace AuthService.Tests
         }
 
         [Test]
+        public void Logon_ValidPassword_ReturnsExpectedToken()
+        {
+            var user = new User("u");
+
+            user.SetPassword("pwd123");
+            var token = user.Logon("pwd123");
+
+            Assert.IsTrue(BCryptHelper.CheckPassword(user.Password, token));
+        }
+
+        [Test]
         public void Logon_ValidPassword_SetsCurrentAuthenticationTime()
         {
             UtcTime.SetUtcNow();
@@ -77,8 +89,45 @@ namespace AuthService.Tests
             var user = new User("aaa");
             user.SetPassword("pwd");
             user.Logon("pwd");
-            user.Logout();
+            user.Logout("pwd");
             Assert.IsFalse(user.IsLoggedIn);
+        }
+
+        [Test]
+        public void Logout_UserIsLoggedInButInvalidPassword_ThrowsException()
+        {
+            var user = new User("aaa");
+            user.SetPassword("pwd");
+            user.Logon("pwd");
+            Assert.Throws(typeof(InvalidPasswordException), () => user.Logout("invalid"));
+        }
+
+        [Test]
+        public void ValidateToken_ValidToken_DoesNothing()
+        {
+            var u = new User("u");
+            u.SetPassword("p1");
+            var token = u.Logon("p1");
+            u.ValidateToken(token);
+        }
+
+        [Test]
+        public void ValidateToken_InvalidToken_ThrowsException()
+        {
+            var u = new User("u");
+            u.SetPassword("p1");
+            u.Logon("p1");
+            Assert.Throws(typeof(InvalidTokenException), () => u.ValidateToken("abc"));
+        }
+
+        [Test]
+        public void ValidateToken_UserIsNotLoggedIn_ThrowsException()
+        {
+            var u = new User("aaa");
+            u.SetPassword("p2");
+            var token = u.Logon("p2");
+            u.Logout("p2");
+            Assert.Throws(typeof(NotLoggedInException), () => u.ValidateToken(token));
         }
     }
 }
