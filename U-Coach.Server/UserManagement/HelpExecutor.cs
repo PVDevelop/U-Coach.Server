@@ -6,15 +6,22 @@ using System.Threading.Tasks;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
-    public class HelpExecutor : IExecutor
+    public class HelpExecutor
     {
-        public void Execute()
+        public void PrintHelp()
         {
-            Console.WriteLine("c <login> <password>\t\tCreate new user");
-        }
+            foreach(var executor in ExecutorContainer.Instance.Container.GetAllInstances<IExecutor>())
+            {
+                var str = string.Format(
+                    "{0} {1}\t\t{2}", 
+                    executor.Command, 
+                    string.Join(
+                        " ", 
+                        executor.ArgumentsNames.Select(name => string.Format("<{0}>", name))),
+                    executor.Description);
 
-        public void Setup(string[] arguments)
-        {
+                Console.WriteLine(str);
+            }
         }
     }
 }

@@ -8,6 +8,30 @@ namespace PVDevelop.UCoach.Server.UserManagement
         public string Login { get; private set; }
         public string Password { get; private set; }
 
+        public string Command
+        {
+            get
+            {
+                return "create";
+            }
+        }
+
+        public string[] ArgumentsNames
+        {
+            get
+            {
+                return new[] { "login", "password" };
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return "Создать нового пользователя";
+            }
+        }
+
         private readonly IUserService _userService;
 
         public CreateUserExecutor(IUserService userService)
@@ -35,8 +59,11 @@ namespace PVDevelop.UCoach.Server.UserManagement
             };
 
             _userService.Create(userParams);
+        }
 
-            Console.WriteLine("User {0} created", Login);
+        public string GetSuccessString()
+        {
+            return string.Format("Пользователь {0} создан", Login);
         }
     }
 }

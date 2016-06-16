@@ -11,7 +11,7 @@ namespace PVDevelop.UCoach.Server.AuthService
         /// <summary>
         /// Уникальный идентификатор пользователя.
         /// </summary>
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
 
         /// <summary>
         /// Логин пользователя. Уникален в БД.
@@ -47,6 +47,7 @@ namespace PVDevelop.UCoach.Server.AuthService
 
             Login = login;
             CreationTime = UtcTime.UtcNow;
+            Id = Guid.NewGuid();
         }
 
         /// <summary>

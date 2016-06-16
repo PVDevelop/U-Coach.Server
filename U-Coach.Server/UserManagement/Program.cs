@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StructureMap;
+using System;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
@@ -6,15 +7,23 @@ namespace PVDevelop.UCoach.Server.UserManagement
     {
         static void Main(string[] args)
         {
-            try
+            if (args.Length > 0)
             {
-                var executor = ExecutorFactory.CreateExecutor(args);
-                executor.Execute();
+                try
+                {
+                    var executor = ExecutorFactory.CreateAndSetupExecutor(args);
+                    executor.Execute();
+                    Console.WriteLine(executor.GetSuccessString());
+                }
+                catch
+                {
+                    Console.WriteLine("Failed");
+                    new HelpExecutor().PrintHelp();
+                }
             }
-            catch
+            else
             {
-                Console.WriteLine("Failed");
-                new HelpExecutor().Execute();
+                new HelpExecutor().PrintHelp();
             }
         }
     }

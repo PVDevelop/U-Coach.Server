@@ -18,3 +18,8 @@ C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\UserManagement\bin\Debug\P
 C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\UserManagement\bin\Debug\PVDevelop.UCoach.Server.Utilities.pdb
 C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\UserManagement\bin\Debug\MongoDB.Driver.xml
 C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\UserManagement\bin\Debug\MongoDB.Bson.xml
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\UserManagement\bin\Debug\StructureMap.dll
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\UserManagement\bin\Debug\StructureMap.Net4.dll
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\UserManagement\bin\Debug\StructureMap.pdb
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\UserManagement\bin\Debug\StructureMap.xml
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\UserManagement\bin\Debug\StructureMap.Net4.pdb

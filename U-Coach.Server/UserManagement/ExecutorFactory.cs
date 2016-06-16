@@ -6,24 +6,13 @@ namespace PVDevelop.UCoach.Server.UserManagement
 {
     public static class ExecutorFactory
     {
-        public static IExecutor CreateExecutor(string[] args)
+        public static IExecutor CreateAndSetupExecutor(string[] args)
         {
-            if(args.Length == 0)
-            {
-                return new HelpExecutor();
-            }
-            switch (args[0])
-            {
-                case "c":
-                    var mongoConnSettings = new MongoConnectionSettings("mongo");
-                    var mongoRep = new MongoRepository<User>(mongoConnSettings);
-                    var userService = new UserService(mongoRep);
-                    var user = new CreateUserExecutor(userService);
-                    user.Setup(args.Skip(1).ToArray());
-                    return user;
-                default:
-                    return new HelpExecutor();
-            }
+            var executors = ExecutorContainer.Instance.Container.GetAllInstances<IExecutor>();
+            var arg = args[0];
+            var executor = executors.Single(e => e.Command == arg);
+            executor.Setup(args.Skip(1).ToArray());
+            return executor;
         }
     }
 }
