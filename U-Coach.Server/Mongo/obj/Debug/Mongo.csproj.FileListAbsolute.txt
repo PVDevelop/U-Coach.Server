@@ -1,0 +1,10 @@
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\PVDevelop.UCoach.Server.Mongo.dll
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\PVDevelop.UCoach.Server.Mongo.pdb
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Mongo\obj\Debug\PVDevelop.UCoach.Server.Mongo.dll
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Mongo\obj\Debug\PVDevelop.UCoach.Server.Mongo.pdb
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\MongoDB.Bson.dll
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\MongoDB.Driver.Core.dll
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\MongoDB.Driver.dll
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\MongoDB.Bson.xml
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\MongoDB.Driver.xml
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Mongo\obj\Debug\Mongo.csprojResolveAssemblyReference.cache

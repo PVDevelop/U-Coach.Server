@@ -1,0 +1,7 @@
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\NUnit\bin\Debug\PVDevelop.UCoach.Server.NUnit.dll
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\NUnit\bin\Debug\PVDevelop.UCoach.Server.NUnit.pdb
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\NUnit\bin\Debug\nunit.framework.dll
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\NUnit\bin\Debug\nunit.framework.xml
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\NUnit\obj\Debug\NUnit.csprojResolveAssemblyReference.cache
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\NUnit\obj\Debug\PVDevelop.UCoach.Server.NUnit.dll
+C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\NUnit\obj\Debug\PVDevelop.UCoach.Server.NUnit.pdb
