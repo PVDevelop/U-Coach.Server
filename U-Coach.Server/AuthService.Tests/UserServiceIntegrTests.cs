@@ -21,7 +21,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
                 Password = "password"
             };
 
-            var settings = MongoHelper.CreateSettings(UserService.USER_COLLECITION_NAME);
+            var settings = MongoHelper.CreateSettings();
 
             UtcTime.SetUtcNow();
             var userService = new UserService(new MongoRepository<User>(settings));
@@ -29,7 +29,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
 
             MongoHelper.WithDb(settings, db =>
             {
-                var users = db.GetCollection<User>(settings.CollectionName).Find(u => u.Login == userParams.Login).ToList();
+                var users = db.GetCollection<User>(UserService.USER_COLLECITION_NAME).Find(u => u.Login == userParams.Login).ToList();
                 Assert.AreEqual(1, users.Count);
                 var user = users[0];
                 Assert.NotNull(user.Password);
@@ -42,7 +42,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         [Test]
         public void Logon_ValidPassword_SetsLoggedInAndCurrentTime()
         {
-            var settings = MongoHelper.CreateSettings(UserService.USER_COLLECITION_NAME);
+            var settings = MongoHelper.CreateSettings();
 
             var userService = new UserService(new MongoRepository<User>(settings));
 
@@ -65,7 +65,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
 
             MongoHelper.WithDb(settings, db =>
             {
-                var users = db.GetCollection<User>(settings.CollectionName).Find(u => u.Login == createUserParams.Login).ToList();
+                var users = db.GetCollection<User>(UserService.USER_COLLECITION_NAME).Find(u => u.Login == createUserParams.Login).ToList();
                 Assert.AreEqual(1, users.Count);
                 var user = users[0];
                 Assert.NotNull(user.Password);
@@ -77,7 +77,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         [Test]
         public void Logout_LoggedInUser_SetsNotLoggedIn()
         {
-            var settings = MongoHelper.CreateSettings(UserService.USER_COLLECITION_NAME);
+            var settings = MongoHelper.CreateSettings();
 
             var userService = new UserService(new MongoRepository<User>(settings));
 
@@ -106,7 +106,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
 
             MongoHelper.WithDb(settings, db =>
             {
-                var users = db.GetCollection<User>(settings.CollectionName).Find(u => u.Login == createUserParams.Login).ToList();
+                var users = db.GetCollection<User>(UserService.USER_COLLECITION_NAME).Find(u => u.Login == createUserParams.Login).ToList();
                 Assert.AreEqual(1, users.Count);
                 var user = users[0];
                 Assert.IsFalse(user.IsLoggedIn);

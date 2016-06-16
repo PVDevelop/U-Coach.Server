@@ -4,7 +4,7 @@ using PVDevelop.UCoach.Server.Mongo;
 using System;
 using Utilities;
 
-namespace PVDevelop.UCoach.Server
+namespace PVDevelop.UCoach.Server.AuthService
 {
     public class User : IHaveId
     {

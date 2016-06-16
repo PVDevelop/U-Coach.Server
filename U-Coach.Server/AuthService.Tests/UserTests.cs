@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using PVDevelop.UCoach.Server;
+using PVDevelop.UCoach.Server.AuthService;
 using PVDevelop.UCoach.Server.Exceptions.Auth;
 using PVDevelop.UCoach.Server.Mongo;
 using Rhino.Mocks;

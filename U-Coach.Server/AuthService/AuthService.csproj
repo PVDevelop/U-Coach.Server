@@ -7,7 +7,7 @@
     <ProjectGuid>{396D0814-3A71-4A8F-9BF4-209F315C1D8F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server</RootNamespace>
+    <RootNamespace>PVDevelop.UCoach.Server.AuthService</RootNamespace>
     <AssemblyName>PVDevelop.UCoach.Server.AuthService</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -48,6 +48,7 @@
     <Compile Include="CreateUserParams.cs" />
     <Compile Include="LogoutUserParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IUserService.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>

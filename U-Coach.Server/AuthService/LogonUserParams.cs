@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PVDevelop.UCoach.Server
+namespace PVDevelop.UCoach.Server.AuthService
 {
     public class LogonUserParams
     {        

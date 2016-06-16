@@ -1,4 +1,4 @@
-﻿namespace PVDevelop.UCoach.Server
+﻿namespace PVDevelop.UCoach.Server.AuthService
 {
     public class CreateUserParams
     {

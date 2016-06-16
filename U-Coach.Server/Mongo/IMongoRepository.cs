@@ -13,16 +13,16 @@ namespace PVDevelop.UCoach.Server.Mongo
         /// <summary>
         /// Вставляет документ в коллекцию
         /// </summary>
-        void Insert(T document);
+        void Insert(string collection, T document);
 
         /// <summary>
         /// Находит единственный объект по предикату
         /// </summary>
-        T Find(Expression<Func<T, bool>> predicate);
+        T Find(string collection, Expression<Func<T, bool>> predicate);
 
         /// <summary>
         /// Замещает имеющийся документ новым
         /// </summary>
-        void Replace(T document);
+        void Replace(string collection, T document);
     }
 }

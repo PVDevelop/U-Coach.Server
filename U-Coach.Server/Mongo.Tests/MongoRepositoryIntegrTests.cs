@@ -20,7 +20,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         [Test]
         public void Insert_ValidObject_SavesToDb()
         {
-            var settings = MongoHelper.CreateSettings("test_objects");
+            var settings = MongoHelper.CreateSettings();
 
             var testObj = new TestObj()
             {
@@ -30,12 +30,12 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
             MongoHelper.WithDb(settings, db =>
             {
                 var rep = new MongoRepository<TestObj>(settings);
-                rep.Insert(testObj);
+                rep.Insert("some_coll", testObj);
 
                 var coll =
                     new MongoClient(settings.ConnectionString).
                     GetDatabase(settings.DatabaseName).
-                    GetCollection<TestObj>(settings.CollectionName);
+                    GetCollection<TestObj>("some_coll");
 
                 var foundObj = coll.Find(o => o.Id == testObj.Id && o.Name == testObj.Name).FirstOrDefault();
                 Assert.NotNull(foundObj, "Объект не был сохранен в MongoDb");

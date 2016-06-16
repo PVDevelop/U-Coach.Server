@@ -2,9 +2,9 @@
 using PVDevelop.UCoach.Server.Mongo;
 using System;
 
-namespace PVDevelop.UCoach.Server
+namespace PVDevelop.UCoach.Server.AuthService
 {
-    public class UserService
+    public class UserService : IUserService
     {
         internal const string USER_COLLECITION_NAME = "User";
 
@@ -33,7 +33,7 @@ namespace PVDevelop.UCoach.Server
 
             var user = new User(userParams.Login);
             user.SetPassword(userParams.Password);
-            _repository.Insert(user);
+            _repository.Insert(USER_COLLECITION_NAME, user);
         }
 
         /// <summary>
@@ -47,9 +47,9 @@ namespace PVDevelop.UCoach.Server
                 throw new ArgumentNullException("userParams");
             }
 
-            var user = _repository.Find(u => u.Login == userParams.Login);
+            var user = _repository.Find(USER_COLLECITION_NAME, u => u.Login == userParams.Login);
             user.Logon(userParams.Password);
-            _repository.Replace(user);
+            _repository.Replace(USER_COLLECITION_NAME, user);
         }
 
         /// <summary>
@@ -63,9 +63,9 @@ namespace PVDevelop.UCoach.Server
                 throw new ArgumentNullException("userParams");
             }
 
-            var user = _repository.Find(u => u.Login == userParams.Login);
+            var user = _repository.Find(USER_COLLECITION_NAME, u => u.Login == userParams.Login);
             user.Logout();
-            _repository.Replace(user);
+            _repository.Replace(USER_COLLECITION_NAME, user);
         }
     }
 }
