@@ -15,6 +15,5 @@ C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\Mong
 C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\MongoDB.Driver.dll
 C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\MongoDB.Bson.xml
 C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Mongo\bin\Debug\MongoDB.Driver.xml
-C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Mongo\obj\Debug\Mongo.csprojResolveAssemblyReference.cache
 C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Mongo\obj\Debug\PVDevelop.UCoach.Server.Mongo.dll
 C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Mongo\obj\Debug\PVDevelop.UCoach.Server.Mongo.pdb
