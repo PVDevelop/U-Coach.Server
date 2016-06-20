@@ -2,3 +2,8 @@ C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Utilities\bin\Debug\PVDeve
 C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Utilities\bin\Debug\PVDevelop.UCoach.Server.Utilities.pdb
 C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Utilities\obj\Debug\PVDevelop.UCoach.Server.Utilities.dll
 C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Utilities\obj\Debug\PVDevelop.UCoach.Server.Utilities.pdb
+C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Utilities\bin\Debug\PVDevelop.UCoach.Server.Utilities.dll
+C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Utilities\bin\Debug\PVDevelop.UCoach.Server.Utilities.pdb
+C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Utilities\obj\Debug\Utilities.csprojResolveAssemblyReference.cache
+C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Utilities\obj\Debug\PVDevelop.UCoach.Server.Utilities.dll
+C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Utilities\obj\Debug\PVDevelop.UCoach.Server.Utilities.pdb
