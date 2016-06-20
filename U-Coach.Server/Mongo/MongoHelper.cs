@@ -36,6 +36,11 @@ namespace PVDevelop.UCoach.Server.Mongo
                 (MongoDataVersionAttribute)typeof(T).
                 GetCustomAttributes(typeof(MongoDataVersionAttribute), true).
                 SingleOrDefault();
+
+            if(mongoDataVersionAttr == null)
+            {
+                throw new InvalidOperationException();
+            }
             return mongoDataVersionAttr.Version;
         }
 

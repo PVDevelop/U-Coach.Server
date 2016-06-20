@@ -15,7 +15,7 @@ namespace PVDevelop.UCoach.Server.Mongo
 
         public MongoCollectionVersionValidatorByClassAttribute(IMongoConnectionSettings settings)
         {
-            if(settings == null)
+            if (settings == null)
             {
                 throw new ArgumentNullException("settings");
             }
@@ -29,14 +29,9 @@ namespace PVDevelop.UCoach.Server.Mongo
             var collectionVersion = collection.Find(cv => cv.Name == referencedCollectionName).SingleOrDefault();
 
             var requiredVersion = MongoHelper.GetDataVersion<T>();
-            if (collectionVersion == null)
+            if (collectionVersion == null || collectionVersion.Version <= 0)
             {
-                throw new InvalidDataVersionException(0, requiredVersion);
-            }
-
-            if(collectionVersion.Version != requiredVersion)
-            {
-                throw new InvalidDataVersionException(collectionVersion.Version, requiredVersion);
+                throw new MongoCollectionNotInitializedException();
             }
         }
     }

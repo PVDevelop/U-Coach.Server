@@ -83,7 +83,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
 
                 var validator = new MongoCollectionVersionValidatorByClassAttribute(validationSettings);
                 Assert.Throws(
-                    typeof(InvalidDataVersionException),
+                    typeof(MongoCollectionNotInitializedException),
                     () => new MongoRepository<TestObj>(MockRepository.GenerateStub<IMongoConnectionSettings>(), validator));
             });
         }
