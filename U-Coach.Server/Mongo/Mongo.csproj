@@ -57,6 +57,7 @@
     <Compile Include="IMongoConnectionSettings.cs" />
     <Compile Include="IMongoRepository.cs" />
     <Compile Include="MongoConnectionSettings.cs" />
+    <Compile Include="MongoHelper.cs" />
     <Compile Include="MongoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

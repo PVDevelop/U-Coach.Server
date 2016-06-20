@@ -3,7 +3,7 @@ using System;
 
 namespace PVDevelop.UCoach.Server.Mongo.Tests
 {
-    public static class MongoHelper
+    public static class TestMongoHelper
     {
         public static MongoSettings CreateSettings()
         {

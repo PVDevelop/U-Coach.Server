@@ -18,32 +18,34 @@ namespace PVDevelop.UCoach.Server.Mongo
             _settings = settings;
         }
 
-        public T Find(string collection, Expression<Func<T, bool>> predicate)
+        public T Find(Expression<Func<T, bool>> predicate)
         {
-            var coll = GetCollection(collection);
+            var coll = GetCollection();
             return coll.Find(predicate).Single();
         }
 
-        public void Insert(string collection, T document)
+        public void Insert(T document)
         {
-            var coll = GetCollection(collection);
+            var coll = GetCollection();
             coll.InsertOne(document);
         }
 
-        public void Replace(string collection, T document)
+        public void Replace(T document)
         {
-            var coll = GetCollection(collection);
+            var coll = GetCollection();
             coll.ReplaceOne<T>(t => t.Id == document.Id, document);
         }
 
-        private IMongoCollection<T> GetCollection(string collection)
+        private IMongoCollection<T> GetCollection()
         {
             var builder = new MongoUrlBuilder(_settings.ConnectionString);
 
             var mongoClient = new MongoClient(builder.ToMongoUrl());
             var db = mongoClient.GetDatabase(builder.DatabaseName);
 
-            return db.GetCollection<T>(collection);
+            var collectionName = MongoHelper.GetCollectionName<T>();
+
+            return db.GetCollection<T>(collectionName);
         }
     }
 }

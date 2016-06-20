@@ -51,9 +51,6 @@ namespace PVDevelop.UCoach.Server.UserManagement
                 {
                     x.For(typeof(IExecutor)).Use(type);
                 }
-
-                //x.For<IExecutor>().Use<CreateUserExecutor>();
-                //x.For<IExecutor>().Use<LogonExecutor>();
             });
         }
     }

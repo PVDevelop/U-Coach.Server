@@ -20,22 +20,22 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         [Test]
         public void Insert_ValidObject_SavesToDb()
         {
-            var settings = MongoHelper.CreateSettings();
+            var settings = TestMongoHelper.CreateSettings();
 
             var testObj = new TestObj()
             {
                 Name = "SomeName"
             };
 
-            MongoHelper.WithDb(settings, db =>
+            TestMongoHelper.WithDb(settings, db =>
             {
                 var rep = new MongoRepository<TestObj>(settings);
-                rep.Insert("some_coll", testObj);
+                rep.Insert(testObj);
 
                 var coll =
                     new MongoClient(settings.ConnectionString).
                     GetDatabase(settings.DatabaseName).
-                    GetCollection<TestObj>("some_coll");
+                    GetCollection<TestObj>(MongoHelper.GetCollectionName<TestObj>());
 
                 var foundObj = coll.Find(o => o.Id == testObj.Id && o.Name == testObj.Name).FirstOrDefault();
                 Assert.NotNull(foundObj, "Объект не был сохранен в MongoDb");

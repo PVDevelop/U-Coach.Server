@@ -6,8 +6,6 @@ namespace PVDevelop.UCoach.Server.AuthService
 {
     public class UserService : IUserService
     {
-        internal const string USER_COLLECITION_NAME = "User";
-
         private readonly IMongoRepository<User> _repository;
 
         public UserService(IMongoRepository<User> repository)
@@ -33,7 +31,7 @@ namespace PVDevelop.UCoach.Server.AuthService
 
             var user = new User(userParams.Login);
             user.SetPassword(userParams.Password);
-            _repository.Insert(USER_COLLECITION_NAME, user);
+            _repository.Insert(user);
         }
 
         /// <summary>
@@ -48,9 +46,9 @@ namespace PVDevelop.UCoach.Server.AuthService
                 throw new ArgumentNullException("userParams");
             }
 
-            var user = _repository.Find(USER_COLLECITION_NAME, u => u.Login == userParams.Login);
+            var user = _repository.Find(u => u.Login == userParams.Login);
             var token = user.Logon(userParams.Password);
-            _repository.Replace(USER_COLLECITION_NAME, user);
+            _repository.Replace(user);
 
             return token;
         }
@@ -66,9 +64,9 @@ namespace PVDevelop.UCoach.Server.AuthService
                 throw new ArgumentNullException("userParams");
             }
 
-            var user = _repository.Find(USER_COLLECITION_NAME, u => u.Login == userParams.Login);
+            var user = _repository.Find(u => u.Login == userParams.Login);
             user.Logout(userParams.Password);
-            _repository.Replace(USER_COLLECITION_NAME, user);
+            _repository.Replace(user);
         }
 
         /// <summary>
@@ -82,7 +80,7 @@ namespace PVDevelop.UCoach.Server.AuthService
                 throw new ArgumentNullException("tokenParams");
             }
 
-            var user = _repository.Find(USER_COLLECITION_NAME, u => u.Login == tokenParams.Login);
+            var user = _repository.Find(u => u.Login == tokenParams.Login);
             user.ValidateToken(tokenParams.Token);
         }
     }
