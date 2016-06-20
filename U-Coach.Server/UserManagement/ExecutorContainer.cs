@@ -40,6 +40,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
             Container = new Container(x =>
             {
                 x.For<IMongoConnectionSettings>().Use<MongoConnectionSettings>().Ctor<string>("name").Is("mongo");
+                x.For<IMongoCollectionVersionValidator>().Use<MongoCollectionVersionValidatorByClassAttribute>();
                 x.For<IMongoRepository<User>>().Use<MongoRepository<User>>();
                 x.For<IUserService>().Use<UserService>();
 

@@ -60,15 +60,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MongoHelper.cs" />
+    <Compile Include="MongoHelperTests.cs" />
+    <Compile Include="MongoRepositoryTests.cs" />
+    <Compile Include="TestMongoHelper.cs" />
     <Compile Include="MongoRepositoryIntegrTests.cs" />
     <Compile Include="MongoSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestObj.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Exceptions\Exceptions.csproj">
+      <Project>{4bdb272d-e40a-4ffc-b555-0aa4d5d4700f}</Project>
+      <Name>Exceptions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mongo\Mongo.csproj">
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>
       <Name>Mongo</Name>

@@ -23,7 +23,14 @@ namespace PVDevelop.UCoach.Server.UserManagement
             }
             else
             {
-                new HelpExecutor().PrintHelp();
+                try
+                {
+                    new HelpExecutor().PrintHelp();
+                }
+                catch(Exception  ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
     }

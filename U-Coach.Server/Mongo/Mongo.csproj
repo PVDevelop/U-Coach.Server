@@ -53,16 +53,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionVersion.cs" />
     <Compile Include="IHaveId.cs" />
+    <Compile Include="IMongoCollectionVersionValidator.cs" />
     <Compile Include="IMongoConnectionSettings.cs" />
     <Compile Include="IMongoRepository.cs" />
+    <Compile Include="MongoCollectionAttribute.cs" />
+    <Compile Include="MongoCollectionVersionValidatorByClassAttribute.cs" />
     <Compile Include="MongoConnectionSettings.cs" />
+    <Compile Include="MongoDataVersionAttribute.cs" />
     <Compile Include="MongoHelper.cs" />
     <Compile Include="MongoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Exceptions\Exceptions.csproj">
+      <Project>{4bdb272d-e40a-4ffc-b555-0aa4d5d4700f}</Project>
+      <Name>Exceptions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

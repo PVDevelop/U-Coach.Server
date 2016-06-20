@@ -4,6 +4,7 @@ using NUnit;
 using NUnit.Framework;
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Mongo.Tests;
+using Rhino.Mocks;
 using Utilities;
 
 namespace PVDevelop.UCoach.Server.AuthService.Tests
@@ -24,7 +25,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
             var settings = TestMongoHelper.CreateSettings();
 
             UtcTime.SetUtcNow();
-            var userService = new UserService(new MongoRepository<User>(settings));
+            var userService = new UserService(new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
             userService.Create(userParams);
 
             TestMongoHelper.WithDb(settings, db =>
@@ -44,7 +45,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         {
             var settings = TestMongoHelper.CreateSettings();
 
-            var userService = new UserService(new MongoRepository<User>(settings));
+            var userService = new UserService(new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
 
             var createUserParams = new CreateUserParams()
             {
@@ -79,7 +80,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         {
             var settings = TestMongoHelper.CreateSettings();
 
-            var userService = new UserService(new MongoRepository<User>(settings));
+            var userService = new UserService(new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
 
             var createUserParams = new CreateUserParams()
             {

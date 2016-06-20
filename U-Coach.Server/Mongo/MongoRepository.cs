@@ -9,13 +9,16 @@ namespace PVDevelop.UCoach.Server.Mongo
     {
         private readonly IMongoConnectionSettings _settings;
 
-        public MongoRepository(IMongoConnectionSettings settings)
+        public MongoRepository(
+            IMongoConnectionSettings settings, 
+            IMongoCollectionVersionValidator versionValidator)
         {
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
             }
             _settings = settings;
+            versionValidator.Validate<T>();
         }
 
         public T Find(Expression<Func<T, bool>> predicate)
@@ -38,14 +41,7 @@ namespace PVDevelop.UCoach.Server.Mongo
 
         private IMongoCollection<T> GetCollection()
         {
-            var builder = new MongoUrlBuilder(_settings.ConnectionString);
-
-            var mongoClient = new MongoClient(builder.ToMongoUrl());
-            var db = mongoClient.GetDatabase(builder.DatabaseName);
-
-            var collectionName = MongoHelper.GetCollectionName<T>();
-
-            return db.GetCollection<T>(collectionName);
+            return MongoHelper.GetCollection<T>(_settings);
         }
     }
 }
