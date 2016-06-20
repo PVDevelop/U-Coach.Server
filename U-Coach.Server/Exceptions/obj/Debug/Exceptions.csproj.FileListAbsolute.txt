@@ -1,8 +1,0 @@
-C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Exceptions\bin\Debug\PVDevelop.UCoach.Server.Exceptions.dll
-C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Exceptions\bin\Debug\PVDevelop.UCoach.Server.Exceptions.pdb
-C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Exceptions\obj\Debug\PVDevelop.UCoach.Server.Exceptions.dll
-C:\Users\Ilya\Documents\U-Coach.Server\U-Coach.Server\Exceptions\obj\Debug\PVDevelop.UCoach.Server.Exceptions.pdb
-C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Exceptions\bin\Debug\PVDevelop.UCoach.Server.Exceptions.dll
-C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Exceptions\bin\Debug\PVDevelop.UCoach.Server.Exceptions.pdb
-C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Exceptions\obj\Debug\PVDevelop.UCoach.Server.Exceptions.dll
-C:\Users\iprokofiev\Documents\U-Coach.Server\U-Coach.Server\Exceptions\obj\Debug\PVDevelop.UCoach.Server.Exceptions.pdb
