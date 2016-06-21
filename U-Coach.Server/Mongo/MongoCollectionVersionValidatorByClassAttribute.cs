@@ -29,9 +29,13 @@ namespace PVDevelop.UCoach.Server.Mongo
             var collectionVersion = collection.Find(cv => cv.Name == referencedCollectionName).SingleOrDefault();
 
             var requiredVersion = MongoHelper.GetDataVersion<T>();
-            if (collectionVersion == null || collectionVersion.Version <= 0)
+            if (collectionVersion == null)
             {
-                throw new MongoCollectionNotInitializedException();
+                throw new MongoCollectionNotInitializedException(0, requiredVersion);
+            }
+            if (collectionVersion.Version != requiredVersion)
+            {
+                throw new MongoCollectionNotInitializedException(collectionVersion.Version, requiredVersion);
             }
         }
     }
