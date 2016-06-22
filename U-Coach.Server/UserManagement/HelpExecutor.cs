@@ -12,12 +12,17 @@ namespace PVDevelop.UCoach.Server.UserManagement
         {
             foreach(var executor in ExecutorContainer.Instance.Container.GetAllInstances<IExecutor>())
             {
+                var command =
+                    executor.ArgumentsNames == null ?
+                    executor.Command :
+                    string.Format("{0} {1}",
+                    executor.Command,
+                        string.Join(
+                            " ",
+                            executor.ArgumentsNames.Select(name => string.Format("<{0}>", name))));
                 var str = string.Format(
-                    "{0} {1}\t\t{2}", 
-                    executor.Command, 
-                    string.Join(
-                        " ", 
-                        executor.ArgumentsNames.Select(name => string.Format("<{0}>", name))),
+                    "{0}: {1}", 
+                    command,
                     executor.Description);
 
                 Console.WriteLine(str);

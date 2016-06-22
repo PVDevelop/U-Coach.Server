@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PVDevelop.UCoach.Server.Mongo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,7 +44,10 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
         public void Setup(string[] arguments)
         {
-            throw new NotImplementedException();
+            foreach(var mongoInit in ExecutorContainer.Instance.Container.GetAllInstances<IMongoInitializer>())
+            {
+                mongoInit.Initialize();
+            }
         }
     }
 }

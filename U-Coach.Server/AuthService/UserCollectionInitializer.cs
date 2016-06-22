@@ -8,20 +8,19 @@ namespace PVDevelop.UCoach.Server.AuthService
     /// </summary>
     public class UserCollectionInitializer : IMongoInitializer
     {
-        private readonly IMongoRepository<User> _repository;
+        private readonly IMongoConnectionSettings _metaSettings;
 
-        public UserCollectionInitializer(IMongoRepository<User> repository)
+        public UserCollectionInitializer(IMongoConnectionSettings metaSettings)
         {
-            if(repository == null)
+            if(metaSettings == null)
             {
-                throw new ArgumentNullException("repository");
+                throw new ArgumentNullException("metaSettings");
             }
-            _repository = repository;
+            _metaSettings = metaSettings;
         }
 
         public void Initialize()
         {
-            throw new NotImplementedException();
         }
     }
 }
