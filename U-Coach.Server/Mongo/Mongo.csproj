@@ -64,6 +64,7 @@
     <Compile Include="MongoConnectionSettings.cs" />
     <Compile Include="MongoDataVersionAttribute.cs" />
     <Compile Include="MongoHelper.cs" />
+    <Compile Include="MongoIndexNameAttribute.cs" />
     <Compile Include="MongoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

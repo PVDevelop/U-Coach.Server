@@ -14,6 +14,10 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         [MongoCollection("SomeType")]
         private class SomeType
         {
+            [MongoIndexName("index1")]
+            public string MyPropWithAttr { get; set; }
+
+            public string MyPropWithoutAttr { get; set; }
         }
 
 
@@ -36,6 +40,20 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         {
             var version = MongoHelper.GetDataVersion<SomeType>();
             Assert.AreEqual(3, version);
+        }
+
+        [Test]
+        public void GetIndexName_PropertyWithIndexAttribute_ReturnsNameFromAttribute()
+        {
+            var name = MongoHelper.GetIndexName<SomeType>(nameof(SomeType.MyPropWithAttr));
+            Assert.AreEqual("index1", name);
+        }
+
+        [Test]
+        public void GetIndexName_PropertyWithoutIndexAttribute_ReturnsPropertyName()
+        {
+            var name = MongoHelper.GetIndexName<SomeType>(nameof(SomeType.MyPropWithoutAttr));
+            Assert.AreEqual(nameof(SomeType.MyPropWithoutAttr), name);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace PVDevelop.UCoach.Server.AuthService
         /// </summary>
         public Guid Id { get; private set; }
 
+        [MongoIndexName("login")]
         /// <summary>
         /// Логин пользователя. Уникален в БД.
         /// </summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace PVDevelop.UCoach.Server.Mongo
@@ -54,6 +55,26 @@ namespace PVDevelop.UCoach.Server.Mongo
             var collectionName = GetCollectionName<T>();
 
             return db.GetCollection<T>(collectionName);
+        }
+
+        public static string GetIndexName<T>(string propertyName)
+        {
+            var property = typeof(T).GetProperty(propertyName);
+            var attr = 
+                (MongoIndexNameAttribute)property.GetCustomAttributes(typeof(MongoIndexNameAttribute), true).SingleOrDefault();
+            if(attr == null)
+            {
+                return property.Name;
+            }
+            return attr.Name;
+        }
+
+        public static bool IsUniqueIndex(BsonDocument document)
+        {
+            BsonElement element;
+            return
+                document.TryGetElement("unique", out element) &&
+                element.Value.AsBoolean;
         }
     }
 }
