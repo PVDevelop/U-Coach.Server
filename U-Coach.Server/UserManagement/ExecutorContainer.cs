@@ -71,9 +71,17 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
                 x.
                     For<IMongoInitializer>().
-                    Use<UserCollectionInitializer>().
+                    Use<MetaInitializer>().
                     Ctor<IMongoConnectionSettings>().
                     IsNamedInstance("settings_mongo_meta");
+
+                x.
+                    For<IMongoInitializer>().
+                    Use<UserCollectionInitializer>().
+                    Ctor<IMongoConnectionSettings>("metaSettings").
+                    IsNamedInstance("settings_mongo_meta").
+                    Ctor<IMongoConnectionSettings>("contextSettings").
+                    IsNamedInstance("settings_mongo_context");
 
                 foreach (var type in 
                     Assembly.

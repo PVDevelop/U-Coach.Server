@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
-    [MongoCollection("Version")]
+    [MongoCollection("Versions")]
     public class CollectionVersion
     {
         public int Id { get; set; }
+        [MongoIndexName("name")]
         public string Name { get; set; }
         public int Version { get; set; }
     }

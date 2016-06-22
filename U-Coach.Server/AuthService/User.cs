@@ -6,7 +6,7 @@ using Utilities;
 
 namespace PVDevelop.UCoach.Server.AuthService
 {
-    [MongoCollection("User")]
+    [MongoCollection("Users")]
     [MongoDataVersion(1)]
     public class User : IHaveId
     {
