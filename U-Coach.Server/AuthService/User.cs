@@ -1,4 +1,5 @@
 ﻿using DevOne.Security.Cryptography.BCrypt;
+using MongoDB.Bson;
 using PVDevelop.UCoach.Server.Exceptions.Auth;
 using PVDevelop.UCoach.Server.Mongo;
 using System;
@@ -13,7 +14,7 @@ namespace PVDevelop.UCoach.Server.AuthService
         /// <summary>
         /// Уникальный идентификатор пользователя.
         /// </summary>
-        public Guid Id { get; private set; }
+        public ObjectId Id { get; private set; }
 
         [MongoIndexName("login")]
         /// <summary>
@@ -50,7 +51,6 @@ namespace PVDevelop.UCoach.Server.AuthService
 
             Login = login;
             CreationTime = UtcTime.UtcNow;
-            Id = Guid.NewGuid();
         }
 
         /// <summary>

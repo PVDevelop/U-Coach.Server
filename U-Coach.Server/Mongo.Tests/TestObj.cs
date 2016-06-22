@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
     [MongoDataVersion(456)]
     internal sealed class TestObj : IHaveId
     {
-        public Guid Id { get; set; }
+        public ObjectId Id { get; set; }
         public string Name { get; set; }
     }
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +11,12 @@ namespace PVDevelop.UCoach.Server.Mongo
     [MongoCollection("Versions")]
     public class CollectionVersion
     {
-        public int Id { get; set; }
+        [BsonId]
+        ObjectId Id { get; set; }
+
         [MongoIndexName("name")]
         public string Name { get; set; }
+
         public int Version { get; set; }
     }
 }

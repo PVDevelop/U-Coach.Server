@@ -1,11 +1,11 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
     public interface IHaveId
     {
         [BsonId]
-        Guid Id { get; }
+        ObjectId Id { get; }
     }
 }
