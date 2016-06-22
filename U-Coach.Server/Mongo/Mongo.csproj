@@ -57,6 +57,7 @@
     <Compile Include="IHaveId.cs" />
     <Compile Include="IMongoCollectionVersionValidator.cs" />
     <Compile Include="IMongoConnectionSettings.cs" />
+    <Compile Include="IMongoInitializer.cs" />
     <Compile Include="IMongoRepository.cs" />
     <Compile Include="MongoCollectionAttribute.cs" />
     <Compile Include="MongoCollectionVersionValidatorByClassAttribute.cs" />

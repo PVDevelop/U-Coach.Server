@@ -8,6 +8,7 @@ namespace PVDevelop.UCoach.Server.Mongo
         where T : IHaveId
     {
         private readonly IMongoConnectionSettings _settings;
+        private readonly IMongoCollectionVersionValidator _validator;
 
         public MongoRepository(
             IMongoConnectionSettings settings, 
@@ -17,8 +18,13 @@ namespace PVDevelop.UCoach.Server.Mongo
             {
                 throw new ArgumentNullException("settings");
             }
+            if (versionValidator == null)
+            {
+                throw new ArgumentNullException("versionValidator");
+            }
+
             _settings = settings;
-            versionValidator.Validate<T>();
+            _validator = versionValidator;
         }
 
         public T Find(Expression<Func<T, bool>> predicate)
@@ -41,6 +47,7 @@ namespace PVDevelop.UCoach.Server.Mongo
 
         private IMongoCollection<T> GetCollection()
         {
+            _validator.Validate<T>();
             return MongoHelper.GetCollection<T>(_settings);
         }
     }

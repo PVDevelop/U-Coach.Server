@@ -10,7 +10,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
 {
     [TestFixture]
     [Integration]
-    class MongoRepositoryIntegrTests
+    public class MongoRepositoryIntegrTests
     {
         [Test]
         public void Insert_ValidObject_SavesToDb()
@@ -34,57 +34,6 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
 
                 var foundObj = coll.Find(o => o.Id == testObj.Id && o.Name == testObj.Name).FirstOrDefault();
                 Assert.NotNull(foundObj, "Объект не был сохранен в MongoDb");
-            });
-        }
-
-        [Test]
-        public void Ctor_TypeWithMongoVersionAttributeAndValidVersion_PassesValidation()
-        {
-            var validationSettings = TestMongoHelper.CreateSettings();
-
-            TestMongoHelper.WithDb(validationSettings, db =>
-            {
-                var collectionVersion = new CollectionVersion()
-                {
-                    Name = MongoHelper.GetCollectionName<TestObj>(),
-                    Version = 456
-                };
-
-                var collectionVersionName = MongoHelper.GetCollectionName<CollectionVersion>();
-                var coll = db.GetCollection<CollectionVersion>(collectionVersionName);
-                coll.InsertOne(collectionVersion);
-
-                var validator = new MongoCollectionVersionValidatorByClassAttribute(validationSettings);
-                new MongoRepository<TestObj>(MockRepository.GenerateStub<IMongoConnectionSettings>(), validator);
-            });
-        }
-
-        [TestCase(null)]
-        [TestCase(13)]
-        [TestCase(500)]
-        public void Ctor_TypeWithMongoVersionAttributeAndInvalidVersion_ThrowsException(int? version)
-        {
-            var validationSettings = TestMongoHelper.CreateSettings();
-
-            TestMongoHelper.WithDb(validationSettings, db =>
-            {
-                if (version.HasValue)
-                {
-                    var collectionVersion = new CollectionVersion()
-                    {
-                        Name = MongoHelper.GetCollectionName<TestObj>(),
-                        Version = version.Value
-                    };
-
-                    var collectionVersionName = MongoHelper.GetCollectionName<CollectionVersion>();
-                    var coll = db.GetCollection<CollectionVersion>(collectionVersionName);
-                    coll.InsertOne(collectionVersion);
-                }
-
-                var validator = new MongoCollectionVersionValidatorByClassAttribute(validationSettings);
-                Assert.Throws(
-                    typeof(MongoCollectionNotInitializedException),
-                    () => new MongoRepository<TestObj>(MockRepository.GenerateStub<IMongoConnectionSettings>(), validator));
             });
         }
     }
