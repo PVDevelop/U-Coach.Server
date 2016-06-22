@@ -33,9 +33,9 @@ namespace PVDevelop.UCoach.Server.Mongo
             {
                 throw new MongoCollectionNotInitializedException(0, requiredVersion);
             }
-            if (collectionVersion.Version != requiredVersion)
+            if (collectionVersion.TargetVersion != requiredVersion)
             {
-                throw new MongoCollectionNotInitializedException(collectionVersion.Version, requiredVersion);
+                throw new MongoCollectionNotInitializedException(collectionVersion.TargetVersion, requiredVersion);
             }
         }
     }

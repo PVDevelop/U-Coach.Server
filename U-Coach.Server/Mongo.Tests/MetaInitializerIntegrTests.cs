@@ -32,5 +32,18 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
                 Assert.IsTrue(MongoHelper.IsUniqueIndex(index));
             });
         }
+
+        [Test]
+        public void Initialize_InitTwice_DoesNotFall()
+        {
+            var settings = TestMongoHelper.CreateSettings();
+
+            TestMongoHelper.WithDb(settings, contextDb =>
+            {
+                var initializer = new MetaInitializer(settings);
+                initializer.Initialize();
+                initializer.Initialize();
+            });
+        }
     }
 }

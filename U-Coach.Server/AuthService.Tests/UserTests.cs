@@ -29,13 +29,6 @@ namespace AuthService.Tests
             Assert.AreEqual(UtcTime.UtcNow, user.CreationTime);
         }
 
-        [Test]
-        public void Ctor_ValidLogin_GeneratesId()
-        {
-            var user = new User("ggg");
-            Assert.AreNotEqual(Guid.Empty, user.Id);
-        }
-
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]

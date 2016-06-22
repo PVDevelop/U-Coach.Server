@@ -55,10 +55,14 @@ namespace PVDevelop.UCoach.Server.AuthService
             var collectionVersion = new CollectionVersion()
             {
                 Name = MongoHelper.GetCollectionName<User>(),
-                Version = MongoHelper.GetDataVersion<User>()
+                TargetVersion = MongoHelper.GetDataVersion<User>()
             };
 
-            collection.InsertOne(collectionVersion);
+            var options = new UpdateOptions()
+            {
+                IsUpsert = true
+            };
+            collection.ReplaceOne(cv => cv.Name == collectionVersion.Name, collectionVersion, options);
         }
     }
 }

@@ -40,9 +40,29 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
                     var versionCollection = MongoHelper.GetCollection<CollectionVersion>(metaSettings);
                     var userCollectionName = MongoHelper.GetCollectionName<User>();
                     var userCollectionVersion = MongoHelper.GetDataVersion<User>();
-                    var ver = 
-                        versionCollection.Find(col => col.Name == userCollectionName && col.Version == userCollectionVersion ).SingleOrDefault();
+                    var ver =
+                        versionCollection.Find(col => col.Name == userCollectionName && col.TargetVersion == userCollectionVersion).SingleOrDefault();
                     Assert.NotNull(ver);
+                });
+            });
+        }
+
+        [Test]
+        public void Initialize_InitTwice_DoesNotFall()
+        {
+            var metaSettings = TestMongoHelper.CreateSettings();
+            var contextSettings = TestMongoHelper.CreateSettings();
+
+            TestMongoHelper.WithDb(contextSettings, contextDb =>
+            {
+                TestMongoHelper.WithDb(metaSettings, metaDb =>
+                {
+                    var metaInitializer = new MetaInitializer(metaSettings);
+                    metaInitializer.Initialize();
+
+                    var userInitializer = new UserCollectionInitializer(metaSettings: metaSettings, contextSettings: contextSettings);
+                    userInitializer.Initialize();
+                    userInitializer.Initialize();
                 });
             });
         }

@@ -9,10 +9,11 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
 {
     [MongoCollection("TestObj")]
     [MongoDataVersion(456)]
-    internal sealed class TestObj : IHaveId
+    internal sealed class TestObj : IAmDocument
     {
         public ObjectId Id { get; set; }
         public string Name { get; set; }
+        public int Version { get; set; }
     }
 
 }

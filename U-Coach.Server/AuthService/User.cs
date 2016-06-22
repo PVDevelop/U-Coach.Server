@@ -9,12 +9,19 @@ namespace PVDevelop.UCoach.Server.AuthService
 {
     [MongoCollection("Users")]
     [MongoDataVersion(1)]
-    public class User : IHaveId
+    public class User : IAmDocument
     {
+        public const int VERSION = 1;
+
         /// <summary>
         /// Уникальный идентификатор пользователя.
         /// </summary>
         public ObjectId Id { get; private set; }
+
+        /// <summary>
+        /// Версия документа.
+        /// </summary>
+        public int Version { get; private set; }
 
         [MongoIndexName("login")]
         /// <summary>
@@ -51,6 +58,7 @@ namespace PVDevelop.UCoach.Server.AuthService
 
             Login = login;
             CreationTime = UtcTime.UtcNow;
+            Version = VERSION;
         }
 
         /// <summary>

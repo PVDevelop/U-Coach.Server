@@ -8,7 +8,7 @@ namespace PVDevelop.UCoach.Server.Mongo
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IMongoRepository<T>
-        where T : IHaveId
+        where T : IAmDocument
     {
         /// <summary>
         /// Вставляет документ в коллекцию

@@ -19,7 +19,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
                 var collectionVersion = new CollectionVersion()
                 {
                     Name = MongoHelper.GetCollectionName<TestObj>(),
-                    Version = 456
+                    TargetVersion = 456
                 };
 
                 var collectionVersionName = MongoHelper.GetCollectionName<CollectionVersion>();
@@ -45,7 +45,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
                     var collectionVersion = new CollectionVersion()
                     {
                         Name = MongoHelper.GetCollectionName<TestObj>(),
-                        Version = version.Value
+                        TargetVersion = version.Value
                     };
 
                     var collectionVersionName = MongoHelper.GetCollectionName<CollectionVersion>();

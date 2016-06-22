@@ -9,14 +9,25 @@ using System.Threading.Tasks;
 namespace PVDevelop.UCoach.Server.Mongo
 {
     [MongoCollection("Versions")]
-    public class CollectionVersion
+    public class CollectionVersion : IAmDocument
     {
-        [BsonId]
-        ObjectId Id { get; set; }
+        public const int VERSION = 1;
+
+        public ObjectId Id { get; private set; }
+
+        public int Version { get; private set; }
+
+        /// <summary>
+        /// Версия целевой коллекции.
+        /// </summary>
+        public int TargetVersion { get; set; }
 
         [MongoIndexName("name")]
         public string Name { get; set; }
 
-        public int Version { get; set; }
+        public CollectionVersion()
+        {
+            Version = 1;
+        }
     }
 }

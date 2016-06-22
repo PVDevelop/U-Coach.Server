@@ -1,11 +1,10 @@
 ﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
-    public interface IHaveId
+    public interface IAmDocument
     {
-        [BsonId]
         ObjectId Id { get; }
+        int Version { get; }
     }
 }

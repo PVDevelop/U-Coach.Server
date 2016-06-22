@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 namespace PVDevelop.UCoach.Server.Mongo
 {
     public class MongoRepository<T> : IMongoRepository<T>
-        where T : IHaveId
+        where T : IAmDocument
     {
         private readonly IMongoConnectionSettings _settings;
         private readonly IMongoCollectionVersionValidator _validator;
