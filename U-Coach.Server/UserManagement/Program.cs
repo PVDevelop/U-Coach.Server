@@ -1,4 +1,5 @@
-﻿using StructureMap;
+﻿using PVDevelop.UCoach.Server.Logging;
+using StructureMap;
 using System;
 
 namespace PVDevelop.UCoach.Server.UserManagement
@@ -7,6 +8,9 @@ namespace PVDevelop.UCoach.Server.UserManagement
     {
         static void Main(string[] args)
         {
+            var logger = new Logger<Program>();
+            logger.Debug("Application started");
+
             if (args.Length > 0)
             {
                 try
@@ -15,8 +19,9 @@ namespace PVDevelop.UCoach.Server.UserManagement
                     executor.Execute();
                     Console.WriteLine(executor.GetSuccessString());
                 }
-                catch
+                catch (Exception ex)
                 {
+                    logger.Error(ex, "Ошибка при обработке Executor.");
                     Console.WriteLine("Failed");
                     new HelpExecutor().PrintHelp();
                 }
@@ -29,6 +34,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
                 }
                 catch(Exception  ex)
                 {
+                    logger.Error(ex, "Ошибка при выводе help.");
                     Console.WriteLine(ex.Message);
                 }
             }
