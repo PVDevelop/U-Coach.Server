@@ -101,13 +101,9 @@
       <Project>{728e9205-5562-4d16-8839-081f37f75bee}</Project>
       <Name>NUnit</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestUtils\TestUtils.csproj">
-      <Project>{75772b48-794d-4b63-bd6d-69f7148c03cc}</Project>
-      <Name>TestUtils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Timing\Timing.csproj">
-      <Project>{d16d9451-8952-4bc0-8882-e7df5fca90d8}</Project>
-      <Name>Timing</Name>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{3e238d11-f4ea-4664-bfca-4a04eac4aa52}</Project>
+      <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

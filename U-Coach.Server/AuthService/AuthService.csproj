@@ -56,7 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IUserFactory.cs" />
     <Compile Include="LogonUserParams.cs" />
     <Compile Include="CreateUserParams.cs" />
     <Compile Include="LogoutByPasswordUserParams.cs" />
@@ -64,7 +63,6 @@
     <Compile Include="IUserService.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserCollectionInitializer.cs" />
-    <Compile Include="UserFactory.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="ValidateTokenParams.cs" />
   </ItemGroup>
@@ -81,9 +79,9 @@
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>
       <Name>Mongo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Timing\Timing.csproj">
-      <Project>{d16d9451-8952-4bc0-8882-e7df5fca90d8}</Project>
-      <Name>Timing</Name>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{3e238d11-f4ea-4664-bfca-4a04eac4aa52}</Project>
+      <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

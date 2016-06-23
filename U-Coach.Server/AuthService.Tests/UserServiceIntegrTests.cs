@@ -5,7 +5,7 @@ using NUnit.Framework;
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Mongo.Tests;
 using Rhino.Mocks;
-using TestUtils;
+using Utilities;
 
 namespace PVDevelop.UCoach.Server.AuthService.Tests
 {
@@ -24,10 +24,8 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
 
             var settings = TestMongoHelper.CreateSettings();
 
-            var timeProvider = new FixedUtcTimeProvider();
-            var factory = new UserFactory(timeProvider);
-
-            var userService = new UserService(factory, new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
+            UtcTime.SetUtcNow();
+            var userService = new UserService(new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
             userService.Create(userParams);
 
             TestMongoHelper.WithDb(settings, db =>
@@ -37,7 +35,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
                 var user = users[0];
                 Assert.NotNull(user.Password);
 
-                Assert.That(user.CreationTime, Is.EqualTo(timeProvider.UtcTime).Within(1).Milliseconds);
+                Assert.That(user.CreationTime, Is.EqualTo(UtcTime.UtcNow).Within(1).Milliseconds);
                 BCryptHelper.CheckPassword(userParams.Password, user.Password);
             });
         }
@@ -47,8 +45,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         {
             var settings = TestMongoHelper.CreateSettings();
 
-            var timeProvider = new FixedUtcTimeProvider();
-            var userService = new UserService(new UserFactory(timeProvider), new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
+            var userService = new UserService(new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
 
             var createUserParams = new CreateUserParams()
             {
@@ -64,7 +61,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
                 Password = "some_password"
             };
 
-            timeProvider.SetUtcNow();
+            UtcTime.SetUtcNow();
             userService.Logon(authUserParams);
 
             TestMongoHelper.WithDb(settings, db =>
@@ -74,7 +71,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
                 var user = users[0];
                 Assert.NotNull(user.Password);
                 Assert.IsTrue(user.IsLoggedIn);
-                Assert.That(user.LastAuthenticationTime, Is.EqualTo(timeProvider.UtcTime).Within(1).Seconds);
+                Assert.That(user.LastAuthenticationTime, Is.EqualTo(UtcTime.UtcNow).Within(1).Seconds);
             });
         }
 
@@ -83,9 +80,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         {
             var settings = TestMongoHelper.CreateSettings();
 
-            var userService = new UserService(
-                new UserFactory(new FixedUtcTimeProvider()), 
-                new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
+            var userService = new UserService(new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
 
             var createUserParams = new CreateUserParams()
             {

@@ -3,7 +3,7 @@ using MongoDB.Bson;
 using PVDevelop.UCoach.Server.Exceptions.Auth;
 using PVDevelop.UCoach.Server.Mongo;
 using System;
-using Timing;
+using Utilities;
 
 namespace PVDevelop.UCoach.Server.AuthService
 {
@@ -12,8 +12,6 @@ namespace PVDevelop.UCoach.Server.AuthService
     public class User : IAmDocument
     {
         public const int VERSION = 1;
-
-        private readonly IUtcTimeProvider _utcTimeProvider;
 
         /// <summary>
         /// Уникальный идентификатор пользователя.
@@ -51,22 +49,15 @@ namespace PVDevelop.UCoach.Server.AuthService
         /// </summary>
         public DateTime CreationTime { get; private set; }
 
-        internal User(
-            IUtcTimeProvider utcTimeProvider,
-            string login)
+        internal User(string login)
         {
-            if(utcTimeProvider == null)
-            {
-                throw new ArgumentNullException("utcTimeProvider");
-            }
             if (string.IsNullOrWhiteSpace(login))
             {
                 throw new LoginNotSetException();
             }
 
-            _utcTimeProvider = utcTimeProvider;
             Login = login;
-            CreationTime = utcTimeProvider.UtcTime;
+            CreationTime = UtcTime.UtcNow;
             Version = VERSION;
         }
 
@@ -96,7 +87,7 @@ namespace PVDevelop.UCoach.Server.AuthService
             CheckPassword(plainPassword);
 
             IsLoggedIn = true;
-            LastAuthenticationTime = _utcTimeProvider.UtcTime;
+            LastAuthenticationTime = UtcTime.UtcNow;
 
             var salt = BCryptHelper.GenerateSalt();
             return BCryptHelper.HashPassword(Password, salt);

@@ -8,23 +8,14 @@ namespace PVDevelop.UCoach.Server.AuthService
     public class UserService : IUserService
     {
         private readonly ILogger _logger = LoggerFactory.CreateLogger<UserService>();
-        private readonly IUserFactory _userFactory;
         private readonly IMongoRepository<User> _repository;
 
-        public UserService(
-            IUserFactory userFactory,
-            IMongoRepository<User> repository)
+        public UserService(IMongoRepository<User> repository)
         {
-            if(userFactory == null)
-            {
-                throw new ArgumentNullException("userFactory");
-            }
             if(repository == null)
             {
                 throw new ArgumentNullException("repository");
             }
-
-            _userFactory = userFactory;
             _repository = repository;
         }
 
@@ -42,7 +33,7 @@ namespace PVDevelop.UCoach.Server.AuthService
 
             _logger.Debug("Создаю пользователя {0}.", userParams.Login);
 
-            var user = _userFactory.CreateNewUser(userParams.Login);
+            var user = new User(userParams.Login);
             user.SetPassword(userParams.Password);
             _repository.Insert(user);
 
