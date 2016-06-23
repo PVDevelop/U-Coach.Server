@@ -7,7 +7,7 @@ namespace PVDevelop.UCoach.Server.AuthService
 {
     public class UserService : IUserService
     {
-        private readonly Logger<UserService> _logger = new Logger<UserService>();
+        private readonly ILogger _logger = LoggerFactory.CreateLogger<UserService>();
         private readonly IMongoRepository<User> _repository;
 
         public UserService(IMongoRepository<User> repository)

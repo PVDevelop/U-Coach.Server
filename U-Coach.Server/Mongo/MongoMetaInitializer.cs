@@ -7,7 +7,7 @@ namespace PVDevelop.UCoach.Server.Mongo
     public class MongoMetaInitializer : IMongoInitializer
     {
         private readonly IMongoConnectionSettings _metaSettings;
-        private readonly Logger<MongoMetaInitializer> _logger = new Logger<MongoMetaInitializer>();
+        private readonly ILogger _logger = LoggerFactory.CreateLogger<MongoMetaInitializer>();
 
         public MongoMetaInitializer(IMongoConnectionSettings metaSettings)
         {

@@ -13,7 +13,7 @@ namespace PVDevelop.UCoach.Server.AuthService
     {
         private readonly IMongoConnectionSettings _metaSettings;
         private readonly IMongoConnectionSettings _contextSettings;
-        private readonly Logger<UserCollectionInitializer> _logger = new Logger<UserCollectionInitializer>();
+        private readonly ILogger _logger = LoggerFactory.CreateLogger<UserCollectionInitializer>();
 
         public UserCollectionInitializer(
             IMongoConnectionSettings metaSettings,

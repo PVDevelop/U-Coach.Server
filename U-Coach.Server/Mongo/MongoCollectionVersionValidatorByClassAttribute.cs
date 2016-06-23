@@ -13,7 +13,7 @@ namespace PVDevelop.UCoach.Server.Mongo
         IMongoCollectionVersionValidator
     {
         private readonly IMongoConnectionSettings _settings;
-        private readonly Logger<MongoCollectionVersionValidatorByClassAttribute> _logger = new Logger<MongoCollectionVersionValidatorByClassAttribute>();
+        private readonly ILogger _logger = LoggerFactory.CreateLogger<MongoCollectionVersionValidatorByClassAttribute>();
 
         public MongoCollectionVersionValidatorByClassAttribute(IMongoConnectionSettings settings)
         {

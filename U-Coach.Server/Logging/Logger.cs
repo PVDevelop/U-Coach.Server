@@ -1,20 +1,19 @@
 ﻿using System;
-using NLog;
 
 namespace PVDevelop.UCoach.Server.Logging
 {
-    public class Logger<T>
+    internal class Logger : ILogger
     {
-        private readonly Lazy<ILogger> _log;
+        private readonly Lazy<NLog.ILogger> _log;
 
         static Logger()
         {
             //XmlConfigurator.Configure();
         }
 
-        public Logger()
+        internal Logger(string sourceName)
         {
-            _log = new Lazy<ILogger>(() => LogManager.GetLogger(typeof(T).AssemblyQualifiedName));
+            _log = new Lazy<NLog.ILogger>(() => NLog.LogManager.GetLogger(sourceName));
         }
 
         public void Debug(Exception exception, string message, params object[] args)

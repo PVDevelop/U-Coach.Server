@@ -8,7 +8,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
     {
         static void Main(string[] args)
         {
-            var logger = new Logger<Program>();
+            var logger = LoggerFactory.CreateLogger<Program>();
             logger.Debug("Приложение запущено.");
 
             if (args.Length > 0)
