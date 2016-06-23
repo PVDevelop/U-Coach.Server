@@ -1,61 +1,70 @@
-﻿using log4net;
-using log4net.Config;
-using System;
+﻿using System;
+using NLog;
 
 namespace PVDevelop.UCoach.Server.Logging
 {
     public class Logger<T>
     {
-        private readonly Lazy<ILog> _log;
+        private readonly Lazy<ILogger> _log;
 
         static Logger()
         {
-            XmlConfigurator.Configure();
+            //XmlConfigurator.Configure();
         }
 
         public Logger()
         {
-            _log = new Lazy<ILog>(() => LogManager.GetLogger(typeof(T)));
+            _log = new Lazy<ILogger>(() => LogManager.GetLogger(typeof(T).AssemblyQualifiedName));
         }
 
         public void Debug(Exception exception, string message, params object[] args)
         {
-            _log.Value.Debug(string.Format(message, args), exception);
+            _log.Value.Debug(exception, message, args);
         }
 
         public void Debug(string message, params object[] args)
         {
-            _log.Value.DebugFormat(message, args);
+            _log.Value.Debug(message, args);
         }
 
         public void Info(Exception exception, string message, params object[] args)
         {
-            _log.Value.Info(string.Format(message, args), exception);
+            _log.Value.Info(exception, message, args);
         }
 
         public void Info(string message, params object[] args)
         {
-            _log.Value.InfoFormat(message, args);
+            _log.Value.Info(message, args);
         }
 
         public void Warning(Exception exception, string message, params object[] args)
         {
-            _log.Value.Warn(string.Format(message, args), exception);
+            _log.Value.Warn(exception, message, args);
         }
 
         public void Warning(string message, params object[] args)
         {
-            _log.Value.WarnFormat(message, args);
+            _log.Value.Warn(message, args);
         }
 
         public void Error(Exception exception, string message, params object[] args)
         {
-            _log.Value.Error(string.Format(message, args), exception);
+            _log.Value.Error(exception, message, args);
         }
 
         public void Error(string message, params object[] args)
         {
-            _log.Value.ErrorFormat(message, args);
+            _log.Value.Error(message, args);
+        }
+
+        public void Fatal(Exception exception, string message, params object[] args)
+        {
+            _log.Value.Fatal(exception, message, args);
+        }
+
+        public void Fatal(string message, params object[] args)
+        {
+            _log.Value.Fatal(message, args);
         }
     }
 }
