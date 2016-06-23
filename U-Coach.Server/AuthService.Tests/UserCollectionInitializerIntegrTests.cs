@@ -57,7 +57,7 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
             {
                 TestMongoHelper.WithDb(metaSettings, metaDb =>
                 {
-                    var metaInitializer = new MetaInitializer(metaSettings);
+                    var metaInitializer = new MongoMetaInitializer(metaSettings);
                     metaInitializer.Initialize();
 
                     var userInitializer = new UserCollectionInitializer(metaSettings: metaSettings, contextSettings: contextSettings);

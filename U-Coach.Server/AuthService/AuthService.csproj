@@ -71,6 +71,10 @@
       <Project>{4bdb272d-e40a-4ffc-b555-0aa4d5d4700f}</Project>
       <Name>Exceptions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mongo\Mongo.csproj">
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>
       <Name>Mongo</Name>

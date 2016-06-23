@@ -17,7 +17,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
 
             TestMongoHelper.WithDb(settings, contextDb =>
             {
-                var initializer = new MetaInitializer(settings);
+                var initializer = new MongoMetaInitializer(settings);
                 initializer.Initialize();
 
                 // проверяем индекс
@@ -37,7 +37,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
 
             TestMongoHelper.WithDb(settings, contextDb =>
             {
-                var initializer = new MetaInitializer(settings);
+                var initializer = new MongoMetaInitializer(settings);
                 initializer.Initialize();
                 initializer.Initialize();
             });

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using PVDevelop.UCoach.Server.Exceptions.Mongo;
+using PVDevelop.UCoach.Server.Logging;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
@@ -12,6 +13,7 @@ namespace PVDevelop.UCoach.Server.Mongo
         IMongoCollectionVersionValidator
     {
         private readonly IMongoConnectionSettings _settings;
+        private readonly Logger<MongoCollectionVersionValidatorByClassAttribute> _logger = new Logger<MongoCollectionVersionValidatorByClassAttribute>();
 
         public MongoCollectionVersionValidatorByClassAttribute(IMongoConnectionSettings settings)
         {
@@ -24,17 +26,26 @@ namespace PVDevelop.UCoach.Server.Mongo
 
         public void Validate<T>()
         {
-            var collection = MongoHelper.GetCollection<CollectionVersion>(_settings);
             var referencedCollectionName = MongoHelper.GetCollectionName<T>();
+
+            _logger.Debug("Проверяю метаданные коллекции {0}.", referencedCollectionName);
+
+            var collection = MongoHelper.GetCollection<CollectionVersion>(_settings);
             var collectionVersion = collection.Find(cv => cv.Name == referencedCollectionName).SingleOrDefault();
 
             var requiredVersion = MongoHelper.GetDataVersion<T>();
             if (collectionVersion == null)
             {
+                _logger.Error("Метаданные коллекции {0} не заданы.", referencedCollectionName);
                 throw new MongoCollectionNotInitializedException(0, requiredVersion);
             }
             if (collectionVersion.TargetVersion != requiredVersion)
             {
+                _logger.Error(
+                    "Версия коллекции {0} неверна. Ожидалась - {1}, текущая - {2}.", 
+                    referencedCollectionName, 
+                    requiredVersion, 
+                    collectionVersion.TargetVersion);
                 throw new MongoCollectionNotInitializedException(collectionVersion.TargetVersion, requiredVersion);
             }
         }

@@ -59,7 +59,7 @@
     <Compile Include="IMongoConnectionSettings.cs" />
     <Compile Include="IMongoInitializer.cs" />
     <Compile Include="IMongoRepository.cs" />
-    <Compile Include="MetaInitializer.cs" />
+    <Compile Include="MongoMetaInitializer.cs" />
     <Compile Include="MongoCollectionAttribute.cs" />
     <Compile Include="MongoCollectionVersionValidatorByClassAttribute.cs" />
     <Compile Include="MongoConnectionSettings.cs" />
@@ -76,6 +76,10 @@
     <ProjectReference Include="..\Exceptions\Exceptions.csproj">
       <Project>{4bdb272d-e40a-4ffc-b555-0aa4d5d4700f}</Project>
       <Name>Exceptions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
+      <Name>Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

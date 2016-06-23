@@ -1,13 +1,15 @@
 ﻿using MongoDB.Driver;
 using System;
+using PVDevelop.UCoach.Server.Logging;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
-    public class MetaInitializer : IMongoInitializer
+    public class MongoMetaInitializer : IMongoInitializer
     {
         private readonly IMongoConnectionSettings _metaSettings;
+        private readonly Logger<MongoMetaInitializer> _logger = new Logger<MongoMetaInitializer>();
 
-        public MetaInitializer(IMongoConnectionSettings metaSettings)
+        public MongoMetaInitializer(IMongoConnectionSettings metaSettings)
         {
             if(metaSettings == null)
             {
@@ -18,6 +20,10 @@ namespace PVDevelop.UCoach.Server.Mongo
 
         public void Initialize()
         {
+            _logger.Debug(
+                "Инициализирую метеданные. Параметры подключения: {0}.",
+                MongoHelper.SettingsToString(_metaSettings));
+
             var index = Builders<CollectionVersion>.IndexKeys.Ascending(c => c.Name);
             var options = new CreateIndexOptions()
             {
@@ -27,6 +33,8 @@ namespace PVDevelop.UCoach.Server.Mongo
 
             var collection = MongoHelper.GetCollection<CollectionVersion>(_metaSettings);
             collection.Indexes.CreateOne(index, options);
+
+            _logger.Debug("Метаданные успешно инициализированы.");
         }
     }
 }

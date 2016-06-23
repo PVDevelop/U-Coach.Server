@@ -9,7 +9,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
         static void Main(string[] args)
         {
             var logger = new Logger<Program>();
-            logger.Debug("Application started");
+            logger.Debug("Приложение запущено.");
 
             if (args.Length > 0)
             {
@@ -21,8 +21,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex, "Ошибка при обработке Executor.");
-                    Console.WriteLine("Failed");
+                    logger.Error(ex, "Ошибка при выполнении команды.");
                     new HelpExecutor().PrintHelp();
                 }
             }

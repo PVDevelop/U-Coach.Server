@@ -1,11 +1,13 @@
 ﻿using PVDevelop.UCoach.Server.Exceptions.Auth;
 using PVDevelop.UCoach.Server.Mongo;
 using System;
+using PVDevelop.UCoach.Server.Logging;
 
 namespace PVDevelop.UCoach.Server.AuthService
 {
     public class UserService : IUserService
     {
+        private readonly Logger<UserService> _logger = new Logger<UserService>();
         private readonly IMongoRepository<User> _repository;
 
         public UserService(IMongoRepository<User> repository)
@@ -29,9 +31,13 @@ namespace PVDevelop.UCoach.Server.AuthService
                 throw new ArgumentNullException("userParams");
             }
 
+            _logger.Debug("Создаю пользователя {0}.", userParams.Login);
+
             var user = new User(userParams.Login);
             user.SetPassword(userParams.Password);
             _repository.Insert(user);
+
+            _logger.Info("Пользователь {0} создан.", userParams.Login);
         }
 
         /// <summary>
@@ -46,9 +52,13 @@ namespace PVDevelop.UCoach.Server.AuthService
                 throw new ArgumentNullException("userParams");
             }
 
+            _logger.Debug("Логиню пользователя {0}.", userParams.Login);
+
             var user = _repository.Find(u => u.Login == userParams.Login);
             var token = user.Logon(userParams.Password);
             _repository.Replace(user);
+
+            _logger.Info("Пользователь {0} залогинен.", userParams.Login);
 
             return token;
         }
@@ -64,9 +74,13 @@ namespace PVDevelop.UCoach.Server.AuthService
                 throw new ArgumentNullException("userParams");
             }
 
+            _logger.Debug("Логаут пользователя {0}.", userParams.Login);
+
             var user = _repository.Find(u => u.Login == userParams.Login);
             user.Logout(userParams.Password);
             _repository.Replace(user);
+
+            _logger.Info("Логаут пользователя {0} выполнен.", userParams.Login);
         }
 
         /// <summary>
@@ -80,8 +94,12 @@ namespace PVDevelop.UCoach.Server.AuthService
                 throw new ArgumentNullException("tokenParams");
             }
 
+            _logger.Debug("Валидирую токен пользователя {0}.", tokenParams.Login);
+
             var user = _repository.Find(u => u.Login == tokenParams.Login);
             user.ValidateToken(tokenParams.Token);
+
+            _logger.Info("Токен пользователя {0} валиден.", tokenParams.Login);
         }
     }
 }

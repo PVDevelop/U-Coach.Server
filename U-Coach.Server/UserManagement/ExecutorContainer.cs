@@ -71,7 +71,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
                 x.
                     For<IMongoInitializer>().
-                    Use<MetaInitializer>().
+                    Use<MongoMetaInitializer>().
                     Ctor<IMongoConnectionSettings>().
                     IsNamedInstance("settings_mongo_meta");
 

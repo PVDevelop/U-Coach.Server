@@ -76,5 +76,10 @@ namespace PVDevelop.UCoach.Server.Mongo
                 document.TryGetElement("unique", out element) &&
                 element.Value.AsBoolean;
         }
+
+        public static string SettingsToString(IMongoConnectionSettings settings)
+        {
+            return settings.ConnectionString;
+        }
     }
 }
