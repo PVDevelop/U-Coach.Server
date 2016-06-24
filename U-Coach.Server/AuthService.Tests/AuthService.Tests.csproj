@@ -72,23 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserCollectionInitializerIntegrTests.cs" />
-    <Compile Include="UserServiceIntegrTests.cs" />
-    <Compile Include="UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AuthService\AuthService.csproj">
-      <Project>{396d0814-3a71-4a8f-9bf4-209f315c1d8f}</Project>
-      <Name>AuthService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Exceptions\Exceptions.csproj">
-      <Project>{4bdb272d-e40a-4ffc-b555-0aa4d5d4700f}</Project>
-      <Name>Exceptions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mapper\Mapper.csproj">
       <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
       <Name>Mapper</Name>
@@ -101,9 +90,9 @@
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>
       <Name>Mongo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NUnit\NUnit.csproj">
+    <ProjectReference Include="..\NUnit\TestNUnit.csproj">
       <Project>{728e9205-5562-4d16-8839-081f37f75bee}</Project>
-      <Name>NUnit</Name>
+      <Name>TestNUnit</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{3e238d11-f4ea-4664-bfca-4a04eac4aa52}</Project>

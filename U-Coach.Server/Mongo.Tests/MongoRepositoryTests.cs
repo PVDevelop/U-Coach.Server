@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using PVDevelop.UCoach.Server.Mongo;
+﻿using NUnit.Framework;
 using Rhino.Mocks;
+using TestMongoUtilities;
 
 namespace PVDevelop.UCoach.Server.Mongo.Tests
 {
@@ -16,9 +11,9 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         public void Find_MockVersionValidator_CallsValidate()
         {
             var mock = MockRepository.GenerateMock<IMongoCollectionVersionValidator>();
-            mock.Expect(m => m.Validate<TestObj>());
+            mock.Expect(m => m.Validate<TestMongoObj>());
 
-            var rep = new MongoRepository<TestObj>(MockRepository.GenerateStub<IMongoConnectionSettings>(), mock);
+            var rep = new MongoRepository<TestMongoObj>(MockRepository.GenerateStub<IMongoConnectionSettings>(), mock);
             try
             {
                 rep.Find(t => true);
@@ -32,12 +27,12 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         public void Insert_MockVersionValidator_CallsValidate()
         {
             var mock = MockRepository.GenerateMock<IMongoCollectionVersionValidator>();
-            mock.Expect(m => m.Validate<TestObj>());
+            mock.Expect(m => m.Validate<TestMongoObj>());
 
-            var rep = new MongoRepository<TestObj>(MockRepository.GenerateStub<IMongoConnectionSettings>(), mock);
+            var rep = new MongoRepository<TestMongoObj>(MockRepository.GenerateStub<IMongoConnectionSettings>(), mock);
             try
             {
-                rep.Insert(new TestObj());
+                rep.Insert(new TestMongoObj());
             }
             catch { }
 
@@ -48,12 +43,12 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         public void Replace_MockVersionValidator_CallsValidate()
         {
             var mock = MockRepository.GenerateMock<IMongoCollectionVersionValidator>();
-            mock.Expect(m => m.Validate<TestObj>());
+            mock.Expect(m => m.Validate<TestMongoObj>());
 
-            var rep = new MongoRepository<TestObj>(MockRepository.GenerateStub<IMongoConnectionSettings>(), mock);
+            var rep = new MongoRepository<TestMongoObj>(MockRepository.GenerateStub<IMongoConnectionSettings>(), mock);
             try
             {
-                rep.ReplaceOne(o=>true, new TestObj());
+                rep.ReplaceOne(o=>true, new TestMongoObj());
             }
             catch { }
 

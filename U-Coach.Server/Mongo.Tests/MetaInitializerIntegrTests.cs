@@ -1,8 +1,8 @@
 ﻿using MongoDB.Driver;
-using NUnit;
 using NUnit.Framework;
-using PVDevelop.UCoach.Server.Logging;
 using System.Linq;
+using TestMongoUtilities;
+using TestNUnit;
 
 namespace PVDevelop.UCoach.Server.Mongo.Tests
 {

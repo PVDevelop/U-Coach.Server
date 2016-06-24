@@ -1,7 +1,7 @@
-﻿using NUnit;
-using NUnit.Framework;
-using PVDevelop.UCoach.Server.Exceptions.Mongo;
-using Rhino.Mocks;
+﻿using NUnit.Framework;
+using PVDevelop.UCoach.Server.Mongo.Exceptions;
+using TestMongoUtilities;
+using TestNUnit;
 
 namespace PVDevelop.UCoach.Server.Mongo.Tests
 {
@@ -18,7 +18,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
             {
                 var collectionVersion = new CollectionVersion()
                 {
-                    Name = MongoHelper.GetCollectionName<TestObj>(),
+                    Name = MongoHelper.GetCollectionName<TestMongoObj>(),
                     TargetVersion = 456
                 };
 
@@ -27,7 +27,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
                 coll.InsertOne(collectionVersion);
 
                 var validator = new MongoCollectionVersionValidatorByClassAttribute(validationSettings);
-                validator.Validate<TestObj>();
+                validator.Validate<TestMongoObj>();
             });
         }
 
@@ -44,7 +44,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
                 {
                     var collectionVersion = new CollectionVersion()
                     {
-                        Name = MongoHelper.GetCollectionName<TestObj>(),
+                        Name = MongoHelper.GetCollectionName<TestMongoObj>(),
                         TargetVersion = version.Value
                     };
 
@@ -58,7 +58,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
                     () =>
                     {
                         var validator = new MongoCollectionVersionValidatorByClassAttribute(validationSettings);
-                        validator.Validate<TestObj>();
+                        validator.Validate<TestMongoObj>();
                     });
             });
         }

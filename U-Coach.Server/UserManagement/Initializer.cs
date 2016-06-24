@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using PVDevelop.UCoach.Server.AuthService.Infrastructure;
-using PVDevelop.UCoach.Server.Mongo.Infrastructure;
 using PVDevelop.UCoach.Server.Mapper;
+using PVDevelop.UCoach.Server.Auth.StructureMap;
+using PVDevelop.UCoach.Server.Mongo.StructureMap;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
@@ -35,8 +35,6 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
         private Initializer()
         {
-            AutoMapper.Mapper.AddProfile<AuthServiceMappingProfile>();
-
             _container = new Container(x =>
             {
                 x.AddRegistry<AuthServiceRegistry>();

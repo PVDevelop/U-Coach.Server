@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace NUnit
+namespace TestNUnit
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public sealed class IntegrationAttribute : CategoryAttribute

@@ -71,13 +71,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AuthService.Infrastructure\AuthService.Infrastructure.csproj">
-      <Project>{31a9d406-b142-4925-bb4f-e98557516bac}</Project>
-      <Name>AuthService.Infrastructure</Name>
+    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
+      <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
+      <Name>Auth.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AuthService\AuthService.csproj">
-      <Project>{396d0814-3a71-4a8f-9bf4-209f315c1d8f}</Project>
-      <Name>AuthService</Name>
+    <ProjectReference Include="..\Auth.StructureMap\Auth.StructureMap.csproj">
+      <Project>{d307b4bb-586b-4f1c-9d2b-ca527fd23778}</Project>
+      <Name>Auth.StructureMap</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
@@ -87,9 +87,9 @@
       <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
       <Name>Mapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mongo.Infrastructure\Mongo.Infrastructure.csproj">
-      <Project>{34cc343c-2da5-4deb-bdc6-017efcaf6d62}</Project>
-      <Name>Mongo.Infrastructure</Name>
+    <ProjectReference Include="..\Mongo.StructureMap\Mongo.StructureMap.csproj">
+      <Project>{be299abd-9398-4745-8bc8-ac8c53baaccc}</Project>
+      <Name>Mongo.StructureMap</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mongo\Mongo.csproj">
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>

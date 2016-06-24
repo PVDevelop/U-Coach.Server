@@ -1,12 +1,12 @@
 ﻿using MongoDB.Driver;
-using NUnit;
 using NUnit.Framework;
+using PVDevelop.UCoach.Server.Mongo;
 using Rhino.Mocks;
-using System;
 using System.Linq;
-using PVDevelop.UCoach.Server.Exceptions.Mongo;
+using TestMongoUtilities;
+using TestNUnit;
 
-namespace PVDevelop.UCoach.Server.Mongo.Tests
+namespace Auth.Domain.Tests
 {
     [TestFixture]
     [Integration]
@@ -17,20 +17,20 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         {
             var settings = TestMongoHelper.CreateSettings();
 
-            var testObj = new TestObj()
+            var testObj = new TestMongoObj()
             {
                 Name = "SomeName"
             };
 
             TestMongoHelper.WithDb(settings, db =>
             {
-                var rep = new MongoRepository<TestObj>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>());
+                var rep = new MongoRepository<TestMongoObj>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>());
                 rep.Insert(testObj);
 
                 var coll =
                     new MongoClient(settings.ConnectionString).
                     GetDatabase(settings.DatabaseName).
-                    GetCollection<TestObj>(MongoHelper.GetCollectionName<TestObj>());
+                    GetCollection<TestMongoObj>(MongoHelper.GetCollectionName<TestMongoObj>());
 
                 var foundObj = coll.Find(o => o.Id == testObj.Id && o.Name == testObj.Name).FirstOrDefault();
                 Assert.NotNull(foundObj, "Объект не был сохранен в MongoDb");

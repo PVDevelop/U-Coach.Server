@@ -68,19 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthController.cs" />
-    <Compile Include="AuthServiceMappingProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AuthServiceRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AuthService\AuthService.csproj">
-      <Project>{396d0814-3a71-4a8f-9bf4-209f315c1d8f}</Project>
-      <Name>AuthService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mongo\Mongo.csproj">
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>
       <Name>Mongo</Name>

@@ -1,4 +1,4 @@
-﻿using PVDevelop.UCoach.Server.AuthService;
+﻿using PVDevelop.UCoach.Server.Auth.Service;
 using System;
 
 namespace PVDevelop.UCoach.Server.UserManagement

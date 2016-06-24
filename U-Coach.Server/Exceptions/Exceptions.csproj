@@ -40,13 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auth\InvalidPasswordException.cs" />
-    <Compile Include="Auth\InvalidPasswordFormatException.cs" />
-    <Compile Include="Auth\InvalidTokenException.cs" />
-    <Compile Include="Auth\LoginNotSetException.cs" />
-    <Compile Include="Auth\NotLoggedInException.cs" />
-    <Compile Include="Mongo\MongoCollectionNotInitializedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Auth\" />
+    <Folder Include="Mongo\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

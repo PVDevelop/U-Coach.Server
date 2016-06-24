@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectionVersion.cs" />
+    <Compile Include="Exceptions\MongoCollectionNotInitializedException.cs" />
     <Compile Include="IMongoCollectionVersionValidator.cs" />
     <Compile Include="IMongoConnectionSettings.cs" />
     <Compile Include="IMongoInitializer.cs" />
@@ -67,16 +68,11 @@
     <Compile Include="MongoIndexNameAttribute.cs" />
     <Compile Include="MongoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ADocument.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Exceptions\Exceptions.csproj">
-      <Project>{4bdb272d-e40a-4ffc-b555-0aa4d5d4700f}</Project>
-      <Name>Exceptions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
       <Name>Logging</Name>

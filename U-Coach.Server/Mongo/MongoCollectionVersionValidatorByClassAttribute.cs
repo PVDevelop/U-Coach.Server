@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using MongoDB.Driver;
-using PVDevelop.UCoach.Server.Exceptions.Mongo;
 using PVDevelop.UCoach.Server.Logging;
+using PVDevelop.UCoach.Server.Mongo.Exceptions;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
