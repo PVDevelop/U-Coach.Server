@@ -39,7 +39,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
         public void Setup(string[] arguments)
         {
-            foreach(var mongoInit in ExecutorContainer.Instance.Container.GetAllInstances<IMongoInitializer>())
+            foreach(var mongoInit in Initializer.Instance.GetAllInstances<IMongoInitializer>())
             {
                 mongoInit.Initialize();
             }

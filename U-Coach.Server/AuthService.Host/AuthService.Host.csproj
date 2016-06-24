@@ -117,6 +117,10 @@
       <Project>{31a9d406-b142-4925-bb4f-e98557516bac}</Project>
       <Name>AuthService.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mapper\Mapper.csproj">
+      <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
+      <Name>Mapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mongo.Infrastructure\Mongo.Infrastructure.csproj">
       <Project>{34cc343c-2da5-4deb-bdc6-017efcaf6d62}</Project>
       <Name>Mongo.Infrastructure</Name>

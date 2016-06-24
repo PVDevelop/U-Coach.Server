@@ -89,6 +89,10 @@
       <Project>{4bdb272d-e40a-4ffc-b555-0aa4d5d4700f}</Project>
       <Name>Exceptions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mapper\Mapper.csproj">
+      <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
+      <Name>Mapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mongo.Tests\Mongo.Tests.csproj">
       <Project>{ae88d765-e4a0-43bc-a6a5-11cd589580e0}</Project>
       <Name>Mongo.Tests</Name>

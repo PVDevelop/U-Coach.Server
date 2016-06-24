@@ -1,21 +1,19 @@
-﻿using PVDevelop.UCoach.Server.AuthService;
-using PVDevelop.UCoach.Server.Mongo;
-using StructureMap;
-using System;
+﻿using StructureMap;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using PVDevelop.UCoach.Server.AuthService.Infrastructure;
+using PVDevelop.UCoach.Server.Mongo.Infrastructure;
+using PVDevelop.UCoach.Server.Mapper;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
-    public class ExecutorContainer
+    public class Initializer
     {
         private static readonly object _sync = new object();
-        private static ExecutorContainer _instance;
+        private static Initializer _instance;
 
-        public static ExecutorContainer Instance
+        public static Initializer Instance
         {
             get
             {
@@ -25,7 +23,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
                     {
                         if (_instance == null)
                         {
-                            _instance = new ExecutorContainer();
+                            _instance = new Initializer();
                         }
                     }
                 }
@@ -33,14 +31,17 @@ namespace PVDevelop.UCoach.Server.UserManagement
             }
         }
 
-        public Container Container { get; private set; }
+        private readonly Container _container;
 
-        private ExecutorContainer()
+        private Initializer()
         {
-            Container = new Container(x =>
+            AutoMapper.Mapper.AddProfile<AuthServiceMappingProfile>();
+
+            _container = new Container(x =>
             {
-                x.AddRegistry<AuthService.Infrastructure.AuthServiceRegistry>();
-                x.AddRegistry<Mongo.Infrastructure.MongoRegistry>();
+                x.AddRegistry<AuthServiceRegistry>();
+                x.AddRegistry<MongoRegistry>();
+                x.AddRegistry<MapperRegistry>();
 
                 foreach (var type in 
                     Assembly.
@@ -51,6 +52,11 @@ namespace PVDevelop.UCoach.Server.UserManagement
                     x.For(typeof(IExecutor)).Use(type);
                 }
             });
+        }
+
+        public IEnumerable<T> GetAllInstances<T>()
+        {
+            return _container.GetAllInstances<T>();
         }
     }
 }

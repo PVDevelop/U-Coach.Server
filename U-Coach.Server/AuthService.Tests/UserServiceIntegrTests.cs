@@ -25,7 +25,9 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
             var settings = TestMongoHelper.CreateSettings();
 
             UtcTime.SetUtcNow();
-            var userService = new UserService(new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
+            var userService = new UserService(new MongoUserRepository(
+                new MongoRepository<MongoUser>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()),
+                null));
             userService.Create(userParams);
 
             TestMongoHelper.WithDb(settings, db =>
@@ -45,7 +47,9 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         {
             var settings = TestMongoHelper.CreateSettings();
 
-            var userService = new UserService(new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
+            var userService = new UserService(new MongoUserRepository(
+                new MongoRepository<MongoUser>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()),
+                null));
 
             var createUserParams = new CreateUserParams()
             {
@@ -80,7 +84,9 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         {
             var settings = TestMongoHelper.CreateSettings();
 
-            var userService = new UserService(new MongoRepository<User>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()));
+            var userService = new UserService(new MongoUserRepository(
+                new MongoRepository<MongoUser>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()),
+                null));
 
             var createUserParams = new CreateUserParams()
             {

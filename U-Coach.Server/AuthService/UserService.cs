@@ -8,15 +8,15 @@ namespace PVDevelop.UCoach.Server.AuthService
     public class UserService : IUserService
     {
         private readonly ILogger _logger = LoggerFactory.CreateLogger<UserService>();
-        private readonly IMongoRepository<User> _repository;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IMongoRepository<User> repository)
+        public UserService(IUserRepository userRepository)
         {
-            if(repository == null)
+            if(userRepository == null)
             {
-                throw new ArgumentNullException("repository");
+                throw new ArgumentNullException("userRepository");
             }
-            _repository = repository;
+            _userRepository = userRepository;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace PVDevelop.UCoach.Server.AuthService
 
             var user = new User(userParams.Login);
             user.SetPassword(userParams.Password);
-            _repository.Insert(user);
+            _userRepository.Insert(user);
 
             _logger.Info("Пользователь {0} создан.", userParams.Login);
         }
@@ -54,9 +54,9 @@ namespace PVDevelop.UCoach.Server.AuthService
 
             _logger.Debug("Логиню пользователя {0}.", userParams.Login);
 
-            var user = _repository.Find(u => u.Login == userParams.Login);
+            var user = _userRepository.FindByLogin(userParams.Login);;
             var token = user.Logon(userParams.Password);
-            _repository.Replace(user);
+            _userRepository.Update(user);
 
             _logger.Info("Пользователь {0} залогинен.", userParams.Login);
 
@@ -76,9 +76,9 @@ namespace PVDevelop.UCoach.Server.AuthService
 
             _logger.Debug("Логаут пользователя {0}.", userParams.Login);
 
-            var user = _repository.Find(u => u.Login == userParams.Login);
+            var user = _userRepository.FindByLogin(userParams.Login);
             user.Logout(userParams.Password);
-            _repository.Replace(user);
+            _userRepository.Update(user);
 
             _logger.Info("Логаут пользователя {0} выполнен.", userParams.Login);
         }
@@ -96,7 +96,7 @@ namespace PVDevelop.UCoach.Server.AuthService
 
             _logger.Debug("Валидирую токен пользователя {0}.", tokenParams.Login);
 
-            var user = _repository.Find(u => u.Login == tokenParams.Login);
+            var user = _userRepository.FindByLogin(tokenParams.Login);
             user.ValidateToken(tokenParams.Token);
 
             _logger.Info("Токен пользователя {0} валиден.", tokenParams.Login);
