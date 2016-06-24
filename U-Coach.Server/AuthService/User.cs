@@ -9,7 +9,7 @@ namespace PVDevelop.UCoach.Server.AuthService
 {
     [MongoCollection("Users")]
     [MongoDataVersion(1)]
-    public class User : IAmDocument
+    public class User
     {
         public const int VERSION = 1;
 

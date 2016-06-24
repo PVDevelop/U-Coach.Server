@@ -53,7 +53,7 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
             var rep = new MongoRepository<TestObj>(MockRepository.GenerateStub<IMongoConnectionSettings>(), mock);
             try
             {
-                rep.Replace(new TestObj());
+                rep.ReplaceOne(o=>true, new TestObj());
             }
             catch { }
 

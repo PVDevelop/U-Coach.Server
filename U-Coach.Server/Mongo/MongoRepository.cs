@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 namespace PVDevelop.UCoach.Server.Mongo
 {
     public class MongoRepository<T> : IMongoRepository<T>
-        where T : IAmDocument
     {
         private readonly IMongoConnectionSettings _settings;
         private readonly IMongoCollectionVersionValidator _validator;
@@ -39,10 +38,10 @@ namespace PVDevelop.UCoach.Server.Mongo
             coll.InsertOne(document);
         }
 
-        public void Replace(T document)
+        public void ReplaceOne(Expression<Func<T, bool>> predicate, T document)
         {
             var coll = GetCollection();
-            coll.ReplaceOne<T>(t => t.Id == document.Id, document);
+            coll.ReplaceOne<T>(predicate, document);
         }
 
         private IMongoCollection<T> GetCollection()

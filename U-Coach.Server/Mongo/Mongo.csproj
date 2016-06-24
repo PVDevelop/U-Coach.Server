@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectionVersion.cs" />
-    <Compile Include="IAmDocument.cs" />
     <Compile Include="IMongoCollectionVersionValidator.cs" />
     <Compile Include="IMongoConnectionSettings.cs" />
     <Compile Include="IMongoInitializer.cs" />

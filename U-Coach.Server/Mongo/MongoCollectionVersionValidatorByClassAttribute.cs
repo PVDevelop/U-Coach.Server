@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MongoDB.Driver;
 using PVDevelop.UCoach.Server.Exceptions.Mongo;
 using PVDevelop.UCoach.Server.Logging;

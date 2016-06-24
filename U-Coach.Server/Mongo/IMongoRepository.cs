@@ -6,9 +6,7 @@ namespace PVDevelop.UCoach.Server.Mongo
     /// <summary>
     /// Продоставляет доступ к БД MongoDB
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     public interface IMongoRepository<T>
-        where T : IAmDocument
     {
         /// <summary>
         /// Вставляет документ в коллекцию
@@ -23,6 +21,6 @@ namespace PVDevelop.UCoach.Server.Mongo
         /// <summary>
         /// Замещает имеющийся документ новым
         /// </summary>
-        void Replace(T document);
+        void ReplaceOne(Expression<Func<T, bool>> predicate, T document);
     }
 }
