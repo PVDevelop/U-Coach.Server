@@ -5,6 +5,7 @@ using System.Reflection;
 using PVDevelop.UCoach.Server.Mapper;
 using PVDevelop.UCoach.Server.Auth.StructureMap;
 using PVDevelop.UCoach.Server.Mongo.StructureMap;
+using PVDevelop.UCoach.Server.Auth.AutoMapper;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
@@ -39,7 +40,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
             {
                 x.AddRegistry<AuthServiceRegistry>();
                 x.AddRegistry<MongoRegistry>();
-                x.AddRegistry<MapperRegistry>();
+                x.For<IMapper>().Add(() => new MapperImpl(cfg => cfg.AddProfile<UserProfile>()));
 
                 foreach (var type in 
                     Assembly.

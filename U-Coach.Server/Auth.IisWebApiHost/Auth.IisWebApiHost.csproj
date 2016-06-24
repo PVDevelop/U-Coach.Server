@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -115,9 +119,17 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.AutoMapper\Auth.AutoMapper.csproj">
+      <Project>{64CBCDA2-CA1B-4516-90B6-D420618BCA3A}</Project>
+      <Name>Auth.AutoMapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auth.StructureMap\Auth.StructureMap.csproj">
       <Project>{d307b4bb-586b-4f1c-9d2b-ca527fd23778}</Project>
       <Name>Auth.StructureMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.WebApi\Auth.WebApi.csproj">
+      <Project>{c92f3088-b5c6-4095-8d49-c13a55f42577}</Project>
+      <Name>Auth.WebApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mapper\Mapper.csproj">
       <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>

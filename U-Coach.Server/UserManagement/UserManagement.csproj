@@ -71,6 +71,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.AutoMapper\Auth.AutoMapper.csproj">
+      <Project>{64cbcda2-ca1b-4516-90b6-d420618bca3a}</Project>
+      <Name>Auth.AutoMapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
       <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
       <Name>Auth.Service</Name>
