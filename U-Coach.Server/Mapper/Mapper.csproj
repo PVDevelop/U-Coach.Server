@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA09133B-0EB6-467F-827E-1E0E3706E5AE}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{6EBDCB84-95A9-417B-967E-37ACF7D4ABCA}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server.UserManagement</RootNamespace>
-    <AssemblyName>UserManagement</AssemblyName>
+    <RootNamespace>PVDevelop.UCoach.Server.Mapper</RootNamespace>
+    <AssemblyName>PVDevelop.UCoach.Server.Mapper</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -55,46 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreateUserExecutor.cs" />
-    <Compile Include="Initializer.cs" />
-    <Compile Include="ExecutorFactory.cs" />
-    <Compile Include="HelpExecutor.cs" />
-    <Compile Include="IExecutor.cs" />
-    <Compile Include="InitializeExecutor.cs" />
-    <Compile Include="LogonExecutor.cs" />
-    <Compile Include="LogoutByPasswordExecutor.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="IMapper.cs" />
+    <Compile Include="Mapper.cs" />
+    <Compile Include="MapperRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AuthService.Infrastructure\AuthService.Infrastructure.csproj">
-      <Project>{31a9d406-b142-4925-bb4f-e98557516bac}</Project>
-      <Name>AuthService.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AuthService\AuthService.csproj">
-      <Project>{396d0814-3a71-4a8f-9bf4-209f315c1d8f}</Project>
-      <Name>AuthService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
-      <Name>Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mapper\Mapper.csproj">
-      <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
-      <Name>Mapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mongo.Infrastructure\Mongo.Infrastructure.csproj">
-      <Project>{34cc343c-2da5-4deb-bdc6-017efcaf6d62}</Project>
-      <Name>Mongo.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mongo\Mongo.csproj">
-      <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>
-      <Name>Mongo</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

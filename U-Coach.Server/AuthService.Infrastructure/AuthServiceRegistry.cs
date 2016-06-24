@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using PVDevelop.UCoach.Server.Mongo;
 
 namespace PVDevelop.UCoach.Server.AuthService.Infrastructure
@@ -11,8 +12,6 @@ namespace PVDevelop.UCoach.Server.AuthService.Infrastructure
     {
         public AuthServiceRegistry()
         {
-            For<IUserService>().Use<UserService>();
-
             For<IMongoInitializer>().
                 Use<UserCollectionInitializer>().
                 Ctor<IMongoConnectionSettings>("metaSettings").
@@ -20,10 +19,15 @@ namespace PVDevelop.UCoach.Server.AuthService.Infrastructure
                 Ctor<IMongoConnectionSettings>("contextSettings").
                 IsNamedInstance("settings_mongo_context");
 
-            For<IMongoRepository<User>>().
-                Use<MongoRepository<User>>().
+            For<IMongoRepository<MongoUser>>().
+                Use<MongoRepository<MongoUser>>().
                 Ctor<IMongoConnectionSettings>().
                 IsNamedInstance("settings_mongo_context");
+
+            For<IUserRepository>().
+                Use<MongoUserRepository>();
+
+            For<IUserService>().Use<UserService>();
         }
     }
 }

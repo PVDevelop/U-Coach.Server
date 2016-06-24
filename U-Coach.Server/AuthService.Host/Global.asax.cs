@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
+using PVDevelop.UCoach.Server.Mapper;
 
 namespace AuthService.Host
 {
@@ -27,6 +28,7 @@ namespace AuthService.Host
             {
                 x.AddRegistry<AuthServiceRegistry>();
                 x.AddRegistry<MongoRegistry>();
+                x.AddRegistry<MapperRegistry>();
             });
         }
     }

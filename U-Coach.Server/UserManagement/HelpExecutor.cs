@@ -10,7 +10,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
     {
         public void PrintHelp()
         {
-            foreach(var executor in ExecutorContainer.Instance.Container.GetAllInstances<IExecutor>())
+            foreach(var executor in Initializer.Instance.GetAllInstances<IExecutor>())
             {
                 var command =
                     executor.ArgumentsNames == null ?

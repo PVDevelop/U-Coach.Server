@@ -43,12 +43,12 @@ namespace PVDevelop.UCoach.Server.AuthService
                 "Инициализирую коллекцию пользователей. Параметры подключения: {0}.",
                 MongoHelper.SettingsToString(_contextSettings));
 
-            var collection = MongoHelper.GetCollection<User>(_contextSettings);
+            var collection = MongoHelper.GetCollection<MongoUser>(_contextSettings);
 
-            var index = Builders<User>.IndexKeys.Ascending(u => u.Login);
+            var index = Builders<MongoUser>.IndexKeys.Ascending(u => u.Login);
             var options = new CreateIndexOptions()
             {
-                Name = MongoHelper.GetIndexName<User>(nameof(User.Login)),
+                Name = MongoHelper.GetIndexName<MongoUser>(nameof(MongoUser.Login)),
                 Unique = true
             };
 
@@ -67,8 +67,8 @@ namespace PVDevelop.UCoach.Server.AuthService
             var collection = MongoHelper.GetCollection<CollectionVersion>(_metaSettings);
             var collectionVersion = new CollectionVersion()
             {
-                Name = MongoHelper.GetCollectionName<User>(),
-                TargetVersion = MongoHelper.GetDataVersion<User>()
+                Name = MongoHelper.GetCollectionName<MongoUser>(),
+                TargetVersion = MongoHelper.GetDataVersion<MongoUser>()
             };
 
             var options = new UpdateOptions()

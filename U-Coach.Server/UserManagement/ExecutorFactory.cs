@@ -9,7 +9,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
         public static IExecutor CreateAndSetupExecutor(string[] args)
         {
-            var executors = ExecutorContainer.Instance.Container.GetAllInstances<IExecutor>();
+            var executors = Initializer.Instance.GetAllInstances<IExecutor>();
             var arg = args[0];
             var executor = executors.Single(e => e.Command == arg);
             executor.Setup(args.Skip(1).ToArray());

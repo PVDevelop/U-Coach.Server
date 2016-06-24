@@ -40,7 +40,7 @@ namespace PVDevelop.UCoach.Server.Mongo
 
             if(mongoDataVersionAttr == null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Атрибут с версией документа не найден");
             }
             return mongoDataVersionAttr.Version;
         }

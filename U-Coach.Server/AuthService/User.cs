@@ -1,29 +1,17 @@
 ﻿using DevOne.Security.Cryptography.BCrypt;
-using MongoDB.Bson;
 using PVDevelop.UCoach.Server.Exceptions.Auth;
-using PVDevelop.UCoach.Server.Mongo;
 using System;
 using Utilities;
 
 namespace PVDevelop.UCoach.Server.AuthService
 {
-    [MongoCollection("Users")]
-    [MongoDataVersion(1)]
-    public class User : IAmDocument
+    public class User
     {
-        public const int VERSION = 1;
-
         /// <summary>
-        /// Уникальный идентификатор пользователя.
+        /// Уникальный идентификатор пользователя
         /// </summary>
-        public ObjectId Id { get; private set; }
+        public Guid UserId { get; private set; }
 
-        /// <summary>
-        /// Версия документа.
-        /// </summary>
-        public int Version { get; private set; }
-
-        [MongoIndexName("login")]
         /// <summary>
         /// Логин пользователя. Уникален в БД.
         /// </summary>
@@ -58,7 +46,7 @@ namespace PVDevelop.UCoach.Server.AuthService
 
             Login = login;
             CreationTime = UtcTime.UtcNow;
-            Version = VERSION;
+            UserId = Guid.NewGuid();
         }
 
         /// <summary>
