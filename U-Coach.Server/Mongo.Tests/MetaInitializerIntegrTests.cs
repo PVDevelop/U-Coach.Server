@@ -14,7 +14,6 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         public void Initialize_NotInitialized_CreatesCollectionWithIndex()
         {
             var settings = TestMongoHelper.CreateSettings();
-
             TestMongoHelper.WithDb(settings, contextDb =>
             {
                 var initializer = new MongoMetaInitializer(settings);
@@ -34,7 +33,6 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         public void Initialize_InitTwice_DoesNotFall()
         {
             var settings = TestMongoHelper.CreateSettings();
-
             TestMongoHelper.WithDb(settings, contextDb =>
             {
                 var initializer = new MongoMetaInitializer(settings);

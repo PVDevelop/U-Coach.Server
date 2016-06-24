@@ -1,7 +1,7 @@
 ﻿using DevOne.Security.Cryptography.BCrypt;
 using PVDevelop.UCoach.Server.Auth.Domain.Exceptions;
+using PVDevelop.UCoach.Server.Timing;
 using System;
-using Utilities;
 
 namespace PVDevelop.UCoach.Server.Auth.Domain
 {
@@ -13,7 +13,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// <summary>
         /// Уникальный идентификатор пользователя
         /// </summary>
-        public Guid UserId { get; private set; }
+        public Guid Id { get; private set; }
 
         /// <summary>
         /// Логин пользователя. Уникален в БД.
@@ -49,7 +49,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
 
             Login = login;
             CreationTime = UtcTime.UtcNow;
-            UserId = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         /// <summary>

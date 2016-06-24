@@ -16,19 +16,18 @@ namespace Auth.Mongo.Tests
         [Test]
         public void Initialize_NotInitialized_Initializes()
         {
-            var metaSettings = TestMongoHelper.CreateSettings();
             var contextSettings = TestMongoHelper.CreateSettings();
-
             TestMongoHelper.WithDb(contextSettings, contextDb =>
             {
+                var metaSettings = TestMongoHelper.CreateSettings();
                 TestMongoHelper.WithDb(metaSettings, metaDb =>
                 {
                     var initializer = new MongoUserCollectionInitializer(metaSettings: metaSettings, contextSettings: contextSettings);
                     initializer.Initialize();
 
                     // проверяем индекс
-                    var userCollection = MongoHelper.GetCollection<User>(contextSettings);
-                    var indexName = MongoHelper.GetIndexName<User>(nameof(User.Login));
+                    var userCollection = MongoHelper.GetCollection<MongoUser>(contextSettings);
+                    var indexName = MongoHelper.GetIndexName<MongoUser>(nameof(MongoUser.Login));
                     var index = userCollection.Indexes.List().ToList().FirstOrDefault(i => i["name"] == indexName);
 
                     Assert.NotNull(index);
@@ -36,8 +35,8 @@ namespace Auth.Mongo.Tests
 
                     // проверяем версию
                     var versionCollection = MongoHelper.GetCollection<CollectionVersion>(metaSettings);
-                    var userCollectionName = MongoHelper.GetCollectionName<User>();
-                    var userCollectionVersion = MongoHelper.GetDataVersion<User>();
+                    var userCollectionName = MongoHelper.GetCollectionName<MongoUser>();
+                    var userCollectionVersion = MongoHelper.GetDataVersion<MongoUser>();
                     var ver =
                         versionCollection.Find(col => col.Name == userCollectionName && col.TargetVersion == userCollectionVersion).SingleOrDefault();
                     Assert.NotNull(ver);
@@ -48,11 +47,10 @@ namespace Auth.Mongo.Tests
         [Test]
         public void Initialize_InitTwice_DoesNotFall()
         {
-            var metaSettings = TestMongoHelper.CreateSettings();
             var contextSettings = TestMongoHelper.CreateSettings();
-
             TestMongoHelper.WithDb(contextSettings, contextDb =>
             {
+                var metaSettings = TestMongoHelper.CreateSettings();
                 TestMongoHelper.WithDb(metaSettings, metaDb =>
                 {
                     var metaInitializer = new MongoMetaInitializer(metaSettings);

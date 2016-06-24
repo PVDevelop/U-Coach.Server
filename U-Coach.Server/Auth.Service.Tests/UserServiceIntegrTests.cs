@@ -1,14 +1,15 @@
 ﻿using DevOne.Security.Cryptography.BCrypt;
 using MongoDB.Driver;
 using NUnit.Framework;
-using PVDevelop.UCoach.Server.Auth.Domain;
+using PVDevelop.UCoach.Server.Auth.AutoMapper;
 using PVDevelop.UCoach.Server.Auth.Mongo;
 using PVDevelop.UCoach.Server.Auth.Service;
+using PVDevelop.UCoach.Server.Mapper;
 using PVDevelop.UCoach.Server.Mongo;
+using PVDevelop.UCoach.Server.Timing;
 using Rhino.Mocks;
 using TestMongoUtilities;
 using TestNUnit;
-using Utilities;
 
 namespace PVDevelop.UCoach.Server.AuthService.Tests
 {
@@ -16,6 +17,11 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
     [Integration]
     public class UserServiceIntegrTests
     {
+        private static IMapper CreateUserMapper()
+        {
+            return new MapperImpl(cfg => cfg.AddProfile<UserProfile>());
+        }
+
         [Test]
         public void Create_NewUser_CreatesEncodedAndSavesInDb()
         {
@@ -26,15 +32,14 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
             };
 
             var settings = TestMongoHelper.CreateSettings();
-
-            UtcTime.SetUtcNow();
-            var userService = new UserService(new MongoUserRepository(
-                new MongoRepository<MongoUser>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()),
-                null));
-            userService.Create(userParams);
-
             TestMongoHelper.WithDb(settings, db =>
             {
+                UtcTime.SetUtcNow();
+                var userService = new UserService(new MongoUserRepository(
+                    new MongoRepository<MongoUser>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()),
+                    CreateUserMapper()));
+                userService.Create(userParams);
+
                 var users = db.GetCollection<MongoUser>(MongoHelper.GetCollectionName<MongoUser>()).Find(u => u.Login == userParams.Login).ToList();
                 Assert.AreEqual(1, users.Count);
                 var user = users[0];
@@ -49,31 +54,30 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         public void Logon_ValidPassword_SetsLoggedInAndCurrentTime()
         {
             var settings = TestMongoHelper.CreateSettings();
-
-            var userService = new UserService(new MongoUserRepository(
-                new MongoRepository<MongoUser>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()),
-                null));
-
-            var createUserParams = new CreateUserParams()
-            {
-                Login = "some_login",
-                Password = "some_password"
-            };
-
-            userService.Create(createUserParams);
-
-            var authUserParams = new LogonUserParams()
-            {
-                Login = "some_login",
-                Password = "some_password"
-            };
-
-            UtcTime.SetUtcNow();
-            userService.Logon(authUserParams);
-
             TestMongoHelper.WithDb(settings, db =>
             {
-                var users = db.GetCollection<User>(MongoHelper.GetCollectionName<User>()).Find(u => u.Login == createUserParams.Login).ToList();
+                var userService = new UserService(new MongoUserRepository(
+                    new MongoRepository<MongoUser>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()),
+                    CreateUserMapper()));
+
+                var createUserParams = new CreateUserParams()
+                {
+                    Login = "some_login",
+                    Password = "some_password"
+                };
+
+                userService.Create(createUserParams);
+
+                var authUserParams = new LogonUserParams()
+                {
+                    Login = "some_login",
+                    Password = "some_password"
+                };
+
+                UtcTime.SetUtcNow();
+                userService.Logon(authUserParams);
+
+                var users = db.GetCollection<MongoUser>(MongoHelper.GetCollectionName<MongoUser>()).Find(u => u.Login == createUserParams.Login).ToList();
                 Assert.AreEqual(1, users.Count);
                 var user = users[0];
                 Assert.NotNull(user.Password);
@@ -86,38 +90,37 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
         public void LogoutByPassword_LoggedInUser_SetsNotLoggedIn()
         {
             var settings = TestMongoHelper.CreateSettings();
-
-            var userService = new UserService(new MongoUserRepository(
-                new MongoRepository<MongoUser>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()),
-                null));
-
-            var createUserParams = new CreateUserParams()
-            {
-                Login = "some_login",
-                Password = "some_password"
-            };
-
-            userService.Create(createUserParams);
-
-            var authUserParams = new LogonUserParams()
-            {
-                Login = "some_login",
-                Password = "some_password"
-            };
-
-            userService.Logon(authUserParams);
-
-            var logoutUserParams = new LogoutByPasswordUserParams()
-            {
-                Login = "some_login",
-                Password = "some_password"
-            };
-
-            userService.LogoutByPassword(logoutUserParams);
-
             TestMongoHelper.WithDb(settings, db =>
             {
-                var users = db.GetCollection<User>(MongoHelper.GetCollectionName<User>()).Find(u => u.Login == createUserParams.Login).ToList();
+                var userService = new UserService(new MongoUserRepository(
+                    new MongoRepository<MongoUser>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>()),
+                    CreateUserMapper()));
+
+                var createUserParams = new CreateUserParams()
+                {
+                    Login = "some_login",
+                    Password = "some_password"
+                };
+
+                userService.Create(createUserParams);
+
+                var authUserParams = new LogonUserParams()
+                {
+                    Login = "some_login",
+                    Password = "some_password"
+                };
+
+                userService.Logon(authUserParams);
+
+                var logoutUserParams = new LogoutByPasswordUserParams()
+                {
+                    Login = "some_login",
+                    Password = "some_password"
+                };
+
+                userService.LogoutByPassword(logoutUserParams);
+
+                var users = db.GetCollection<MongoUser>(MongoHelper.GetCollectionName<MongoUser>()).Find(u => u.Login == createUserParams.Login).ToList();
                 Assert.AreEqual(1, users.Count);
                 var user = users[0];
                 Assert.IsFalse(user.IsLoggedIn);

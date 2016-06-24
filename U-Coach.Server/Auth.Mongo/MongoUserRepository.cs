@@ -46,7 +46,7 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         public void Update(User user)
         {
             var mongoUser = _mapper.Map<MongoUser>(user);
-            _repository.ReplaceOne(u=>u.UserId == user.UserId, mongoUser);
+            _repository.ReplaceOne(u => u.Id == user.Id, mongoUser);
         }
     }
 }

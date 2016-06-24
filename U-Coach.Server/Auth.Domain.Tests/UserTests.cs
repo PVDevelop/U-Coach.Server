@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using PVDevelop.UCoach.Server.Auth.Domain;
 using PVDevelop.UCoach.Server.Auth.Domain.Exceptions;
-using Utilities;
+using PVDevelop.UCoach.Server.Timing;
 
 namespace AuthService.Tests
 {

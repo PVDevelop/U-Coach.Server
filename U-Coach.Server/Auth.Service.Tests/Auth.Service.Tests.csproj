@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevOne.Security.Cryptography.BCrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
       <Private>True</Private>
@@ -68,6 +72,10 @@
     <Compile Include="UserServiceIntegrTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.AutoMapper\Auth.AutoMapper.csproj">
+      <Project>{64cbcda2-ca1b-4516-90b6-d420618bca3a}</Project>
+      <Name>Auth.AutoMapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
       <Project>{fc2614c3-74ed-4e9f-a8b9-98d18a59d0c0}</Project>
       <Name>Auth.Domain</Name>
@@ -96,9 +104,9 @@
       <Project>{79d5c2c6-ae98-4b38-9bb8-167118e81998}</Project>
       <Name>TestMongoUtilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{3e238d11-f4ea-4664-bfca-4a04eac4aa52}</Project>
-      <Name>Utilities</Name>
+    <ProjectReference Include="..\Timing\Timing.csproj">
+      <Project>{ed9532d4-7643-4a2f-ac6a-7ea11bbf2612}</Project>
+      <Name>Timing</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

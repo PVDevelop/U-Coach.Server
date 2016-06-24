@@ -16,15 +16,14 @@ namespace Auth.Domain.Tests
         public void Insert_ValidObject_SavesToDb()
         {
             var settings = TestMongoHelper.CreateSettings();
-
-            var testObj = new TestMongoObj()
-            {
-                Name = "SomeName"
-            };
-
             TestMongoHelper.WithDb(settings, db =>
             {
                 var rep = new MongoRepository<TestMongoObj>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>());
+
+                var testObj = new TestMongoObj()
+                {
+                    Name = "SomeName"
+                };
                 rep.Insert(testObj);
 
                 var coll =

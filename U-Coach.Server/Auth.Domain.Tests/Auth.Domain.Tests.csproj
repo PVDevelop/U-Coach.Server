@@ -59,9 +59,9 @@
       <Project>{fc2614c3-74ed-4e9f-a8b9-98d18a59d0c0}</Project>
       <Name>Auth.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{3e238d11-f4ea-4664-bfca-4a04eac4aa52}</Project>
-      <Name>Utilities</Name>
+    <ProjectReference Include="..\Timing\Timing.csproj">
+      <Project>{ed9532d4-7643-4a2f-ac6a-7ea11bbf2612}</Project>
+      <Name>Timing</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

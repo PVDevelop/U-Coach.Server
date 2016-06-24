@@ -13,7 +13,6 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         public void Validate_TypeWithMongoVersionAttributeAndValidVersion_PassesValidation()
         {
             var validationSettings = TestMongoHelper.CreateSettings();
-
             TestMongoHelper.WithDb(validationSettings, db =>
             {
                 var collectionVersion = new CollectionVersion()
@@ -37,7 +36,6 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         public void Validate_TypeWithMongoVersionAttributeAndInvalidVersion_ThrowsException(int? version)
         {
             var validationSettings = TestMongoHelper.CreateSettings();
-
             TestMongoHelper.WithDb(validationSettings, db =>
             {
                 if (version.HasValue)
