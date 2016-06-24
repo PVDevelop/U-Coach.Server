@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PVDevelop.UCoach.Server.Mongo.Infrastructure
 {
-    public class Registry : StructureMap.Registry
+    public class MongoRegistry : StructureMap.Registry
     {
-        public Registry()
+        public MongoRegistry()
         {
             For<IMongoConnectionSettings>().
                 Use<MongoConnectionSettings>().

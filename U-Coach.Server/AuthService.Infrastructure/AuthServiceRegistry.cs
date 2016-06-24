@@ -7,9 +7,9 @@ using PVDevelop.UCoach.Server.Mongo;
 
 namespace PVDevelop.UCoach.Server.AuthService.Infrastructure
 {
-    public class Registry : StructureMap.Registry
+    public class AuthServiceRegistry : StructureMap.Registry
     {
-        public Registry()
+        public AuthServiceRegistry()
         {
             For<IUserService>().Use<UserService>();
 

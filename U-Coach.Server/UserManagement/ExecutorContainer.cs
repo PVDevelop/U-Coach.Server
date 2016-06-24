@@ -39,8 +39,8 @@ namespace PVDevelop.UCoach.Server.UserManagement
         {
             Container = new Container(x =>
             {
-                x.AddRegistry<AuthService.Infrastructure.Registry>();
-                x.AddRegistry<Mongo.Infrastructure.Registry>();
+                x.AddRegistry<AuthService.Infrastructure.AuthServiceRegistry>();
+                x.AddRegistry<Mongo.Infrastructure.MongoRegistry>();
 
                 foreach (var type in 
                     Assembly.
