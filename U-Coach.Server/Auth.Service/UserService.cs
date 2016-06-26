@@ -18,11 +18,6 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _userRepository = userRepository;
         }
 
-        /// <summary>
-        /// Создает нового пользователя.
-        /// Если пользователь уже существует, кидает исключение DuplicateUserException.
-        /// </summary>
-        /// <param name="userParams">Параметры нового пользователя</param>
         public void Create(CreateUserParams userParams)
         {
             if (userParams == null)
@@ -39,11 +34,6 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _logger.Info("Пользователь {0} создан.", userParams.Login);
         }
 
-        /// <summary>
-        /// Проверяет параметры пользователя и если они верны, аутентифицирует пользователя
-        /// </summary>
-        /// <param name="userParams">Параметры аутентификацити</param>
-        /// <returns>Токен аутентификации</returns>
         public string Logon(LogonUserParams userParams)
         {
             if (userParams == null)
@@ -62,10 +52,6 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             return token;
         }
 
-        /// <summary>
-        /// Выводит пользователя из системы
-        /// </summary>
-        /// <param name="userParams">Параметры пользователя</param>
         public void LogoutByPassword(LogoutByPasswordUserParams userParams)
         {
             if (userParams == null)
@@ -82,10 +68,6 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _logger.Info("Логаут пользователя {0} выполнен.", userParams.Login);
         }
 
-        /// <summary>
-        /// Проверяет токен пользователя
-        /// </summary>
-        /// <param name="tokenParams">Параметры токена</param>
         public void ValidateToken(ValidateTokenParams tokenParams)
         {
             if (tokenParams == null)
