@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</ProjectGuid>
+    <ProjectGuid>{B1A60CCE-BC67-456D-A114-0A46F6A1BBEA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server.Auth.Domain</RootNamespace>
-    <AssemblyName>PVDevelop.UCoach.Server.Auth.Domain</AssemblyName>
+    <RootNamespace>PVDevelop.UCoach.Server.Core.AutoMapper</RootNamespace>
+    <AssemblyName>PVDevelop.UCoach.Server.Core.AutoMapper</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevOne.Security.Cryptography.BCrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,30 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\InvalidPasswordException.cs" />
-    <Compile Include="Exceptions\InvalidPasswordFormatException.cs" />
-    <Compile Include="Exceptions\InvalidTokenException.cs" />
-    <Compile Include="Exceptions\LoginNotSetException.cs" />
-    <Compile Include="Exceptions\NotLoggedInException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{6d80ea1d-b7bf-422a-8577-824cc4a87f2e}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
-      <Name>Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Timing\Timing.csproj">
-      <Project>{ed9532d4-7643-4a2f-ac6a-7ea11bbf2612}</Project>
-      <Name>Timing</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

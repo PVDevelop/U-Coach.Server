@@ -54,6 +54,10 @@
       <Project>{fc2614c3-74ed-4e9f-a8b9-98d18a59d0c0}</Project>
       <Name>Auth.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{6d80ea1d-b7bf-422a-8577-824cc4a87f2e}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
       <Name>Logging</Name>

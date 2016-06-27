@@ -1,5 +1,6 @@
 ﻿using DevOne.Security.Cryptography.BCrypt;
 using PVDevelop.UCoach.Server.Auth.Domain.Exceptions;
+using PVDevelop.UCoach.Server.Domain;
 using PVDevelop.UCoach.Server.Timing;
 using System;
 
@@ -8,13 +9,8 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
     /// <summary>
     /// Доменная модель - пользователь
     /// </summary>
-    public class User
+    public class User : AAggregateRoot
     {
-        /// <summary>
-        /// Уникальный идентификатор пользователя
-        /// </summary>
-        public Guid Id { get; private set; }
-
         /// <summary>
         /// Логин пользователя. Уникален в БД.
         /// </summary>
@@ -49,7 +45,6 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
 
             Login = login;
             CreationTime = UtcTime.UtcNow;
-            Id = Guid.NewGuid();
         }
 
         /// <summary>
