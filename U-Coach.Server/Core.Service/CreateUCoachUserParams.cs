@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PVDevelop.UCoach.Server.Core.Service
 {
-    public class CreateUserParams
+    public class CreateUCoachUserParams
     {
         public string Login { get; set; }
 

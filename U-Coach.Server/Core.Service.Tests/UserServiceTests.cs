@@ -22,7 +22,7 @@ namespace Core.Service.Tests
                 Return(new PVDevelop.UCoach.Server.Auth.WebDto.CreateUserParams() { Login = "login1", Password = "pwd1" });
 
             var service = new UserService(client, mapper);
-            var userParams = new CreateUserParams()
+            var userParams = new CreateUCoachUserParams()
             {
                 Login = "login1",
                 Password = "pwd1"

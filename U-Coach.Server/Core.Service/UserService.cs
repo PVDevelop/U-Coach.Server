@@ -1,6 +1,6 @@
 ﻿using System;
-using PVDevelop.UCoach.Server.Auth.WebClient;
 using PVDevelop.UCoach.Server.Mapper;
+using PVDevelop.UCoach.Server.Auth.WebClient;
 
 namespace PVDevelop.UCoach.Server.Core.Service
 {
@@ -26,7 +26,7 @@ namespace PVDevelop.UCoach.Server.Core.Service
             _mapper = mapper;
         }
 
-        public void CreateUser(CreateUserParams userParams)
+        public void CreateUser(CreateUCoachUserParams userParams)
         {
             var webUserParams = _mapper.Map<Auth.WebDto.CreateUserParams>(userParams);
             _users.Create(webUserParams);
