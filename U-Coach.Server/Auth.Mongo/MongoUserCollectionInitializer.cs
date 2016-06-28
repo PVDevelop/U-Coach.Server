@@ -75,7 +75,11 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             {
                 IsUpsert = true
             };
-            collection.ReplaceOne(cv => cv.Name == collectionVersion.Name, collectionVersion, options);
+
+            if (collection.Find(cv => cv.Name == collectionVersion.Name).SingleOrDefault() == null)
+            {
+                collection.ReplaceOne(cv => cv.Name == collectionVersion.Name, collectionVersion, options);
+            }
 
             _logger.Debug("Инициализация метаданных пользователей прошла успешно.");
         }

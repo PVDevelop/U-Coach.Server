@@ -11,7 +11,7 @@ namespace PVDevelop.UCoach.Server.Mongo
         /// <summary>
         /// Идентификатор документа
         /// </summary>
-        public ObjectId Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Версия документа
@@ -29,6 +29,7 @@ namespace PVDevelop.UCoach.Server.Mongo
         public CollectionVersion()
         {
             Version = 1;
+            Id = Guid.NewGuid();
         }
     }
 }
