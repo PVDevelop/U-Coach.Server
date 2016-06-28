@@ -38,16 +38,27 @@ namespace Core.Service.Tests
             return mapper;
         }
 
+        private static IUsersClient CreateUsersClientStub()
+        {
+            var usersClient = MockRepository.GenerateStub<IUsersClient>();
+            usersClient.Stub(uc => uc.Create(null)).IgnoreArguments().Return("1");
+
+            return usersClient;
+        }
+
         [Test]
         public void CreateUser_MockUsersClient_CallsCreate()
         {
             var client = MockRepository.GenerateMock<IUsersClient>();
-            client.Expect(c => c.Create(Arg<PVDevelop.UCoach.Server.Auth.WebDto.CreateUserParams>.Matches(p=> p.Login == "login1" && p.Password == "pwd1")));
+            client.
+                Expect(c => c.Create(Arg<PVDevelop.UCoach.Server.Auth.WebDto.CreateUserParams>.Matches(p=> p.Login == "login1" && p.Password == "pwd1"))).
+                Return("2");
 
             var userParams = new CreateUCoachUserParams()
             {
                 Login = "login1",
-                Password = "pwd1"
+                Password = "pwd1",
+                ConfirmationKey = "someKey"
             };
             var service = new CoreUserService(
                 client, 
@@ -71,18 +82,18 @@ namespace Core.Service.Tests
                     u.AuthSystem == CoreUserAuthSystem.UCoach &&
                     u.ConfirmationKey == confirmKey)));
 
-            var service = new CoreUserService(
-                MockRepository.GenerateStub<IUsersClient>(), 
-                rep, 
-                MockRepository.GenerateStub<IMapper>(),
-                MockRepository.GenerateStub<ICoreUserConfirmationProducer>());
-
             var userParams = new CreateUCoachUserParams()
             {
                 Login = "l1",
                 Password = "p1",
                 ConfirmationKey = confirmKey
             };
+
+            var service = new CoreUserService(
+                CreateUsersClientStub(), 
+                rep, 
+                WithCoreUser(MockRepository.GenerateStub<IMapper>(), userParams),
+                MockRepository.GenerateStub<ICoreUserConfirmationProducer>());
 
             service.CreateUser(userParams);
 
@@ -106,7 +117,7 @@ namespace Core.Service.Tests
             };
 
             var service = new CoreUserService(
-                MockRepository.GenerateStub<IUsersClient>(),
+                CreateUsersClientStub(),
                 MockRepository.GenerateStub<ICoreUserRepository>(),
                 WithProducer(MockRepository.GenerateStub<IMapper>(), userParams),
                 producer);
