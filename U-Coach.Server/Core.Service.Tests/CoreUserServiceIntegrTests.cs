@@ -10,10 +10,10 @@ using TestNUnit;
 namespace Core.Service.Tests
 {
     [TestFixture]
-   // [Integration]
+    //[Integration]
     public class CoreUserServiceIntegrTests
     {
-        [Test]
+        //[Test]
         public void CreateUser_UserMailProducer_SendEmail()
         {
             var mapper = new MapperImpl(config => config.AddProfile<CoreUserProfile>());

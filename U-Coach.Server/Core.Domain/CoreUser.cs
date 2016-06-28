@@ -8,6 +8,8 @@ namespace PVDevelop.UCoach.Server.Core.Domain
         AAggregateRoot,
         ICoreUser
     {
+        public string AuthId { get; internal set; }
+
         public CoreUserAuthSystem AuthSystem { get; internal set; }
 
         public string ConfirmationKey { get; internal set; }

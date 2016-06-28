@@ -2,6 +2,7 @@
 using System.Linq;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Text;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
@@ -64,6 +65,19 @@ namespace PVDevelop.UCoach.Server.Mongo
                 return property.Name;
             }
             return attr.Name;
+        }
+
+        public static string GetCompoundIndexName<T>(params string[] propertyNames)
+        {
+            if(propertyNames == null)
+            {
+                throw new ArgumentNullException("propertyNames");
+            }
+            if(!propertyNames.Any())
+            {
+                throw new ArgumentException("No properties specified for compound index.");
+            }
+            return string.Join(".", propertyNames.Select(GetIndexName<T>));
         }
 
         public static bool IsUniqueIndex(BsonDocument document)

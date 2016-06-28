@@ -4,14 +4,13 @@ using TestNUnit;
 using TestMongoUtilities;
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Auth.Mongo;
-using PVDevelop.UCoach.Server.Auth.Domain;
 using MongoDB.Driver;
 
 namespace Auth.Mongo.Tests
 {
     [TestFixture]
     [Integration]
-    public class UserCollectionInitializerIntegrTests
+    public class MongoUserCollectionInitializerIntegrTests
     {
         [Test]
         public void Initialize_NotInitialized_Initializes()

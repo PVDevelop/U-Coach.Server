@@ -1,10 +1,5 @@
 ﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
@@ -16,7 +11,7 @@ namespace PVDevelop.UCoach.Server.Mongo
         /// <summary>
         /// Id документа
         /// </summary>
-        public ObjectId Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Версия документа
@@ -34,6 +29,7 @@ namespace PVDevelop.UCoach.Server.Mongo
         public CollectionVersion()
         {
             Version = 1;
+            Id = Guid.NewGuid();
         }
     }
 }

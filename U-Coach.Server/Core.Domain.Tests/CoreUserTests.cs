@@ -12,7 +12,7 @@ namespace Core.Domain.Tests
         public void Confirm_ValidKeyAndWaitingForConfirm_SetsConfirmed()
         {
             var key = Guid.NewGuid().ToString();
-            var user = CoreUserFactory.CreateUCoachUser(key);
+            var user = CoreUserFactory.CreateUCoachUser("1", key);
             user.Confirm(key);
 
             Assert.AreEqual(CoreUserState.Confirmed, user.State);
@@ -22,7 +22,7 @@ namespace Core.Domain.Tests
         public void Confirm_InvalidKeyAndWaitingForConfirm_ThrowsException()
         {
             var key = Guid.NewGuid().ToString();
-            var user = CoreUserFactory.CreateUCoachUser(key);
+            var user = CoreUserFactory.CreateUCoachUser("2", key);
             Assert.Throws<InvalidConfirmationKeyException>(() => user.Confirm(Guid.NewGuid().ToString()));
         }
     }

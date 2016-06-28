@@ -6,6 +6,11 @@
     public interface ICoreUser
     {
         /// <summary>
+        /// Идентификатор пользователя в системе аутентификации.
+        /// </summary>
+        string AuthId { get; }
+
+        /// <summary>
         /// Система, в которой создан пользователь.
         /// </summary>
         CoreUserAuthSystem AuthSystem { get; }

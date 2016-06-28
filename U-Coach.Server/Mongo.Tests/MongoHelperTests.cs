@@ -17,6 +17,9 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
             [MongoIndexName("index1")]
             public string MyPropWithAttr { get; set; }
 
+            [MongoIndexName("index2")]
+            public string MyPropWithAttr2 { get; set; }
+
             public string MyPropWithoutAttr { get; set; }
         }
 
@@ -54,6 +57,13 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
         {
             var name = MongoHelper.GetIndexName<SomeType>(nameof(SomeType.MyPropWithoutAttr));
             Assert.AreEqual(nameof(SomeType.MyPropWithoutAttr), name);
+        }
+
+        [Test]
+        public void GetCompoundIndexName_PropertiesWithIndexAttributes_ReturnsDotSplittedName()
+        {
+            var name = MongoHelper.GetCompoundIndexName<SomeType>(nameof(SomeType.MyPropWithAttr), nameof(SomeType.MyPropWithAttr2));
+            Assert.AreEqual(string.Format("{0}.{1}", "index1", "index2"), name);
         }
     }
 }

@@ -8,9 +8,9 @@ namespace PVDevelop.UCoach.Server.Auth.WebClient
     public interface IUsersClient
     {
         /// <summary>
-        /// Создать нового пользователя.
+        /// Создать нового пользователя и вернуть идентификатор пользователя.
         /// </summary>
         /// <param name="userParams">Параметры создания.</param>
-        void Create(CreateUserParams userParams);
+        string Create(CreateUserParams userParams);
     }
 }

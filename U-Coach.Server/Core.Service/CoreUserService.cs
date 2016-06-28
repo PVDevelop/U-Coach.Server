@@ -44,9 +44,9 @@ namespace PVDevelop.UCoach.Server.Core.Service
         public void CreateUser(CreateUCoachUserParams userParams)
         {
             var webUserParams = _mapper.Map<Auth.WebDto.CreateUserParams>(userParams);
-            _users.Create(webUserParams);
+            var authId = _users.Create(webUserParams);
 
-            var coreUser = CoreUserFactory.CreateUCoachUser(userParams.ConfirmationKey);
+            var coreUser = CoreUserFactory.CreateUCoachUser(authId, userParams.ConfirmationKey);
             _userRepository.Insert(coreUser);
 
             var producerParams = _mapper.Map<ProduceConfirmationKeyParams>(userParams);
