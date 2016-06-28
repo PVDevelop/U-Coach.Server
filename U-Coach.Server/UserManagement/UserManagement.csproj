@@ -83,6 +83,14 @@
       <Project>{d307b4bb-586b-4f1c-9d2b-ca527fd23778}</Project>
       <Name>Auth.StructureMap</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.AutoMapper\Core.AutoMapper.csproj">
+      <Project>{b1a60cce-bc67-456d-a114-0a46f6a1bbea}</Project>
+      <Name>Core.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.StructureMap\Core.StructureMap.csproj">
+      <Project>{9e71e0f6-66d0-4239-93ca-1cf2f0202851}</Project>
+      <Name>Core.StructureMap</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
       <Name>Logging</Name>

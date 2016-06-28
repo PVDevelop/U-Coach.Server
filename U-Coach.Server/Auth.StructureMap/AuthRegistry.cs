@@ -5,9 +5,9 @@ using StructureMap;
 
 namespace PVDevelop.UCoach.Server.Auth.StructureMap
 { 
-    public class AuthServiceRegistry : Registry
+    public class AuthRegistry : Registry
     {
-        public AuthServiceRegistry()
+        public AuthRegistry()
         {
             For<IMongoInitializer>().
                 Use<MongoUserCollectionInitializer>().

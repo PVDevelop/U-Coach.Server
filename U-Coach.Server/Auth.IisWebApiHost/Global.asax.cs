@@ -24,7 +24,7 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
         {
             return new Container(x =>
             {
-                x.AddRegistry<AuthServiceRegistry>();
+                x.AddRegistry<AuthRegistry>();
                 x.AddRegistry<MongoRegistry>();
                 x.For<IMapper>().Add(() => new MapperImpl(cfg => cfg.AddProfile<UserProfile>()));
             });
