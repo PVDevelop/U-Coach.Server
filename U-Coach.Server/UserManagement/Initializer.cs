@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using PVDevelop.UCoach.Server.Mapper;
 using PVDevelop.UCoach.Server.Auth.StructureMap;
 using PVDevelop.UCoach.Server.Mongo.StructureMap;
-using PVDevelop.UCoach.Server.Auth.AutoMapper;
-using PVDevelop.UCoach.Server.Core.AutoMapper;
 using PVDevelop.UCoach.Server.Core.StructureMap;
 
 namespace PVDevelop.UCoach.Server.UserManagement
@@ -43,7 +40,6 @@ namespace PVDevelop.UCoach.Server.UserManagement
                 x.AddRegistry<AuthRegistry>();
                 x.AddRegistry<SportsmanConfirmationRegistry>();
                 x.AddRegistry<MongoRegistry>();
-                x.For<IMapper>().Add(() => new MapperImpl(SetupMapperConfiguration));
 
                 foreach (var type in 
                     Assembly.
@@ -59,12 +55,6 @@ namespace PVDevelop.UCoach.Server.UserManagement
         public IEnumerable<T> GetAllInstances<T>()
         {
             return _container.GetAllInstances<T>();
-        }
-
-        private void SetupMapperConfiguration(AutoMapper.IMapperConfigurationExpression cfg)
-        {
-            cfg.AddProfile<UserProfile>();
-            cfg.AddProfile<SportsmanConfirmationProfile>();
         }
     }
 }

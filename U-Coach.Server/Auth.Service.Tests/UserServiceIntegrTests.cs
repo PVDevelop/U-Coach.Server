@@ -1,14 +1,4 @@
-﻿using DevOne.Security.Cryptography.BCrypt;
-using MongoDB.Driver;
-using NUnit.Framework;
-using PVDevelop.UCoach.Server.Auth.AutoMapper;
-using PVDevelop.UCoach.Server.Auth.Mongo;
-using PVDevelop.UCoach.Server.Auth.Service;
-using PVDevelop.UCoach.Server.Mapper;
-using PVDevelop.UCoach.Server.Mongo;
-using PVDevelop.UCoach.Server.Timing;
-using Rhino.Mocks;
-using TestMongoUtilities;
+﻿using NUnit.Framework;
 using TestNUnit;
 
 namespace PVDevelop.UCoach.Server.AuthService.Tests
@@ -17,11 +7,6 @@ namespace PVDevelop.UCoach.Server.AuthService.Tests
     [Integration]
     public class UserServiceIntegrTests
     {
-        private static IMapper CreateUserMapper()
-        {
-            return new MapperImpl(cfg => cfg.AddProfile<UserProfile>());
-        }
-
 #warning перенести в репозиторий
         //[Test]
         //public void Create_NewUser_CreatesEncodedAndSavesInDb()

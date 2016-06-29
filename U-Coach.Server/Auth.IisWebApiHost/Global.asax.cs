@@ -1,7 +1,5 @@
 ﻿using Auth.IisWebApiHost;
-using PVDevelop.UCoach.Server.Auth.AutoMapper;
 using PVDevelop.UCoach.Server.Auth.StructureMap;
-using PVDevelop.UCoach.Server.Mapper;
 using PVDevelop.UCoach.Server.Mongo.StructureMap;
 using StructureMap;
 using System.Web;
@@ -26,7 +24,6 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
             {
                 x.AddRegistry<AuthRegistry>();
                 x.AddRegistry<MongoRegistry>();
-                x.For<IMapper>().Add(() => new MapperImpl(cfg => cfg.AddProfile<UserProfile>()));
             });
         }
     }

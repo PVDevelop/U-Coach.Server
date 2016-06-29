@@ -2,10 +2,8 @@
 using System.Linq;
 using MongoDB.Driver;
 using NUnit.Framework;
-using PVDevelop.UCoach.Server.Core.AutoMapper;
 using PVDevelop.UCoach.Server.Core.Domain;
 using PVDevelop.UCoach.Server.Core.Mongo;
-using PVDevelop.UCoach.Server.Mapper;
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Mongo.Exceptions;
 using StructureMap.AutoMocking;
@@ -23,9 +21,6 @@ namespace Core.Mongo.Tests
             initializer.Initialize();
 
             var autoMocker = new RhinoAutoMocker<MongoSportsmanConfirmationRepository>();
-
-            var mapper = new MapperImpl(cfg => cfg.AddProfile<SportsmanConfirmationProfile>());
-            autoMocker.Inject(typeof(IMapper), mapper);
 
             var versionValidator = new MongoCollectionVersionValidatorByClassAttribute(settings);
             autoMocker.Inject(typeof(IMongoCollectionVersionValidator), versionValidator);

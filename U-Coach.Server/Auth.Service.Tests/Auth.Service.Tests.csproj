@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=5.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.0.0\lib\net45\AutoMapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="DevOne.Security.Cryptography.BCrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
       <Private>True</Private>
@@ -72,10 +68,6 @@
     <Compile Include="UserServiceIntegrTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Auth.AutoMapper\Auth.AutoMapper.csproj">
-      <Project>{64cbcda2-ca1b-4516-90b6-d420618bca3a}</Project>
-      <Name>Auth.AutoMapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
       <Project>{fc2614c3-74ed-4e9f-a8b9-98d18a59d0c0}</Project>
       <Name>Auth.Domain</Name>

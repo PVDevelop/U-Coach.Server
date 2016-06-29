@@ -33,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=5.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.0.0\lib\net45\AutoMapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="StructureMap, Version=4.2.0.402, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\structuremap.4.2.0.402\lib\net40\StructureMap.dll</HintPath>
       <Private>True</Private>
@@ -71,10 +67,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Auth.AutoMapper\Auth.AutoMapper.csproj">
-      <Project>{64cbcda2-ca1b-4516-90b6-d420618bca3a}</Project>
-      <Name>Auth.AutoMapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
       <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
       <Name>Auth.Service</Name>
@@ -82,10 +74,6 @@
     <ProjectReference Include="..\Auth.StructureMap\Auth.StructureMap.csproj">
       <Project>{d307b4bb-586b-4f1c-9d2b-ca527fd23778}</Project>
       <Name>Auth.StructureMap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.AutoMapper\Core.AutoMapper.csproj">
-      <Project>{b1a60cce-bc67-456d-a114-0a46f6a1bbea}</Project>
-      <Name>Core.AutoMapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.StructureMap\Core.StructureMap.csproj">
       <Project>{9e71e0f6-66d0-4239-93ca-1cf2f0202851}</Project>

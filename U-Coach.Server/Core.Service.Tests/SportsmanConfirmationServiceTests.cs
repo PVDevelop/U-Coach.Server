@@ -10,34 +10,6 @@ namespace Core.Service.Tests
     [TestFixture]
     public class SportsmanConfirmationServiceTests
     {
-        private static IMapper WithConfirmation(IMapper mapper, CreateSportsmanConfirmationParams userParams)
-        {
-            mapper.
-                Stub(m => m.Map<PVDevelop.UCoach.Server.Auth.WebDto.CreateUserParams>(null)).
-                IgnoreArguments().
-                Return(new PVDevelop.UCoach.Server.Auth.WebDto.CreateUserParams()
-                {
-                    Login = userParams.Login,
-                    Password = userParams.Password
-                });
-
-            return mapper;
-        }
-
-        private static IMapper WithProducer(IMapper mapper, CreateSportsmanConfirmationParams userParams)
-        {
-            mapper.
-                Stub(m => m.Map<ProduceConfirmationKeyParams>(null)).
-                IgnoreArguments().
-                Return(new ProduceConfirmationKeyParams()
-                {
-                    Address = userParams.Address,
-                    ConfirmationKey = userParams.ConfirmationKey
-                });
-
-            return mapper;
-        }
-
         private static IUsersClient CreateUsersClientStub()
         {
             var usersClient = MockRepository.GenerateStub<IUsersClient>();
@@ -63,7 +35,6 @@ namespace Core.Service.Tests
             var service = new SportsmanConfirmationService(
                 client, 
                 MockRepository.GenerateStub<ISportsmanConfirmationRepository>(), 
-                WithConfirmation(MockRepository.GenerateStub<IMapper>(), userParams),
                 MockRepository.GenerateStub<ISportsmanConfirmationProducer>());
 
             service.CreateUser(userParams);
@@ -92,7 +63,6 @@ namespace Core.Service.Tests
             var service = new SportsmanConfirmationService(
                 CreateUsersClientStub(), 
                 rep, 
-                WithConfirmation(MockRepository.GenerateStub<IMapper>(), userParams),
                 MockRepository.GenerateStub<ISportsmanConfirmationProducer>());
 
             service.CreateUser(userParams);
@@ -119,7 +89,6 @@ namespace Core.Service.Tests
             var service = new SportsmanConfirmationService(
                 CreateUsersClientStub(),
                 MockRepository.GenerateStub<ISportsmanConfirmationRepository>(),
-                WithProducer(MockRepository.GenerateStub<IMapper>(), userParams),
                 producer);
 
             service.CreateUser(userParams);

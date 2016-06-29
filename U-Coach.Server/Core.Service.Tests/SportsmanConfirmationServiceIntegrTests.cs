@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using PVDevelop.UCoach.Server.Auth.WebClient;
-using PVDevelop.UCoach.Server.Core.AutoMapper;
 using PVDevelop.UCoach.Server.Core.Mail;
 using PVDevelop.UCoach.Server.Core.Service;
 using PVDevelop.UCoach.Server.Mapper;
@@ -13,11 +12,10 @@ namespace Core.Service.Tests
     //[Integration]
     public class SportsmanConfirmationServiceIntegrTests
     {
+#warning доделать тест
         //[Test]
-        public void CreateUser_UserMailProducer_SendEmail()
+        public void CreateUser_UserMailProducer_SendsEmail()
         {
-            var mapper = new MapperImpl(config => config.AddProfile<SportsmanConfirmationProfile>());
-
             var settings = MockRepository.GenerateStub<IEmailProducerSettings>();
             settings.Stub(s => s.SenderAddress).Return("PVDevelop@yandex.ru");
             settings.Stub(s => s.UserName).Return("PVDevelop@yandex.ru");
@@ -30,7 +28,6 @@ namespace Core.Service.Tests
             var service = new SportsmanConfirmationService(
                 MockRepository.GenerateStub<IUsersClient>(),
                 MockRepository.GenerateStub<ISportsmanConfirmationRepository>(),
-                mapper,
                 mailProducer);
 
             var userParams = new CreateSportsmanConfirmationParams()

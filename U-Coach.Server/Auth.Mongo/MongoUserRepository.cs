@@ -10,20 +10,14 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
     {
         private readonly IMongoRepository<MongoUser> _repository;
         private readonly IMongoCollectionVersionValidator _versionCollectionValidator;
-        private readonly IMapper _mapper;
 
         public MongoUserRepository(
             IMongoRepository<MongoUser> repository,
-            IMongoCollectionVersionValidator versionCollectionValidator,
-            IMapper mapper)
+            IMongoCollectionVersionValidator versionCollectionValidator)
         {
             if (repository == null)
             {
                 throw new ArgumentNullException("repository");
-            }
-            if (mapper == null)
-            {
-                throw new ArgumentNullException("mapper");
             }
             if (versionCollectionValidator == null)
             {
@@ -31,7 +25,6 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             }
 
             _repository = repository;
-            _mapper = mapper;
             _versionCollectionValidator = versionCollectionValidator;
         }
 
@@ -44,7 +37,7 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
 
             _versionCollectionValidator.Validate<MongoUser>();
 
-            var mongoUser = _mapper.Map<MongoUser>(user);
+            var mongoUser = MapperHelper.Map<User, MongoUser>(user);
             _repository.Insert(mongoUser);
         }
 
@@ -56,7 +49,7 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             }
 
             var mongoUser = _repository.Find(u => u.Login == login);
-            return _mapper.Map<User>(mongoUser);
+            return MapperHelper.Map<MongoUser, User>(mongoUser);
         }
 
         public void Update(User user)
@@ -68,7 +61,7 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
 
             _versionCollectionValidator.Validate<MongoUser>();
 
-            var mongoUser = _mapper.Map<MongoUser>(user);
+            var mongoUser = MapperHelper.Map<User, MongoUser>(user);
             _repository.ReplaceOne(u => u.Id == user.Id, mongoUser);
         }
     }
