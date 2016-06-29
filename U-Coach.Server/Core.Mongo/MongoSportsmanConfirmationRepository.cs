@@ -39,10 +39,17 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
             _mapper = mapper;
         }
 
-        public void Insert(ISportsmanConfirmation confirmation)
+        public void Insert(SportsmanConfirmation confirmation)
         {
             _collectionVersionValidator.Validate<MongoSportsmanConfirmation>();
             var mongoConfirmation = _mapper.Map<MongoSportsmanConfirmation>(confirmation);
+            _repository.Insert(mongoConfirmation);
+        }
+
+        public SportsmanConfirmation FindByConfirmationKey(string key)
+        {
+            var mongoConfirmation = _repository.Find(sc => sc.ConfirmationKey == key);
+            return _mapper.Map<SportsmanConfirmation>(mongoConfirmation);
         }
     }
 }

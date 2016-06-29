@@ -6,7 +6,7 @@ namespace PVDevelop.UCoach.Server.Mapper
     {
         private readonly AutoMapper.IMapper _mapper;
 
-        public MapperImpl(Action<AutoMapper.IMapperConfiguration> callback)
+        public MapperImpl(Action<AutoMapper.IMapperConfigurationExpression> callback)
         {
             _mapper = new AutoMapper.MapperConfiguration(callback).CreateMapper();
         }

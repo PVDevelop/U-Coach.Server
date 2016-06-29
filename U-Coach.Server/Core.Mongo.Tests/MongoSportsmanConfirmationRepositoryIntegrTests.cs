@@ -17,6 +17,25 @@ namespace Core.Mongo.Tests
     //[Integration]
     public class MongoSportsmanConfirmationRepositoryIntegrTests
     {
+        private static RhinoAutoMocker<MongoSportsmanConfirmationRepository> CreateAndSetupAutoMocker(IMongoConnectionSettings settings)
+        {
+            var initializer = new MongoSportsmanConfirmationCollectionInitializer(settings, settings);
+            initializer.Initialize();
+
+            var autoMocker = new RhinoAutoMocker<MongoSportsmanConfirmationRepository>();
+
+            var mapper = new MapperImpl(cfg => cfg.AddProfile<SportsmanConfirmationProfile>());
+            autoMocker.Inject(typeof(IMapper), mapper);
+
+            var versionValidator = new MongoCollectionVersionValidatorByClassAttribute(settings);
+            autoMocker.Inject(typeof(IMongoCollectionVersionValidator), versionValidator);
+
+            var repository = new MongoRepository<MongoSportsmanConfirmation>(settings);
+            autoMocker.Inject(typeof(IMongoRepository<MongoSportsmanConfirmation>), repository);
+
+            return autoMocker;
+        }
+
         [Test]
         public void Insert_NotInitialized_ThrowsException()
         {
@@ -31,7 +50,7 @@ namespace Core.Mongo.Tests
                 var repository = new MongoRepository<MongoSportsmanConfirmation>(settings);
                 autoMocker.Inject(typeof(IMongoRepository<MongoSportsmanConfirmation>), repository);
 
-                var confirmation = autoMocker.Get<ISportsmanConfirmation>();
+                var confirmation = SportsmanConfirmationFactory.CreateSportsmanConfirmation("1", "2");
                 Assert.Throws<MongoCollectionNotInitializedException>(() => autoMocker.ClassUnderTest.Insert(confirmation));
             });
         }
@@ -42,18 +61,7 @@ namespace Core.Mongo.Tests
             var settings = TestMongoHelper.CreateSettings();
             TestMongoHelper.WithDb(settings, db =>
             {
-                var initializer = new MongoSportsmanConfirmationCollectionInitializer(settings, settings);
-                initializer.Initialize();
-
-                var autoMocker = new RhinoAutoMocker<MongoSportsmanConfirmationRepository>();
-
-                //var mapper = new MapperImpl(new Action<AutoMapper.IMapperConfiguration>(cfg => cfg.AddProfile<SportsmanConfirmationProfile>()));
-
-                var versionValidator = new MongoCollectionVersionValidatorByClassAttribute(settings);
-                autoMocker.Inject(typeof(IMongoCollectionVersionValidator), versionValidator);
-
-                var repository = new MongoRepository<MongoSportsmanConfirmation>(settings);
-                autoMocker.Inject(typeof(IMongoRepository<MongoSportsmanConfirmation>), repository);
+                var autoMocker = CreateAndSetupAutoMocker(settings);
 
                 var confirmation = SportsmanConfirmationFactory.CreateSportsmanConfirmation("1", "2");
                 autoMocker.ClassUnderTest.Insert(confirmation);
@@ -67,6 +75,37 @@ namespace Core.Mongo.Tests
                 Assert.AreEqual(confirmation.AuthUserId, mongoConfirmation.AuthUserId);
                 Assert.AreEqual(confirmation.ConfirmationKey, mongoConfirmation.ConfirmationKey);
                 Assert.AreEqual(confirmation.State, mongoConfirmation.State);
+            });
+        }
+
+        [Test]
+        public void FindByConfirmationKey_KeyIsValid_ReturnsExpectedSportsman()
+        {
+            var settings = TestMongoHelper.CreateSettings();
+            TestMongoHelper.WithDb(settings, db =>
+            {
+                var autoMocker = CreateAndSetupAutoMocker(settings);
+
+                var mongoConfirmation = new MongoSportsmanConfirmation()
+                {
+                    Id = Guid.NewGuid(),
+                    AuthSystem = SportsmanConfirmationAuthSystem.UCoach,
+                    AuthUserId = "someId",
+                    ConfirmationKey = "confirm_key",
+                    State = SportsmanConfirmationState.WaitingForConfirmation
+                };
+
+                var collecton = MongoHelper.GetCollection<MongoSportsmanConfirmation>(settings);
+                collecton.InsertOne(mongoConfirmation);
+
+                var confirmation = autoMocker.ClassUnderTest.FindByConfirmationKey(mongoConfirmation.ConfirmationKey);
+
+                Assert.NotNull(confirmation);
+                Assert.AreEqual(mongoConfirmation.Id, confirmation.Id);
+                Assert.AreEqual(mongoConfirmation.AuthSystem, confirmation.AuthSystem);
+                Assert.AreEqual(mongoConfirmation.AuthUserId, confirmation.AuthUserId);
+                Assert.AreEqual(mongoConfirmation.ConfirmationKey, confirmation.ConfirmationKey);
+                Assert.AreEqual(mongoConfirmation.State, confirmation.State);
             });
         }
     }

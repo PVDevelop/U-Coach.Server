@@ -4,9 +4,8 @@ using System;
 
 namespace PVDevelop.UCoach.Server.Core.Domain
 {
-    internal class SportsmanConfirmation : 
-        AAggregateRoot,
-        ISportsmanConfirmation
+    public class SportsmanConfirmation : 
+        AAggregateRoot
     {
         public string AuthUserId { get; internal set; }
 
@@ -15,6 +14,8 @@ namespace PVDevelop.UCoach.Server.Core.Domain
         public string ConfirmationKey { get; internal set; }
 
         public SportsmanConfirmationState State { get; private set; }
+
+        internal SportsmanConfirmation() { }
 
         public void Confirm(string confirmationKey)
         {

@@ -77,7 +77,7 @@ namespace Core.Service.Tests
             var confirmKey = "abc";
             var rep = MockRepository.GenerateMock<ISportsmanConfirmationRepository>();
             rep.Expect(r => r.Insert(
-                Arg<ISportsmanConfirmation>.Matches(u => 
+                Arg<SportsmanConfirmation>.Matches(u => 
                     u.State == SportsmanConfirmationState.WaitingForConfirmation &&
                     u.AuthSystem == SportsmanConfirmationAuthSystem.UCoach &&
                     u.ConfirmationKey == confirmKey)));

@@ -55,6 +55,10 @@
       <Project>{306e3c51-e72e-4543-9f58-b65990cc8437}</Project>
       <Name>Core.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{6d80ea1d-b7bf-422a-8577-824cc4a87f2e}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

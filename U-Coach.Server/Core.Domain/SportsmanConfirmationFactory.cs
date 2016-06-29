@@ -4,13 +4,13 @@ namespace PVDevelop.UCoach.Server.Core.Domain
 {
     public static class SportsmanConfirmationFactory
     {
-        public static ISportsmanConfirmation CreateSportsmanConfirmation(
-            string authId,
+        public static SportsmanConfirmation CreateSportsmanConfirmation(
+            string authUserId,
             string confirmationKey)
         {
-            if(authId == null)
+            if(authUserId == null)
             {
-                throw new ArgumentNullException("authId");
+                throw new ArgumentNullException("authUserId");
             }
             if (confirmationKey == null)
             {
@@ -21,7 +21,7 @@ namespace PVDevelop.UCoach.Server.Core.Domain
             {
                 AuthSystem = SportsmanConfirmationAuthSystem.UCoach,
                 ConfirmationKey = confirmationKey,
-                AuthUserId = authId
+                AuthUserId = authUserId
             };
         }
     }

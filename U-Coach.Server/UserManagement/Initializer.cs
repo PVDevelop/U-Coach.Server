@@ -61,7 +61,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
             return _container.GetAllInstances<T>();
         }
 
-        private void SetupMapperConfiguration(AutoMapper.IMapperConfiguration cfg)
+        private void SetupMapperConfiguration(AutoMapper.IMapperConfigurationExpression cfg)
         {
             cfg.AddProfile<UserProfile>();
             cfg.AddProfile<SportsmanConfirmationProfile>();
