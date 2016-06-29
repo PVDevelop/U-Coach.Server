@@ -63,7 +63,6 @@
     <Compile Include="MetaInitializerIntegrTests.cs" />
     <Compile Include="MongoCollectionVersionValidatorByClassAttributeIntegrTests.cs" />
     <Compile Include="MongoHelperTests.cs" />
-    <Compile Include="MongoRepositoryTests.cs" />
     <Compile Include="MongoRepositoryIntegrTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

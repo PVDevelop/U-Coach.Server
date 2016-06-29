@@ -2,7 +2,7 @@
 
 namespace PVDevelop.UCoach.Server.Core.Domain
 {
-    public static class SportsmanConfirmationUserFactory
+    public static class SportsmanConfirmationFactory
     {
         public static ISportsmanConfirmation CreateSportsmanConfirmation(
             string authId,
@@ -21,7 +21,7 @@ namespace PVDevelop.UCoach.Server.Core.Domain
             {
                 AuthSystem = SportsmanConfirmationAuthSystem.UCoach,
                 ConfirmationKey = confirmationKey,
-                AuthId = authId
+                AuthUserId = authId
             };
         }
     }

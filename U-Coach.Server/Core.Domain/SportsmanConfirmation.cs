@@ -8,7 +8,7 @@ namespace PVDevelop.UCoach.Server.Core.Domain
         AAggregateRoot,
         ISportsmanConfirmation
     {
-        public string AuthId { get; internal set; }
+        public string AuthUserId { get; internal set; }
 
         public SportsmanConfirmationAuthSystem AuthSystem { get; internal set; }
 

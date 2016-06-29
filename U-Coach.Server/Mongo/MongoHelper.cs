@@ -3,6 +3,7 @@ using System.Linq;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text;
+using PVDevelop.UCoach.Server.Mongo.Exceptions;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="MongoSportsmanConfirmation.cs" />
     <Compile Include="MongoSportsmanConfirmationCollectionInitializer.cs" />
+    <Compile Include="MongoSportsmanConfirmationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,9 +62,17 @@
       <Project>{306e3c51-e72e-4543-9f58-b65990cc8437}</Project>
       <Name>Core.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Service\Core.Service.csproj">
+      <Project>{4cff0e68-8388-4998-8cca-2495277c3bd7}</Project>
+      <Name>Core.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
       <Name>Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mapper\Mapper.csproj">
+      <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
+      <Name>Mapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mongo\Mongo.csproj">
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>

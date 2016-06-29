@@ -46,7 +46,7 @@ namespace PVDevelop.UCoach.Server.Core.Service
             var webUserParams = _mapper.Map<Auth.WebDto.CreateUserParams>(userParams);
             var authId = _users.Create(webUserParams);
 
-            var confirmation = SportsmanConfirmationUserFactory.CreateSportsmanConfirmation(authId, userParams.ConfirmationKey);
+            var confirmation = SportsmanConfirmationFactory.CreateSportsmanConfirmation(authId, userParams.ConfirmationKey);
             _userRepository.Insert(confirmation);
 
             var producerParams = _mapper.Map<ProduceConfirmationKeyParams>(userParams);

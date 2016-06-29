@@ -1,14 +1,18 @@
-﻿namespace PVDevelop.UCoach.Server.Core.Domain
+﻿using System;
+
+namespace PVDevelop.UCoach.Server.Core.Domain
 {
     /// <summary>
     /// Агрегат подтверждения создания спортсмена
     /// </summary>
     public interface ISportsmanConfirmation
     {
+        Guid Id { get; }
+
         /// <summary>
         /// Идентификатор спортсмена в контексте аутентификации.
         /// </summary>
-        string AuthId { get; }
+        string AuthUserId { get; }
 
         /// <summary>
         /// Система, в которой создан спортсмен.

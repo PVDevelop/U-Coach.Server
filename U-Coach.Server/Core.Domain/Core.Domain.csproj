@@ -46,7 +46,7 @@
     <Compile Include="Exceptions\InvalidConfirmationKeyException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SportsmanConfirmation.cs" />
-    <Compile Include="SportsmanConfirmationUserFactory.cs" />
+    <Compile Include="SportsmanConfirmationFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

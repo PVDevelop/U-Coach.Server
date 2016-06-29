@@ -11,7 +11,7 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
         /// <summary>
         /// Текущая версия документа.
         /// </summary>
-        private const int VERSION = 1;
+        public const int VERSION = 1;
 
         /// <summary>
         /// Идентификатор подтверждения.

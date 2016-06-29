@@ -18,7 +18,7 @@ namespace Auth.Domain.Tests
             var settings = TestMongoHelper.CreateSettings();
             TestMongoHelper.WithDb(settings, db =>
             {
-                var rep = new MongoRepository<TestMongoObj>(settings, MockRepository.GenerateStub<IMongoCollectionVersionValidator>());
+                var rep = new MongoRepository<TestMongoObj>(settings);
 
                 var testObj = new TestMongoObj()
                 {
