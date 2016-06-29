@@ -8,22 +8,23 @@ namespace PVDevelop.UCoach.Server.Core.StructureMap
     {
         public CoreRegistry()
         {
+            For<IMongoConnectionSettings>().
+                Use<MongoConnectionSettings>().
+                Ctor<string>().
+                Is("mongo_core").
+                Named("settings_mongo_core");
+
             For<IMongoInitializer>().
                 Use<MongoCoreUserCollectionInitializer>().
                 Ctor<IMongoConnectionSettings>("metaSettings").
                 IsNamedInstance("settings_mongo_meta").
                 Ctor<IMongoConnectionSettings>("contextSettings").
-                IsNamedInstance("settings_mongo_context");
+                IsNamedInstance("settings_mongo_core");
 
             For<IMongoRepository<MongoCoreUser>>().
                 Use<MongoRepository<MongoCoreUser>>().
                 Ctor<IMongoConnectionSettings>().
-                IsNamedInstance("settings_mongo_context");
-
-            //For<ICoreUserRepository>().
-            //    Use<MongoCoreUserRepository>();
-
-            //For<IUserService>().Use<UserService>();
+                IsNamedInstance("settings_mongo_core");
         }
     }
 }

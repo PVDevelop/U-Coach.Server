@@ -17,12 +17,6 @@ namespace PVDevelop.UCoach.Server.Mongo.StructureMap
                 Ctor<IMongoConnectionSettings>().
                 IsNamedInstance("settings_mongo_meta");
 
-            For<IMongoConnectionSettings>().
-                Use<MongoConnectionSettings>().
-                Ctor<string>().
-                Is("mongo_context").
-                Named("settings_mongo_context");
-
             For<IMongoInitializer>().
                 Use<MongoMetaInitializer>().
                 Ctor<IMongoConnectionSettings>().

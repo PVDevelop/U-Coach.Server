@@ -9,17 +9,23 @@ namespace PVDevelop.UCoach.Server.Auth.StructureMap
     {
         public AuthRegistry()
         {
+            For<IMongoConnectionSettings>().
+                Use<MongoConnectionSettings>().
+                Ctor<string>().
+                Is("mongo_auth").
+                Named("settings_mongo_auth");
+
             For<IMongoInitializer>().
                 Use<MongoUserCollectionInitializer>().
                 Ctor<IMongoConnectionSettings>("metaSettings").
                 IsNamedInstance("settings_mongo_meta").
                 Ctor<IMongoConnectionSettings>("contextSettings").
-                IsNamedInstance("settings_mongo_context");
+                IsNamedInstance("settings_mongo_auth");
 
             For<IMongoRepository<MongoUser>>().
                 Use<MongoRepository<MongoUser>>().
                 Ctor<IMongoConnectionSettings>().
-                IsNamedInstance("settings_mongo_context");
+                IsNamedInstance("settings_mongo_auth");
 
             For<IUserRepository>().
                 Use<MongoUserRepository>();
