@@ -1,7 +1,7 @@
 ﻿namespace PVDevelop.UCoach.Server.Core.Service
 {
     /// <summary>
-    /// Параметры доставки ключа подтверждения создания пользователя.
+    /// Параметры доставки ключа подтверждения создания спортсмена.
     /// </summary>
     public class ProduceConfirmationKeyParams
     {

@@ -1,24 +1,24 @@
 ﻿namespace PVDevelop.UCoach.Server.Core.Service
 {
-    public class CreateUCoachUserParams
+    public class CreateSportsmanConfirmationParams
     {
         /// <summary>
-        /// Логин пользователя
+        /// Логин спортсмена
         /// </summary>
         public string Login { get; set; }
 
         /// <summary>
-        /// Пароль пользователя
+        /// Пароль спортсмена
         /// </summary>
         public string Password { get; set; }
 
         /// <summary>
-        /// Ключ подтверждения создания пользователя
+        /// Ключ подтверждения создания спортсмена
         /// </summary>
         public string ConfirmationKey { get; set; }
 
         /// <summary>
-        /// Адрес доставки ключа пользователя
+        /// Адрес доставки ключа спортсмена
         /// </summary>
         public string Address { get; set; }
     }

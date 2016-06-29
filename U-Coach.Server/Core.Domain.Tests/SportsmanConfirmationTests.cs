@@ -6,23 +6,23 @@ using System;
 namespace Core.Domain.Tests
 {
     [TestFixture]
-    public class CoreUserTests
+    public class SportsmanConfirmationTests
     {
         [Test]
         public void Confirm_ValidKeyAndWaitingForConfirm_SetsConfirmed()
         {
             var key = Guid.NewGuid().ToString();
-            var user = CoreUserFactory.CreateUCoachUser("1", key);
+            var user = SportsmanConfirmationUserFactory.CreateSportsmanConfirmation("1", key);
             user.Confirm(key);
 
-            Assert.AreEqual(CoreUserState.Confirmed, user.State);
+            Assert.AreEqual(SportsmanConfirmationState.Confirmed, user.State);
         }
 
         [Test]
         public void Confirm_InvalidKeyAndWaitingForConfirm_ThrowsException()
         {
             var key = Guid.NewGuid().ToString();
-            var user = CoreUserFactory.CreateUCoachUser("2", key);
+            var user = SportsmanConfirmationUserFactory.CreateSportsmanConfirmation("2", key);
             Assert.Throws<InvalidConfirmationKeyException>(() => user.Confirm(Guid.NewGuid().ToString()));
         }
     }

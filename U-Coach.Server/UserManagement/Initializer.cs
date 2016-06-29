@@ -41,7 +41,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
             _container = new Container(x =>
             {
                 x.AddRegistry<AuthRegistry>();
-                x.AddRegistry<CoreRegistry>();
+                x.AddRegistry<SportsmanConfirmationRegistry>();
                 x.AddRegistry<MongoRegistry>();
                 x.For<IMapper>().Add(() => new MapperImpl(SetupMapperConfiguration));
 
@@ -64,7 +64,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
         private void SetupMapperConfiguration(AutoMapper.IMapperConfiguration cfg)
         {
             cfg.AddProfile<UserProfile>();
-            cfg.AddProfile<CoreUserProfile>();
+            cfg.AddProfile<SportsmanConfirmationProfile>();
         }
     }
 }

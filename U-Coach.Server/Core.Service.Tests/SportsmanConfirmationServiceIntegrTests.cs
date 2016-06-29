@@ -11,12 +11,12 @@ namespace Core.Service.Tests
 {
     [TestFixture]
     //[Integration]
-    public class CoreUserServiceIntegrTests
+    public class SportsmanConfirmationServiceIntegrTests
     {
         //[Test]
         public void CreateUser_UserMailProducer_SendEmail()
         {
-            var mapper = new MapperImpl(config => config.AddProfile<CoreUserProfile>());
+            var mapper = new MapperImpl(config => config.AddProfile<SportsmanConfirmationProfile>());
 
             var settings = MockRepository.GenerateStub<IEmailProducerSettings>();
             settings.Stub(s => s.SenderAddress).Return("PVDevelop@yandex.ru");
@@ -25,15 +25,15 @@ namespace Core.Service.Tests
             settings.Stub(s => s.SmtpHost).Return("smtp.yandex.ru");
             settings.Stub(s => s.SmtpPort).Return(25);
 
-            var mailProducer = new EmailCoreUserConfirmationProducer(settings);
+            var mailProducer = new EmailConfirmationProducer(settings);
 
-            var service = new CoreUserService(
+            var service = new SportsmanConfirmationService(
                 MockRepository.GenerateStub<IUsersClient>(),
-                MockRepository.GenerateStub<ICoreUserRepository>(),
+                MockRepository.GenerateStub<ISportsmanConfirmationRepository>(),
                 mapper,
                 mailProducer);
 
-            var userParams = new CreateUCoachUserParams()
+            var userParams = new CreateSportsmanConfirmationParams()
             {
                 Address = "beetlewar@mail.ru",
                 ConfirmationKey = "some_key"

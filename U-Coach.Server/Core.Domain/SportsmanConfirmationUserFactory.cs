@@ -2,9 +2,9 @@
 
 namespace PVDevelop.UCoach.Server.Core.Domain
 {
-    public static class CoreUserFactory
+    public static class SportsmanConfirmationUserFactory
     {
-        public static ICoreUser CreateUCoachUser(
+        public static ISportsmanConfirmation CreateSportsmanConfirmation(
             string authId,
             string confirmationKey)
         {
@@ -17,9 +17,9 @@ namespace PVDevelop.UCoach.Server.Core.Domain
                 throw new ArgumentNullException("confirmationKey");
             }
 
-            return new CoreUser
+            return new SportsmanConfirmation
             {
-                AuthSystem = CoreUserAuthSystem.UCoach,
+                AuthSystem = SportsmanConfirmationAuthSystem.UCoach,
                 ConfirmationKey = confirmationKey,
                 AuthId = authId
             };

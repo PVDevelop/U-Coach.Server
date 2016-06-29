@@ -4,9 +4,9 @@ using System;
 
 namespace PVDevelop.UCoach.Server.Core.Mongo
 {
-    [MongoCollection("CoreUsers")]
+    [MongoCollection("SportsmanConfirmations")]
     [MongoDataVersion(VERSION)]
-    public class MongoCoreUser
+    public class MongoSportsmanConfirmation
     {
         /// <summary>
         /// Текущая версия документа.
@@ -14,7 +14,7 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
         private const int VERSION = 1;
 
         /// <summary>
-        /// Идентификатор пользователя.
+        /// Идентификатор подтверждения.
         /// </summary>
         public Guid Id { get; set; }
 
@@ -27,13 +27,13 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
         /// <summary>
         /// Система аутентификации.
         /// </summary>
-        public CoreUserAuthSystem AuthSystem { get; set; }
+        public SportsmanConfirmationAuthSystem AuthSystem { get; set; }
 
         [MongoIndexName("auth_id")]
         /// <summary>
         /// Идентификатор пользователя в системе аутентификации.
         /// </summary>
-        public string AuthId { get; set; }
+        public string AuthUserId { get; set; }
 
         /// <summary>
         /// Ключ подтверждения.
@@ -41,11 +41,11 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
         public string ConfirmationKey { get; set; }
 
         /// <summary>
-        /// Состояние пользователя.
+        /// Состояние подтверждения.
         /// </summary>
-        public CoreUserState State { get; set; }
+        public SportsmanConfirmationState State { get; set; }
 
-        public MongoCoreUser()
+        public MongoSportsmanConfirmation()
         {
             Version = VERSION;
         }

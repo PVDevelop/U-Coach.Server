@@ -52,9 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoreUserServiceIntegrTests.cs" />
+    <Compile Include="SportsmanConfirmationServiceIntegrTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CoreUserServiceTests.cs" />
+    <Compile Include="SportsmanConfirmationServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Auth.WebClient\Auth.WebClient.csproj">

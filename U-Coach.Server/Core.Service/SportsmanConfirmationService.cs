@@ -5,18 +5,18 @@ using PVDevelop.UCoach.Server.Core.Domain;
 
 namespace PVDevelop.UCoach.Server.Core.Service
 {
-    public class CoreUserService
+    public class SportsmanConfirmationService
     {
         private readonly IUsersClient _users;
         private readonly IMapper _mapper;
-        private readonly ICoreUserRepository _userRepository;
-        private readonly ICoreUserConfirmationProducer _userConfirmationProducer;
+        private readonly ISportsmanConfirmationRepository _userRepository;
+        private readonly ISportsmanConfirmationProducer _userConfirmationProducer;
 
-        public CoreUserService(
+        public SportsmanConfirmationService(
             IUsersClient users,
-            ICoreUserRepository userRepository,
+            ISportsmanConfirmationRepository userRepository,
             IMapper mapper,
-            ICoreUserConfirmationProducer userConfirmationProducer)
+            ISportsmanConfirmationProducer userConfirmationProducer)
         {
             if (users == null)
             {
@@ -41,13 +41,13 @@ namespace PVDevelop.UCoach.Server.Core.Service
             _userConfirmationProducer = userConfirmationProducer;
         }
 
-        public void CreateUser(CreateUCoachUserParams userParams)
+        public void CreateUser(CreateSportsmanConfirmationParams userParams)
         {
             var webUserParams = _mapper.Map<Auth.WebDto.CreateUserParams>(userParams);
             var authId = _users.Create(webUserParams);
 
-            var coreUser = CoreUserFactory.CreateUCoachUser(authId, userParams.ConfirmationKey);
-            _userRepository.Insert(coreUser);
+            var confirmation = SportsmanConfirmationUserFactory.CreateSportsmanConfirmation(authId, userParams.ConfirmationKey);
+            _userRepository.Insert(confirmation);
 
             var producerParams = _mapper.Map<ProduceConfirmationKeyParams>(userParams);
             _userConfirmationProducer.Produce(producerParams);

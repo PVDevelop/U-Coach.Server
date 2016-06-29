@@ -5,11 +5,11 @@ using System.Net.Mail;
 
 namespace PVDevelop.UCoach.Server.Core.Mail
 {
-    public class EmailCoreUserConfirmationProducer : ICoreUserConfirmationProducer
+    public class EmailConfirmationProducer : ISportsmanConfirmationProducer
     {
         private readonly IEmailProducerSettings _settings;
 
-        public EmailCoreUserConfirmationProducer(IEmailProducerSettings settings)
+        public EmailConfirmationProducer(IEmailProducerSettings settings)
         {
             if(settings == null)
             {

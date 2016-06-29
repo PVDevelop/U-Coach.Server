@@ -3,12 +3,12 @@
 namespace PVDevelop.UCoach.Server.Core.Service
 {
     /// <summary>
-    /// Осуществляет доставку ключа подтверждения пользователя.
+    /// Осуществляет доставку ключа подтверждения спортсмена.
     /// </summary>
-    public interface ICoreUserConfirmationProducer
+    public interface ISportsmanConfirmationProducer
     {
         /// <summary>
-        /// Доставляет ключ пользователя.
+        /// Доставляет ключ спортсмена.
         /// </summary>
         /// <param name="user">Параметры доставки ключа.</param>
         void Produce(ProduceConfirmationKeyParams user);

@@ -4,9 +4,9 @@ using StructureMap;
 
 namespace PVDevelop.UCoach.Server.Core.StructureMap
 {
-    public class CoreRegistry : Registry
+    public class SportsmanConfirmationRegistry : Registry
     {
-        public CoreRegistry()
+        public SportsmanConfirmationRegistry()
         {
             For<IMongoConnectionSettings>().
                 Use<MongoConnectionSettings>().
@@ -15,14 +15,14 @@ namespace PVDevelop.UCoach.Server.Core.StructureMap
                 Named("settings_mongo_core");
 
             For<IMongoInitializer>().
-                Use<MongoCoreUserCollectionInitializer>().
+                Use<MongoSportsmanConfirmationCollectionInitializer>().
                 Ctor<IMongoConnectionSettings>("metaSettings").
                 IsNamedInstance("settings_mongo_meta").
                 Ctor<IMongoConnectionSettings>("contextSettings").
                 IsNamedInstance("settings_mongo_core");
 
-            For<IMongoRepository<MongoCoreUser>>().
-                Use<MongoRepository<MongoCoreUser>>().
+            For<IMongoRepository<MongoSportsmanConfirmation>>().
+                Use<MongoRepository<MongoSportsmanConfirmation>>().
                 Ctor<IMongoConnectionSettings>().
                 IsNamedInstance("settings_mongo_core");
         }

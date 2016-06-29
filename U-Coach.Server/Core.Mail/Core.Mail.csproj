@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmailCoreUserConfirmationProducer.cs" />
+    <Compile Include="EmailConfirmationProducer.cs" />
     <Compile Include="IEmailProducerSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

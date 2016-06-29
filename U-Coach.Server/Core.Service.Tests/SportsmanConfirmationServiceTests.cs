@@ -8,9 +8,9 @@ using Rhino.Mocks;
 namespace Core.Service.Tests
 {
     [TestFixture]
-    public class CoreUserServiceTests
+    public class SportsmanConfirmationServiceTests
     {
-        private static IMapper WithCoreUser(IMapper mapper, CreateUCoachUserParams userParams)
+        private static IMapper WithConfirmation(IMapper mapper, CreateSportsmanConfirmationParams userParams)
         {
             mapper.
                 Stub(m => m.Map<PVDevelop.UCoach.Server.Auth.WebDto.CreateUserParams>(null)).
@@ -24,7 +24,7 @@ namespace Core.Service.Tests
             return mapper;
         }
 
-        private static IMapper WithProducer(IMapper mapper, CreateUCoachUserParams userParams)
+        private static IMapper WithProducer(IMapper mapper, CreateSportsmanConfirmationParams userParams)
         {
             mapper.
                 Stub(m => m.Map<ProduceConfirmationKeyParams>(null)).
@@ -54,17 +54,17 @@ namespace Core.Service.Tests
                 Expect(c => c.Create(Arg<PVDevelop.UCoach.Server.Auth.WebDto.CreateUserParams>.Matches(p=> p.Login == "login1" && p.Password == "pwd1"))).
                 Return("2");
 
-            var userParams = new CreateUCoachUserParams()
+            var userParams = new CreateSportsmanConfirmationParams()
             {
                 Login = "login1",
                 Password = "pwd1",
                 ConfirmationKey = "someKey"
             };
-            var service = new CoreUserService(
+            var service = new SportsmanConfirmationService(
                 client, 
-                MockRepository.GenerateStub<ICoreUserRepository>(), 
-                WithCoreUser(MockRepository.GenerateStub<IMapper>(), userParams),
-                MockRepository.GenerateStub<ICoreUserConfirmationProducer>());
+                MockRepository.GenerateStub<ISportsmanConfirmationRepository>(), 
+                WithConfirmation(MockRepository.GenerateStub<IMapper>(), userParams),
+                MockRepository.GenerateStub<ISportsmanConfirmationProducer>());
 
             service.CreateUser(userParams);
 
@@ -75,25 +75,25 @@ namespace Core.Service.Tests
         public void CreateUser_MockUserRepository_CallsInsert()
         {
             var confirmKey = "abc";
-            var rep = MockRepository.GenerateMock<ICoreUserRepository>();
+            var rep = MockRepository.GenerateMock<ISportsmanConfirmationRepository>();
             rep.Expect(r => r.Insert(
-                Arg<ICoreUser>.Matches(u => 
-                    u.State == CoreUserState.WaitingForConfirmation &&
-                    u.AuthSystem == CoreUserAuthSystem.UCoach &&
+                Arg<ISportsmanConfirmation>.Matches(u => 
+                    u.State == SportsmanConfirmationState.WaitingForConfirmation &&
+                    u.AuthSystem == SportsmanConfirmationAuthSystem.UCoach &&
                     u.ConfirmationKey == confirmKey)));
 
-            var userParams = new CreateUCoachUserParams()
+            var userParams = new CreateSportsmanConfirmationParams()
             {
                 Login = "l1",
                 Password = "p1",
                 ConfirmationKey = confirmKey
             };
 
-            var service = new CoreUserService(
+            var service = new SportsmanConfirmationService(
                 CreateUsersClientStub(), 
                 rep, 
-                WithCoreUser(MockRepository.GenerateStub<IMapper>(), userParams),
-                MockRepository.GenerateStub<ICoreUserConfirmationProducer>());
+                WithConfirmation(MockRepository.GenerateStub<IMapper>(), userParams),
+                MockRepository.GenerateStub<ISportsmanConfirmationProducer>());
 
             service.CreateUser(userParams);
 
@@ -104,21 +104,21 @@ namespace Core.Service.Tests
         public void CreateUser_MockProducer_CallsProduce()
         {
             var confirmKey = "cde";
-            var producer = MockRepository.GenerateMock<ICoreUserConfirmationProducer>();
+            var producer = MockRepository.GenerateMock<ISportsmanConfirmationProducer>();
             producer.Expect(r => r.Produce(
                 Arg<ProduceConfirmationKeyParams>.Matches(p =>
                     p.ConfirmationKey == confirmKey &&
                     p.Address == "kuda-to")));
 
-            var userParams = new CreateUCoachUserParams()
+            var userParams = new CreateSportsmanConfirmationParams()
             {
                 ConfirmationKey = confirmKey,
                 Address = "kuda-to"
             };
 
-            var service = new CoreUserService(
+            var service = new SportsmanConfirmationService(
                 CreateUsersClientStub(),
-                MockRepository.GenerateStub<ICoreUserRepository>(),
+                MockRepository.GenerateStub<ISportsmanConfirmationRepository>(),
                 WithProducer(MockRepository.GenerateStub<IMapper>(), userParams),
                 producer);
 

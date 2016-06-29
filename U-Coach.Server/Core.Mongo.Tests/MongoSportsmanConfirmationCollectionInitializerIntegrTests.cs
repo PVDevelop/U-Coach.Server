@@ -10,7 +10,7 @@ namespace Core.Mongo.Tests
 {
     [TestFixture]
     //[Integration]
-    public class MongoCoreUserCollectionInitializerIntegrTests
+    public class MongoSportsmanConfirmationCollectionInitializerIntegrTests
     {
         [Test]
         public void Initialize_NotInitialized_Initializes()
@@ -21,16 +21,16 @@ namespace Core.Mongo.Tests
                 var metaSettings = TestMongoHelper.CreateSettings();
                 TestMongoHelper.WithDb(metaSettings, metaDb =>
                 {
-                    var initializer = new MongoCoreUserCollectionInitializer(
+                    var initializer = new MongoSportsmanConfirmationCollectionInitializer(
                         metaSettings: metaSettings,
                         contextSettings: contextSettings);
                     initializer.Initialize();
 
                     // проверяем индексы
-                    var userCollection = MongoHelper.GetCollection<MongoCoreUser>(contextSettings);
+                    var userCollection = MongoHelper.GetCollection<MongoSportsmanConfirmation>(contextSettings);
 
-                    var indexAuthSystemName = MongoHelper.GetIndexName<MongoCoreUser>(nameof(MongoCoreUser.AuthSystem));
-                    var indexAuthIdName = MongoHelper.GetIndexName<MongoCoreUser>(nameof(MongoCoreUser.AuthId));
+                    var indexAuthSystemName = MongoHelper.GetIndexName<MongoSportsmanConfirmation>(nameof(MongoSportsmanConfirmation.AuthSystem));
+                    var indexAuthIdName = MongoHelper.GetIndexName<MongoSportsmanConfirmation>(nameof(MongoSportsmanConfirmation.AuthUserId));
                     var indexName = string.Format("{0}.{1}", indexAuthSystemName, indexAuthIdName);
 
                     var authSystemIndex =
@@ -45,8 +45,8 @@ namespace Core.Mongo.Tests
 
                     // проверяем версию
                     var versionCollection = MongoHelper.GetCollection<CollectionVersion>(metaSettings);
-                    var userCollectionName = MongoHelper.GetCollectionName<MongoCoreUser>();
-                    var userCollectionVersion = MongoHelper.GetDataVersion<MongoCoreUser>();
+                    var userCollectionName = MongoHelper.GetCollectionName<MongoSportsmanConfirmation>();
+                    var userCollectionVersion = MongoHelper.GetDataVersion<MongoSportsmanConfirmation>();
                     var ver =
                         versionCollection.Find(col => col.Name == userCollectionName && col.TargetVersion == userCollectionVersion).SingleOrDefault();
                     Assert.NotNull(ver);
@@ -66,7 +66,7 @@ namespace Core.Mongo.Tests
                     var metaInitializer = new MongoMetaInitializer(metaSettings);
                     metaInitializer.Initialize();
 
-                    var userInitializer = new MongoCoreUserCollectionInitializer(
+                    var userInitializer = new MongoSportsmanConfirmationCollectionInitializer(
                         metaSettings: metaSettings, 
                         contextSettings: contextSettings);
 

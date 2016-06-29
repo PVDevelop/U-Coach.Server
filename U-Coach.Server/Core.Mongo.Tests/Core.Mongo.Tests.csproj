@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MongoCoreUserCollectionInitializerIntegrTests.cs" />
+    <Compile Include="MongoSportsmanConfirmationCollectionInitializerIntegrTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

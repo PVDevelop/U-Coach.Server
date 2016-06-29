@@ -4,17 +4,17 @@ using System;
 
 namespace PVDevelop.UCoach.Server.Core.Domain
 {
-    internal class CoreUser : 
+    internal class SportsmanConfirmation : 
         AAggregateRoot,
-        ICoreUser
+        ISportsmanConfirmation
     {
         public string AuthId { get; internal set; }
 
-        public CoreUserAuthSystem AuthSystem { get; internal set; }
+        public SportsmanConfirmationAuthSystem AuthSystem { get; internal set; }
 
         public string ConfirmationKey { get; internal set; }
 
-        public CoreUserState State { get; private set; }
+        public SportsmanConfirmationState State { get; private set; }
 
         public void Confirm(string confirmationKey)
         {
@@ -23,7 +23,7 @@ namespace PVDevelop.UCoach.Server.Core.Domain
                 throw new InvalidConfirmationKeyException();
             }
 
-            State = CoreUserState.Confirmed;
+            State = SportsmanConfirmationState.Confirmed;
         }
     }
 }

@@ -5,13 +5,13 @@ using MongoDB.Driver;
 
 namespace PVDevelop.UCoach.Server.Core.Mongo
 {
-    public class MongoCoreUserCollectionInitializer : IMongoInitializer
+    public class MongoSportsmanConfirmationCollectionInitializer : IMongoInitializer
     {
         private readonly IMongoConnectionSettings _metaSettings;
         private readonly IMongoConnectionSettings _contextSettings;
-        private readonly ILogger _logger = LoggerFactory.CreateLogger<MongoCoreUserCollectionInitializer>();
+        private readonly ILogger _logger = LoggerFactory.CreateLogger<MongoSportsmanConfirmationCollectionInitializer>();
 
-        public MongoCoreUserCollectionInitializer(
+        public MongoSportsmanConfirmationCollectionInitializer(
             IMongoConnectionSettings metaSettings,
             IMongoConnectionSettings contextSettings)
         {
@@ -36,15 +36,15 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
         private void InitUserCollection()
         {
             _logger.Debug(
-                "Инициализирую коллекцию пользователей ядра. Параметры подключения: {0}.",
+                "Инициализирую коллекцию подтверждения спортсменов. Параметры подключения: {0}.",
                 MongoHelper.SettingsToString(_contextSettings));
 
-            var collection = MongoHelper.GetCollection<MongoCoreUser>(_contextSettings);
+            var collection = MongoHelper.GetCollection<MongoSportsmanConfirmation>(_contextSettings);
 
-            var index = Builders<MongoCoreUser>.IndexKeys.Ascending(u => u.AuthSystem).Ascending(u=>u.AuthId);
-            var indexName = MongoHelper.GetCompoundIndexName<MongoCoreUser>(
-                nameof(MongoCoreUser.AuthSystem), 
-                nameof(MongoCoreUser.AuthId));
+            var index = Builders<MongoSportsmanConfirmation>.IndexKeys.Ascending(u => u.AuthSystem).Ascending(u=>u.AuthUserId);
+            var indexName = MongoHelper.GetCompoundIndexName<MongoSportsmanConfirmation>(
+                nameof(MongoSportsmanConfirmation.AuthSystem), 
+                nameof(MongoSportsmanConfirmation.AuthUserId));
 
             var options = new CreateIndexOptions()
             {
@@ -54,21 +54,21 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
 
             collection.Indexes.CreateOne(index, options);
 
-            _logger.Debug("Инициализация коллекции пользователей прошла успешно.");
+            _logger.Debug("Инициализация коллекции подтверждения спортсменов прошла успешно.");
         }
 
         private void InitVersionCollection()
         {
             _logger.Debug(
-                "Инициализирую метаданные пользователей. Параметры подключения meta: {0}, context: {1}.",
+                "Инициализирую метаданные подтверждения спортсменов. Параметры подключения meta: {0}, context: {1}.",
                 MongoHelper.SettingsToString(_metaSettings),
                 MongoHelper.SettingsToString(_contextSettings));
 
             var collection = MongoHelper.GetCollection<CollectionVersion>(_metaSettings);
             var collectionVersion = new CollectionVersion()
             {
-                Name = MongoHelper.GetCollectionName<MongoCoreUser>(),
-                TargetVersion = MongoHelper.GetDataVersion<MongoCoreUser>()
+                Name = MongoHelper.GetCollectionName<MongoSportsmanConfirmation>(),
+                TargetVersion = MongoHelper.GetDataVersion<MongoSportsmanConfirmation>()
             };
 
             var options = new UpdateOptions()
@@ -81,7 +81,7 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
                 collection.ReplaceOne(cv => cv.Name == collectionVersion.Name, collectionVersion, options);
             }
 
-            _logger.Debug("Инициализация метаданных пользователей прошла успешно.");
+            _logger.Debug("Инициализация метаданных подтверждения спортсменов прошла успешно.");
         }
     }
 }

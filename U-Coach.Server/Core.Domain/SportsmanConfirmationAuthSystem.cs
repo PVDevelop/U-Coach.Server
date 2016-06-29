@@ -1,9 +1,9 @@
 ﻿namespace PVDevelop.UCoach.Server.Core.Domain
 {
     /// <summary>
-    /// Система аутентификации пользователя
+    /// Система аутентификации спортсмена
     /// </summary>
-    public enum CoreUserAuthSystem
+    public enum SportsmanConfirmationAuthSystem
     {
         UCoach  = 0
     }

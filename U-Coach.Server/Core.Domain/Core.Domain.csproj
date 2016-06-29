@@ -40,13 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoreUserAuthSystem.cs" />
-    <Compile Include="CoreUserState.cs" />
-    <Compile Include="ICoreUser.cs" />
+    <Compile Include="SportsmanConfirmationAuthSystem.cs" />
+    <Compile Include="SportsmanConfirmationState.cs" />
+    <Compile Include="ISportsmanConfirmation.cs" />
     <Compile Include="Exceptions\InvalidConfirmationKeyException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CoreUser.cs" />
-    <Compile Include="CoreUserFactory.cs" />
+    <Compile Include="SportsmanConfirmation.cs" />
+    <Compile Include="SportsmanConfirmationUserFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
