@@ -14,14 +14,14 @@ namespace AuthService.Tests
         [TestCase("  ")]
         public void Ctor_EmptyLogin_ThrowsException(string login)
         {
-            Assert.Throws(typeof(LoginNotSetException), () => UserFactory.CreateUser(login));
+            Assert.Throws(typeof(LoginNotSetException), () => UserFactory.CreateUser(login, "pwd"));
         }
 
         [Test]
         public void Ctor_ValidLogin_SetsCreationTime()
         {
             UtcTime.SetUtcNow();
-            var user = UserFactory.CreateUser("u");
+            var user = UserFactory.CreateUser("u", "pwd");
             Assert.AreEqual(UtcTime.UtcNow, user.CreationTime);
         }
 
@@ -30,23 +30,20 @@ namespace AuthService.Tests
         [TestCase("  ")]
         public void SetPassword_InvalidPasswordFormat_ThrowsException(string password)
         {
-            var user = UserFactory.CreateUser("a");
-            Assert.Throws(typeof(InvalidPasswordFormatException), () => user.SetPassword(password));
+            Assert.Throws(typeof(InvalidPasswordFormatException), () => UserFactory.CreateUser("a", password));
         }
 
         [Test]
         public void Logon_InvalidPassword_ThrowsException()
         {
-            var user = UserFactory.CreateUser("abc");
-            user.SetPassword("pwd");
+            var user = UserFactory.CreateUser("abc", "pwd");
             Assert.Throws(typeof(InvalidPasswordException), () => user.Logon("invalid_password"));
         }
 
         [Test]
         public void Logon_ValidPassword_SetsLoggedIn()
         {
-            var user = UserFactory.CreateUser("abc");
-            user.SetPassword("pwd");
+            var user = UserFactory.CreateUser("abc", "pwd");
             user.Logon("pwd");
             Assert.IsTrue(user.IsLoggedIn);
         }
@@ -54,9 +51,8 @@ namespace AuthService.Tests
         [Test]
         public void Logon_ValidPassword_ReturnsExpectedToken()
         {
-            var user = UserFactory.CreateUser("u");
+            var user = UserFactory.CreateUser("u", "pwd123");
 
-            user.SetPassword("pwd123");
             var token = user.Logon("pwd123");
 
             Assert.IsTrue(BCryptHelper.CheckPassword(user.Password, token));
@@ -66,8 +62,7 @@ namespace AuthService.Tests
         public void Logon_ValidPassword_SetsCurrentAuthenticationTime()
         {
             UtcTime.SetUtcNow();
-            var user = UserFactory.CreateUser("abc");
-            user.SetPassword("pwd3");
+            var user = UserFactory.CreateUser("abc", "pwd3");
             user.Logon("pwd3");
             Assert.AreEqual(UtcTime.UtcNow, user.LastAuthenticationTime);
         }
@@ -75,8 +70,7 @@ namespace AuthService.Tests
         [Test]
         public void Logout_UserIsLoggedIn_SetsNotLoggedIn()
         {
-            var user = UserFactory.CreateUser("aaa");
-            user.SetPassword("pwd");
+            var user = UserFactory.CreateUser("aaa", "pwd");
             user.Logon("pwd");
             user.Logout("pwd");
             Assert.IsFalse(user.IsLoggedIn);
@@ -85,8 +79,7 @@ namespace AuthService.Tests
         [Test]
         public void Logout_UserIsLoggedInButInvalidPassword_ThrowsException()
         {
-            var user = UserFactory.CreateUser("aaa");
-            user.SetPassword("pwd");
+            var user = UserFactory.CreateUser("aaa", "pwd");
             user.Logon("pwd");
             Assert.Throws(typeof(InvalidPasswordException), () => user.Logout("invalid"));
         }
@@ -94,8 +87,7 @@ namespace AuthService.Tests
         [Test]
         public void ValidateToken_ValidToken_DoesNothing()
         {
-            var u = UserFactory.CreateUser("u");
-            u.SetPassword("p1");
+            var u = UserFactory.CreateUser("u", "p1");
             var token = u.Logon("p1");
             u.ValidateToken(token);
         }
@@ -103,8 +95,7 @@ namespace AuthService.Tests
         [Test]
         public void ValidateToken_InvalidToken_ThrowsException()
         {
-            var u = UserFactory.CreateUser("u");
-            u.SetPassword("p1");
+            var u = UserFactory.CreateUser("u", "p1");
             u.Logon("p1");
             Assert.Throws(typeof(InvalidTokenException), () => u.ValidateToken("abc"));
         }
@@ -112,8 +103,7 @@ namespace AuthService.Tests
         [Test]
         public void ValidateToken_UserIsNotLoggedIn_ThrowsException()
         {
-            var u = UserFactory.CreateUser("aaa");
-            u.SetPassword("p2");
+            var u = UserFactory.CreateUser("aaa", "p2");
             var token = u.Logon("p2");
             u.Logout("p2");
             Assert.Throws(typeof(NotLoggedInException), () => u.ValidateToken(token));

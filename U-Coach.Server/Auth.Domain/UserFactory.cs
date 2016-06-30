@@ -10,18 +10,22 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
 {
     public static class UserFactory
     {
-        public static User CreateUser(string login)
+        public static User CreateUser(string login, string password)
         {
             if(string.IsNullOrWhiteSpace(login))
             {
                 throw new LoginNotSetException();
             }
 
-            return new User()
+            var user = new User()
             {
                 Login = login,
                 CreationTime = UtcTime.UtcNow
             };
+
+            user.SetPassword(password);
+
+            return user;
         }
     }
 }

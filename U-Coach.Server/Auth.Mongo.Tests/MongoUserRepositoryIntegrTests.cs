@@ -37,7 +37,7 @@ namespace Auth.Mongo.Tests
                 var validator = new MongoCollectionVersionValidatorByClassAttribute(settings);
                 autoMocker.Inject(typeof(IMongoCollectionVersionValidator), validator);
 
-                var user = UserFactory.CreateUser("login");
+                var user = UserFactory.CreateUser("login", "pwd");
                 Assert.Throws<MongoCollectionNotInitializedException>(() => autoMocker.ClassUnderTest.Insert(user));
             });
         }
@@ -53,8 +53,7 @@ namespace Auth.Mongo.Tests
                 var mongoRepository = new MongoRepository<MongoUser>(settings);
                 autoMocker.Inject(typeof(IMongoRepository<MongoUser>), mongoRepository);
 
-                var user = UserFactory.CreateUser("new_user");
-                user.SetPassword("pwd");
+                var user = UserFactory.CreateUser("new_user", "pwd");
                 user.Logon("pwd");
 
                 autoMocker.ClassUnderTest.Insert(user);
@@ -77,7 +76,7 @@ namespace Auth.Mongo.Tests
                 var validator = new MongoCollectionVersionValidatorByClassAttribute(settings);
                 autoMocker.Inject(typeof(IMongoCollectionVersionValidator), validator);
 
-                var user = UserFactory.CreateUser("login");
+                var user = UserFactory.CreateUser("login", "pwd");
                 Assert.Throws<MongoCollectionNotInitializedException>(() => autoMocker.ClassUnderTest.Update(user));
             });
         }
@@ -93,8 +92,7 @@ namespace Auth.Mongo.Tests
                 var mongoRepository = new MongoRepository<MongoUser>(settings);
                 autoMocker.Inject(typeof(IMongoRepository<MongoUser>), mongoRepository);
 
-                var user = UserFactory.CreateUser("new_user");
-                user.SetPassword("pwd");
+                var user = UserFactory.CreateUser("new_user", "pwd");
 
                 var mongoUser = new MongoUser()
                 {

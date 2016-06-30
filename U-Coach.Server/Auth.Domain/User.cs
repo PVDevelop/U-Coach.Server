@@ -42,7 +42,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// Кодирует и устанавливает указанный пароль
         /// </summary>
         /// <param name="plainPassword">Не кодированный пароль</param>
-        public void SetPassword(string plainPassword)
+        internal void SetPassword(string plainPassword)
         {
             if (string.IsNullOrWhiteSpace(plainPassword))
             {

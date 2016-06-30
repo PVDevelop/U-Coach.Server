@@ -27,8 +27,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
 
             _logger.Debug("Создаю пользователя {0}.", userParams.Login);
 
-            var user = UserFactory.CreateUser(userParams.Login);
-            user.SetPassword(userParams.Password);
+            var user = UserFactory.CreateUser(userParams.Login, userParams.Password);
             _userRepository.Insert(user);
 
             _logger.Info("Пользователь {0} создан.", userParams.Login);
