@@ -70,7 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
-      <Project>{12E06B20-78EC-4B54-8B43-81202F618E62}</Project>
+      <Project>{12e06b20-78ec-4b54-8b43-81202f618e62}</Project>
       <Name>Auth.Contract</Name>
     </ProjectReference>
     <ProjectReference Include="..\Auth.CurrentDomainClient\Auth.CurrentDomainClient.csproj">

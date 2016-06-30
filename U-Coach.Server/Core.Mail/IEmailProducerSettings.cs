@@ -34,5 +34,10 @@
         /// Включена или нет Ssl
         /// </summary>
         bool EnableSsl { get; }
+
+        /// <summary>
+        /// Заголовок сообщения
+        /// </summary>
+        string Header { get; }
     }
 }

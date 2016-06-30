@@ -3,6 +3,7 @@ using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.Core.Mail;
 using PVDevelop.UCoach.Server.Core.Service;
 using Rhino.Mocks;
+using System;
 
 namespace Core.Service.Tests
 {
@@ -11,9 +12,11 @@ namespace Core.Service.Tests
     public class SportsmanConfirmationServiceIntegrTests
     {
 #warning доделать тест
-        //[Test]
+        [Test]
         public void CreateUser_UserMailProducer_SendsEmail()
         {
+            var header = string.Format("TEST_{0}", Guid.NewGuid());
+
             var settings = MockRepository.GenerateStub<IEmailProducerSettings>();
             settings.Stub(s => s.SenderAddress).Return("PVDevelop@yandex.ru");
             settings.Stub(s => s.UserName).Return("PVDevelop@yandex.ru");
@@ -21,6 +24,7 @@ namespace Core.Service.Tests
             settings.Stub(s => s.SmtpHost).Return("smtp.yandex.ru");
             settings.Stub(s => s.EnableSsl).Return(true);
             settings.Stub(s => s.SmtpPort).Return(25);
+            settings.Stub(s => s.Header).Return(header);
 
             var mailProducer = new EmailConfirmationProducer(settings);
 
@@ -34,7 +38,7 @@ namespace Core.Service.Tests
 
             var userParams = new CreateSportsmanConfirmationParams()
             {
-                Address = "beetlewar@mail.ru",
+                Address = "PVDevelop@yandex.ru",
                 ConfirmationKey = "some_key"
             };
 

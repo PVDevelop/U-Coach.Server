@@ -25,7 +25,7 @@ namespace PVDevelop.UCoach.Server.Core.Mail
             using (var mail = new MailMessage(
                 _settings.SenderAddress, 
                 user.Address, 
-                "hello, beetlewar!", 
+                _settings.Header, 
                 body))
             {
                 var client = new SmtpClient(_settings.SmtpHost, _settings.SmtpPort)
@@ -35,7 +35,6 @@ namespace PVDevelop.UCoach.Server.Core.Mail
                     Credentials = new NetworkCredential(_settings.UserName, _settings.Password),
                 };
 
-#warning не работает отправка
                 client.Send(mail);
             }
         }

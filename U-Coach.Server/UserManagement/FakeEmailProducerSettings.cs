@@ -14,6 +14,14 @@ namespace PVDevelop.UCoach.Server.UserManagement
             }
         }
 
+        public string Header
+        {
+            get
+            {
+                return "Создание нового пользователя";
+            }
+        }
+
         public string Password
         {
             get
