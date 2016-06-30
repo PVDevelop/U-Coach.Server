@@ -34,11 +34,6 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         public bool IsLoggedIn { get; set; }
 
         /// <summary>
-        /// Время последней аутентификации пользователя
-        /// </summary>
-        public DateTime LastAuthenticationTime { get; set; }
-
-        /// <summary>
         /// Время создания пользователя
         /// </summary>
         public DateTime CreationTime { get; set; }

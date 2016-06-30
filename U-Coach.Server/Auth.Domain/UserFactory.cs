@@ -1,18 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PVDevelop.UCoach.Server.Auth.Domain.Exceptions;
 using PVDevelop.UCoach.Server.Timing;
 
 namespace PVDevelop.UCoach.Server.Auth.Domain
 {
-    public static class UserFactory
+    public class UserFactory : IUserFactory
     {
-        public static User CreateUser(string login, string password)
+        private readonly IUtcTimeProvider _utcTimeProvider;
+
+        public UserFactory(IUtcTimeProvider utcTimeProvider)
         {
-            if(string.IsNullOrWhiteSpace(login))
+            if(utcTimeProvider == null)
+            {
+                throw new ArgumentNullException("utcTimeProvider");
+            }
+            _utcTimeProvider = utcTimeProvider;
+        }
+
+        public User CreateUser(string login, string password)
+        {
+            if (string.IsNullOrWhiteSpace(login))
             {
                 throw new LoginNotSetException();
             }
@@ -20,7 +27,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             var user = new User()
             {
                 Login = login,
-                CreationTime = UtcTime.UtcNow
+                CreationTime = _utcTimeProvider.UtcNow
             };
 
             user.SetPassword(password);

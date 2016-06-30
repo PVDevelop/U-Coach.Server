@@ -5,6 +5,7 @@ using StructureMap;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
+using PVDevelop.UCoach.Server.Timing.StructureMap;
 
 namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 {
@@ -24,6 +25,7 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
             {
                 x.AddRegistry<AuthRegistry>();
                 x.AddRegistry<MongoRegistry>();
+                x.AddRegistry<TimingRegistry>();
             });
         }
     }

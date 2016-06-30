@@ -31,11 +31,6 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// </summary>
         public bool IsLoggedIn { get; private set; }
 
-        /// <summary>
-        /// Время последней аутентификации пользователя
-        /// </summary>
-        public DateTime LastAuthenticationTime { get; private set; }
-
         internal User() { }
 
         /// <summary>
@@ -64,7 +59,6 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             CheckPassword(plainPassword);
 
             IsLoggedIn = true;
-            LastAuthenticationTime = UtcTime.UtcNow;
 
             var salt = BCryptHelper.GenerateSalt();
             return BCryptHelper.HashPassword(Password, salt);

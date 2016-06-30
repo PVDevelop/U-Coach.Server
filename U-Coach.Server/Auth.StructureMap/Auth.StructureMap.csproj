@@ -55,6 +55,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
+      <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
+      <Name>Auth.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auth.Mongo\Auth.Mongo.csproj">
       <Project>{141873a9-7298-45ba-88de-ac8c49492e95}</Project>
       <Name>Auth.Mongo</Name>
@@ -66,6 +70,10 @@
     <ProjectReference Include="..\Mongo\Mongo.csproj">
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>
       <Name>Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Timing\Timing.csproj">
+      <Project>{ed9532d4-7643-4a2f-ac6a-7ea11bbf2612}</Project>
+      <Name>Timing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

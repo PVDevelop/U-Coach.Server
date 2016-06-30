@@ -95,6 +95,10 @@
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>
       <Name>Mongo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Timing.StructureMap\Timing.StructureMap.csproj">
+      <Project>{517103e2-5ac6-4d3b-bdab-d88d9635395a}</Project>
+      <Name>Timing.StructureMap</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

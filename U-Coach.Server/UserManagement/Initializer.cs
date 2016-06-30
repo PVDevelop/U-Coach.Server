@@ -5,6 +5,7 @@ using System.Reflection;
 using PVDevelop.UCoach.Server.Auth.StructureMap;
 using PVDevelop.UCoach.Server.Mongo.StructureMap;
 using PVDevelop.UCoach.Server.Core.StructureMap;
+using PVDevelop.UCoach.Server.Timing.StructureMap;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
@@ -40,6 +41,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
                 x.AddRegistry<AuthRegistry>();
                 x.AddRegistry<SportsmanConfirmationRegistry>();
                 x.AddRegistry<MongoRegistry>();
+                x.AddRegistry<TimingRegistry>();
 
                 foreach (var type in 
                     Assembly.

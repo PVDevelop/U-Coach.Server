@@ -1,4 +1,5 @@
-﻿using PVDevelop.UCoach.Server.Auth.Mongo;
+﻿using PVDevelop.UCoach.Server.Auth.Domain;
+using PVDevelop.UCoach.Server.Auth.Mongo;
 using PVDevelop.UCoach.Server.Auth.Service;
 using PVDevelop.UCoach.Server.Mongo;
 using StructureMap;
@@ -31,6 +32,8 @@ namespace PVDevelop.UCoach.Server.Auth.StructureMap
                 Use<MongoUserRepository>();
 
             For<IUserService>().Use<UserService>();
+
+            For<IUserFactory>().Use<UserFactory>();
         }
     }
 }

@@ -76,6 +76,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.Domain.Tests\Auth.Domain.Tests.csproj">
+      <Project>{0D862F9E-FDB7-416E-8621-6D7F28E21AEB}</Project>
+      <Name>Auth.Domain.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
       <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
       <Name>Auth.Domain</Name>

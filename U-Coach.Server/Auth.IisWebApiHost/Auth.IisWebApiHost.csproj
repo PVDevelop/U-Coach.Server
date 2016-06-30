@@ -131,6 +131,10 @@
       <Project>{be299abd-9398-4745-8bc8-ac8c53baaccc}</Project>
       <Name>Mongo.StructureMap</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Timing.StructureMap\Timing.StructureMap.csproj">
+      <Project>{517103e2-5ac6-4d3b-bdab-d88d9635395a}</Project>
+      <Name>Timing.StructureMap</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,5 @@
 ﻿using System;
+using Auth.Domain.Tests;
 using MongoDB.Driver;
 using NUnit.Framework;
 using PVDevelop.UCoach.Server.Auth.Domain;
@@ -22,7 +23,6 @@ namespace Auth.Mongo.Tests
             Assert.AreEqual(user.Login, mongoUser.Login);
             Assert.AreEqual(user.Password, mongoUser.Password);
             Assert.AreEqual(user.IsLoggedIn, mongoUser.IsLoggedIn);
-            Assert.That(mongoUser.LastAuthenticationTime, Is.EqualTo(user.LastAuthenticationTime).Within(1).Milliseconds);
             Assert.That(mongoUser.CreationTime, Is.EqualTo(user.CreationTime).Within(1).Milliseconds);
         }
 
@@ -37,7 +37,7 @@ namespace Auth.Mongo.Tests
                 var validator = new MongoCollectionVersionValidatorByClassAttribute(settings);
                 autoMocker.Inject(typeof(IMongoCollectionVersionValidator), validator);
 
-                var user = UserFactory.CreateUser("login", "pwd");
+                var user = new TestUserFactory().CreateUser("login", "pwd");
                 Assert.Throws<MongoCollectionNotInitializedException>(() => autoMocker.ClassUnderTest.Insert(user));
             });
         }
@@ -53,7 +53,7 @@ namespace Auth.Mongo.Tests
                 var mongoRepository = new MongoRepository<MongoUser>(settings);
                 autoMocker.Inject(typeof(IMongoRepository<MongoUser>), mongoRepository);
 
-                var user = UserFactory.CreateUser("new_user", "pwd");
+                var user = new TestUserFactory().CreateUser("new_user", "pwd");
                 user.Logon("pwd");
 
                 autoMocker.ClassUnderTest.Insert(user);
@@ -76,7 +76,7 @@ namespace Auth.Mongo.Tests
                 var validator = new MongoCollectionVersionValidatorByClassAttribute(settings);
                 autoMocker.Inject(typeof(IMongoCollectionVersionValidator), validator);
 
-                var user = UserFactory.CreateUser("login", "pwd");
+                var user = new TestUserFactory().CreateUser("login", "pwd");
                 Assert.Throws<MongoCollectionNotInitializedException>(() => autoMocker.ClassUnderTest.Update(user));
             });
         }
@@ -92,7 +92,7 @@ namespace Auth.Mongo.Tests
                 var mongoRepository = new MongoRepository<MongoUser>(settings);
                 autoMocker.Inject(typeof(IMongoRepository<MongoUser>), mongoRepository);
 
-                var user = UserFactory.CreateUser("new_user", "pwd");
+                var user = new TestUserFactory().CreateUser("new_user", "pwd");
 
                 var mongoUser = new MongoUser()
                 {

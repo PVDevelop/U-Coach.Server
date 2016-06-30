@@ -8,14 +8,22 @@ namespace PVDevelop.UCoach.Server.Auth.Service
     {
         private readonly ILogger _logger = LoggerFactory.CreateLogger<UserService>();
         private readonly IUserRepository _userRepository;
+        private readonly IUserFactory _userFactory;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(
+            IUserRepository userRepository,
+            IUserFactory userFactory)
         {
             if(userRepository == null)
             {
                 throw new ArgumentNullException("userRepository");
             }
+            if (userFactory == null)
+            {
+                throw new ArgumentNullException("userFactory");
+            }
             _userRepository = userRepository;
+            _userFactory = userFactory;
         }
 
         public void Create(CreateUserParams userParams)
@@ -27,7 +35,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
 
             _logger.Debug("Создаю пользователя {0}.", userParams.Login);
 
-            var user = UserFactory.CreateUser(userParams.Login, userParams.Password);
+            var user = _userFactory.CreateUser(userParams.Login, userParams.Password);
             _userRepository.Insert(user);
 
             _logger.Info("Пользователь {0} создан.", userParams.Login);
