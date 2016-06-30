@@ -6,7 +6,7 @@ namespace PVDevelop.UCoach.Server.Timing.StructureMap
     {
         public TimingRegistry()
         {
-            For<IUtcTimeProvider>().Use<UtcTimeProvider>();
+            
         }
     }
 }

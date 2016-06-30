@@ -31,7 +31,8 @@ namespace Core.Mongo.Tests
 
                     var indexAuthSystemName = MongoHelper.GetIndexName<MongoSportsmanConfirmation>(nameof(MongoSportsmanConfirmation.AuthSystem));
                     var indexAuthIdName = MongoHelper.GetIndexName<MongoSportsmanConfirmation>(nameof(MongoSportsmanConfirmation.AuthUserId));
-                    var indexName = string.Format("{0}.{1}", indexAuthSystemName, indexAuthIdName);
+                    var indexConfirmationKeyName = MongoHelper.GetIndexName<MongoSportsmanConfirmation>(nameof(MongoSportsmanConfirmation.ConfirmationKey));
+                    var indexName = string.Format("{0}.{1}.{2}", indexAuthSystemName, indexAuthIdName, indexConfirmationKeyName);
 
                     var authSystemIndex =
                         userCollection.
@@ -40,7 +41,7 @@ namespace Core.Mongo.Tests
                         ToList().
                         FirstOrDefault(i => i["name"] == indexName);
 
-                    Assert.NotNull(authSystemIndex);
+                    Assert.NotNull(authSystemIndex, "Индекс {0} не найден", indexName);
                     Assert.IsTrue(MongoHelper.IsUniqueIndex(authSystemIndex));
 
                     // проверяем версию

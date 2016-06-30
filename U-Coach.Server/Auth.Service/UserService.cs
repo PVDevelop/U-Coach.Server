@@ -26,7 +26,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _userFactory = userFactory;
         }
 
-        public void Create(CreateUserParams userParams)
+        public string Create(CreateUserParams userParams)
         {
             if (userParams == null)
             {
@@ -39,6 +39,8 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _userRepository.Insert(user);
 
             _logger.Info("Пользователь {0} создан.", userParams.Login);
+
+            return user.Id.ToString();
         }
 
         public string Logon(LogonUserParams userParams)

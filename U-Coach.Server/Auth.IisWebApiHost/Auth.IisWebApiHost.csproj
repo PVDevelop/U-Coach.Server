@@ -115,10 +115,6 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Auth.StructureMap\Auth.StructureMap.csproj">
-      <Project>{d307b4bb-586b-4f1c-9d2b-ca527fd23778}</Project>
-      <Name>Auth.StructureMap</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Auth.WebApi\Auth.WebApi.csproj">
       <Project>{c92f3088-b5c6-4095-8d49-c13a55f42577}</Project>
       <Name>Auth.WebApi</Name>
@@ -126,14 +122,6 @@
     <ProjectReference Include="..\Mapper\Mapper.csproj">
       <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
       <Name>Mapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mongo.StructureMap\Mongo.StructureMap.csproj">
-      <Project>{be299abd-9398-4745-8bc8-ac8c53baaccc}</Project>
-      <Name>Mongo.StructureMap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Timing.StructureMap\Timing.StructureMap.csproj">
-      <Project>{517103e2-5ac6-4d3b-bdab-d88d9635395a}</Project>
-      <Name>Timing.StructureMap</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

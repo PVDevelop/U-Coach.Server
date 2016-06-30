@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using PVDevelop.UCoach.Server.Logging;
 
-namespace PVDevelop.UCoach.Server.UserManagement
+namespace PVDevelop.UCoach.Server.UserManagement.Executor
 {
     public static class ExecutorFactory
     {
@@ -9,7 +9,8 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
         public static IExecutor CreateAndSetupExecutor(string[] args)
         {
-            var executors = Initializer.Instance.GetAllInstances<IExecutor>();
+            var instance = Initializer.Instance;
+            var executors = instance.GetAllInstances<IExecutor>();
             var arg = args[0];
             var executor = executors.Single(e => e.Command == arg);
             executor.Setup(args.Skip(1).ToArray());

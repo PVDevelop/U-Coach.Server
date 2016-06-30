@@ -1,7 +1,7 @@
 ﻿using PVDevelop.UCoach.Server.Auth.Service;
 using System;
 
-namespace PVDevelop.UCoach.Server.UserManagement
+namespace PVDevelop.UCoach.Server.UserManagement.Executor
 {
     public class LogoutByPasswordExecutor : IExecutor
     {
@@ -9,7 +9,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
         public string Password { get; private set; }
 
-        public string[] ArgumentsNames
+        public string[] ArgumentNames
         {
             get
             {

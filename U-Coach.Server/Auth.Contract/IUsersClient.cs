@@ -1,6 +1,4 @@
-﻿using PVDevelop.UCoach.Server.Auth.WebDto;
-
-namespace PVDevelop.UCoach.Server.Auth.WebClient
+﻿namespace PVDevelop.UCoach.Server.Auth.Contract
 {
     /// <summary>
     /// Интерфейс доступа к пользователям
@@ -10,7 +8,7 @@ namespace PVDevelop.UCoach.Server.Auth.WebClient
         /// <summary>
         /// Создать нового пользователя и вернуть его идентификатор.
         /// </summary>
-        /// <param name="userParams">Параметры создания.</param>
-        string Create(CreateUserParams userParams);
+        /// <param name="userDto">Параметры создания.</param>
+        string Create(CreateUserDto userDto);
     }
 }

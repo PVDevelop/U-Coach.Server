@@ -1,11 +1,11 @@
 ﻿using System;
 using PVDevelop.UCoach.Server.Mapper;
-using PVDevelop.UCoach.Server.Auth.WebClient;
 using PVDevelop.UCoach.Server.Core.Domain;
+using PVDevelop.UCoach.Server.Auth.Contract;
 
 namespace PVDevelop.UCoach.Server.Core.Service
 {
-    public class SportsmanConfirmationService
+    public class SportsmanConfirmationService : ISportsmanConfirmationService
     {
         private readonly IUsersClient _users;
         private readonly ISportsmanConfirmationRepository _userRepository;
@@ -34,9 +34,9 @@ namespace PVDevelop.UCoach.Server.Core.Service
             _userConfirmationProducer = userConfirmationProducer;
         }
 
-        public void CreateUser(CreateSportsmanConfirmationParams userParams)
+        public void CreateConfirmation(CreateSportsmanConfirmationParams userParams)
         {
-            var webUserParams = MapperHelper.Map<CreateSportsmanConfirmationParams, Auth.WebDto.CreateUserParams>(userParams);
+            var webUserParams = MapperHelper.Map<CreateSportsmanConfirmationParams, CreateUserDto>(userParams);
             var authId = _users.Create(webUserParams);
 
             var confirmation = SportsmanConfirmationFactory.CreateSportsmanConfirmation(authId, userParams.ConfirmationKey);

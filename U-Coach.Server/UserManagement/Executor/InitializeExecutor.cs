@@ -1,10 +1,10 @@
 ﻿using PVDevelop.UCoach.Server.Mongo;
 
-namespace PVDevelop.UCoach.Server.UserManagement
+namespace PVDevelop.UCoach.Server.UserManagement.Executor
 {
     public class InitializeExecutor : IExecutor
     {
-        public string[] ArgumentsNames
+        public string[] ArgumentNames
         {
             get
             {

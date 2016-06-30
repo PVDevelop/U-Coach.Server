@@ -51,14 +51,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreateUserExecutor.cs" />
+    <Compile Include="Executor\CreateSportsmanConfirmationExecutor.cs" />
+    <Compile Include="Executor\CreateUserExecutor.cs" />
+    <Compile Include="FakeEmailProducerSettings.cs" />
     <Compile Include="Initializer.cs" />
-    <Compile Include="ExecutorFactory.cs" />
-    <Compile Include="HelpExecutor.cs" />
-    <Compile Include="IExecutor.cs" />
-    <Compile Include="InitializeExecutor.cs" />
-    <Compile Include="LogonExecutor.cs" />
-    <Compile Include="LogoutByPasswordExecutor.cs" />
+    <Compile Include="Executor\ExecutorFactory.cs" />
+    <Compile Include="Executor\HelpExecutor.cs" />
+    <Compile Include="Executor\IExecutor.cs" />
+    <Compile Include="Executor\InitializeExecutor.cs" />
+    <Compile Include="Executor\LogonExecutor.cs" />
+    <Compile Include="Executor\LogoutByPasswordExecutor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -67,17 +69,37 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
+      <Project>{12E06B20-78EC-4B54-8B43-81202F618E62}</Project>
+      <Name>Auth.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.CurrentDomainClient\Auth.CurrentDomainClient.csproj">
+      <Project>{fde9532d-382a-42e4-a203-a7cc32506267}</Project>
+      <Name>Auth.CurrentDomainClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
+      <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
+      <Name>Auth.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.Mongo\Auth.Mongo.csproj">
+      <Project>{141873A9-7298-45BA-88DE-AC8C49492E95}</Project>
+      <Name>Auth.Mongo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
       <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
       <Name>Auth.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Auth.StructureMap\Auth.StructureMap.csproj">
-      <Project>{d307b4bb-586b-4f1c-9d2b-ca527fd23778}</Project>
-      <Name>Auth.StructureMap</Name>
+    <ProjectReference Include="..\Core.Mail\Core.Mail.csproj">
+      <Project>{8B643F85-8A84-4DDC-9B4D-C7CF10BF0296}</Project>
+      <Name>Core.Mail</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.StructureMap\Core.StructureMap.csproj">
-      <Project>{9e71e0f6-66d0-4239-93ca-1cf2f0202851}</Project>
-      <Name>Core.StructureMap</Name>
+    <ProjectReference Include="..\Core.Mongo\Core.Mongo.csproj">
+      <Project>{B3DF8994-3835-4BEC-A11F-7D765413D37A}</Project>
+      <Name>Core.Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Service\Core.Service.csproj">
+      <Project>{4CFF0E68-8388-4998-8CCA-2495277C3BD7}</Project>
+      <Name>Core.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
@@ -87,17 +109,13 @@
       <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
       <Name>Mapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mongo.StructureMap\Mongo.StructureMap.csproj">
-      <Project>{be299abd-9398-4745-8bc8-ac8c53baaccc}</Project>
-      <Name>Mongo.StructureMap</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mongo\Mongo.csproj">
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>
       <Name>Mongo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Timing.StructureMap\Timing.StructureMap.csproj">
-      <Project>{517103e2-5ac6-4d3b-bdab-d88d9635395a}</Project>
-      <Name>Timing.StructureMap</Name>
+    <ProjectReference Include="..\Timing\Timing.csproj">
+      <Project>{ED9532D4-7643-4A2F-AC6A-7EA11BBF2612}</Project>
+      <Name>Timing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

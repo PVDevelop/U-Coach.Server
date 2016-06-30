@@ -43,8 +43,9 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
 
             var index = Builders<MongoSportsmanConfirmation>.IndexKeys.Ascending(u => u.AuthSystem).Ascending(u=>u.AuthUserId);
             var indexName = MongoHelper.GetCompoundIndexName<MongoSportsmanConfirmation>(
-                nameof(MongoSportsmanConfirmation.AuthSystem), 
-                nameof(MongoSportsmanConfirmation.AuthUserId));
+                nameof(MongoSportsmanConfirmation.AuthSystem),
+                nameof(MongoSportsmanConfirmation.AuthUserId),
+                nameof(MongoSportsmanConfirmation.ConfirmationKey));
 
             var options = new CreateIndexOptions()
             {

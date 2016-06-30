@@ -30,11 +30,12 @@ namespace PVDevelop.UCoach.Server.Core.Mail
             {
                 var client = new SmtpClient(_settings.SmtpHost, _settings.SmtpPort)
                 {
-                    EnableSsl = true,
+                    EnableSsl = _settings.EnableSsl,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     Credentials = new NetworkCredential(_settings.UserName, _settings.Password),
                 };
 
+#warning не работает отправка
                 client.Send(mail);
             }
         }

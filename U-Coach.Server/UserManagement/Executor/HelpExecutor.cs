@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PVDevelop.UCoach.Server.UserManagement
+namespace PVDevelop.UCoach.Server.UserManagement.Executor
 {
     public class HelpExecutor
     {
@@ -13,13 +10,13 @@ namespace PVDevelop.UCoach.Server.UserManagement
             foreach(var executor in Initializer.Instance.GetAllInstances<IExecutor>())
             {
                 var command =
-                    executor.ArgumentsNames == null ?
+                    executor.ArgumentNames == null ?
                     executor.Command :
                     string.Format("{0} {1}",
                     executor.Command,
                         string.Join(
                             " ",
-                            executor.ArgumentsNames.Select(name => string.Format("<{0}>", name))));
+                            executor.ArgumentNames.Select(name => string.Format("<{0}>", name))));
                 var str = string.Format(
                     "{0}: {1}", 
                     command,

@@ -35,6 +35,7 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
         /// </summary>
         public string AuthUserId { get; set; }
 
+        [MongoIndexName("confirmation_key")]
         /// <summary>
         /// Ключ подтверждения.
         /// </summary>

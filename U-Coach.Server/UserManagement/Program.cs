@@ -1,6 +1,7 @@
 ﻿using PVDevelop.UCoach.Server.Logging;
 using StructureMap;
 using System;
+using PVDevelop.UCoach.Server.UserManagement.Executor;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {

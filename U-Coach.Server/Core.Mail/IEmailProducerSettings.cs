@@ -29,5 +29,10 @@
         /// Адрес отправителя
         /// </summary>
         string SenderAddress { get; }
+
+        /// <summary>
+        /// Включена или нет Ssl
+        /// </summary>
+        bool EnableSsl { get; }
     }
 }

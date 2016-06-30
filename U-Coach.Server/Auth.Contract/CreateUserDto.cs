@@ -1,6 +1,6 @@
-﻿namespace PVDevelop.UCoach.Server.Auth.WebDto
+﻿namespace PVDevelop.UCoach.Server.Auth.Contract
 {
-    public class CreateUserParams
+    public class CreateUserDto
     {
         public string Login { get; set; }
         public string Password { get; set; }

@@ -43,11 +43,16 @@
     <Compile Include="CreateSportsmanConfirmationParams.cs" />
     <Compile Include="ISportsmanConfirmationProducer.cs" />
     <Compile Include="ISportsmanConfirmationRepository.cs" />
+    <Compile Include="ISportsmanConfirmationService.cs" />
     <Compile Include="ProduceConfirmationKeyParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SportsmanConfirmationService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
+      <Project>{12E06B20-78EC-4B54-8B43-81202F618E62}</Project>
+      <Name>Auth.Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auth.WebApi\Auth.WebApi.csproj">
       <Project>{c92f3088-b5c6-4095-8d49-c13a55f42577}</Project>
       <Name>Auth.WebApi</Name>
@@ -55,10 +60,6 @@
     <ProjectReference Include="..\Auth.WebClient\Auth.WebClient.csproj">
       <Project>{e2ef586a-f998-4460-9d6f-5c2827599636}</Project>
       <Name>Auth.WebClient</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Auth.WebDto\Auth.WebDto.csproj">
-      <Project>{2278419c-4cfa-4848-9c51-9910fb6639b3}</Project>
-      <Name>Auth.WebDto</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Domain\Core.Domain.csproj">
       <Project>{306e3c51-e72e-4543-9f58-b65990cc8437}</Project>

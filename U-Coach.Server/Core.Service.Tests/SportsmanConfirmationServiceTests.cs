@@ -1,8 +1,7 @@
 ﻿using NUnit.Framework;
-using PVDevelop.UCoach.Server.Auth.WebClient;
+using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.Core.Domain;
 using PVDevelop.UCoach.Server.Core.Service;
-using PVDevelop.UCoach.Server.Mapper;
 using Rhino.Mocks;
 
 namespace Core.Service.Tests
@@ -23,7 +22,7 @@ namespace Core.Service.Tests
         {
             var client = MockRepository.GenerateMock<IUsersClient>();
             client.
-                Expect(c => c.Create(Arg<PVDevelop.UCoach.Server.Auth.WebDto.CreateUserParams>.Matches(p=> p.Login == "login1" && p.Password == "pwd1"))).
+                Expect(c => c.Create(Arg<CreateUserDto>.Matches(p=> p.Login == "login1" && p.Password == "pwd1"))).
                 Return("2");
 
             var userParams = new CreateSportsmanConfirmationParams()
@@ -37,7 +36,7 @@ namespace Core.Service.Tests
                 MockRepository.GenerateStub<ISportsmanConfirmationRepository>(), 
                 MockRepository.GenerateStub<ISportsmanConfirmationProducer>());
 
-            service.CreateUser(userParams);
+            service.CreateConfirmation(userParams);
 
             client.VerifyAllExpectations();
         }
@@ -65,7 +64,7 @@ namespace Core.Service.Tests
                 rep, 
                 MockRepository.GenerateStub<ISportsmanConfirmationProducer>());
 
-            service.CreateUser(userParams);
+            service.CreateConfirmation(userParams);
 
             rep.VerifyAllExpectations();
         }
@@ -91,7 +90,7 @@ namespace Core.Service.Tests
                 MockRepository.GenerateStub<ISportsmanConfirmationRepository>(),
                 producer);
 
-            service.CreateUser(userParams);
+            service.CreateConfirmation(userParams);
 
             producer.VerifyAllExpectations();
         }

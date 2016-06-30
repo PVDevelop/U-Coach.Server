@@ -1,11 +1,8 @@
 ﻿using Auth.IisWebApiHost;
-using PVDevelop.UCoach.Server.Auth.StructureMap;
-using PVDevelop.UCoach.Server.Mongo.StructureMap;
 using StructureMap;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
-using PVDevelop.UCoach.Server.Timing.StructureMap;
 
 namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 {
@@ -23,9 +20,6 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
         {
             return new Container(x =>
             {
-                x.AddRegistry<AuthRegistry>();
-                x.AddRegistry<MongoRegistry>();
-                x.AddRegistry<TimingRegistry>();
             });
         }
     }

@@ -1,10 +1,8 @@
 ﻿using NUnit.Framework;
-using PVDevelop.UCoach.Server.Auth.WebClient;
+using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.Core.Mail;
 using PVDevelop.UCoach.Server.Core.Service;
-using PVDevelop.UCoach.Server.Mapper;
 using Rhino.Mocks;
-using TestNUnit;
 
 namespace Core.Service.Tests
 {
@@ -21,12 +19,16 @@ namespace Core.Service.Tests
             settings.Stub(s => s.UserName).Return("PVDevelop@yandex.ru");
             settings.Stub(s => s.Password).Return("tkvXp7IvXlUEo9N7EBU7");
             settings.Stub(s => s.SmtpHost).Return("smtp.yandex.ru");
+            settings.Stub(s => s.EnableSsl).Return(true);
             settings.Stub(s => s.SmtpPort).Return(25);
 
             var mailProducer = new EmailConfirmationProducer(settings);
 
+            var usersClient = MockRepository.GenerateStub<IUsersClient>();
+            usersClient.Stub(uc => uc.Create(null)).IgnoreArguments().Return("1");
+
             var service = new SportsmanConfirmationService(
-                MockRepository.GenerateStub<IUsersClient>(),
+                usersClient,
                 MockRepository.GenerateStub<ISportsmanConfirmationRepository>(),
                 mailProducer);
 
@@ -36,7 +38,7 @@ namespace Core.Service.Tests
                 ConfirmationKey = "some_key"
             };
 
-            service.CreateUser(userParams);
+            service.CreateConfirmation(userParams);
         }
     }
 }

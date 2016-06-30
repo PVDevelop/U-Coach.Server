@@ -6,10 +6,10 @@
     public interface IUserService
     {
         /// <summary>
-        /// Создать нового пользователя.
+        /// Создать нового пользователя и вернуть его идентификатор.
         /// </summary>
         /// <param name="userParams">Логин/пароль нового пользователя.</param>
-        void Create(CreateUserParams userParams);
+        string Create(CreateUserParams userParams);
 
         /// <summary>
         /// Проверяет параметры пользователя и если они верны, аутентифицирует его.
