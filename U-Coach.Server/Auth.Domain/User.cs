@@ -14,7 +14,12 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// <summary>
         /// Логин пользователя. Уникален в БД.
         /// </summary>
-        public string Login { get; private set; }
+        public string Login { get; internal set; }
+
+        /// <summary>
+        /// Время создания пользователя
+        /// </summary>
+        public DateTime CreationTime { get; internal set; }
 
         /// <summary>
         /// Пароль пользователя. Закодирован.
@@ -31,21 +36,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// </summary>
         public DateTime LastAuthenticationTime { get; private set; }
 
-        /// <summary>
-        /// Время создания пользователя
-        /// </summary>
-        public DateTime CreationTime { get; private set; }
-
-        public User(string login)
-        {
-            if (string.IsNullOrWhiteSpace(login))
-            {
-                throw new LoginNotSetException();
-            }
-
-            Login = login;
-            CreationTime = UtcTime.UtcNow;
-        }
+        internal User() { }
 
         /// <summary>
         /// Кодирует и устанавливает указанный пароль

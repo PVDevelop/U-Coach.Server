@@ -84,6 +84,10 @@
       <Project>{141873a9-7298-45ba-88de-ac8c49492e95}</Project>
       <Name>Auth.Mongo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{6d80ea1d-b7bf-422a-8577-824cc4a87f2e}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mongo\Mongo.csproj">
       <Project>{6b3139f0-9f1e-4d3a-9303-1ef9b43a4fcb}</Project>
       <Name>Mongo</Name>

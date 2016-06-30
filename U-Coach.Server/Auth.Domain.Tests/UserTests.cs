@@ -14,14 +14,14 @@ namespace AuthService.Tests
         [TestCase("  ")]
         public void Ctor_EmptyLogin_ThrowsException(string login)
         {
-            Assert.Throws(typeof(LoginNotSetException), () => new User(login));
+            Assert.Throws(typeof(LoginNotSetException), () => UserFactory.CreateUser(login));
         }
 
         [Test]
         public void Ctor_ValidLogin_SetsCreationTime()
         {
             UtcTime.SetUtcNow();
-            var user = new User("u");
+            var user = UserFactory.CreateUser("u");
             Assert.AreEqual(UtcTime.UtcNow, user.CreationTime);
         }
 
@@ -30,14 +30,14 @@ namespace AuthService.Tests
         [TestCase("  ")]
         public void SetPassword_InvalidPasswordFormat_ThrowsException(string password)
         {
-            var user = new User("a");
+            var user = UserFactory.CreateUser("a");
             Assert.Throws(typeof(InvalidPasswordFormatException), () => user.SetPassword(password));
         }
 
         [Test]
         public void Logon_InvalidPassword_ThrowsException()
         {
-            var user = new User("abc");
+            var user = UserFactory.CreateUser("abc");
             user.SetPassword("pwd");
             Assert.Throws(typeof(InvalidPasswordException), () => user.Logon("invalid_password"));
         }
@@ -45,7 +45,7 @@ namespace AuthService.Tests
         [Test]
         public void Logon_ValidPassword_SetsLoggedIn()
         {
-            var user = new User("abc");
+            var user = UserFactory.CreateUser("abc");
             user.SetPassword("pwd");
             user.Logon("pwd");
             Assert.IsTrue(user.IsLoggedIn);
@@ -54,7 +54,7 @@ namespace AuthService.Tests
         [Test]
         public void Logon_ValidPassword_ReturnsExpectedToken()
         {
-            var user = new User("u");
+            var user = UserFactory.CreateUser("u");
 
             user.SetPassword("pwd123");
             var token = user.Logon("pwd123");
@@ -66,7 +66,7 @@ namespace AuthService.Tests
         public void Logon_ValidPassword_SetsCurrentAuthenticationTime()
         {
             UtcTime.SetUtcNow();
-            var user = new User("abc");
+            var user = UserFactory.CreateUser("abc");
             user.SetPassword("pwd3");
             user.Logon("pwd3");
             Assert.AreEqual(UtcTime.UtcNow, user.LastAuthenticationTime);
@@ -75,7 +75,7 @@ namespace AuthService.Tests
         [Test]
         public void Logout_UserIsLoggedIn_SetsNotLoggedIn()
         {
-            var user = new User("aaa");
+            var user = UserFactory.CreateUser("aaa");
             user.SetPassword("pwd");
             user.Logon("pwd");
             user.Logout("pwd");
@@ -85,7 +85,7 @@ namespace AuthService.Tests
         [Test]
         public void Logout_UserIsLoggedInButInvalidPassword_ThrowsException()
         {
-            var user = new User("aaa");
+            var user = UserFactory.CreateUser("aaa");
             user.SetPassword("pwd");
             user.Logon("pwd");
             Assert.Throws(typeof(InvalidPasswordException), () => user.Logout("invalid"));
@@ -94,7 +94,7 @@ namespace AuthService.Tests
         [Test]
         public void ValidateToken_ValidToken_DoesNothing()
         {
-            var u = new User("u");
+            var u = UserFactory.CreateUser("u");
             u.SetPassword("p1");
             var token = u.Logon("p1");
             u.ValidateToken(token);
@@ -103,7 +103,7 @@ namespace AuthService.Tests
         [Test]
         public void ValidateToken_InvalidToken_ThrowsException()
         {
-            var u = new User("u");
+            var u = UserFactory.CreateUser("u");
             u.SetPassword("p1");
             u.Logon("p1");
             Assert.Throws(typeof(InvalidTokenException), () => u.ValidateToken("abc"));
@@ -112,7 +112,7 @@ namespace AuthService.Tests
         [Test]
         public void ValidateToken_UserIsNotLoggedIn_ThrowsException()
         {
-            var u = new User("aaa");
+            var u = UserFactory.CreateUser("aaa");
             u.SetPassword("p2");
             var token = u.Logon("p2");
             u.Logout("p2");
