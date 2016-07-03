@@ -2,37 +2,38 @@
 using System;
 using System.Net;
 using System.Net.Mail;
+using PVDevelop.UCoach.Server.Configuration;
 
 namespace PVDevelop.UCoach.Server.Core.Mail
 {
     public class EmailConfirmationProducer : ISportsmanConfirmationProducer
     {
-        private readonly IEmailProducerSettings _settings;
+        private readonly ISettingsProvider<EmailProducerSettingsSection> _settingsProvider;
 
-        public EmailConfirmationProducer(IEmailProducerSettings settings)
+        public EmailConfirmationProducer(ISettingsProvider<EmailProducerSettingsSection> settingsProvider)
         {
-            if(settings == null)
+            if(settingsProvider == null)
             {
-                throw new ArgumentNullException("settings");
+                throw new ArgumentNullException("settingsProvider");
             }
 
-            _settings = settings;
+            _settingsProvider = settingsProvider;
         }
 
         public void Produce(ProduceConfirmationKeyParams user)
         {
-            var body = string.Format("your key is {0}", user.ConfirmationKey);
+            var settings = _settingsProvider.Settings;
             using (var mail = new MailMessage(
-                _settings.SenderAddress, 
+                settings.SenderAddress, 
                 user.Address, 
-                _settings.Header, 
-                body))
+                Properties.Resources.NewUserConfirmationHeader,
+                string.Format(Properties.Resources.NewUserConfirmationBody, user.ConfirmationKey)))
             {
-                var client = new SmtpClient(_settings.SmtpHost, _settings.SmtpPort)
+                var client = new SmtpClient(settings.SmtpHost, settings.SmtpPort)
                 {
-                    EnableSsl = _settings.EnableSsl,
+                    EnableSsl = settings.EnableSsl,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new NetworkCredential(_settings.UserName, _settings.Password),
+                    Credentials = new NetworkCredential(settings.UserName, settings.Password),
                 };
 
                 client.Send(mail);

@@ -13,6 +13,7 @@ using PVDevelop.UCoach.Server.Core.Service;
 using PVDevelop.UCoach.Server.Timing;
 using PVDevelop.UCoach.Server.Logging;
 using PVDevelop.UCoach.Server.Core.Mail;
+using PVDevelop.UCoach.Server.Configuration;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
@@ -119,8 +120,10 @@ namespace PVDevelop.UCoach.Server.UserManagement
                 x.For<ISportsmanConfirmationProducer>().
                     Use<EmailConfirmationProducer>();
 
-                x.For<IEmailProducerSettings>().
-                    Use<FakeEmailProducerSettings>();
+                x.For<ISettingsProvider<EmailProducerSettingsSection>>().
+                    Use<ConfigurationSectionSettingsProvider<EmailProducerSettingsSection>>().
+                    Ctor<string>().
+                    Is("emailProducerSettings");
 
                 x.For<ISportsmanConfirmationService>().
                     Use<SportsmanConfirmationService>();

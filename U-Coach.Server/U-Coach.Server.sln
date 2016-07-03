@@ -77,6 +77,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.CurrentDomainClient", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestComparisonUtilities", "TestComparisonUtility\TestComparisonUtilities.csproj", "{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{9D893E1E-2741-4178-93FA-69C8F33110B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,6 +201,10 @@ Global
 		{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D893E1E-2741-4178-93FA-69C8F33110B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D893E1E-2741-4178-93FA-69C8F33110B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D893E1E-2741-4178-93FA-69C8F33110B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D893E1E-2741-4178-93FA-69C8F33110B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -236,5 +242,6 @@ Global
 		{12E06B20-78EC-4B54-8B43-81202F618E62} = {45BACE28-DAFF-44E1-8528-B6196986B8F3}
 		{FDE9532D-382A-42E4-A203-A7CC32506267} = {45BACE28-DAFF-44E1-8528-B6196986B8F3}
 		{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D} = {1AA7B04F-1FD5-4E32-B612-D9217A16B5B2}
+		{9D893E1E-2741-4178-93FA-69C8F33110B1} = {48F3FE18-D7E9-48D0-80A1-720D40342D54}
 	EndGlobalSection
 EndGlobal

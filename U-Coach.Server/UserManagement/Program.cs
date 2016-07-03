@@ -7,10 +7,12 @@ namespace PVDevelop.UCoach.Server.UserManagement
 {
     class Program
     {
+        private static ILogger _logger;
+
         static void Main(string[] args)
         {
-            var logger = LoggerFactory.CreateLogger<Program>();
-            logger.Debug("Приложение запущено.");
+            _logger = LoggerFactory.CreateLogger<Program>();
+            _logger.Debug("Приложение запущено.");
 
             if (args.Length > 0)
             {
@@ -20,23 +22,32 @@ namespace PVDevelop.UCoach.Server.UserManagement
                     executor.Execute();
                     Console.WriteLine(executor.GetSuccessString());
                 }
+                catch(StructureMapException ex)
+                {
+                    _logger.Fatal(ex, "Ошибка конфигурирования приложения.");
+                }
                 catch (Exception ex)
                 {
-                    logger.Error(ex, "Ошибка при выполнении команды.");
-                    new HelpExecutor().PrintHelp();
+                    _logger.Error(ex, "Ошибка при выполнении команды.");
+                    SafePrintHelp();
                 }
             }
             else
             {
-                try
-                {
-                    new HelpExecutor().PrintHelp();
-                }
-                catch(Exception  ex)
-                {
-                    logger.Error(ex, "Ошибка при выводе help.");
-                    Console.WriteLine(ex.Message);
-                }
+                SafePrintHelp();
+            }
+        }
+
+        private static void SafePrintHelp()
+        {
+            try
+            {
+                new HelpExecutor().PrintHelp();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Ошибка при выводе help.");
+                Console.WriteLine("Ошибка при выводе help");
             }
         }
     }

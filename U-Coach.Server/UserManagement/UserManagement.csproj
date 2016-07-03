@@ -42,6 +42,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,7 +54,6 @@
   <ItemGroup>
     <Compile Include="Executor\CreateSportsmanConfirmationExecutor.cs" />
     <Compile Include="Executor\CreateUserExecutor.cs" />
-    <Compile Include="FakeEmailProducerSettings.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Executor\ExecutorFactory.cs" />
     <Compile Include="Executor\HelpExecutor.cs" />
@@ -88,6 +88,10 @@
     <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
       <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
       <Name>Auth.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Configuration\Configuration.csproj">
+      <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
+      <Name>Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Mail\Core.Mail.csproj">
       <Project>{8B643F85-8A84-4DDC-9B4D-C7CF10BF0296}</Project>
