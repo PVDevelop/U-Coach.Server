@@ -6,7 +6,7 @@ using TestNUnit;
 namespace PVDevelop.UCoach.Server.Mongo.Tests
 {
     [TestFixture]
-    [Integration]
+    [Category(CategoryConst.INTEGRATION)]
     public class MongoCollectionVersionValidatorByClassAttributeIntegrTests
     {
         [Test]

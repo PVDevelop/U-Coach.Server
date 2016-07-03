@@ -9,7 +9,7 @@ using TestNUnit;
 namespace Auth.Domain.Tests
 {
     [TestFixture]
-    [Integration]
+    [Category(CategoryConst.INTEGRATION)]
     public class MongoRepositoryIntegrTests
     {
         [Test]

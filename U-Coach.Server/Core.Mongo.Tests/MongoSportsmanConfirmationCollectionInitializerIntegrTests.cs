@@ -9,7 +9,7 @@ using TestNUnit;
 namespace Core.Mongo.Tests
 {
     [TestFixture]
-    //[Integration]
+    [Category(CategoryConst.INTEGRATION)]
     public class MongoSportsmanConfirmationCollectionInitializerIntegrTests
     {
         [Test]

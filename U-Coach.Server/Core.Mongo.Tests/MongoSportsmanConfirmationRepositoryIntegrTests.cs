@@ -8,11 +8,12 @@ using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Mongo.Exceptions;
 using StructureMap.AutoMocking;
 using TestMongoUtilities;
+using TestNUnit;
 
 namespace Core.Mongo.Tests
 {
     [TestFixture]
-    //[Integration]
+    [Category(CategoryConst.INTEGRATION)]
     public class MongoSportsmanConfirmationRepositoryIntegrTests
     {
         private static RhinoAutoMocker<MongoSportsmanConfirmationRepository> CreateAndSetupAutoMocker(IMongoConnectionSettings settings)

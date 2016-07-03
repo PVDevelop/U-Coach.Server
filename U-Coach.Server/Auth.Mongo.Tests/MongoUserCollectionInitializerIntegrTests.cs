@@ -9,7 +9,7 @@ using MongoDB.Driver;
 namespace Auth.Mongo.Tests
 {
     [TestFixture]
-    [Integration]
+    [Category(CategoryConst.INTEGRATION)]
     public class MongoUserCollectionInitializerIntegrTests
     {
         [Test]
