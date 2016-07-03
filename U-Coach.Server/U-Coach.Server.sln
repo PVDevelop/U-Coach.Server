@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mongo", "Mongo\Mongo.csproj", "{6B3139F0-9F1E-4D3A-9303-1EF9B43A4FCB}"
 EndProject
@@ -74,6 +74,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Contract", "Auth.Contract\Auth.Contract.csproj", "{12E06B20-78EC-4B54-8B43-81202F618E62}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.CurrentDomainClient", "Auth.CurrentDomainClient\Auth.CurrentDomainClient.csproj", "{FDE9532D-382A-42E4-A203-A7CC32506267}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestComparisonUtilities", "TestComparisonUtility\TestComparisonUtilities.csproj", "{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,6 +195,10 @@ Global
 		{FDE9532D-382A-42E4-A203-A7CC32506267}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDE9532D-382A-42E4-A203-A7CC32506267}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDE9532D-382A-42E4-A203-A7CC32506267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -229,5 +235,6 @@ Global
 		{9C80326B-4A56-44C1-9310-B122D5122245} = {1AA7B04F-1FD5-4E32-B612-D9217A16B5B2}
 		{12E06B20-78EC-4B54-8B43-81202F618E62} = {45BACE28-DAFF-44E1-8528-B6196986B8F3}
 		{FDE9532D-382A-42E4-A203-A7CC32506267} = {45BACE28-DAFF-44E1-8528-B6196986B8F3}
+		{A4FAC0E2-7312-4013-B0B1-9252C5C4DB9D} = {1AA7B04F-1FD5-4E32-B612-D9217A16B5B2}
 	EndGlobalSection
 EndGlobal

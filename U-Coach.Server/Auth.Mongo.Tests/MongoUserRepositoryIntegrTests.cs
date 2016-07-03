@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Auth.Domain.Tests;
 using MongoDB.Driver;
 using NUnit.Framework;
@@ -7,6 +8,7 @@ using PVDevelop.UCoach.Server.Auth.Mongo;
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Mongo.Exceptions;
 using StructureMap.AutoMocking;
+using TestComparisonUtilities;
 using TestMongoUtilities;
 
 namespace Auth.Mongo.Tests
@@ -16,14 +18,13 @@ namespace Auth.Mongo.Tests
     {
         private static void CheckMongoUserEquals(User user, MongoUser mongoUser)
         {
-#warning прикрутить сравнение по reflection
-            Assert.NotNull(mongoUser);
-            Assert.AreEqual(MongoUser.VERSION, mongoUser.Version);
-            Assert.AreEqual(user.Id, mongoUser.Id);
-            Assert.AreEqual(user.Login, mongoUser.Login);
-            Assert.AreEqual(user.Password, mongoUser.Password);
-            Assert.AreEqual(user.IsLoggedIn, mongoUser.IsLoggedIn);
-            Assert.That(mongoUser.CreationTime, Is.EqualTo(user.CreationTime).Within(1).Milliseconds);
+            var builder = 
+                new TestComparer().
+                WithMongoDateTimeComparer().
+                IgnoreProperty<MongoUser>(mu => mu.Version);
+
+            string result;
+            Assert.IsTrue(builder.Compare(user, mongoUser, out result), result);
         }
 
         [Test]

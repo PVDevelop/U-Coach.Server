@@ -100,6 +100,10 @@
       <Project>{728e9205-5562-4d16-8839-081f37f75bee}</Project>
       <Name>TestNUnit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestComparisonUtility\TestComparisonUtilities.csproj">
+      <Project>{a4fac0e2-7312-4013-b0b1-9252c5c4db9d}</Project>
+      <Name>TestComparisonUtilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestMongoUtilities\TestMongoUtilities.csproj">
       <Project>{79d5c2c6-ae98-4b38-9bb8-167118e81998}</Project>
       <Name>TestMongoUtilities</Name>
