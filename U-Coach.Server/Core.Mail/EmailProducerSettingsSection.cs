@@ -3,7 +3,8 @@
 namespace PVDevelop.UCoach.Server.Core.Mail
 {
     public class EmailProducerSettingsSection :
-        ConfigurationSection
+        ConfigurationSection,
+        IEmailProducerSettings
     {
         [ConfigurationProperty("enableSsl")]
         public bool EnableSsl

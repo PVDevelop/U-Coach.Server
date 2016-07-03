@@ -120,8 +120,11 @@ namespace PVDevelop.UCoach.Server.UserManagement
                 x.For<ISportsmanConfirmationProducer>().
                     Use<EmailConfirmationProducer>();
 
-                x.For<ISettingsProvider<EmailProducerSettingsSection>>().
-                    Use<ConfigurationSectionSettingsProvider<EmailProducerSettingsSection>>().
+                x.For<IEmailProducerSettings>().
+                    Use<EmailProducerSettingsSection>();
+
+                x.For<ISettingsProvider<IEmailProducerSettings>>().
+                    Use<ConfigurationSectionSettingsProvider<IEmailProducerSettings>>().
                     Ctor<string>().
                     Is("emailProducerSettings");
 

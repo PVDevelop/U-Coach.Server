@@ -8,9 +8,9 @@ namespace PVDevelop.UCoach.Server.Core.Mail
 {
     public class EmailConfirmationProducer : ISportsmanConfirmationProducer
     {
-        private readonly ISettingsProvider<EmailProducerSettingsSection> _settingsProvider;
+        private readonly ISettingsProvider<IEmailProducerSettings> _settingsProvider;
 
-        public EmailConfirmationProducer(ISettingsProvider<EmailProducerSettingsSection> settingsProvider)
+        public EmailConfirmationProducer(ISettingsProvider<IEmailProducerSettings> settingsProvider)
         {
             if(settingsProvider == null)
             {
