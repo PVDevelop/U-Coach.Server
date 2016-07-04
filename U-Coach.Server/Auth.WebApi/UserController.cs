@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Web.Http;
 using PVDevelop.UCoach.Server.Auth.Contract;
-using PVDevelop.UCoach.Server.Auth.Domain;
 using PVDevelop.UCoach.Server.Auth.Service;
 
 namespace PVDevelop.UCoach.Server.Auth.WebApi
 {
-    [RoutePrefix("user")]
     public class UserController : ApiController
     {
         private readonly IUserService _userService;
@@ -21,9 +19,10 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
         }
 
         [HttpPost]
-        public void CreateUser(CreateUserDto createUserDto)
+        [Route(Routes.CREATE_USER)]
+        public string CreateUser([FromBody] CreateUserDto createUserDto)
         {
-            _userService.Create(createUserDto);
+            return _userService.Create(createUserDto);
         }
     }
 }

@@ -14,6 +14,7 @@ using PVDevelop.UCoach.Server.Timing;
 using PVDevelop.UCoach.Server.Logging;
 using PVDevelop.UCoach.Server.Core.Mail;
 using PVDevelop.UCoach.Server.Configuration;
+using PVDevelop.UCoach.Server.Auth.RestClient;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
@@ -94,7 +95,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
                     Use<UserFactory>();
 
                 x.For<IUsersClient>().
-                    Use<CurrentDomainUsersClient>();
+                    Use<RestUsersClient>();
 
                 x.For<IMongoConnectionSettings>().
                     Use<MongoConnectionSettings>().

@@ -73,10 +73,6 @@
       <Project>{12e06b20-78ec-4b54-8b43-81202f618e62}</Project>
       <Name>Auth.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Auth.CurrentDomainClient\Auth.CurrentDomainClient.csproj">
-      <Project>{fde9532d-382a-42e4-a203-a7cc32506267}</Project>
-      <Name>Auth.CurrentDomainClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
       <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
       <Name>Auth.Domain</Name>
@@ -84,6 +80,10 @@
     <ProjectReference Include="..\Auth.Mongo\Auth.Mongo.csproj">
       <Project>{141873A9-7298-45BA-88DE-AC8C49492E95}</Project>
       <Name>Auth.Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.RestClient\Auth.RestClient.csproj">
+      <Project>{e65ffb0d-ba55-4724-9d65-7fb88baf81dd}</Project>
+      <Name>Auth.RestClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
       <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>

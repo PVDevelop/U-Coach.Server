@@ -28,7 +28,6 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
             {
                 ConfigureTiming(x);
                 ConfigureMongo(x);
-                ConfigureUserMongo(x);
                 ConfigureUserService(x);
             });
         }
@@ -62,10 +61,7 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
                 Ctor<string>().
                 Is("mongo_auth").
                 Named("settings_mongo_auth");
-        }
 
-        private void ConfigureUserMongo(ConfigurationExpression x)
-        {
             x.For<IMongoInitializer>().
                 Use<MongoUserCollectionInitializer>().
                 Ctor<IMongoConnectionSettings>("metaSettings").
