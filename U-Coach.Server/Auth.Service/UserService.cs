@@ -1,6 +1,7 @@
 ﻿using System;
 using PVDevelop.UCoach.Server.Logging;
 using PVDevelop.UCoach.Server.Auth.Domain;
+using PVDevelop.UCoach.Server.Auth.Contract;
 
 namespace PVDevelop.UCoach.Server.Auth.Service
 {
@@ -26,7 +27,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _userFactory = userFactory;
         }
 
-        public string Create(CreateUserParams userParams)
+        public string Create(CreateUserDto userParams)
         {
             if (userParams == null)
             {
@@ -43,7 +44,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             return user.Id.ToString();
         }
 
-        public string Logon(LogonUserParams userParams)
+        public string Logon(LogonUserDto userParams)
         {
             if (userParams == null)
             {
@@ -61,7 +62,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             return token;
         }
 
-        public void LogoutByPassword(LogoutByPasswordUserParams userParams)
+        public void LogoutByPassword(LogoutByPasswordUserDto userParams)
         {
             if (userParams == null)
             {
@@ -77,7 +78,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _logger.Info("Логаут пользователя {0} выполнен.", userParams.Login);
         }
 
-        public void ValidateToken(ValidateTokenParams tokenParams)
+        public void ValidateToken(ValidateTokenDto tokenParams)
         {
             if (tokenParams == null)
             {

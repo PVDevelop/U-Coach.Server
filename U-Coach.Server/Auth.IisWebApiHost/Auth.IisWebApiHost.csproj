@@ -111,10 +111,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
+      <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
+      <Name>Auth.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.Mongo\Auth.Mongo.csproj">
+      <Project>{141873A9-7298-45BA-88DE-AC8C49492E95}</Project>
+      <Name>Auth.Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
+      <Project>{EECD97C9-87B4-4E00-8455-A8C80ABFB66F}</Project>
+      <Name>Auth.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auth.WebApi\Auth.WebApi.csproj">
       <Project>{c92f3088-b5c6-4095-8d49-c13a55f42577}</Project>
       <Name>Auth.WebApi</Name>
@@ -122,6 +132,14 @@
     <ProjectReference Include="..\Mapper\Mapper.csproj">
       <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
       <Name>Mapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mongo\Mongo.csproj">
+      <Project>{6B3139F0-9F1E-4D3A-9303-1EF9B43A4FCB}</Project>
+      <Name>Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Timing\Timing.csproj">
+      <Project>{ED9532D4-7643-4A2F-AC6A-7EA11BBF2612}</Project>
+      <Name>Timing</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

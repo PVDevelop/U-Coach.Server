@@ -1,6 +1,6 @@
-﻿namespace PVDevelop.UCoach.Server.Auth.Service
+﻿namespace PVDevelop.UCoach.Server.Auth.Contract
 {
-    public class ValidateTokenParams
+    public class ValidateTokenDto
     {
         public string Login { get; set; }
         public string Token { get; set; }

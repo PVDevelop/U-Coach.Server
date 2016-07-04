@@ -58,10 +58,6 @@
       <Project>{c92f3088-b5c6-4095-8d49-c13a55f42577}</Project>
       <Name>Auth.WebApi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Auth.WebClient\Auth.WebClient.csproj">
-      <Project>{e2ef586a-f998-4460-9d6f-5c2827599636}</Project>
-      <Name>Auth.WebClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core.Domain\Core.Domain.csproj">
       <Project>{306e3c51-e72e-4543-9f58-b65990cc8437}</Project>
       <Name>Core.Domain</Name>

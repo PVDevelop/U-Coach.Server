@@ -1,7 +1,7 @@
-﻿namespace PVDevelop.UCoach.Server.Auth.Service
+﻿namespace PVDevelop.UCoach.Server.Auth.Contract
 {
-    public class CreateUserParams
-    {
+    public class LogonUserDto
+    {        
         /// <summary>
         /// Логин пользователя.
         /// </summary>

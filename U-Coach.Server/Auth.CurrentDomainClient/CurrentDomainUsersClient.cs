@@ -23,8 +23,7 @@ namespace PVDevelop.UCoach.Server.Auth.Contract
 
         public string Create(CreateUserDto userDto)
         {
-            var userParams = MapperHelper.Map<CreateUserDto, CreateUserParams>(userDto);
-            return _userService.Create(userParams);
+            return _userService.Create(userDto);
         }
     }
 }

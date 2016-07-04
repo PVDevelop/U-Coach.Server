@@ -1,6 +1,6 @@
-﻿namespace PVDevelop.UCoach.Server.Auth.Service
+﻿namespace PVDevelop.UCoach.Server.Auth.Contract
 {
-    public class LogoutByPasswordUserParams
+    public class LogoutByPasswordUserDto
     {
         /// <summary>
         /// Логин пользователя.

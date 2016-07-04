@@ -1,5 +1,6 @@
 ﻿using PVDevelop.UCoach.Server.Auth.Service;
 using System;
+using PVDevelop.UCoach.Server.Auth.Contract;
 
 namespace PVDevelop.UCoach.Server.UserManagement.Executor
 {
@@ -47,7 +48,7 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
 
         public void Execute()
         {
-            var userParams = new LogonUserParams()
+            var userParams = new LogonUserDto()
             {
                 Login = Login,
                 Password = Password

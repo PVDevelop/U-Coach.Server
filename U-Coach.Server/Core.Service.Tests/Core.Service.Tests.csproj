@@ -74,10 +74,6 @@
       <Project>{12E06B20-78EC-4B54-8B43-81202F618E62}</Project>
       <Name>Auth.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Auth.WebClient\Auth.WebClient.csproj">
-      <Project>{e2ef586a-f998-4460-9d6f-5c2827599636}</Project>
-      <Name>Auth.WebClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
       <Name>Configuration</Name>
