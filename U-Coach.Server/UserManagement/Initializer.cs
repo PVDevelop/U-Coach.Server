@@ -15,6 +15,7 @@ using PVDevelop.UCoach.Server.Logging;
 using PVDevelop.UCoach.Server.Core.Mail;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.Auth.RestClient;
+using PVDevelop.UCoach.Server.RestClient;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
@@ -93,6 +94,17 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
                 x.For<IUserFactory>().
                     Use<UserFactory>();
+
+                x.For<IConnectionStringProvider>().
+                    Use<ConnectionStringProvider>().
+                    Named("conn_str_users_client").
+                    Ctor<string>().
+                    Is("rest_users");
+
+                x.For<IRestClientFactory>().
+                    Use<RestClientFactory>().
+                    Ctor<IConnectionStringProvider>().
+                    IsNamedInstance("conn_str_users_client");
 
                 x.For<IUsersClient>().
                     Use<RestUsersClient>();

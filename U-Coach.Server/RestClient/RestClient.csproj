@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9D893E1E-2741-4178-93FA-69C8F33110B1}</ProjectGuid>
+    <ProjectGuid>{0F8931B1-BE3D-4544-9D9E-A7616B736A28}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server.Configuration</RootNamespace>
-    <AssemblyName>PVDevelop.UCoach.Server.Configuration</AssemblyName>
+    <RootNamespace>PVDevelop.UCoach.Server.RestClient</RootNamespace>
+    <AssemblyName>PVDevelop.UCoach.Server.RestClient</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,11 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationSectionSettingsProvider.cs" />
-    <Compile Include="IConnectionStringProvider.cs" />
-    <Compile Include="ISettingsProvider.cs" />
-    <Compile Include="MongoConnectionSettings.cs" />
+    <Compile Include="IRestClient.cs" />
+    <Compile Include="IRestClientFactory.cs" />
+    <Compile Include="IRestResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestClientFactory.cs" />
+    <Compile Include="RestClientWrapper.cs" />
+    <Compile Include="RestResponseWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Configuration\Configuration.csproj">
+      <Project>{9d893e1e-2741-4178-93fa-69c8f33110b1}</Project>
+      <Name>Configuration</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
