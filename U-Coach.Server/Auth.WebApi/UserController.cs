@@ -24,5 +24,18 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
         {
             return _userService.Create(createUserDto);
         }
+
+        [HttpPost]
+        [Route(Routes.LOGON_USER)]
+        public string LogonUser(string login, [FromBody] string password)
+        {
+            var dto = new LogonUserDto()
+            {
+                Login = login,
+                Password = password
+            };
+
+            return _userService.Logon(dto);
+        }
     }
 }

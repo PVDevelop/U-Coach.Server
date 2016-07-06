@@ -34,16 +34,16 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
             }
         }
 
-        private readonly IUserService _userService;
+        private readonly IUsersClient _usersClient;
 
-        public LogonExecutor(IUserService userService)
+        public LogonExecutor(IUsersClient usersClient)
         {
-            if (userService == null)
+            if (usersClient == null)
             {
-                throw new ArgumentNullException("userService");
+                throw new ArgumentNullException(nameof(usersClient));
             }
 
-            _userService = userService;
+            _usersClient = usersClient;
         }
 
         public void Execute()
@@ -54,7 +54,7 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
                 Password = Password
             };
 
-            _userService.Logon(userParams);
+            _usersClient.Logon(userParams);
         }
 
         public void Setup(string[] arguments)

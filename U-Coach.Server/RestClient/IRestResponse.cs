@@ -3,10 +3,9 @@
     public interface IRestResponse
     {
         /// <summary>
-        /// Возвращает содержимое ответа.
-        /// Кидает<exception cref="RestExecutionException">если ответ содержит ошибку</exception>
+        /// Возвращает содержимое ответа, либо кидает исключение.
         /// </summary>
-        /// <returns></returns>
+        /// <exception cref="RestExecutionException"/>
         string GetContentOrThrow();
     }
 }

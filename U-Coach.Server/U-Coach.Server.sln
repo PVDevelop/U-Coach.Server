@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.RestClient", "Auth.Res
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient", "RestClient\RestClient.csproj", "{0F8931B1-BE3D-4544-9D9E-A7616B736A28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Tests", "RestClient.Tests\RestClient.Tests.csproj", "{7C964BB8-FDBB-4B43-8EB6-9678BE2E9FD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -205,6 +207,10 @@ Global
 		{0F8931B1-BE3D-4544-9D9E-A7616B736A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F8931B1-BE3D-4544-9D9E-A7616B736A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F8931B1-BE3D-4544-9D9E-A7616B736A28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C964BB8-FDBB-4B43-8EB6-9678BE2E9FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C964BB8-FDBB-4B43-8EB6-9678BE2E9FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C964BB8-FDBB-4B43-8EB6-9678BE2E9FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C964BB8-FDBB-4B43-8EB6-9678BE2E9FD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,5 +249,6 @@ Global
 		{9D893E1E-2741-4178-93FA-69C8F33110B1} = {48F3FE18-D7E9-48D0-80A1-720D40342D54}
 		{E65FFB0D-BA55-4724-9D65-7FB88BAF81DD} = {45BACE28-DAFF-44E1-8528-B6196986B8F3}
 		{0F8931B1-BE3D-4544-9D9E-A7616B736A28} = {48F3FE18-D7E9-48D0-80A1-720D40342D54}
+		{7C964BB8-FDBB-4B43-8EB6-9678BE2E9FD8} = {EB7F811E-7FB3-484C-82C2-815098A2B9DF}
 	EndGlobalSection
 EndGlobal

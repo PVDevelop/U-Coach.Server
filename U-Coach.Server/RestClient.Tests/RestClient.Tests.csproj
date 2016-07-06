@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F8931B1-BE3D-4544-9D9E-A7616B736A28}</ProjectGuid>
+    <ProjectGuid>{7C964BB8-FDBB-4B43-8EB6-9678BE2E9FD8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server.RestClient</RootNamespace>
-    <AssemblyName>PVDevelop.UCoach.Server.RestClient</AssemblyName>
+    <RootNamespace>RestClient.Tests</RootNamespace>
+    <AssemblyName>RestClient.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -44,24 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRestClient.cs" />
-    <Compile Include="IRestClientFactory.cs" />
-    <Compile Include="IRestResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RestClientFactory.cs" />
-    <Compile Include="RestClientWrapper.cs" />
-    <Compile Include="RestExecutionException.cs" />
-    <Compile Include="RestHelper.cs" />
-    <Compile Include="RestResponseWrapper.cs" />
+    <Compile Include="RestHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Configuration\Configuration.csproj">
-      <Project>{9d893e1e-2741-4178-93fa-69c8f33110b1}</Project>
-      <Name>Configuration</Name>
+    <ProjectReference Include="..\RestClient\RestClient.csproj">
+      <Project>{0F8931B1-BE3D-4544-9D9E-A7616B736A28}</Project>
+      <Name>RestClient</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
