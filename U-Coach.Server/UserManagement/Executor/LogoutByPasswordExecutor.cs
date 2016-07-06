@@ -1,5 +1,4 @@
-﻿using PVDevelop.UCoach.Server.Auth.Service;
-using System;
+﻿using System;
 using PVDevelop.UCoach.Server.Auth.Contract;
 
 namespace PVDevelop.UCoach.Server.UserManagement.Executor
@@ -34,16 +33,16 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
             }
         }
 
-        private readonly IUserService _userService;
+        private readonly IUsersClient _usersClient;
 
-        public LogoutByPasswordExecutor(IUserService userService)
+        public LogoutByPasswordExecutor(IUsersClient usersClient)
         {
-            if (userService == null)
+            if (usersClient == null)
             {
-                throw new ArgumentNullException("userService");
+                throw new ArgumentNullException(nameof(usersClient));
             }
 
-            _userService = userService;
+            _usersClient = usersClient;
         }
 
         public void Execute()
@@ -54,7 +53,7 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
                 Password = Password
             };
 
-            _userService.LogoutByPassword(userParams);
+            _usersClient.LogoutByPassword(userParams);
         }
 
         public string GetSuccessString()

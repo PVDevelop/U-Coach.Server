@@ -7,5 +7,10 @@
         /// </summary>
         /// <exception cref="RestExecutionException"/>
         string GetContentOrThrow();
+
+        /// <summary>
+        /// Проверяет результат на наличие ошибок
+        /// </summary>
+        void CheckResult();
     }
 }

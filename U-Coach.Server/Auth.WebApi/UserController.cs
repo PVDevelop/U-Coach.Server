@@ -37,5 +37,31 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
 
             return _userService.Logon(dto);
         }
+
+        [HttpPost]
+        [Route(Routes.LOGOUT_USER)]
+        public void Logout(string login, [FromBody] string password)
+        {
+            var dto = new LogoutByPasswordUserDto()
+            {
+                Login = login,
+                Password = password
+            };
+
+            _userService.LogoutByPassword(dto);
+        }
+
+        [HttpPost]
+        [Route(Routes.VALIDATE_USER_TOKEN)]
+        public void ValidateToken(string login, [FromBody] string token)
+        {
+            var dto = new ValidateTokenDto()
+            {
+                Login = login,
+                Token = token
+            };
+
+            _userService.ValidateToken(dto);
+        }
     }
 }

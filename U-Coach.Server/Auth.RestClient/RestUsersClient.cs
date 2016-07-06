@@ -40,12 +40,22 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
 
         public void LogoutByPassword(LogoutByPasswordUserDto logoutByPasswordUserDto)
         {
-            throw new NotImplementedException();
+            var uri = RestHelper.FormatUri(Routes.LOGOUT_USER, logoutByPasswordUserDto.Login);
+            _restClientFactory.
+                CreatePost(uri).
+                AddBody(logoutByPasswordUserDto.Password).
+                Execute().
+                CheckResult();
         }
 
         public void ValidateToken(ValidateTokenDto tokenDto)
         {
-            throw new NotImplementedException();
+            var uri = RestHelper.FormatUri(Routes.VALIDATE_USER_TOKEN, tokenDto.Login);
+            _restClientFactory.
+                CreatePost(uri).
+                AddBody(tokenDto.Token).
+                Execute().
+                CheckResult();
         }
     }
 }

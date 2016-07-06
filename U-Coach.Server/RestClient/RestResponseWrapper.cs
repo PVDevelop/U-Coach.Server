@@ -17,11 +17,20 @@ namespace PVDevelop.UCoach.Server.RestClient
 
         public string GetContentOrThrow()
         {
-            if(_response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (_response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 throw new RestExecutionException(this);
             }
             return _response.Content;
+        }
+
+        public void CheckResult()
+        {
+            if (_response.StatusCode != System.Net.HttpStatusCode.OK &&
+                _response.StatusCode != System.Net.HttpStatusCode.NoContent)
+            {
+                throw new RestExecutionException(this);
+            }
         }
     }
 }

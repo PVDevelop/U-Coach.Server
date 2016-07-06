@@ -15,22 +15,28 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 {
     public class WebApiApplication : HttpApplication
     {
+        private Container _container;
+
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
             GlobalConfiguration.Configuration.Services.Replace(
                 typeof(IHttpControllerActivator),
                 new StructureMapControllerActivator(SetupContainer()));
+
+            InitializeSystem();
         }
 
         private Container SetupContainer()
         {
-            return new Container(x =>
+            _container = new Container(x =>
             {
                 ConfigureTiming(x);
                 ConfigureMongo(x);
                 ConfigureUserService(x);
             });
+
+            return _container;
         }
 
         private void ConfigureTiming(ConfigurationExpression x)
@@ -86,6 +92,15 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 
             x.For<IUserFactory>().
                 Use<UserFactory>();
+        }
+
+        private void InitializeSystem()
+        {
+            var mongoInitializers = _container.GetAllInstances<IMongoInitializer>();
+            foreach(var initializer in mongoInitializers)
+            {
+                initializer.Initialize();
+            }
         }
     }
 }
