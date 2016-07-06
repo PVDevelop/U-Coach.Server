@@ -2,7 +2,11 @@
 {
     public interface IRestResponse
     {
-        HttpStatusCode Status { get; }
-        string Content { get; }
+        /// <summary>
+        /// Возвращает содержимое ответа.
+        /// Кидает<exception cref="RestExecutionException">если ответ содержит ошибку</exception>
+        /// </summary>
+        /// <returns></returns>
+        string GetContentOrThrow();
     }
 }
