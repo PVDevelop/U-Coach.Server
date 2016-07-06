@@ -2,6 +2,7 @@
 using System.Linq;
 using MongoDB.Driver;
 using NUnit.Framework;
+using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.Core.Domain;
 using PVDevelop.UCoach.Server.Core.Mongo;
 using PVDevelop.UCoach.Server.Mongo;
@@ -16,7 +17,7 @@ namespace Core.Mongo.Tests
     [Category(CategoryConst.INTEGRATION)]
     public class MongoSportsmanConfirmationRepositoryIntegrTests
     {
-        private static RhinoAutoMocker<MongoSportsmanConfirmationRepository> CreateAndSetupAutoMocker(IMongoConnectionSettings settings)
+        private static RhinoAutoMocker<MongoSportsmanConfirmationRepository> CreateAndSetupAutoMocker(IConnectionStringProvider settings)
         {
             var initializer = new MongoSportsmanConfirmationCollectionInitializer(settings, settings);
             initializer.Initialize();

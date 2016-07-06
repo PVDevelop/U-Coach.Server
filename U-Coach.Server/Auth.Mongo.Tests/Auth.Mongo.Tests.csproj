@@ -88,6 +88,10 @@
       <Project>{141873a9-7298-45ba-88de-ac8c49492e95}</Project>
       <Name>Auth.Mongo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Configuration\Configuration.csproj">
+      <Project>{9d893e1e-2741-4178-93fa-69c8f33110b1}</Project>
+      <Name>Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{6d80ea1d-b7bf-422a-8577-824cc4a87f2e}</Project>
       <Name>Domain</Name>

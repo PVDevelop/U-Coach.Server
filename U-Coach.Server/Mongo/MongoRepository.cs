@@ -1,15 +1,16 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Linq.Expressions;
+using PVDevelop.UCoach.Server.Configuration;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
     public class MongoRepository<T> : IMongoRepository<T>
     {
-        private readonly IMongoConnectionSettings _settings;
+        private readonly IConnectionStringProvider _settings;
 
         public MongoRepository(
-            IMongoConnectionSettings settings)
+            IConnectionStringProvider settings)
         {
             if (settings == null)
             {

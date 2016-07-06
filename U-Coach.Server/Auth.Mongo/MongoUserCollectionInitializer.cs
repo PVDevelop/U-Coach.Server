@@ -1,6 +1,7 @@
 ﻿using System;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.Logging;
 using PVDevelop.UCoach.Server.Mongo;
 
@@ -11,13 +12,13 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
     /// </summary>
     public class MongoUserCollectionInitializer : IMongoInitializer
     {
-        private readonly IMongoConnectionSettings _metaSettings;
-        private readonly IMongoConnectionSettings _contextSettings;
+        private readonly IConnectionStringProvider _metaSettings;
+        private readonly IConnectionStringProvider _contextSettings;
         private readonly ILogger _logger = LoggerFactory.CreateLogger<MongoUserCollectionInitializer>();
 
         public MongoUserCollectionInitializer(
-            IMongoConnectionSettings metaSettings,
-            IMongoConnectionSettings contextSettings)
+            IConnectionStringProvider metaSettings,
+            IConnectionStringProvider contextSettings)
         {
             if(metaSettings == null)
             {

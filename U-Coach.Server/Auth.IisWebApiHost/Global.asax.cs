@@ -9,6 +9,7 @@ using PVDevelop.UCoach.Server.Auth.Mongo;
 using PVDevelop.UCoach.Server.Auth.Service;
 using PVDevelop.UCoach.Server.Auth.Domain;
 using System;
+using PVDevelop.UCoach.Server.Configuration;
 
 namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 {
@@ -40,38 +41,38 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 
         private void ConfigureMongo(ConfigurationExpression x)
         {
-            x.For<IMongoConnectionSettings>().
-                Use<MongoConnectionSettings>().
+            x.For<IConnectionStringProvider>().
+                Use<ConnectionStringProvider>().
                 Ctor<string>().
                 Is("mongo_meta").
                 Named("settings_mongo_meta");
 
             x.For<IMongoCollectionVersionValidator>().
                 Use<MongoCollectionVersionValidatorByClassAttribute>().
-                Ctor<IMongoConnectionSettings>().
+                Ctor<IConnectionStringProvider>().
                 IsNamedInstance("settings_mongo_meta");
 
             x.For<IMongoInitializer>().
                 Use<MongoMetaInitializer>().
-                Ctor<IMongoConnectionSettings>().
+                Ctor<IConnectionStringProvider>().
                 IsNamedInstance("settings_mongo_meta");
 
-            x.For<IMongoConnectionSettings>().
-                Use<MongoConnectionSettings>().
+            x.For<IConnectionStringProvider>().
+                Use<ConnectionStringProvider>().
                 Ctor<string>().
                 Is("mongo_auth").
                 Named("settings_mongo_auth");
 
             x.For<IMongoInitializer>().
                 Use<MongoUserCollectionInitializer>().
-                Ctor<IMongoConnectionSettings>("metaSettings").
+                Ctor<IConnectionStringProvider>("metaSettings").
                 IsNamedInstance("settings_mongo_meta").
-                Ctor<IMongoConnectionSettings>("contextSettings").
+                Ctor<IConnectionStringProvider>("contextSettings").
                 IsNamedInstance("settings_mongo_auth");
 
             x.For<IMongoRepository<MongoUser>>().
                 Use<MongoRepository<MongoUser>>().
-                Ctor<IMongoConnectionSettings>().
+                Ctor<IConnectionStringProvider>().
                 IsNamedInstance("settings_mongo_auth");
 
             x.For<IUserRepository>().

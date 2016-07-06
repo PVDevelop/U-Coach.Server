@@ -52,38 +52,38 @@ namespace PVDevelop.UCoach.Server.UserManagement
                 x.For<IUtcTimeProvider>().
                     Use<UtcTimeProvider>();
 
-                x.For<IMongoConnectionSettings>().
-                    Use<MongoConnectionSettings>().
+                x.For<IConnectionStringProvider>().
+                    Use<ConnectionStringProvider>().
                     Ctor<string>().
                     Is("mongo_meta").
                     Named("settings_mongo_meta");
 
                 x.For<IMongoCollectionVersionValidator>().
                     Use<MongoCollectionVersionValidatorByClassAttribute>().
-                    Ctor<IMongoConnectionSettings>().
+                    Ctor<IConnectionStringProvider>().
                     IsNamedInstance("settings_mongo_meta");
 
                 x.For<IMongoInitializer>().
                     Use<MongoMetaInitializer>().
-                    Ctor<IMongoConnectionSettings>().
+                    Ctor<IConnectionStringProvider>().
                     IsNamedInstance("settings_mongo_meta");
 
-                x.For<IMongoConnectionSettings>().
-                    Use<MongoConnectionSettings>().
+                x.For<IConnectionStringProvider>().
+                    Use<ConnectionStringProvider>().
                     Ctor<string>().
                     Is("mongo_auth").
                     Named("settings_mongo_auth");
 
                 x.For<IMongoInitializer>().
                     Use<MongoUserCollectionInitializer>().
-                    Ctor<IMongoConnectionSettings>("metaSettings").
+                    Ctor<IConnectionStringProvider>("metaSettings").
                     IsNamedInstance("settings_mongo_meta").
-                    Ctor<IMongoConnectionSettings>("contextSettings").
+                    Ctor<IConnectionStringProvider>("contextSettings").
                     IsNamedInstance("settings_mongo_auth");
 
                 x.For<IMongoRepository<MongoUser>>().
                     Use<MongoRepository<MongoUser>>().
-                    Ctor<IMongoConnectionSettings>().
+                    Ctor<IConnectionStringProvider>().
                     IsNamedInstance("settings_mongo_auth");
 
                 x.For<IUserRepository>().
@@ -109,22 +109,22 @@ namespace PVDevelop.UCoach.Server.UserManagement
                 x.For<IUsersClient>().
                     Use<RestUsersClient>();
 
-                x.For<IMongoConnectionSettings>().
-                    Use<MongoConnectionSettings>().
+                x.For<IConnectionStringProvider>().
+                    Use<ConnectionStringProvider>().
                     Ctor<string>().
                     Is("mongo_core").
                     Named("settings_mongo_core");
 
                 x.For<IMongoInitializer>().
                     Use<MongoSportsmanConfirmationCollectionInitializer>().
-                    Ctor<IMongoConnectionSettings>("metaSettings").
+                    Ctor<IConnectionStringProvider>("metaSettings").
                     IsNamedInstance("settings_mongo_meta").
-                    Ctor<IMongoConnectionSettings>("contextSettings").
+                    Ctor<IConnectionStringProvider>("contextSettings").
                     IsNamedInstance("settings_mongo_core");
 
                 x.For<IMongoRepository<MongoSportsmanConfirmation>>().
                     Use<MongoRepository<MongoSportsmanConfirmation>>().
-                    Ctor<IMongoConnectionSettings>().
+                    Ctor<IConnectionStringProvider>().
                     IsNamedInstance("settings_mongo_core");
 
                 x.For<ISportsmanConfirmationRepository>().

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using MongoDB.Driver;
+using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.Logging;
 using PVDevelop.UCoach.Server.Mongo.Exceptions;
 
@@ -9,10 +10,10 @@ namespace PVDevelop.UCoach.Server.Mongo
     public class MongoCollectionVersionValidatorByClassAttribute :
         IMongoCollectionVersionValidator
     {
-        private readonly IMongoConnectionSettings _settings;
+        private readonly IConnectionStringProvider _settings;
         private readonly ILogger _logger = LoggerFactory.CreateLogger<MongoCollectionVersionValidatorByClassAttribute>();
 
-        public MongoCollectionVersionValidatorByClassAttribute(IMongoConnectionSettings settings)
+        public MongoCollectionVersionValidatorByClassAttribute(IConnectionStringProvider settings)
         {
             if (settings == null)
             {

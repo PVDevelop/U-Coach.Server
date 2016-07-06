@@ -1,15 +1,16 @@
 ﻿using MongoDB.Driver;
 using System;
 using PVDevelop.UCoach.Server.Logging;
+using PVDevelop.UCoach.Server.Configuration;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
     public class MongoMetaInitializer : IMongoInitializer
     {
-        private readonly IMongoConnectionSettings _metaSettings;
+        private readonly IConnectionStringProvider _metaSettings;
         private readonly ILogger _logger = LoggerFactory.CreateLogger<MongoMetaInitializer>();
 
-        public MongoMetaInitializer(IMongoConnectionSettings metaSettings)
+        public MongoMetaInitializer(IConnectionStringProvider metaSettings)
         {
             if(metaSettings == null)
             {

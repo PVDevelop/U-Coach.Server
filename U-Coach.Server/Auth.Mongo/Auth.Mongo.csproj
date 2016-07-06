@@ -66,6 +66,10 @@
       <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
       <Name>Auth.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Configuration\Configuration.csproj">
+      <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
+      <Name>Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{6d80ea1d-b7bf-422a-8577-824cc4a87f2e}</Project>
       <Name>Domain</Name>

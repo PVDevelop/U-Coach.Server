@@ -1,9 +1,9 @@
 ﻿using MongoDB.Driver;
-using PVDevelop.UCoach.Server.Mongo;
+using PVDevelop.UCoach.Server.Configuration;
 
 namespace TestMongoUtilities
 {
-    public sealed class TestMongoSettings : IMongoConnectionSettings
+    public sealed class TestMongoSettings : IConnectionStringProvider
     {
         public string Host { get; set; }
         public string DatabaseName { get; set; }

@@ -2,18 +2,19 @@
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Logging;
 using MongoDB.Driver;
+using PVDevelop.UCoach.Server.Configuration;
 
 namespace PVDevelop.UCoach.Server.Core.Mongo
 {
     public class MongoSportsmanConfirmationCollectionInitializer : IMongoInitializer
     {
-        private readonly IMongoConnectionSettings _metaSettings;
-        private readonly IMongoConnectionSettings _contextSettings;
+        private readonly IConnectionStringProvider _metaSettings;
+        private readonly IConnectionStringProvider _contextSettings;
         private readonly ILogger _logger = LoggerFactory.CreateLogger<MongoSportsmanConfirmationCollectionInitializer>();
 
         public MongoSportsmanConfirmationCollectionInitializer(
-            IMongoConnectionSettings metaSettings,
-            IMongoConnectionSettings contextSettings)
+            IConnectionStringProvider metaSettings,
+            IConnectionStringProvider contextSettings)
         {
             if (metaSettings == null)
             {

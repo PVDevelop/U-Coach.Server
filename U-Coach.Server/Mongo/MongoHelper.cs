@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text;
 using PVDevelop.UCoach.Server.Mongo.Exceptions;
+using PVDevelop.UCoach.Server.Configuration;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
@@ -44,7 +45,7 @@ namespace PVDevelop.UCoach.Server.Mongo
             return mongoDataVersionAttr.Version;
         }
 
-        public static IMongoCollection<T> GetCollection<T>(IMongoConnectionSettings settings)
+        public static IMongoCollection<T> GetCollection<T>(IConnectionStringProvider settings)
         {
             var builder = new MongoUrlBuilder(settings.ConnectionString);
 
@@ -89,7 +90,7 @@ namespace PVDevelop.UCoach.Server.Mongo
                 element.Value.AsBoolean;
         }
 
-        public static string SettingsToString(IMongoConnectionSettings settings)
+        public static string SettingsToString(IConnectionStringProvider settings)
         {
             return settings.ConnectionString;
         }

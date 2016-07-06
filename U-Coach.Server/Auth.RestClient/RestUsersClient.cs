@@ -19,12 +19,17 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
 
         public string Create(CreateUserDto userDto)
         {
-            return 
+            var response =
                 _restClientFactory.
                 CreatePost(Routes.CREATE_USER).
                 AddBody(userDto).
-                Execute().
-                Content;
+                Execute();
+
+#warning надо более грамотно обработать
+            return
+                response.Status == HttpStatusCode.OK ?
+                response.Content :
+                null;
         }
     }
 }
