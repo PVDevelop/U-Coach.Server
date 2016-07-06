@@ -1,5 +1,4 @@
-﻿using PVDevelop.UCoach.Server.Auth.Service;
-using System;
+﻿using System;
 using PVDevelop.UCoach.Server.Auth.Contract;
 
 namespace PVDevelop.UCoach.Server.UserManagement.Executor

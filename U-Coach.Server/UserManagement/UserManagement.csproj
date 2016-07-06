@@ -73,21 +73,9 @@
       <Project>{12e06b20-78ec-4b54-8b43-81202f618e62}</Project>
       <Name>Auth.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
-      <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
-      <Name>Auth.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Auth.Mongo\Auth.Mongo.csproj">
-      <Project>{141873A9-7298-45BA-88DE-AC8C49492E95}</Project>
-      <Name>Auth.Mongo</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Auth.RestClient\Auth.RestClient.csproj">
       <Project>{e65ffb0d-ba55-4724-9d65-7fb88baf81dd}</Project>
       <Name>Auth.RestClient</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
-      <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
-      <Name>Auth.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
@@ -120,10 +108,6 @@
     <ProjectReference Include="..\RestClient\RestClient.csproj">
       <Project>{0f8931b1-be3d-4544-9d9e-a7616b736a28}</Project>
       <Name>RestClient</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Timing\Timing.csproj">
-      <Project>{ED9532D4-7643-4A2F-AC6A-7EA11BBF2612}</Project>
-      <Name>Timing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

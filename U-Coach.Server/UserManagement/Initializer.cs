@@ -5,17 +5,13 @@ using System.Reflection;
 using PVDevelop.UCoach.Server.UserManagement.Executor;
 using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.Mongo;
-using PVDevelop.UCoach.Server.Auth.Mongo;
-using PVDevelop.UCoach.Server.Auth.Service;
-using PVDevelop.UCoach.Server.Auth.Domain;
 using PVDevelop.UCoach.Server.Core.Mongo;
 using PVDevelop.UCoach.Server.Core.Service;
-using PVDevelop.UCoach.Server.Timing;
 using PVDevelop.UCoach.Server.Logging;
 using PVDevelop.UCoach.Server.Core.Mail;
 using PVDevelop.UCoach.Server.Configuration;
-using PVDevelop.UCoach.Server.Auth.RestClient;
 using PVDevelop.UCoach.Server.RestClient;
+using PVDevelop.UCoach.Server.Auth.RestClient;
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
@@ -49,9 +45,6 @@ namespace PVDevelop.UCoach.Server.UserManagement
         {
             _container = new Container(x =>
             {
-                x.For<IUtcTimeProvider>().
-                    Use<UtcTimeProvider>();
-
                 x.For<IConnectionStringProvider>().
                     Use<ConnectionStringProvider>().
                     Ctor<string>().
@@ -70,44 +63,17 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
                 x.For<IConnectionStringProvider>().
                     Use<ConnectionStringProvider>().
-                    Ctor<string>().
-                    Is("mongo_auth").
-                    Named("settings_mongo_auth");
-
-                x.For<IMongoInitializer>().
-                    Use<MongoUserCollectionInitializer>().
-                    Ctor<IConnectionStringProvider>("metaSettings").
-                    IsNamedInstance("settings_mongo_meta").
-                    Ctor<IConnectionStringProvider>("contextSettings").
-                    IsNamedInstance("settings_mongo_auth");
-
-                x.For<IMongoRepository<MongoUser>>().
-                    Use<MongoRepository<MongoUser>>().
-                    Ctor<IConnectionStringProvider>().
-                    IsNamedInstance("settings_mongo_auth");
-
-                x.For<IUserRepository>().
-                    Use<MongoUserRepository>();
-
-                x.For<IUserService>().
-                    Use<UserService>();
-
-                x.For<IUserFactory>().
-                    Use<UserFactory>();
-
-                x.For<IConnectionStringProvider>().
-                    Use<ConnectionStringProvider>().
                     Named("conn_str_users_client").
                     Ctor<string>().
                     Is("rest_users");
+
+                x.For<IUsersClient>().
+                    Use<RestUsersClient>();
 
                 x.For<IRestClientFactory>().
                     Use<RestClientFactory>().
                     Ctor<IConnectionStringProvider>().
                     IsNamedInstance("conn_str_users_client");
-
-                x.For<IUsersClient>().
-                    Use<RestUsersClient>();
 
                 x.For<IConnectionStringProvider>().
                     Use<ConnectionStringProvider>().
