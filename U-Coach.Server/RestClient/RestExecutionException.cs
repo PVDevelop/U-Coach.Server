@@ -4,15 +4,9 @@ namespace PVDevelop.UCoach.Server.RestClient
 {
     public class RestExecutionException : Exception
     {
-        public IRestResponse Response { get; private set; }
-
-        public RestExecutionException(IRestResponse response)
+        public RestExecutionException(string message) : 
+            base(message)
         {
-            if(response == null)
-            {
-                throw new ArgumentNullException(nameof(response));
-            }
-            Response = response;
         }
     }
 }

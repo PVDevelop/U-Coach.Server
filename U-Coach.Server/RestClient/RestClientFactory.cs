@@ -21,7 +21,7 @@ namespace PVDevelop.UCoach.Server.RestClient
             var client = new RestSharp.RestClient(_connectionStringProvider.ConnectionString);
 
             var uri = RestHelper.FormatUri(resource, segments);
-            var request = new RestSharp.RestRequest(resource, RestSharp.Method.POST);
+            var request = new RestSharp.RestRequest(uri, RestSharp.Method.POST);
 
             return new RestClientWrapper(client, request);
         }

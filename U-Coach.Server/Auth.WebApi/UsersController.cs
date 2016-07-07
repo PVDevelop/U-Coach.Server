@@ -29,7 +29,7 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
 
         [HttpPost]
         [Route(Routes.LOGON_USER)]
-        public IHttpActionResult LogonUser(string login, [FromBody] string password)
+        public IHttpActionResult LogonUser([FromUri] string login, [FromBody] string password)
         {
             var dto = new LogonUserDto()
             {
@@ -43,7 +43,7 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
 
         [HttpPost]
         [Route(Routes.VALIDATE_USER_TOKEN)]
-        public IHttpActionResult ValidateToken(string login, [FromBody] string token)
+        public IHttpActionResult ValidateToken([FromUri] string login, [FromBody] string token)
         {
             var dto = new ValidateTokenDto()
             {

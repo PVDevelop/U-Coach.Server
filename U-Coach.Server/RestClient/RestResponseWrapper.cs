@@ -26,7 +26,7 @@ namespace PVDevelop.UCoach.Server.RestClient
         {
             if (_response.StatusCode != System.Net.HttpStatusCode.Created)
             {
-                throw new RestExecutionException(this);
+                throw new RestExecutionException(_response.Content);
             }
             return this;
         }

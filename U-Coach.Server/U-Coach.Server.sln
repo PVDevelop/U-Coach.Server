@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mongo", "Mongo\Mongo.csproj", "{6B3139F0-9F1E-4D3A-9303-1EF9B43A4FCB}"
 EndProject
@@ -84,6 +84,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.RestClient.Tests", "Auth.RestClient.Tests\Auth.RestClient.Tests.csproj", "{8EED5F10-67B6-47BE-A2F3-C9AA2485F6C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{A4594427-AD8C-424F-AEFD-F995EB99EE39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApiUtilities", "TestWebApiUtilities\TestWebApiUtilities.csproj", "{70C9ABF7-A821-4759-837D-C85B0A56D018}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -223,6 +225,10 @@ Global
 		{A4594427-AD8C-424F-AEFD-F995EB99EE39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4594427-AD8C-424F-AEFD-F995EB99EE39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4594427-AD8C-424F-AEFD-F995EB99EE39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70C9ABF7-A821-4759-837D-C85B0A56D018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70C9ABF7-A821-4759-837D-C85B0A56D018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70C9ABF7-A821-4759-837D-C85B0A56D018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70C9ABF7-A821-4759-837D-C85B0A56D018}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -264,5 +270,6 @@ Global
 		{7C964BB8-FDBB-4B43-8EB6-9678BE2E9FD8} = {EB7F811E-7FB3-484C-82C2-815098A2B9DF}
 		{8EED5F10-67B6-47BE-A2F3-C9AA2485F6C9} = {93B7AF55-9814-4DB4-8A3B-686FE3A6151D}
 		{A4594427-AD8C-424F-AEFD-F995EB99EE39} = {48F3FE18-D7E9-48D0-80A1-720D40342D54}
+		{70C9ABF7-A821-4759-837D-C85B0A56D018} = {1AA7B04F-1FD5-4E32-B612-D9217A16B5B2}
 	EndGlobalSection
 EndGlobal
