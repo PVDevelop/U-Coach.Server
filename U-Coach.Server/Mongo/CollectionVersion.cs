@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using System;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace PVDevelop.UCoach.Server.Mongo
 {
@@ -9,9 +10,10 @@ namespace PVDevelop.UCoach.Server.Mongo
         public const int VERSION = 1;
 
         /// <summary>
-        /// Идентификатор документа
+        /// Имя коллекциии, на которую ссылается данный документ
         /// </summary>
-        public Guid Id { get; set; }
+        [BsonId]
+        public string TargetCollectionName { get; private set; }
 
         /// <summary>
         /// Версия документа
@@ -23,13 +25,15 @@ namespace PVDevelop.UCoach.Server.Mongo
         /// </summary>
         public int TargetVersion { get; set; }
 
-        [MongoIndexName("name")]
-        public string Name { get; set; }
-
-        public CollectionVersion()
+        public CollectionVersion(string targetCollectionName)
         {
+            if(targetCollectionName == null)
+            {
+                throw new ArgumentNullException("targetCollectionName");
+            }
+
             Version = 1;
-            Id = Guid.NewGuid();
+            TargetCollectionName = targetCollectionName;
         }
     }
 }

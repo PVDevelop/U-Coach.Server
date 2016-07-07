@@ -67,9 +67,8 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
                 MongoHelper.SettingsToString(_contextSettings));
 
             var collection = MongoHelper.GetCollection<CollectionVersion>(_metaSettings);
-            var collectionVersion = new CollectionVersion()
+            var collectionVersion = new CollectionVersion(MongoHelper.GetCollectionName<MongoSportsmanConfirmation>())
             {
-                Name = MongoHelper.GetCollectionName<MongoSportsmanConfirmation>(),
                 TargetVersion = MongoHelper.GetDataVersion<MongoSportsmanConfirmation>()
             };
 
@@ -78,9 +77,9 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
                 IsUpsert = true
             };
 
-            if (collection.Find(cv => cv.Name == collectionVersion.Name).SingleOrDefault() == null)
+            if (collection.Find(cv => cv.TargetCollectionName == collectionVersion.TargetCollectionName).SingleOrDefault() == null)
             {
-                collection.ReplaceOne(cv => cv.Name == collectionVersion.Name, collectionVersion, options);
+                collection.ReplaceOne(cv => cv.TargetCollectionName == collectionVersion.TargetCollectionName, collectionVersion, options);
             }
 
             _logger.Debug("Инициализация метаданных подтверждения спортсменов прошла успешно.");

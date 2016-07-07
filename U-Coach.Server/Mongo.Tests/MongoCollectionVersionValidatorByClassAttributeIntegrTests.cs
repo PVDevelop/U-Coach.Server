@@ -15,9 +15,8 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
             var validationSettings = TestMongoHelper.CreateSettings();
             TestMongoHelper.WithDb(validationSettings, db =>
             {
-                var collectionVersion = new CollectionVersion()
+                var collectionVersion = new CollectionVersion(MongoHelper.GetCollectionName<TestMongoObj>())
                 {
-                    Name = MongoHelper.GetCollectionName<TestMongoObj>(),
                     TargetVersion = 456
                 };
 
@@ -40,9 +39,8 @@ namespace PVDevelop.UCoach.Server.Mongo.Tests
             {
                 if (version.HasValue)
                 {
-                    var collectionVersion = new CollectionVersion()
+                    var collectionVersion = new CollectionVersion(MongoHelper.GetCollectionName<TestMongoObj>())
                     {
-                        Name = MongoHelper.GetCollectionName<TestMongoObj>(),
                         TargetVersion = version.Value
                     };
 

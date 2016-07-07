@@ -58,7 +58,6 @@
     <Compile Include="IMongoCollectionVersionValidator.cs" />
     <Compile Include="IMongoInitializer.cs" />
     <Compile Include="IMongoRepository.cs" />
-    <Compile Include="MongoMetaInitializer.cs" />
     <Compile Include="MongoCollectionAttribute.cs" />
     <Compile Include="MongoCollectionVersionValidatorByClassAttribute.cs" />
     <Compile Include="MongoDataVersionAttribute.cs" />

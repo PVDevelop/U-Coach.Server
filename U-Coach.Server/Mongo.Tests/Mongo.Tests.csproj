@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetaInitializerIntegrTests.cs" />
     <Compile Include="MongoCollectionVersionValidatorByClassAttributeIntegrTests.cs" />
     <Compile Include="MongoHelperTests.cs" />
     <Compile Include="MongoRepositoryIntegrTests.cs" />

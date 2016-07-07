@@ -37,7 +37,7 @@ namespace Auth.Mongo.Tests
                     var userCollectionName = MongoHelper.GetCollectionName<MongoUser>();
                     var userCollectionVersion = MongoHelper.GetDataVersion<MongoUser>();
                     var ver =
-                        versionCollection.Find(col => col.Name == userCollectionName && col.TargetVersion == userCollectionVersion).SingleOrDefault();
+                        versionCollection.Find(col => col.TargetCollectionName == userCollectionName && col.TargetVersion == userCollectionVersion).SingleOrDefault();
                     Assert.NotNull(ver);
                 });
             });
@@ -52,9 +52,6 @@ namespace Auth.Mongo.Tests
                 var metaSettings = TestMongoHelper.CreateSettings();
                 TestMongoHelper.WithDb(metaSettings, metaDb =>
                 {
-                    var metaInitializer = new MongoMetaInitializer(metaSettings);
-                    metaInitializer.Initialize();
-
                     var userInitializer = new MongoUserCollectionInitializer(metaSettings: metaSettings, contextSettings: contextSettings);
                     userInitializer.Initialize();
                     userInitializer.Initialize();

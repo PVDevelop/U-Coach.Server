@@ -49,7 +49,7 @@ namespace Core.Mongo.Tests
                     var userCollectionName = MongoHelper.GetCollectionName<MongoSportsmanConfirmation>();
                     var userCollectionVersion = MongoHelper.GetDataVersion<MongoSportsmanConfirmation>();
                     var ver =
-                        versionCollection.Find(col => col.Name == userCollectionName && col.TargetVersion == userCollectionVersion).SingleOrDefault();
+                        versionCollection.Find(col => col.TargetCollectionName == userCollectionName && col.TargetVersion == userCollectionVersion).SingleOrDefault();
                     Assert.NotNull(ver);
                 });
             });
@@ -64,9 +64,6 @@ namespace Core.Mongo.Tests
                 var metaSettings = TestMongoHelper.CreateSettings();
                 TestMongoHelper.WithDb(metaSettings, metaDb =>
                 {
-                    var metaInitializer = new MongoMetaInitializer(metaSettings);
-                    metaInitializer.Initialize();
-
                     var userInitializer = new MongoSportsmanConfirmationCollectionInitializer(
                         metaSettings: metaSettings, 
                         contextSettings: contextSettings);

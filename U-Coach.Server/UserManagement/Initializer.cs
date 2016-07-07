@@ -56,11 +56,6 @@ namespace PVDevelop.UCoach.Server.UserManagement
                     Ctor<IConnectionStringProvider>().
                     IsNamedInstance("settings_mongo_meta");
 
-                x.For<IMongoInitializer>().
-                    Use<MongoMetaInitializer>().
-                    Ctor<IConnectionStringProvider>().
-                    IsNamedInstance("settings_mongo_meta");
-
                 x.For<IConnectionStringProvider>().
                     Use<ConnectionStringProvider>().
                     Named("conn_str_users_client").

@@ -29,7 +29,7 @@ namespace PVDevelop.UCoach.Server.Mongo
             _logger.Debug("Проверяю метаданные коллекции {0}.", referencedCollectionName);
 
             var collection = MongoHelper.GetCollection<CollectionVersion>(_settings);
-            var collectionVersion = collection.Find(cv => cv.Name == referencedCollectionName).SingleOrDefault();
+            var collectionVersion = collection.Find(cv => cv.TargetCollectionName == referencedCollectionName).SingleOrDefault();
 
             var requiredVersion = MongoHelper.GetDataVersion<T>();
             if (collectionVersion == null)

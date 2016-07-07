@@ -58,11 +58,6 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
                 Ctor<IConnectionStringProvider>().
                 IsNamedInstance("settings_mongo_meta");
 
-            x.For<IMongoInitializer>().
-                Use<MongoMetaInitializer>().
-                Ctor<IConnectionStringProvider>().
-                IsNamedInstance("settings_mongo_meta");
-
             x.For<IConnectionStringProvider>().
                 Use<ConnectionStringProvider>().
                 Ctor<string>().
