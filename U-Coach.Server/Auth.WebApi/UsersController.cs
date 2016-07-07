@@ -27,7 +27,7 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
             return Content(HttpStatusCode.Created, result);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route(Routes.LOGON_USER)]
         public IHttpActionResult LogonUser([FromUri] string login, [FromBody] string password)
         {
@@ -38,10 +38,10 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
             };
 
             var result = _userService.Logon(dto);
-            return Content(HttpStatusCode.Created, result);
+            return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route(Routes.VALIDATE_USER_TOKEN)]
         public IHttpActionResult ValidateToken([FromUri] string login, [FromBody] string token)
         {
@@ -52,7 +52,7 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
             };
 
             _userService.ValidateToken(dto);
-            return StatusCode(HttpStatusCode.Created);
+            return Ok();
         }
     }
 }

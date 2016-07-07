@@ -18,10 +18,23 @@ namespace PVDevelop.UCoach.Server.RestClient
 
         public IRestClient CreatePost(string resource, params string[] segments)
         {
+            return Create(resource, RestSharp.Method.POST, segments);
+        }
+
+        public IRestClient CreatePut(string resource, params string[] segments)
+        {
+            return Create(resource, RestSharp.Method.PUT, segments);
+        }
+
+        private IRestClient Create(
+            string resource, 
+            RestSharp.Method method,
+            params string[] segments)
+        {
             var client = new RestSharp.RestClient(_connectionStringProvider.ConnectionString);
 
             var uri = RestHelper.FormatUri(resource, segments);
-            var request = new RestSharp.RestRequest(uri, RestSharp.Method.POST);
+            var request = new RestSharp.RestRequest(uri, method);
 
             return new RestClientWrapper(client, request);
         }

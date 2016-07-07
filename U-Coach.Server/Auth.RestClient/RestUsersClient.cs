@@ -32,20 +32,20 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
         {
             return
                 _restClientFactory.
-                CreatePost(Routes.LOGON_USER, logonUserDto.Login).
+                CreatePut(Routes.LOGON_USER, logonUserDto.Login).
                 AddBody(logonUserDto.Password).
                 Execute().
-                CheckPostResult().
+                CheckPutResult().
                 GetContent<LogonUserResultDto>();
         }
 
         public void ValidateToken(ValidateTokenDto tokenDto)
         {
             _restClientFactory.
-                CreatePost(Routes.VALIDATE_USER_TOKEN, tokenDto.Login).
+                CreatePut(Routes.VALIDATE_USER_TOKEN, tokenDto.Login).
                 AddBody(tokenDto.Token).
                 Execute().
-                CheckPostResult();
+                CheckPutResult();
         }
     }
 }

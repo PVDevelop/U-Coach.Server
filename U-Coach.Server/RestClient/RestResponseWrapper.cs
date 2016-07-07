@@ -26,9 +26,30 @@ namespace PVDevelop.UCoach.Server.RestClient
         {
             if (_response.StatusCode != System.Net.HttpStatusCode.Created)
             {
-                throw new RestExecutionException(_response.Content);
+                ThrowError();
             }
             return this;
+        }
+
+        public IRestResponse CheckPutResult()
+        {
+            if (_response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                ThrowError();
+            }
+            return this;
+        }
+
+        private void ThrowError()
+        {
+            if (!string.IsNullOrEmpty(_response.Content))
+            {
+                throw new RestExecutionException(_response.Content);
+            }
+            else
+            {
+                throw new RestExecutionException(string.Format("Http code: {0}", _response.StatusCode));
+            }
         }
     }
 }

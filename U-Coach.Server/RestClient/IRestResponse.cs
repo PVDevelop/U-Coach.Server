@@ -12,5 +12,11 @@
         /// </summary>
         /// <exception cref="RestExecutionException"/>
         IRestResponse CheckPostResult();
+
+        /// <summary>
+        /// Проверяет результат на наличие ошибок
+        /// </summary>
+        /// <exception cref="RestExecutionException"/>
+        IRestResponse CheckPutResult();
     }
 }
