@@ -60,7 +60,6 @@
     <Compile Include="Executor\IExecutor.cs" />
     <Compile Include="Executor\InitializeExecutor.cs" />
     <Compile Include="Executor\LogonExecutor.cs" />
-    <Compile Include="Executor\LogoutByPasswordExecutor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

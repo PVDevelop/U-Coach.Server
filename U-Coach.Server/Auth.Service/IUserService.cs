@@ -21,12 +21,6 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         string Logon(LogonUserDto userParams);
 
         /// <summary>
-        /// Логаут пользователя из системы.
-        /// </summary>
-        /// <param name="userParams">Параметры пользователя</param>
-        void LogoutByPassword(LogoutByPasswordUserDto userParams);
-
-        /// <summary>
         /// Проверяет токен пользователя.
         /// </summary>
         /// <param name="tokenParams">Токен пользователя</param>

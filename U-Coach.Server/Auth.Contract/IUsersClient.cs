@@ -19,12 +19,6 @@
         string Logon(LogonUserDto logonUserDto);
 
         /// <summary>
-        /// Логаут пользователя из системы.
-        /// </summary>
-        /// <param name="logoutByPasswordDto">Параметры пользователя</param>
-        void LogoutByPassword(LogoutByPasswordUserDto logoutByPasswordDto);
-
-        /// <summary>
         /// Проверяет токен пользователя.
         /// </summary>
         /// <param name="tokenDto">Токен пользователя</param>

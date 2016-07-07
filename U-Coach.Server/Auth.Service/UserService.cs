@@ -62,22 +62,6 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             return token;
         }
 
-        public void LogoutByPassword(LogoutByPasswordUserDto userParams)
-        {
-            if (userParams == null)
-            {
-                throw new ArgumentNullException("userParams");
-            }
-
-            _logger.Debug("Логаут пользователя {0}.", userParams.Login);
-
-            var user = _userRepository.FindByLogin(userParams.Login);
-            user.Logout(userParams.Password);
-            _userRepository.Update(user);
-
-            _logger.Info("Логаут пользователя {0} выполнен.", userParams.Login);
-        }
-
         public void ValidateToken(ValidateTokenDto tokenParams)
         {
             if (tokenParams == null)

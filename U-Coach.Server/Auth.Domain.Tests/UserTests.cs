@@ -59,23 +59,6 @@ namespace AuthService.Tests
         }
 
         [Test]
-        public void Logout_UserIsLoggedIn_SetsNotLoggedIn()
-        {
-            var user = new TestUserFactory().CreateUser("aaa", "pwd");
-            user.Logon("pwd");
-            user.Logout("pwd");
-            Assert.IsFalse(user.IsLoggedIn);
-        }
-
-        [Test]
-        public void Logout_UserIsLoggedInButInvalidPassword_ThrowsException()
-        {
-            var user = new TestUserFactory().CreateUser("aaa", "pwd");
-            user.Logon("pwd");
-            Assert.Throws(typeof(InvalidPasswordException), () => user.Logout("invalid"));
-        }
-
-        [Test]
         public void ValidateToken_ValidToken_DoesNothing()
         {
             var u = new TestUserFactory().CreateUser("u", "p1");
@@ -89,15 +72,6 @@ namespace AuthService.Tests
             var u = new TestUserFactory().CreateUser("u", "p1");
             u.Logon("p1");
             Assert.Throws(typeof(InvalidTokenException), () => u.ValidateToken("abc"));
-        }
-
-        [Test]
-        public void ValidateToken_UserIsNotLoggedIn_ThrowsException()
-        {
-            var u = new TestUserFactory().CreateUser("aaa", "p2");
-            var token = u.Logon("p2");
-            u.Logout("p2");
-            Assert.Throws(typeof(NotLoggedInException), () => u.ValidateToken(token));
         }
     }
 }

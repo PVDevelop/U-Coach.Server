@@ -65,17 +65,6 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         }
 
         /// <summary>
-        /// Выводит пользователся из системы
-        /// </summary>
-        /// <param name="plainPassword">Не кодированный пароль</param>
-        public void Logout(string plainPassword)
-        {
-            CheckPassword(plainPassword);
-
-            IsLoggedIn = false;
-        }
-
-        /// <summary>
         /// Проверяет токен. Если не залогинен, кидает NotLoggedInException. Если токен неверный, кидает InvalidTokenException.
         /// </summary>
         public void ValidateToken(string token)

@@ -43,7 +43,6 @@
     <Compile Include="CreateUserDto.cs" />
     <Compile Include="IUsersClient.cs" />
     <Compile Include="LogonUserDto.cs" />
-    <Compile Include="LogoutByPasswordUserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routes.cs" />
     <Compile Include="ValidateTokenDto.cs" />

@@ -38,16 +38,6 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
                 GetContentOrThrow();
         }
 
-        public void LogoutByPassword(LogoutByPasswordUserDto logoutByPasswordUserDto)
-        {
-            var uri = RestHelper.FormatUri(Routes.LOGOUT_USER, logoutByPasswordUserDto.Login);
-            _restClientFactory.
-                CreatePost(uri).
-                AddBody(logoutByPasswordUserDto.Password).
-                Execute().
-                CheckResult();
-        }
-
         public void ValidateToken(ValidateTokenDto tokenDto)
         {
             var uri = RestHelper.FormatUri(Routes.VALIDATE_USER_TOKEN, tokenDto.Login);
