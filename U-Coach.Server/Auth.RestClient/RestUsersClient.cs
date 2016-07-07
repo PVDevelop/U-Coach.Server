@@ -17,24 +17,26 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
             _restClientFactory = restClientFactory;
         }
 
-        public string Create(CreateUserDto createUserDto)
+        public CreateUserResultDto Create(CreateUserDto createUserDto)
         {
             return
                 _restClientFactory.
                 CreatePost(Routes.CREATE_USER).
                 AddBody(createUserDto).
                 Execute().
-                GetContentOrThrow();
+                CheckPostResult().
+                GetContent<CreateUserResultDto>();
         }
 
-        public string Logon(LogonUserDto logonUserDto)
+        public LogonUserResultDto Logon(LogonUserDto logonUserDto)
         {
             return
                 _restClientFactory.
                 CreatePost(Routes.LOGON_USER, logonUserDto.Login).
                 AddBody(logonUserDto.Password).
                 Execute().
-                GetContentOrThrow();
+                CheckPostResult().
+                GetContent<LogonUserResultDto>();
         }
 
         public void ValidateToken(ValidateTokenDto tokenDto)
@@ -43,7 +45,7 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
                 CreatePost(Routes.VALIDATE_USER_TOKEN, tokenDto.Login).
                 AddBody(tokenDto.Token).
                 Execute().
-                CheckResult();
+                CheckPostResult();
         }
     }
 }

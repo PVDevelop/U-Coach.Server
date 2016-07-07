@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace PVDevelop.UCoach.Server.RestClient
 {
@@ -15,22 +16,19 @@ namespace PVDevelop.UCoach.Server.RestClient
             _response = response;
         }
 
-        public string GetContentOrThrow()
+        public T GetContent<T>()
+            where T : class
         {
-            if (_response.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                throw new RestExecutionException(this);
-            }
-            return _response.Content;
+            return JsonConvert.DeserializeObject<T>(_response.Content);
         }
 
-        public void CheckResult()
+        public IRestResponse CheckPostResult()
         {
-            if (_response.StatusCode != System.Net.HttpStatusCode.OK &&
-                _response.StatusCode != System.Net.HttpStatusCode.NoContent)
+            if (_response.StatusCode != System.Net.HttpStatusCode.Created)
             {
                 throw new RestExecutionException(this);
             }
+            return this;
         }
     }
 }

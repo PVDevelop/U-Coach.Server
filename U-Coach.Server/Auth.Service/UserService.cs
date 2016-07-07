@@ -27,7 +27,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _userFactory = userFactory;
         }
 
-        public string Create(CreateUserDto userParams)
+        public CreateUserResultDto Create(CreateUserDto userParams)
         {
             if (userParams == null)
             {
@@ -41,10 +41,13 @@ namespace PVDevelop.UCoach.Server.Auth.Service
 
             _logger.Info("Пользователь {0} создан.", userParams.Login);
 
-            return user.Id.ToString();
+            return new CreateUserResultDto()
+            {
+                Id = user.Id.ToString()
+            };
         }
 
-        public string Logon(LogonUserDto userParams)
+        public LogonUserResultDto Logon(LogonUserDto userParams)
         {
             if (userParams == null)
             {
@@ -59,7 +62,10 @@ namespace PVDevelop.UCoach.Server.Auth.Service
 
             _logger.Info("Пользователь {0} залогинен.", userParams.Login);
 
-            return token;
+            return new LogonUserResultDto()
+            {
+                Token = token
+            };
         }
 
         public void ValidateToken(ValidateTokenDto tokenParams)

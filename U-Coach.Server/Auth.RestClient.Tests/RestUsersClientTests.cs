@@ -13,6 +13,7 @@ using PVDevelop.UCoach.Server.RestClient;
 using Rhino.Mocks;
 using StructureMap;
 using StructureMap.AutoMocking;
+using TestComparisonUtilities;
 using TestNUnit;
 
 namespace Auth.RestClient.Tests
@@ -39,7 +40,10 @@ namespace Auth.RestClient.Tests
                 Password = "p1"
             };
 
-            var expectedResult = "aaa";
+            var expectedResult = new CreateUserResultDto()
+            {
+                Id = "SomeId"
+            };
 
             var mockUserService = MockRepository.GenerateMock<IUserService>();
             mockUserService.
@@ -60,7 +64,7 @@ namespace Auth.RestClient.Tests
                 typeof(IAssembliesResolver),
                 new TestAssembliesResolver());
 
-            string result;
+            CreateUserResultDto result;
             using (var server = new HttpSelfHostServer(selfHostConfiguraiton))
             {
                 server.OpenAsync().Wait();
@@ -76,7 +80,9 @@ namespace Auth.RestClient.Tests
             }
 
             mockUserService.VerifyAllExpectations();
-            Assert.AreEqual(result, expectedResult);
+
+            string comparison;
+            Assert.IsTrue(new TestComparer().Compare(expectedResult, result, out comparison), comparison);
         }
     }
 }

@@ -3,14 +3,14 @@
     public interface IRestResponse
     {
         /// <summary>
-        /// Возвращает содержимое ответа, либо кидает исключение.
+        /// Возвращает содержимое ответа.
         /// </summary>
-        /// <exception cref="RestExecutionException"/>
-        string GetContentOrThrow();
+        T GetContent<T>() where T : class;
 
         /// <summary>
         /// Проверяет результат на наличие ошибок
         /// </summary>
-        void CheckResult();
+        /// <exception cref="RestExecutionException"/>
+        IRestResponse CheckPostResult();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Web.Http;
 using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.Auth.Service;
@@ -20,14 +21,15 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
 
         [HttpPost]
         [Route(Routes.CREATE_USER)]
-        public string CreateUser([FromBody] CreateUserDto createUserDto)
+        public IHttpActionResult CreateUser([FromBody] CreateUserDto createUserDto)
         {
-            return _userService.Create(createUserDto);
+            var result = _userService.Create(createUserDto);
+            return Content(HttpStatusCode.Created, result);
         }
 
         [HttpPost]
         [Route(Routes.LOGON_USER)]
-        public string LogonUser(string login, [FromBody] string password)
+        public IHttpActionResult LogonUser(string login, [FromBody] string password)
         {
             var dto = new LogonUserDto()
             {
@@ -35,12 +37,13 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
                 Password = password
             };
 
-            return _userService.Logon(dto);
+            var result = _userService.Logon(dto);
+            return Content(HttpStatusCode.Created, result);
         }
 
         [HttpPost]
         [Route(Routes.VALIDATE_USER_TOKEN)]
-        public void ValidateToken(string login, [FromBody] string token)
+        public IHttpActionResult ValidateToken(string login, [FromBody] string token)
         {
             var dto = new ValidateTokenDto()
             {
@@ -49,6 +52,7 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
             };
 
             _userService.ValidateToken(dto);
+            return StatusCode(HttpStatusCode.Created);
         }
     }
 }

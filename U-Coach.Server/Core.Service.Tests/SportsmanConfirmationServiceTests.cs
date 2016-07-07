@@ -12,7 +12,7 @@ namespace Core.Service.Tests
         private static IUsersClient CreateUsersClientStub()
         {
             var usersClient = MockRepository.GenerateStub<IUsersClient>();
-            usersClient.Stub(uc => uc.Create(null)).IgnoreArguments().Return("1");
+            usersClient.Stub(uc => uc.Create(null)).IgnoreArguments().Return(new CreateUserResultDto() { Id = "1" });
 
             return usersClient;
         }
@@ -22,8 +22,8 @@ namespace Core.Service.Tests
         {
             var client = MockRepository.GenerateMock<IUsersClient>();
             client.
-                Expect(c => c.Create(Arg<CreateUserDto>.Matches(p=> p.Login == "login1" && p.Password == "pwd1"))).
-                Return("2");
+                Expect(c => c.Create(Arg<CreateUserDto>.Matches(p => p.Login == "login1" && p.Password == "pwd1"))).
+                Return(new CreateUserResultDto() { Id = "2" });
 
             var userParams = new CreateSportsmanConfirmationParams()
             {
@@ -32,8 +32,8 @@ namespace Core.Service.Tests
                 ConfirmationKey = "someKey"
             };
             var service = new SportsmanConfirmationService(
-                client, 
-                MockRepository.GenerateStub<ISportsmanConfirmationRepository>(), 
+                client,
+                MockRepository.GenerateStub<ISportsmanConfirmationRepository>(),
                 MockRepository.GenerateStub<ISportsmanConfirmationProducer>());
 
             service.CreateConfirmation(userParams);
@@ -47,7 +47,7 @@ namespace Core.Service.Tests
             var confirmKey = "abc";
             var rep = MockRepository.GenerateMock<ISportsmanConfirmationRepository>();
             rep.Expect(r => r.Insert(
-                Arg<SportsmanConfirmation>.Matches(u => 
+                Arg<SportsmanConfirmation>.Matches(u =>
                     u.State == SportsmanConfirmationState.WaitingForConfirmation &&
                     u.AuthSystem == SportsmanConfirmationAuthSystem.UCoach &&
                     u.ConfirmationKey == confirmKey)));
@@ -60,8 +60,8 @@ namespace Core.Service.Tests
             };
 
             var service = new SportsmanConfirmationService(
-                CreateUsersClientStub(), 
-                rep, 
+                CreateUsersClientStub(),
+                rep,
                 MockRepository.GenerateStub<ISportsmanConfirmationProducer>());
 
             service.CreateConfirmation(userParams);
