@@ -19,7 +19,7 @@ namespace Core.Mongo.Tests
     {
         private static RhinoAutoMocker<MongoSportsmanConfirmationRepository> CreateAndSetupAutoMocker(IConnectionStringProvider settings)
         {
-            var initializer = new MongoSportsmanConfirmationCollectionInitializer(settings, settings);
+            var initializer = new MongoSportsmanConfirmationCollectionInitializer(settings);
             initializer.Initialize();
 
             var autoMocker = new RhinoAutoMocker<MongoSportsmanConfirmationRepository>();
