@@ -16,7 +16,7 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
         {
             if(confirmationService == null)
             {
-                throw new ArgumentNullException("confirmationService");
+                throw new ArgumentNullException(nameof(confirmationService));
             }
 
             _confirmationService = confirmationService;

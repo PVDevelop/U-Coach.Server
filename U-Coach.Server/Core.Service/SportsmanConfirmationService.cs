@@ -18,15 +18,15 @@ namespace PVDevelop.UCoach.Server.Core.Service
         {
             if (users == null)
             {
-                throw new ArgumentNullException("users");
+                throw new ArgumentNullException(nameof(users));
             }
             if(userRepository == null)
             {
-                throw new ArgumentNullException("userRepository");
+                throw new ArgumentNullException(nameof(userRepository));
             }
             if(userConfirmationProducer == null)
             {
-                throw new ArgumentNullException("userConfirmationProducer");
+                throw new ArgumentNullException(nameof(userConfirmationProducer));
             }
 
             _users = users;

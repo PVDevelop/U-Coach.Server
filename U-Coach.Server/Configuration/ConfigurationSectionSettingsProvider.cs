@@ -14,7 +14,7 @@ namespace PVDevelop.UCoach.Server.Configuration
         {
             if(sectionName == null)
             {
-                throw new ArgumentNullException("sectionName");
+                throw new ArgumentNullException(nameof(sectionName));
             }
             Settings = (T)ConfigurationManager.GetSection(sectionName);
         }

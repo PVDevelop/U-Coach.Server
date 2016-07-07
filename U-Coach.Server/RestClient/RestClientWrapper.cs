@@ -13,11 +13,11 @@ namespace PVDevelop.UCoach.Server.RestClient
         {
             if (client == null)
             {
-                throw new ArgumentNullException("client");
+                throw new ArgumentNullException(nameof(client));
             }
             if (request == null)
             {
-                throw new ArgumentNullException("request");
+                throw new ArgumentNullException(nameof(request));
             }
             _client = client;
             _request = request;

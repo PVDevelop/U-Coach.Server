@@ -17,11 +17,11 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         {
             if(userRepository == null)
             {
-                throw new ArgumentNullException("userRepository");
+                throw new ArgumentNullException(nameof(userRepository));
             }
             if (userFactory == null)
             {
-                throw new ArgumentNullException("userFactory");
+                throw new ArgumentNullException(nameof(userFactory));
             }
             _userRepository = userRepository;
             _userFactory = userFactory;
@@ -31,7 +31,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         {
             if (userParams == null)
             {
-                throw new ArgumentNullException("userParams");
+                throw new ArgumentNullException(nameof(userParams));
             }
 
             _logger.Debug("Создаю пользователя {0}.", userParams.Login);
@@ -48,7 +48,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         {
             if (userParams == null)
             {
-                throw new ArgumentNullException("userParams");
+                throw new ArgumentNullException(nameof(userParams));
             }
 
             _logger.Debug("Логиню пользователя {0}.", userParams.Login);
@@ -66,7 +66,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         {
             if (tokenParams == null)
             {
-                throw new ArgumentNullException("tokenParams");
+                throw new ArgumentNullException(nameof(tokenParams));
             }
 
             _logger.Debug("Валидирую токен пользователя {0}.", tokenParams.Login);

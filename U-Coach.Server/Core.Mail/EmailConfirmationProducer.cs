@@ -14,7 +14,7 @@ namespace PVDevelop.UCoach.Server.Core.Mail
         {
             if(settingsProvider == null)
             {
-                throw new ArgumentNullException("settingsProvider");
+                throw new ArgumentNullException(nameof(settingsProvider));
             }
 
             _settingsProvider = settingsProvider;

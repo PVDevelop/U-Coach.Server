@@ -10,7 +10,7 @@ namespace PVDevelop.UCoach.Server.RestClient
         {
             if(response == null)
             {
-                throw new ArgumentNullException("response");
+                throw new ArgumentNullException(nameof(response));
             }
             Response = response;
         }

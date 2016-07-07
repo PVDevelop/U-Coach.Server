@@ -12,7 +12,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         {
             if(utcTimeProvider == null)
             {
-                throw new ArgumentNullException("utcTimeProvider");
+                throw new ArgumentNullException(nameof(utcTimeProvider));
             }
             _utcTimeProvider = utcTimeProvider;
         }

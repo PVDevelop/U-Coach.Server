@@ -29,7 +29,7 @@ namespace PVDevelop.UCoach.Server.Mongo
         {
             if(targetCollectionName == null)
             {
-                throw new ArgumentNullException("targetCollectionName");
+                throw new ArgumentNullException(nameof(targetCollectionName));
             }
 
             Version = 1;

@@ -73,7 +73,7 @@ namespace PVDevelop.UCoach.Server.Mongo
         {
             if(propertyNames == null)
             {
-                throw new ArgumentNullException("propertyNames");
+                throw new ArgumentNullException(nameof(propertyNames));
             }
             if(!propertyNames.Any())
             {

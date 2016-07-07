@@ -13,7 +13,7 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
         {
             if(userService == null)
             {
-                throw new ArgumentNullException("userService");
+                throw new ArgumentNullException(nameof(userService));
             }
             _userService = userService;
         }

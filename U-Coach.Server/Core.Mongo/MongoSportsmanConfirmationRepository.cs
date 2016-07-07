@@ -18,11 +18,11 @@ namespace PVDevelop.UCoach.Server.Core.Mongo
         {
             if (collectionVersionValidator == null)
             {
-                throw new ArgumentNullException("collectionVersionValidator");
+                throw new ArgumentNullException(nameof(collectionVersionValidator));
             }
             if (repository == null)
             {
-                throw new ArgumentNullException("repository");
+                throw new ArgumentNullException(nameof(repository));
             }
             _collectionVersionValidator = collectionVersionValidator;
             _repository = repository;

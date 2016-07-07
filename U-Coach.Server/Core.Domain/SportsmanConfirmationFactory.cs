@@ -10,11 +10,11 @@ namespace PVDevelop.UCoach.Server.Core.Domain
         {
             if(authUserId == null)
             {
-                throw new ArgumentNullException("authUserId");
+                throw new ArgumentNullException(nameof(authUserId));
             }
             if (confirmationKey == null)
             {
-                throw new ArgumentNullException("confirmationKey");
+                throw new ArgumentNullException(nameof(confirmationKey));
             }
 
             return new SportsmanConfirmation

@@ -12,7 +12,7 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
         {
             if(restClientFactory == null)
             {
-                throw new ArgumentNullException("restClientFactory");
+                throw new ArgumentNullException(nameof(restClientFactory));
             }
             _restClientFactory = restClientFactory;
         }

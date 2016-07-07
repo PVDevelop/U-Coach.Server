@@ -17,11 +17,11 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         {
             if (repository == null)
             {
-                throw new ArgumentNullException("repository");
+                throw new ArgumentNullException(nameof(repository));
             }
             if (versionCollectionValidator == null)
             {
-                throw new ArgumentNullException("versionCollectionValidator");
+                throw new ArgumentNullException(nameof(versionCollectionValidator));
             }
 
             _repository = repository;
@@ -32,7 +32,7 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         {
             if (user == null)
             {
-                throw new ArgumentNullException("user");
+                throw new ArgumentNullException(nameof(user));
             }
 
             _versionCollectionValidator.Validate<MongoUser>();
@@ -45,7 +45,7 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         {
             if (login == null)
             {
-                throw new ArgumentNullException("login");
+                throw new ArgumentNullException(nameof(login));
             }
 
             var mongoUser = _repository.Find(u => u.Login == login);
@@ -56,7 +56,7 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         {
             if (user == null)
             {
-                throw new ArgumentNullException("user");
+                throw new ArgumentNullException(nameof(user));
             }
 
             _versionCollectionValidator.Validate<MongoUser>();
