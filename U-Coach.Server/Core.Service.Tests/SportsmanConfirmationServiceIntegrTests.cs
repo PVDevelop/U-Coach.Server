@@ -75,6 +75,7 @@ namespace Core.Service.Tests
 
         #endregion
 
+#warning 1 - тест не стабилен. 2 - надо подниматься локальный почтовый сервер
         [Test]
         public void CreateUser_WithUserMailProducer_SendsEmail()
         {
