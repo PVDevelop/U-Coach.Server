@@ -2,6 +2,6 @@
 {
     public interface IRestClientFactory
     {
-        IRestClient CreatePost(string resources);
+        IRestClient CreatePost(string resources, params string[] segments);
     }
 }

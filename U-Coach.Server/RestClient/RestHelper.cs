@@ -5,11 +5,16 @@ namespace PVDevelop.UCoach.Server.RestClient
 {
     public static class RestHelper
     {
-        public static string FormatUri(string uri, params object[] args)
+        public static string FormatUri(string uri, params object[] segments)
         {
+            if(segments.Length == 0)
+            {
+                return uri;
+            }
+
             var chars = new List<char>(uri.Length);
             bool isOpen = false;
-            var argsEnumerator = args.GetEnumerator();
+            var argsEnumerator = segments.GetEnumerator();
             foreach (var ch in uri)
             {
                 if (ch == '{')

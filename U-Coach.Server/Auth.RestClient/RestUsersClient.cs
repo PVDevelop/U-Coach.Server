@@ -29,10 +29,9 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
 
         public string Logon(LogonUserDto logonUserDto)
         {
-            var uri = RestHelper.FormatUri(Routes.LOGON_USER, logonUserDto.Login);
             return
                 _restClientFactory.
-                CreatePost(uri).
+                CreatePost(Routes.LOGON_USER, logonUserDto.Login).
                 AddBody(logonUserDto.Password).
                 Execute().
                 GetContentOrThrow();
@@ -40,9 +39,8 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
 
         public void ValidateToken(ValidateTokenDto tokenDto)
         {
-            var uri = RestHelper.FormatUri(Routes.VALIDATE_USER_TOKEN, tokenDto.Login);
             _restClientFactory.
-                CreatePost(uri).
+                CreatePost(Routes.VALIDATE_USER_TOKEN, tokenDto.Login).
                 AddBody(tokenDto.Token).
                 Execute().
                 CheckResult();

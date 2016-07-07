@@ -16,10 +16,13 @@ namespace PVDevelop.UCoach.Server.RestClient
             _connectionStringProvider = connectionStringProvider;
         }
 
-        public IRestClient CreatePost(string resource)
+        public IRestClient CreatePost(string resource, params string[] segments)
         {
             var client = new RestSharp.RestClient(_connectionStringProvider.ConnectionString);
+
+            var uri = RestHelper.FormatUri(resource, segments);
             var request = new RestSharp.RestRequest(resource, RestSharp.Method.POST);
+
             return new RestClientWrapper(client, request);
         }
     }
