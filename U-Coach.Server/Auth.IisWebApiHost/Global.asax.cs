@@ -47,34 +47,19 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 
         private void ConfigureMongo(ConfigurationExpression x)
         {
-            x.For<IConnectionStringProvider>().
-                Use<ConnectionStringProvider>().
-                Ctor<string>().
-                Is("mongo_meta").
-                Named("settings_mongo_meta");
-
             x.For<IMongoCollectionVersionValidator>().
-                Use<MongoCollectionVersionValidatorByClassAttribute>().
-                Ctor<IConnectionStringProvider>().
-                IsNamedInstance("settings_mongo_meta");
+                Use<MongoCollectionVersionValidatorByClassAttribute>();
 
             x.For<IConnectionStringProvider>().
                 Use<ConnectionStringProvider>().
                 Ctor<string>().
-                Is("mongo_auth").
-                Named("settings_mongo_auth");
+                Is("mongo");
 
             x.For<IMongoInitializer>().
-                Use<MongoUserCollectionInitializer>().
-                Ctor<IConnectionStringProvider>("metaSettings").
-                IsNamedInstance("settings_mongo_meta").
-                Ctor<IConnectionStringProvider>("contextSettings").
-                IsNamedInstance("settings_mongo_auth");
+                Use<MongoUserCollectionInitializer>();
 
             x.For<IMongoRepository<MongoUser>>().
-                Use<MongoRepository<MongoUser>>().
-                Ctor<IConnectionStringProvider>().
-                IsNamedInstance("settings_mongo_auth");
+                Use<MongoRepository<MongoUser>>();
 
             x.For<IUserRepository>().
                 Use<MongoUserRepository>();

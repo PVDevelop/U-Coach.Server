@@ -12,24 +12,17 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
     /// </summary>
     public class MongoUserCollectionInitializer : IMongoInitializer
     {
-        private readonly IConnectionStringProvider _metaSettings;
-        private readonly IConnectionStringProvider _contextSettings;
+        private readonly IConnectionStringProvider _settings;
         private readonly ILogger _logger = LoggerFactory.CreateLogger<MongoUserCollectionInitializer>();
 
         public MongoUserCollectionInitializer(
-            IConnectionStringProvider metaSettings,
-            IConnectionStringProvider contextSettings)
+            IConnectionStringProvider settings)
         {
-            if(metaSettings == null)
+            if (settings == null)
             {
-                throw new ArgumentNullException("metaSettings");
+                throw new ArgumentNullException(nameof(settings));
             }
-            if (contextSettings == null)
-            {
-                throw new ArgumentNullException("contextSettings");
-            }
-            _metaSettings = metaSettings;
-            _contextSettings = contextSettings;
+            _settings = settings;
         }
 
         public void Initialize()
@@ -42,9 +35,9 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         {
             _logger.Debug(
                 "Инициализирую коллекцию пользователей. Параметры подключения: {0}.",
-                MongoHelper.SettingsToString(_contextSettings));
+                MongoHelper.SettingsToString(_settings));
 
-            var collection = MongoHelper.GetCollection<MongoUser>(_contextSettings);
+            var collection = MongoHelper.GetCollection<MongoUser>(_settings);
 
             var index = Builders<MongoUser>.IndexKeys.Ascending(u => u.Login);
             var options = new CreateIndexOptions()
@@ -61,11 +54,10 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         private void InitVersionCollection()
         {
             _logger.Debug(
-                "Инициализирую метаданные пользователей. Параметры подключения meta: {0}, context: {1}.",
-                MongoHelper.SettingsToString(_metaSettings),
-                MongoHelper.SettingsToString(_contextSettings));
+                "Инициализирую метаданные пользователей. Параметры подключения: {0}.",
+                MongoHelper.SettingsToString(_settings));
 
-            var collection = MongoHelper.GetCollection<CollectionVersion>(_metaSettings);
+            var collection = MongoHelper.GetCollection<CollectionVersion>(_settings);
             var collectionVersion = new CollectionVersion(MongoHelper.GetCollectionName<MongoUser>())
             {
                 TargetVersion = MongoHelper.GetDataVersion<MongoUser>()

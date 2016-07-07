@@ -15,47 +15,39 @@ namespace Auth.Mongo.Tests
         [Test]
         public void Initialize_NotInitialized_Initializes()
         {
-            var contextSettings = TestMongoHelper.CreateSettings();
-            TestMongoHelper.WithDb(contextSettings, contextDb =>
+            var settings = TestMongoHelper.CreateSettings();
+            TestMongoHelper.WithDb(settings, db =>
             {
-                var metaSettings = TestMongoHelper.CreateSettings();
-                TestMongoHelper.WithDb(metaSettings, metaDb =>
-                {
-                    var initializer = new MongoUserCollectionInitializer(metaSettings: metaSettings, contextSettings: contextSettings);
-                    initializer.Initialize();
+                var initializer = new MongoUserCollectionInitializer(settings);
+                initializer.Initialize();
 
-                    // проверяем индекс
-                    var userCollection = MongoHelper.GetCollection<MongoUser>(contextSettings);
-                    var indexName = MongoHelper.GetIndexName<MongoUser>(nameof(MongoUser.Login));
-                    var index = userCollection.Indexes.List().ToList().FirstOrDefault(i => i["name"] == indexName);
+                // проверяем индекс
+                var userCollection = MongoHelper.GetCollection<MongoUser>(settings);
+                var indexName = MongoHelper.GetIndexName<MongoUser>(nameof(MongoUser.Login));
+                var index = userCollection.Indexes.List().ToList().FirstOrDefault(i => i["name"] == indexName);
 
-                    Assert.NotNull(index);
-                    Assert.IsTrue(MongoHelper.IsUniqueIndex(index));
+                Assert.NotNull(index);
+                Assert.IsTrue(MongoHelper.IsUniqueIndex(index));
 
-                    // проверяем версию
-                    var versionCollection = MongoHelper.GetCollection<CollectionVersion>(metaSettings);
-                    var userCollectionName = MongoHelper.GetCollectionName<MongoUser>();
-                    var userCollectionVersion = MongoHelper.GetDataVersion<MongoUser>();
-                    var ver =
-                        versionCollection.Find(col => col.TargetCollectionName == userCollectionName && col.TargetVersion == userCollectionVersion).SingleOrDefault();
-                    Assert.NotNull(ver);
-                });
+                // проверяем версию
+                var versionCollection = MongoHelper.GetCollection<CollectionVersion>(settings);
+                var userCollectionName = MongoHelper.GetCollectionName<MongoUser>();
+                var userCollectionVersion = MongoHelper.GetDataVersion<MongoUser>();
+                var ver =
+                    versionCollection.Find(col => col.TargetCollectionName == userCollectionName && col.TargetVersion == userCollectionVersion).SingleOrDefault();
+                Assert.NotNull(ver);
             });
         }
 
         [Test]
         public void Initialize_InitTwice_DoesNotFall()
         {
-            var contextSettings = TestMongoHelper.CreateSettings();
-            TestMongoHelper.WithDb(contextSettings, contextDb =>
+            var settings = TestMongoHelper.CreateSettings();
+            TestMongoHelper.WithDb(settings, db =>
             {
-                var metaSettings = TestMongoHelper.CreateSettings();
-                TestMongoHelper.WithDb(metaSettings, metaDb =>
-                {
-                    var userInitializer = new MongoUserCollectionInitializer(metaSettings: metaSettings, contextSettings: contextSettings);
-                    userInitializer.Initialize();
-                    userInitializer.Initialize();
-                });
+                var userInitializer = new MongoUserCollectionInitializer(settings);
+                userInitializer.Initialize();
+                userInitializer.Initialize();
             });
         }
     }
