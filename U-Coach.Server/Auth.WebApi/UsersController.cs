@@ -5,11 +5,11 @@ using PVDevelop.UCoach.Server.Auth.Service;
 
 namespace PVDevelop.UCoach.Server.Auth.WebApi
 {
-    public class UserController : ApiController
+    public class UsersController : ApiController
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        public UsersController(IUserService userService)
         {
             if(userService == null)
             {

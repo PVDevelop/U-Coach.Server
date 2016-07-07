@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C92F3088-B5C6-4095-8D49-C13A55F42577}</ProjectGuid>
+    <ProjectGuid>{A4594427-AD8C-424F-AEFD-F995EB99EE39}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server.Auth.WebApi</RootNamespace>
-    <AssemblyName>PVDevelop.UCoach.Server.Auth.WebApi</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>PVDevelop.UCoach.Server.WebApi</RootNamespace>
+    <AssemblyName>PVDevelop.UCoach.Server.WebApi</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -32,6 +32,14 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.2.0.402, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.2.0.402\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=4.2.0.402, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.2.0.402\lib\net40\StructureMap.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -57,24 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsersController.cs" />
+    <Compile Include="StructureMapControllerActivator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
-      <Project>{12e06b20-78ec-4b54-8b43-81202f618e62}</Project>
-      <Name>Auth.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
-      <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
-      <Name>Auth.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
-      <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
-      <Name>Auth.Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

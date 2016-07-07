@@ -1,10 +1,10 @@
-﻿using StructureMap;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
+using StructureMap;
 
-namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
+namespace PVDevelop.UCoach.Server.Auth.WebApi
 {
     public class StructureMapControllerActivator : IHttpControllerActivator
     {

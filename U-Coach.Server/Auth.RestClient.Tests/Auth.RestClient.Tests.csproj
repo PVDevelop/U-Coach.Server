@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C92F3088-B5C6-4095-8D49-C13A55F42577}</ProjectGuid>
+    <ProjectGuid>{8EED5F10-67B6-47BE-A2F3-C9AA2485F6C9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server.Auth.WebApi</RootNamespace>
-    <AssemblyName>PVDevelop.UCoach.Server.Auth.WebApi</AssemblyName>
+    <RootNamespace>Auth.RestClient.Tests</RootNamespace>
+    <AssemblyName>Auth.RestClient.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +35,26 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.2.0.402, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.2.0.402\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.AutoMocking, Version=4.0.0.315, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.automocking.4.0.0.315\lib\net40\StructureMap.AutoMocking.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=4.2.0.402, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.2.0.402\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -44,8 +65,8 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    <Reference Include="System.Web.Http.SelfHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.SelfHost.5.2.3\lib\net45\System.Web.Http.SelfHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -56,25 +77,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestAssembliesResolver.cs" />
+    <Compile Include="RestUsersClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsersController.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
       <Project>{12e06b20-78ec-4b54-8b43-81202f618e62}</Project>
       <Name>Auth.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
-      <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
-      <Name>Auth.Domain</Name>
+    <ProjectReference Include="..\Auth.RestClient\Auth.RestClient.csproj">
+      <Project>{e65ffb0d-ba55-4724-9d65-7fb88baf81dd}</Project>
+      <Name>Auth.RestClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
       <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
       <Name>Auth.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Auth.WebApi\Auth.WebApi.csproj">
+      <Project>{c92f3088-b5c6-4095-8d49-c13a55f42577}</Project>
+      <Name>Auth.WebApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Configuration\Configuration.csproj">
+      <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
+      <Name>Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NUnit\TestNUnit.csproj">
+      <Project>{728e9205-5562-4d16-8839-081f37f75bee}</Project>
+      <Name>TestNUnit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RestClient\RestClient.csproj">
+      <Project>{0F8931B1-BE3D-4544-9D9E-A7616B736A28}</Project>
+      <Name>RestClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApi\WebApi.csproj">
+      <Project>{A4594427-AD8C-424F-AEFD-F995EB99EE39}</Project>
+      <Name>WebApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

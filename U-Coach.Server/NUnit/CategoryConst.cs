@@ -9,5 +9,6 @@ namespace TestNUnit
     public static class CategoryConst
     {
         public const string INTEGRATION = "Integration";
+        public const string REST = "RESTful";
     }
 }

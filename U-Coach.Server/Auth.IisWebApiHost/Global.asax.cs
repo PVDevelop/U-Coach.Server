@@ -10,6 +10,7 @@ using PVDevelop.UCoach.Server.Auth.Service;
 using PVDevelop.UCoach.Server.Auth.Domain;
 using System;
 using PVDevelop.UCoach.Server.Configuration;
+using PVDevelop.UCoach.Server.Auth.WebApi;
 
 namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 {
