@@ -12,6 +12,14 @@ namespace Role.Service.Tests
     public class UserServiceTests
     {
         [Test]
+        public void ReirectToFacebook_Test()
+        {
+            var autoMocker = new RhinoAutoMocker<UserService>();
+
+            autoMocker.ClassUnderTest.GetFacebookAuthorizationPage();
+        }
+
+        [Test]
         public void RegisterFacebookUser_UserDoesNotExist_CallsInsert()
         {
             var autoMocker = new RhinoAutoMocker<UserService>();

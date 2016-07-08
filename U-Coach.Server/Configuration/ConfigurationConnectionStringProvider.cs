@@ -3,12 +3,12 @@ using System.Configuration;
 
 namespace PVDevelop.UCoach.Server.Configuration
 {
-    public class ConnectionStringProvider : IConnectionStringProvider
+    public class ConfigurationConnectionStringProvider : IConnectionStringProvider
     {
         public string Name { get; private set; }
 
         /// <param name="name">Имя connection string в конфиге</param>
-        public ConnectionStringProvider(string name)
+        public ConfigurationConnectionStringProvider(string name)
         {
             if(name == null)
             {

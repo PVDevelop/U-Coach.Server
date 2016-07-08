@@ -1,4 +1,6 @@
 ﻿using System;
+using PVDevelop.UCoach.Server.Configuration;
+using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.Role.Domain;
 
@@ -24,6 +26,22 @@ namespace PVDevelop.UCoach.Server.Role.Service
 
             _factory = factory;
             _repository = repository;
+        }
+
+#warning вынести куда-нибудь "подальше"
+        public string GetFacebookAuthorizationPage()
+        {
+            var connectionStringProvider = new SimpleConnectionStringProvider("https://www.facebook.com");
+            var factory = new RestClientFactory(connectionStringProvider);
+            return
+                factory.
+                CreatePost("dialog/oauth").
+                AddParameter("client_id", "1034374253265538").
+                AddParameter("redirect_uri", "http://localhost:7788/Auth/FacebookCode").
+                AddParameter("scope", "public_profile").
+                Execute().
+                CheckPostResult().
+                GetContent();
         }
 
         public void RegisterFacebookUser(RegisterFacebookUserDto facebookUserDto)

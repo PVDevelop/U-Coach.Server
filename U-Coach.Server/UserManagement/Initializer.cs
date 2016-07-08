@@ -62,7 +62,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
         private void ConfigureAuth(ConfigurationExpression x)
         {
             x.For<IConnectionStringProvider>().
-                Use<ConnectionStringProvider>().
+                Use<ConfigurationConnectionStringProvider>().
                 Named("conn_str_users_client").
                 Ctor<string>().
                 Is("rest_users");
@@ -79,7 +79,7 @@ namespace PVDevelop.UCoach.Server.UserManagement
         private void ConfigureCore(ConfigurationExpression x)
         {
             x.For<IConnectionStringProvider>().
-                Use<ConnectionStringProvider>().
+                Use<ConfigurationConnectionStringProvider>().
                 Ctor<string>().
                 Is("mongo_core");
 

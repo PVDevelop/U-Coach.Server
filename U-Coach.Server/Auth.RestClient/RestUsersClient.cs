@@ -25,7 +25,7 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
                 AddBody(createUserDto).
                 Execute().
                 CheckPostResult().
-                GetContent<CreateUserResultDto>();
+                GetJsonContent<CreateUserResultDto>();
         }
 
         public LogonUserResultDto Logon(LogonUserDto logonUserDto)
@@ -36,7 +36,7 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
                 AddBody(logonUserDto.Password).
                 Execute().
                 CheckPutResult().
-                GetContent<LogonUserResultDto>();
+                GetJsonContent<LogonUserResultDto>();
         }
 
         public void ValidateToken(ValidateTokenDto tokenDto)

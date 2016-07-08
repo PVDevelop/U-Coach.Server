@@ -44,8 +44,9 @@
     <Compile Include="ConfigurationSectionSettingsProvider.cs" />
     <Compile Include="IConnectionStringProvider.cs" />
     <Compile Include="ISettingsProvider.cs" />
-    <Compile Include="MongoConnectionSettings.cs" />
+    <Compile Include="ConfigurationConnectionStringProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleConnectionStringProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

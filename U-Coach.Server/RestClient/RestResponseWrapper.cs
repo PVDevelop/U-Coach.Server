@@ -16,7 +16,12 @@ namespace PVDevelop.UCoach.Server.RestClient
             _response = response;
         }
 
-        public T GetContent<T>()
+        public string GetContent()
+        {
+            return _response.Content;
+        }
+
+        public T GetJsonContent<T>()
             where T : class
         {
             return JsonConvert.DeserializeObject<T>(_response.Content);
@@ -24,7 +29,8 @@ namespace PVDevelop.UCoach.Server.RestClient
 
         public IRestResponse CheckPostResult()
         {
-            if (_response.StatusCode != System.Net.HttpStatusCode.Created)
+            if (_response.StatusCode != System.Net.HttpStatusCode.Created &&
+                _response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 ThrowError();
             }

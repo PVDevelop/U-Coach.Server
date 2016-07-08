@@ -52,7 +52,7 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
                 Use<MongoCollectionVersionValidatorByClassAttribute>();
 
             x.For<IConnectionStringProvider>().
-                Use<ConnectionStringProvider>().
+                Use<ConfigurationConnectionStringProvider>().
                 Ctor<string>().
                 Is("mongo");
 

@@ -29,6 +29,12 @@ namespace PVDevelop.UCoach.Server.RestClient
             return this;
         }
 
+        public IRestClient AddParameter(string name, string value)
+        {
+            _request = _request.AddParameter(name, value);
+            return this;
+        }
+
         public IRestResponse Execute()
         {
             return new RestResponseWrapper(_client.Execute(_request));

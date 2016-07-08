@@ -1,11 +1,19 @@
-﻿namespace PVDevelop.UCoach.Server.RestClient
+﻿using System;
+
+namespace PVDevelop.UCoach.Server.RestClient
 {
     public interface IRestResponse
     {
         /// <summary>
-        /// Возвращает содержимое ответа.
+        /// Возвращает содержимое ответа в изначальном виде
         /// </summary>
-        T GetContent<T>() where T : class;
+        /// <returns></returns>
+        string GetContent();
+
+        /// <summary>
+        /// Десериализует содержимое ответа формата JSON в тип T
+        /// </summary>
+        T GetJsonContent<T>() where T : class;
 
         /// <summary>
         /// Проверяет результат на наличие ошибок
