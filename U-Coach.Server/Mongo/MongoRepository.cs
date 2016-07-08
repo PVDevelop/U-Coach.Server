@@ -19,6 +19,12 @@ namespace PVDevelop.UCoach.Server.Mongo
             _settings = settings;
         }
 
+        public bool Contains(Expression<Func<T, bool>> predicate)
+        {
+            var coll = GetCollection();
+            return coll.Find(predicate).Any();
+        }
+
         public T Find(Expression<Func<T, bool>> predicate)
         {
             var coll = GetCollection();

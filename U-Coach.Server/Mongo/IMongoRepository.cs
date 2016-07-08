@@ -9,6 +9,11 @@ namespace PVDevelop.UCoach.Server.Mongo
     public interface IMongoRepository<T>
     {
         /// <summary>
+        /// Возвращает true, если объект существует, иначе - false
+        /// </summary>
+        bool Contains(Expression<Func<T, bool>> predicate);
+
+        /// <summary>
         /// Вставляет документ в коллекцию
         /// </summary>
         void Insert(T document);
