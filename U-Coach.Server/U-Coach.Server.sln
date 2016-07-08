@@ -87,7 +87,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApiUtilities", "Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_resources", "_resources", "{066B9E01-66C2-47F0-90C2-6650692A696B}"
 	ProjectSection(SolutionItems) = preProject
-		proverka.txt = proverka.txt
 		_resources\test.txt = _resources\test.txt
 	EndProjectSection
 EndProject
