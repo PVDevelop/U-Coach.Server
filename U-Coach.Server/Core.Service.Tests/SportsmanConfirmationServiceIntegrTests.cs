@@ -10,6 +10,13 @@ using Limilabs.Client.IMAP;
 using System.Linq;
 using System.Collections.Generic;
 using TestNUnit;
+using SmtpServer;
+using System.Threading;
+using SmtpServer.Storage;
+using SmtpServer.Mail;
+using System.Threading.Tasks;
+using SmtpServer.Authentication;
+using SmtpServer.Protocol.Text;
 
 namespace Core.Service.Tests
 {
@@ -17,78 +24,83 @@ namespace Core.Service.Tests
     [Category(CategoryConst.INTEGRATION)]
     public class SportsmanConfirmationServiceIntegrTests
     {
-        #region static
+        #region support classes
 
-        private static T WithInboxImap<T>(
-            string userName,
-            string password,
-            Func<Imap, T> callback)
+        private class TestMessageStoreFactory : IMessageStoreFactory
         {
-            using (var imap = new Imap())
+            private readonly MessageStore _store;
+
+            public TestMessageStoreFactory(MessageStore store)
             {
-                imap.Connect("imap.yandex.ru", 993, true);
-                imap.Login(userName, password);
-                imap.SelectInbox();
-                return callback(imap);
+                if (store == null)
+                {
+                    throw new ArgumentNullException(nameof(store));
+                }
+                _store = store;
+            }
+
+            public IMessageStore CreateInstance(ISessionContext context)
+            {
+                return _store;
             }
         }
 
-        private static long? GetLastUid(
-            string userName,
-            string password)
+        private class TestMessageStore : MessageStore
         {
-            return WithInboxImap(userName, password, imap =>
+            private readonly List<IMimeMessage> _messages = new List<IMimeMessage>();
+
+            public IMimeMessage[] Messages
             {
-                var ids =
-                    imap.
-                    Search(Expression.UID(Range.Last()));
+                get { return _messages.ToArray(); }
+            }
 
-                return
-                    ids.Any() ?
-                    (long?)ids.Single() :
-                    null;
-            });
-        }
-
-        private static IList<long> GetAfter(
-            string userName,
-            string password,
-            long? id)
-        {
-            return WithInboxImap(userName, password, imap =>
-                id.HasValue ?
-                imap.
-                    Search(Expression.UID(Range.From(id.Value))).
-                    Except(new[] { id.Value }).
-                    ToList() :
-                imap.GetAll());
-        }
-
-        private static bool FindMail(Imap imap, long id, string confirmationKey)
-        {
-            var builder = new Limilabs.Mail.MailBuilder();
-            var eml = imap.GetMessageByUID(id);
-            var email = builder.CreateFromEml(eml);
-
-            return email.GetBodyAsText().Contains(confirmationKey);
+            public override Task<string> SaveAsync(
+                ISessionContext context,
+                IMimeMessage message,
+                CancellationToken cancellationToken)
+            {
+                _messages.Add(message);
+                return Task.Run(() => "hello, it's me", cancellationToken);
+            }
         }
 
         #endregion
 
-#warning 1 - тест не стабилен. 2 - надо поднимать локальный почтовый сервер
-        //[Test]
+        #region support methods
+
+        private static string ConvertFromBase64(string base64String)
+        {
+            var stringBytes = Convert.FromBase64String(base64String);
+            return System.Text.Encoding.UTF8.GetString(stringBytes);
+        }
+
+        #endregion
+
+        [Test]
         public void CreateUser_WithUserMailProducer_SendsEmail()
         {
-            // отправляем
+            // arrange
+            var store = new TestMessageStore();
+
+            var options =
+                new OptionsBuilder().
+                ServerName("localhost").
+                Port(6000).
+                MessageStore(new TestMessageStoreFactory(store));
+
+            var server = new SmtpServer.SmtpServer(options.Build());
+
+            var tokenSource = new CancellationTokenSource();
+            var serverTask = server.StartAsync(tokenSource.Token);
+
             var autoMocker = new RhinoAutoMocker<SportsmanConfirmationService>();
 
-            var settings = MockRepository.GenerateStub<IEmailProducerSettings>();
-            settings.Stub(s => s.SenderAddress).Return("PVDevelop@yandex.ru");
-            settings.Stub(s => s.UserName).Return("PVDevelop@yandex.ru");
-            settings.Stub(s => s.Password).Return("tkvXp7IvXlUEo9N7EBU7");
-            settings.Stub(s => s.SmtpHost).Return("smtp.yandex.ru");
-            settings.Stub(s => s.EnableSsl).Return(true);
-            settings.Stub(s => s.SmtpPort).Return(25);
+            var settings = autoMocker.Get<IEmailProducerSettings>();
+            settings.Stub(s => s.SenderAddress).Return("from@test.ru");
+            settings.Stub(s => s.UserName).Return("some_user");
+            settings.Stub(s => s.Password).Return("some_password");
+            settings.Stub(s => s.SmtpHost).Return("localhost");
+            settings.Stub(s => s.SmtpPort).Return(6000);
 
             var settingsProvider = autoMocker.Get<ISettingsProvider<IEmailProducerSettings>>();
             settingsProvider.Stub(s => s.Settings).Return(settings);
@@ -100,29 +112,27 @@ namespace Core.Service.Tests
 
             var userParams = new CreateSportsmanConfirmationParams()
             {
-                Address = "PVDevelop@yandex.ru",
+                Address = "to@test.ru",
                 ConfirmationKey = Guid.NewGuid().ToString()
             };
 
-            // получаем последнее письмо
-            var lastUid = GetLastUid(settings.UserName, settings.Password);
-
-            // отправляем письма
+            // act
             autoMocker.ClassUnderTest.CreateConfirmation(userParams);
 
-            // получаем последние писаьма и находим нужное
-            var newMails = GetAfter(settings.UserName, settings.Password, lastUid);
-            Assert.IsTrue(newMails.Any());
+            // assert
+            Assert.AreEqual(1, store.Messages.Length);
+            var message = store.Messages.Single();
+            Assert.AreEqual("test.ru", message.From.Host);
+            Assert.AreEqual("from", message.From.User);
 
-            WithInboxImap(settings.UserName, settings.Password, imap =>
-            {
-                Assert.IsTrue(
-                    newMails.Any(id => FindMail(imap, id, userParams.ConfirmationKey)),
-                    "Ни одно письмо с ключом {0} не найдено",
-                    userParams.ConfirmationKey);
+            Assert.AreEqual(1, message.To.Count);
+            var to = message.To.Single();
+            Assert.AreEqual("test.ru", to.Host);
+            Assert.AreEqual("to", to.User);
 
-                return "";  // просто фейковый return, т.к. func должен что-то вернуть
-            });
+            var headerAndBody = message.Mime.ToString().Split(new[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            var body = ConvertFromBase64(headerAndBody[1]);
+            Assert.True(body.Contains(userParams.ConfirmationKey));
         }
     }
 }

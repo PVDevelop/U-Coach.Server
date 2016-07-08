@@ -6,7 +6,6 @@ using PVDevelop.UCoach.Server.Auth.Service;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.RestClient;
 using Rhino.Mocks;
-using StructureMap;
 using StructureMap.AutoMocking;
 using TestComparisonUtilities;
 using TestNUnit;
