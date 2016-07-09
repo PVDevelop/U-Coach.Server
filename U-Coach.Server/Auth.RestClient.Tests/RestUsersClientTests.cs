@@ -34,21 +34,21 @@ namespace Auth.RestClient.Tests
             IUserService userService,
             Func<RestUsersClient, T> callback)
         {
-            // act
-            using (var server = new TestWebApiSelfHost(port, x => {
-                x.For<IUserService>().Use(ctx => userService);
-            }))
-            {
-                var autoMocker = new RhinoAutoMocker<RestUsersClient>();
+            return TestWebApiHelper.WithServer(
+                port,
+                x => x.For<IUserService>().Use(ctx => userService),
+                server =>
+                {
+                    var autoMocker = new RhinoAutoMocker<RestUsersClient>();
 
-                var webConnString = MockRepository.GenerateStub<IConnectionStringProvider>();
-                webConnString.Stub(sp => sp.ConnectionString).Return(server.ConnectionString);
+                    var webConnString = autoMocker.Get<IConnectionStringProvider>();
+                    webConnString.Stub(sp => sp.ConnectionString).Return(server.ConnectionString);
 
-                var clientFactory = new RestClientFactory(webConnString);
-                autoMocker.Inject(typeof(IRestClientFactory), clientFactory);
+                    var clientFactory = new RestClientFactory(webConnString);
+                    autoMocker.Inject(typeof(IRestClientFactory), clientFactory);
 
-                return callback(autoMocker.ClassUnderTest);
-            }
+                    return callback(autoMocker.ClassUnderTest);
+                });
         }
 
         [Test]

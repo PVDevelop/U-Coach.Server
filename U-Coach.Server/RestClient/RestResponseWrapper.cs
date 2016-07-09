@@ -27,6 +27,15 @@ namespace PVDevelop.UCoach.Server.RestClient
             return JsonConvert.DeserializeObject<T>(_response.Content);
         }
 
+        public IRestResponse CheckGetResult()
+        {
+            if(_response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                ThrowError();
+            }
+            return this;
+        }
+
         public IRestResponse CheckPostResult()
         {
             if (_response.StatusCode != System.Net.HttpStatusCode.Created &&

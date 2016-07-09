@@ -15,7 +15,7 @@ namespace TestWebApiUtilities
             var files =
                 Directory.
                 GetFiles(directory).
-                Where(fn => Path.GetFileNameWithoutExtension(fn).StartsWith("PVDevelop.UCoach.Server.Auth", System.StringComparison.InvariantCultureIgnoreCase)).
+                Where(fn => Path.GetFileNameWithoutExtension(fn).StartsWith("PVDevelop.UCoach.Server.", System.StringComparison.InvariantCultureIgnoreCase)).
                 Where(fn => Path.GetExtension(fn).ToLower() == ".dll").
                 ToArray();
 

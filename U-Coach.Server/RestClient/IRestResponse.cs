@@ -16,15 +16,18 @@ namespace PVDevelop.UCoach.Server.RestClient
         T GetJsonContent<T>() where T : class;
 
         /// <summary>
-        /// Проверяет результат на наличие ошибок
+        /// Проверяет результат выполнения GET запроса на наличие ошибок
         /// </summary>
-        /// <exception cref="RestExecutionException"/>
+        IRestResponse CheckGetResult();
+
+        /// <summary>
+        /// Проверяет результат выполнение POST запроса на наличие ошибок
+        /// </summary>
         IRestResponse CheckPostResult();
 
         /// <summary>
-        /// Проверяет результат на наличие ошибок
+        /// Проверяет результат выполнения PUT запроса на наличие ошибок
         /// </summary>
-        /// <exception cref="RestExecutionException"/>
         IRestResponse CheckPutResult();
     }
 }
