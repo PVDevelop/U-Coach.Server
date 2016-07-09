@@ -28,12 +28,11 @@ namespace PVDevelop.UCoach.Server.Role.Service
             _repository = repository;
         }
 
-#warning вынести куда-нибудь "подальше"
-        public string GetFacebookAuthorizationPage()
+        public OAuthRedirectDto RedirectToFacebookPage()
         {
             var connectionStringProvider = new SimpleConnectionStringProvider("https://www.facebook.com");
             var factory = new RestClientFactory(connectionStringProvider);
-            return
+            var content =
                 factory.
                 CreatePost("dialog/oauth").
                 AddParameter("client_id", "1034374253265538").
@@ -42,6 +41,8 @@ namespace PVDevelop.UCoach.Server.Role.Service
                 Execute().
                 CheckPostResult().
                 GetContent();
+
+            return new OAuthRedirectDto() { Content = content };
         }
 
         public void RegisterFacebookUser(RegisterFacebookUserDto facebookUserDto)

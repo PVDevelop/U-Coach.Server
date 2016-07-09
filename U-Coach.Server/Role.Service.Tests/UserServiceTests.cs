@@ -16,7 +16,7 @@ namespace Role.Service.Tests
         {
             var autoMocker = new RhinoAutoMocker<UserService>();
 
-            autoMocker.ClassUnderTest.GetFacebookAuthorizationPage();
+            autoMocker.ClassUnderTest.RedirectToFacebookPage();
         }
 
         [Test]

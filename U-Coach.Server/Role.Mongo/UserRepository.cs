@@ -9,22 +9,15 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
     public class UserRepository : IUserRepository
     {
         private readonly IMongoRepository<MongoUser> _repository;
-        private readonly IUserFactory _factory;
 
         public UserRepository(
-            IUserFactory factory,
             IMongoRepository<MongoUser> repository)
         {
-            if(factory == null)
-            {
-                throw new ArgumentNullException(nameof(factory));
-            }
             if (repository == null)
             {
                 throw new ArgumentNullException(nameof(repository));
             }
 
-            _factory = factory;
             _repository = repository;
         }
 

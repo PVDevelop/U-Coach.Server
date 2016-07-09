@@ -7,7 +7,7 @@ namespace PVDevelop.UCoach.Server.Role.Service
         /// <summary>
         /// Возвращает строку авторизации пользователя на Facebook.
         /// </summary>
-        string GetFacebookAuthorizationPage();
+        OAuthRedirectDto RedirectToFacebookPage();
 
         /// <summary>
         /// Регистрация нового пользователя из системы Facebook. Выполняется после авторизации на сайте Facebook.
