@@ -31,6 +31,12 @@ namespace Role.IisWebApiHost
                 x.For<IUserRepository>().Use<UserRepository>();
                 x.For<IMongoRepository<MongoUser>>().Use<MongoRepository<MongoUser>>();
                 x.For<IConnectionStringProvider>().Use<ConfigurationConnectionStringProvider>().Ctor<string>().Is("mongo");
+                x.
+                    For<ISettingsProvider<IFacebookOAuthSettings>>().
+                    Use<ConfigurationSectionSettingsProvider<IFacebookOAuthSettings>>().
+                    Ctor<string>().
+                    Is("facebookSettings");
+                x.For<IFacebookOAuthSettings>().Use<FacebookOAuthSettingsSection>();
             });
 
             return _container;

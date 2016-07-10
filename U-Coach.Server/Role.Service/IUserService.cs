@@ -12,6 +12,11 @@ namespace PVDevelop.UCoach.Server.Role.Service
         /// <summary>
         /// Регистрация нового пользователя из системы Facebook. Выполняется после авторизации на сайте Facebook.
         /// </summary>
-        void RegisterFacebookUser(RegisterFacebookUserDto facebookUserDto);
+        void RegisterFacebookUser(FacebookProfileDto facebookUserDto);
+
+        /// <summary>
+        /// Принимает код авторизации пользователя
+        /// </summary>
+        void ApplyFacebookCode(FacebookCodeDto facebookCodeDto);
     }
 }

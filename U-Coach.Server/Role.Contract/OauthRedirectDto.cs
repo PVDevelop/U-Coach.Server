@@ -8,6 +8,6 @@
         /// <summary>
         /// Соедржимое редиректа
         /// </summary>
-        public string Content { get; set; }
+        public string RedirectUri { get; set; }
     }
 }

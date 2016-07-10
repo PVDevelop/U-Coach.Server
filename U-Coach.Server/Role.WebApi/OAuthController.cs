@@ -20,10 +20,19 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
         }
 
         [HttpGet]
-        [Route(Routes.GET_FACEBOOK_PAGE)]
-        public OAuthRedirectDto RedirectToFacebook()
+        [Route(Routes.FACEBOOK_REDIRECT)]
+        public IHttpActionResult RedirectToFacebook()
         {
-            return _userService.RedirectToFacebookPage();
+            var content = _userService.RedirectToFacebookPage();
+            return base.Redirect(content.RedirectUri);
+        }
+
+        [HttpGet]
+        [Route(Routes.FACEBOOK_CODE)]
+        public IHttpActionResult ProcessFacebookCode([FromUri] string code)
+        {
+            _userService.ApplyFacebookCode(new FacebookCodeDto() { Code = code });
+            return null;
         }
     }
 }

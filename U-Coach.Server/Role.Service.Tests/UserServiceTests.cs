@@ -12,19 +12,11 @@ namespace Role.Service.Tests
     public class UserServiceTests
     {
         [Test]
-        public void ReirectToFacebook_Test()
-        {
-            var autoMocker = new RhinoAutoMocker<UserService>();
-
-            autoMocker.ClassUnderTest.RedirectToFacebookPage();
-        }
-
-        [Test]
         public void RegisterFacebookUser_UserDoesNotExist_CallsInsert()
         {
             var autoMocker = new RhinoAutoMocker<UserService>();
 
-            var dto = new RegisterFacebookUserDto()
+            var dto = new FacebookProfileDto()
             {
                 Id = "1"
             };
@@ -48,7 +40,7 @@ namespace Role.Service.Tests
         {
             var autoMocker = new RhinoAutoMocker<UserService>();
 
-            var dto = new RegisterFacebookUserDto()
+            var dto = new FacebookProfileDto()
             {
                 Id = "2"
             };

@@ -2,6 +2,7 @@
 {
     public static class Routes
     {
-        public const string GET_FACEBOOK_PAGE = "api/oauth/facebook";
+        public const string FACEBOOK_REDIRECT = "api/oauth/facebook_redirect";
+        public const string FACEBOOK_CODE = "api/oauth/facebook_code";
     }
 }
