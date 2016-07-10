@@ -2,7 +2,14 @@
 {
     public static class Routes
     {
-        public const string FACEBOOK_REDIRECT = "api/oauth/facebook_redirect";
-        public const string FACEBOOK_CODE = "api/oauth/facebook_code";
+        /// <summary>
+        /// Адрес ресурса авторизации пользователя facebook
+        /// </summary>
+        public const string FACEBOOK_REDIRECT_URI = "api/facebook/authorization";
+
+        /// <summary>
+        /// Адрес ресурас профиля пользователя facebook
+        /// </summary>
+        public const string FACEBOOK_USER_PROFILE = "api/facebook/user_profile";
     }
 }

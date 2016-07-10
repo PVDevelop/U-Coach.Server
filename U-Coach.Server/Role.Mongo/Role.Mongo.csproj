@@ -69,10 +69,6 @@
       <Project>{6B3139F0-9F1E-4D3A-9303-1EF9B43A4FCB}</Project>
       <Name>Mongo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Role.Contract\Role.Contract.csproj">
-      <Project>{eadb72a9-5475-4592-a3e3-ca1174535c5f}</Project>
-      <Name>Role.Contract</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Role.Domain\Role.Domain.csproj">
       <Project>{ee2a484a-02b8-44ad-87eb-64e42b869933}</Project>
       <Name>Role.Domain</Name>

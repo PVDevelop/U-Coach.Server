@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Role.Contract\Role.Contract.csproj">
-      <Project>{eadb72a9-5475-4592-a3e3-ca1174535c5f}</Project>
+      <Project>{EADB72A9-5475-4592-A3E3-CA1174535C5F}</Project>
       <Name>Role.Contract</Name>
     </ProjectReference>
     <ProjectReference Include="..\Role.Domain\Role.Domain.csproj">
