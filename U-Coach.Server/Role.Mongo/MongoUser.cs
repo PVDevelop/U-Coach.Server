@@ -7,5 +7,6 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
     public class MongoUser
     {
         public UserId Id { get; set; }
+        public AuthToken Token { get; set; }
     }
 }

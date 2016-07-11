@@ -9,16 +9,23 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
     public class UserRepository : IUserRepository
     {
         private readonly IMongoRepository<MongoUser> _repository;
+        private readonly IUserFactory _userFactory;
 
         public UserRepository(
-            IMongoRepository<MongoUser> repository)
+            IMongoRepository<MongoUser> repository,
+            IUserFactory userFactory)
         {
             if (repository == null)
             {
                 throw new ArgumentNullException(nameof(repository));
             }
+            if(userFactory == null)
+            {
+                throw new ArgumentNullException(nameof(userFactory));
+            }
 
             _repository = repository;
+            _userFactory = userFactory;
         }
 
         public bool Contains(UserId id)
@@ -42,6 +49,19 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
 
             var mongoUser = MapperHelper.Map<IUser, MongoUser>(user);
             _repository.Insert(mongoUser);
+        }
+
+        public IUser Get(UserId id)
+        {
+            if(id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var mongoUser = _repository.Find(u => u.Id.Equals(id));
+            var user = _userFactory.CreateUser(mongoUser.Id);
+            user.SetToken(mongoUser.Token);
+            return user;
         }
     }
 }

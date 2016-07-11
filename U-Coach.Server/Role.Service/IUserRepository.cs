@@ -7,5 +7,7 @@ namespace PVDevelop.UCoach.Server.Role.Service
         bool Contains(UserId id);
 
         void Insert(IUser user);
+
+        IUser Get(UserId id);
     }
 }

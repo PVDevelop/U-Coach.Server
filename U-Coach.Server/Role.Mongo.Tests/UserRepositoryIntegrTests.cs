@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using System;
+using MongoDB.Driver;
 using NUnit.Framework;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.Mongo;
@@ -71,6 +72,35 @@ namespace Role.Mongo.Tests
                 bool contains = autoMocker.ClassUnderTest.Contains(userId);
 
                 Assert.IsTrue(contains);
+            });
+        }
+
+        [Test]
+        public void Get_PrevioulsyAddUser_ReturnsValidUser()
+        {
+            var settings = TestMongoHelper.CreateSettings();
+            TestMongoHelper.WithDb(settings, db =>
+            {
+                var autoMocker = CreateRepository(settings);
+
+                var userId = new UserId("someSystem", "someId");
+                var token = new AuthToken("my_token", DateTime.UtcNow);
+
+                var userFactory = new UserFactory();
+                autoMocker.Inject(typeof(IUserFactory), userFactory);
+
+                var user = userFactory.CreateUser(userId);
+                user.SetToken(token);
+
+                autoMocker.ClassUnderTest.Insert(user);
+                var userAfterInsert = autoMocker.ClassUnderTest.Get(userId);
+
+                Assert.NotNull(userAfterInsert);
+                string comparisonResult;
+                Assert.IsTrue(
+                    new TestComparer().
+                    WithMongoDateTimeComparer().
+                    Compare(user, userAfterInsert, out comparisonResult), comparisonResult);
             });
         }
     }

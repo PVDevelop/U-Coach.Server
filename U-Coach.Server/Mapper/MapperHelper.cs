@@ -1,10 +1,12 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 
 namespace PVDevelop.UCoach.Server.Mapper
 {
     public static class MapperHelper
     {
-        public static TDest Map<TSource, TDest>(TSource source)
+        public static TDest Map<TSource, TDest>(
+            TSource source)
         {
             var mapper =
                 new MapperConfiguration(
