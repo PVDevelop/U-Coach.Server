@@ -17,13 +17,25 @@ namespace PVDevelop.UCoach.Server.Role.RestClient
             _restClientFactory = restClientFactory;
         }
 
-        public string GetAuthorizationUrl()
+        public FacebookRedirectDto GetAuthorizationUrl()
         {
             return
                 _restClientFactory.
                 CreateGet(Routes.FACEBOOK_REDIRECT_URI).
                 Execute().
-                GetContent();
+                CheckGetResult().
+                GetJsonContent<FacebookRedirectDto>();
+        }
+
+        public FacebookProfileDto GetProfile(FacebookCodeDto codeDto)
+        {
+            return
+                _restClientFactory.
+                CreateGet(Routes.FACEBOOK_USER_PROFILE).
+                AddParameter("code", codeDto.Code).
+                Execute().
+                CheckGetResult().
+                GetJsonContent<FacebookProfileDto>();
         }
     }
 }

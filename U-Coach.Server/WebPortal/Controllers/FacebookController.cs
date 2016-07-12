@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Http;
-using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Role.Contract;
 
 namespace PVDevelop.UCoach.Server.WebPortal.Controllers
@@ -20,10 +19,16 @@ namespace PVDevelop.UCoach.Server.WebPortal.Controllers
 
         [HttpGet]
         [Route("api/facebook/authorization")]
-        public IHttpActionResult RedirectToFacebookCode()
+        public IHttpActionResult RedirectToAuthorization()
         {
-            var url = _facebookClient.GetAuthorizationUrl();
-            return null;
+            return Redirect(_facebookClient.GetAuthorizationUrl().Uri);
+        }
+
+        [HttpGet]
+        [Route("api/facebook/user_profile")]
+        public IHttpActionResult GetUserProfile(string code)
+        {
+            return Ok(_facebookClient.GetProfile(new FacebookCodeDto() { Code = code }));
         }
     }
 }

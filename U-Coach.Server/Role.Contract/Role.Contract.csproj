@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="FacebookCodeDto.cs" />
     <Compile Include="FacebookProfileDto.cs" />
+    <Compile Include="FacebookRedirectDto.cs" />
     <Compile Include="FacebookTokenDto.cs" />
     <Compile Include="IFacebookClient.cs" />
     <Compile Include="IUsersClient.cs" />

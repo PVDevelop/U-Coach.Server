@@ -32,7 +32,12 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
                settings.ClientId,
                settings.UriRedirectToCode,
                "public_profile");
-            return base.Redirect(redirectUri);
+
+            var resultDto = new FacebookRedirectDto()
+            {
+                Uri = redirectUri
+            };
+            return base.Ok(resultDto);
         }
 
         [HttpGet]
