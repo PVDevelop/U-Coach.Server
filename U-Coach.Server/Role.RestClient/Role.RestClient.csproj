@@ -40,12 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FacebookClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RestClient\RestClient.csproj">
       <Project>{0F8931B1-BE3D-4544-9D9E-A7616B736A28}</Project>
       <Name>RestClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Role.Contract\Role.Contract.csproj">
+      <Project>{EADB72A9-5475-4592-A3E3-CA1174535C5F}</Project>
+      <Name>Role.Contract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

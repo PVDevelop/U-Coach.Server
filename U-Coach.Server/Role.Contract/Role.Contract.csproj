@@ -48,6 +48,7 @@
     <Compile Include="FacebookCodeDto.cs" />
     <Compile Include="FacebookProfileDto.cs" />
     <Compile Include="FacebookTokenDto.cs" />
+    <Compile Include="IFacebookClient.cs" />
     <Compile Include="IUsersClient.cs" />
     <Compile Include="OAuthRedirectDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

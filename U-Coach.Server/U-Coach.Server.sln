@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mongo", "Mongo\Mongo.csproj", "{6B3139F0-9F1E-4D3A-9303-1EF9B43A4FCB}"
 EndProject
@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Mongo.Tests", "Auth.Mo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{48F3FE18-D7E9-48D0-80A1-720D40342D54}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{A535CAFD-FEAE-480C-8335-20C80F90C3D0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{A535CAFD-FEAE-480C-8335-20C80F90C3D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timing", "Timing\Timing.csproj", "{ED9532D4-7643-4A2F-AC6A-7EA11BBF2612}"
 EndProject
@@ -117,6 +117,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Role.RestClient", "Role.RestClient\Role.RestClient.csproj", "{D9610B42-3317-4886-A71D-6A9E17D7891C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Role.Contract", "Role.Contract\Role.Contract.csproj", "{EADB72A9-5475-4592-A3E3-CA1174535C5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPortal", "WebPortal\WebPortal.csproj", "{9B5CED69-46F7-4603-8DA9-BD36B1F8D3E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -304,6 +306,10 @@ Global
 		{EADB72A9-5475-4592-A3E3-CA1174535C5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EADB72A9-5475-4592-A3E3-CA1174535C5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EADB72A9-5475-4592-A3E3-CA1174535C5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5CED69-46F7-4603-8DA9-BD36B1F8D3E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5CED69-46F7-4603-8DA9-BD36B1F8D3E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5CED69-46F7-4603-8DA9-BD36B1F8D3E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5CED69-46F7-4603-8DA9-BD36B1F8D3E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -358,5 +364,6 @@ Global
 		{787D1495-A3B4-44A4-98AE-4E21B3C1DBAB} = {3C41792F-6734-4E52-AC0E-21E665B63EB0}
 		{D9610B42-3317-4886-A71D-6A9E17D7891C} = {54ED0C13-36DF-4BD8-A7E9-B9CB72AC9F3A}
 		{EADB72A9-5475-4592-A3E3-CA1174535C5F} = {54ED0C13-36DF-4BD8-A7E9-B9CB72AC9F3A}
+		{9B5CED69-46F7-4603-8DA9-BD36B1F8D3E9} = {A535CAFD-FEAE-480C-8335-20C80F90C3D0}
 	EndGlobalSection
 EndGlobal
