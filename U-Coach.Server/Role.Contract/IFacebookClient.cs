@@ -1,3 +1,4 @@
+namespace PVDevelop.UCoach.Server.Role.Contract
 {
     public interface IFacebookClient
     {
