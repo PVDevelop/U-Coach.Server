@@ -6,11 +6,11 @@ namespace PVDevelop.UCoach.Server.Role.Contract
         /// Возвращает url к странице авторизации
         /// </summary>
         /// <returns></returns>
-        FacebookRedirectDto GetAuthorizationUrl();
+        FacebookRedirectDto GetAuthorizationUrl(string redirectUri);
 
         /// <summary>
         /// Возвращает профиль пользователя по коду
         /// </summary>
-        FacebookProfileDto GetProfile(FacebookCodeDto codeDto);
+        FacebookProfileDto GetProfile(string code, string redirectUri);
     }
 }

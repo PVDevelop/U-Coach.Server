@@ -19,16 +19,18 @@ namespace PVDevelop.UCoach.Server.WebPortal.Controllers
 
         [HttpGet]
         [Route("api/facebook/authorization")]
-        public IHttpActionResult RedirectToAuthorization()
+        public IHttpActionResult RedirectToAuthorization([FromUri(Name = "redirect_uri")]string redirectUri)
         {
-            return Redirect(_facebookClient.GetAuthorizationUrl().Uri);
+            return Ok(_facebookClient.GetAuthorizationUrl(redirectUri));
         }
 
         [HttpGet]
         [Route("api/facebook/user_profile")]
-        public IHttpActionResult GetUserProfile(string code)
+        public IHttpActionResult GetUserProfile(
+            [FromUri] string code,
+            [FromUri(Name = "redirect_uri")]string redirectUri)
         {
-            return Ok(_facebookClient.GetProfile(new FacebookCodeDto() { Code = code }));
+            return Ok(_facebookClient.GetProfile(code, redirectUri));
         }
     }
 }

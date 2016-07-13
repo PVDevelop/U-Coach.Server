@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using PVDevelop.UCoach.Server.Configuration;
+using PVDevelop.UCoach.Server.RestClient;
+using StructureMap;
 
 namespace MvcAuthrorization
 {
@@ -16,6 +15,17 @@ namespace MvcAuthrorization
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ControllerBuilder.Current.SetControllerFactory(new ContainerBasedControllerFactory(CreateContainer()));
+        }
+
+        private IContainer CreateContainer()
+        {
+            return new Container(x =>
+            {
+                x.For<IConnectionStringProvider>().Use<ConfigurationConnectionStringProvider>().Ctor<string>().Is("portal");
+                x.For<IRestClientFactory>().Use<RestClientFactory>();
+            });
         }
     }
 }
