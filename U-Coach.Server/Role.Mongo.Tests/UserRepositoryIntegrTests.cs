@@ -55,7 +55,7 @@ namespace Role.Mongo.Tests
         }
 
         [Test]
-        public void Contains_UserExists_ReturnsTrue()
+        public void Update_UserExists_UpdatesUser()
         {
             var settings = TestMongoHelper.CreateSettings();
             TestMongoHelper.WithDb(settings, db =>
@@ -68,10 +68,19 @@ namespace Role.Mongo.Tests
                 };
                 collection.InsertOne(mongoUser);
 
-                var autoMocker = CreateRepository(settings);
-                bool contains = autoMocker.ClassUnderTest.Contains(userId);
+                var user = new UserFactory().CreateUser(userId);
+                user.SetToken(new AuthToken("t1", DateTime.UtcNow));
 
-                Assert.IsTrue(contains);
+                var autoMocker = CreateRepository(settings);
+                autoMocker.ClassUnderTest.Update(user);
+
+                var updatedUser = collection.Find(u => u.Id.Equals(userId)).Single();
+                string comparison;
+                Assert.IsTrue(
+                    new TestComparer().
+                        WithMongoDateTimeComparer().
+                        Compare(updatedUser, user, out comparison),
+                    comparison);
             });
         }
 
@@ -93,8 +102,10 @@ namespace Role.Mongo.Tests
                 user.SetToken(token);
 
                 autoMocker.ClassUnderTest.Insert(user);
-                var userAfterInsert = autoMocker.ClassUnderTest.Get(userId);
+                IUser userAfterInsert;
+                var found = autoMocker.ClassUnderTest.TryGet(userId, out userAfterInsert);
 
+                Assert.IsTrue(found);
                 Assert.NotNull(userAfterInsert);
                 string comparisonResult;
                 Assert.IsTrue(

@@ -24,6 +24,11 @@ namespace PVDevelop.UCoach.Server.Mongo
         T Find(Expression<Func<T, bool>> predicate);
 
         /// <summary>
+        /// Пытается найти объект по предикату
+        /// </summary>
+        bool TryFind(Expression<Func<T, bool>> predicate, out T item);
+
+        /// <summary>
         /// Замещает имеющийся документ новым
         /// </summary>
         void ReplaceOne(Expression<Func<T, bool>> predicate, T document);

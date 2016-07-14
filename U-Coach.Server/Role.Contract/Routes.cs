@@ -10,6 +10,6 @@
         /// <summary>
         /// Адрес ресурас профиля пользователя facebook
         /// </summary>
-        public const string FACEBOOK_USER_PROFILE = "api/facebook/user_profile";
+        public const string FACEBOOK_USER_PROFILE = "api/facebook/connection";
     }
 }

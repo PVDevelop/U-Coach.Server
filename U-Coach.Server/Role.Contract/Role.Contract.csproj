@@ -45,9 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FacebookProfileDto.cs" />
+    <Compile Include="FacebookConnectionDto.cs" />
     <Compile Include="FacebookRedirectDto.cs" />
-    <Compile Include="FacebookTokenDto.cs" />
     <Compile Include="IFacebookClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routes.cs" />

@@ -28,18 +28,6 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
             _userFactory = userFactory;
         }
 
-        public bool Contains(UserId id)
-        {
-            if(id == null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
-            return 
-                _repository
-                .Contains(u => u.Id.AuthId == id.AuthId && u.Id.AuthSystemName == id.AuthSystemName);
-        }
-
         public void Insert(IUser user)
         {
             if(user == null)
@@ -51,17 +39,39 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
             _repository.Insert(mongoUser);
         }
 
-        public IUser Get(UserId id)
+        public void Update(IUser user)
+        {
+            if(user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+
+            var mongoUser = new MongoUser()
+            {
+                Id = user.Id,
+                Token = user.Token
+            };
+
+            _repository.ReplaceOne(u => u.Id.Equals(mongoUser.Id), mongoUser);
+        }
+
+        public bool TryGet(UserId id, out IUser user)
         {
             if(id == null)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            var mongoUser = _repository.Find(u => u.Id.Equals(id));
-            var user = _userFactory.CreateUser(mongoUser.Id);
-            user.SetToken(mongoUser.Token);
-            return user;
+            MongoUser mongoUser;
+            if (_repository.TryFind(u => u.Id.Equals(id), out mongoUser))
+            {
+                user = _userFactory.CreateUser(mongoUser.Id);
+                user.SetToken(mongoUser.Token);
+                return true;
+            }
+
+            user = null;
+            return false;
         }
     }
 }

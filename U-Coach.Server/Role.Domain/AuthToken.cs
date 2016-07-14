@@ -32,7 +32,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         /// </summary>
         public DateTime? ExpirationTime { get; private set; }
 
-        public AuthToken(string token, DateTime? expiratnioTime)
+        public AuthToken(string token, DateTime? expirationTime)
         {
             if (token == null)
             {
@@ -40,7 +40,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             }
 
             Token = token;
-            ExpirationTime = expiratnioTime;
+            ExpirationTime = expirationTime;
         }
 
         private AuthToken() { }

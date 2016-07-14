@@ -11,6 +11,6 @@ namespace PVDevelop.UCoach.Server.Role.Contract
         /// <summary>
         /// Возвращает профиль пользователя по коду
         /// </summary>
-        FacebookProfileDto GetProfile(string code, string redirectUri);
+        FacebookConnectionDto GetConnection(string code, string redirectUri);
     }
 }

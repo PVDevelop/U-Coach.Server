@@ -6,6 +6,7 @@ using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Role.Domain;
 using PVDevelop.UCoach.Server.Role.Mongo;
 using PVDevelop.UCoach.Server.Role.Service;
+using PVDevelop.UCoach.Server.Timing;
 using StructureMap;
 
 namespace Role.IisWebApiHost
@@ -37,6 +38,7 @@ namespace Role.IisWebApiHost
                     Ctor<string>().
                     Is("facebookSettings");
                 x.For<IFacebookOAuthSettings>().Use<FacebookOAuthSettingsSection>();
+                x.For<IUtcTimeProvider>().Use<UtcTimeProvider>();
             });
 
             return _container;

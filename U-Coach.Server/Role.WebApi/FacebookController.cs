@@ -1,25 +1,66 @@
 ﻿using System;
 using System.Web.Http;
+using Newtonsoft.Json;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.Role.Service;
+using PVDevelop.UCoach.Server.Timing;
 
 namespace PVDevelop.UCoach.Server.Role.WebApi
 {
     public class FacebookController : ApiController
     {
+        #region dtos
+
+        private class FacebookProfileDto
+        {
+            [JsonProperty("id")]
+            public string Id { get; set; }
+
+            [JsonProperty("name")]
+            public string Name { get; set; }
+        }
+
+        private class FacebookTokenDto
+        {
+            [JsonProperty(PropertyName = "access_token")]
+            public string Token { get; set; }
+
+            [JsonProperty(PropertyName = "expires_in")]
+            public int ExpiredInSeconds { get; set; }
+
+            [JsonProperty(PropertyName = "token_type")]
+            public string Type { get; set; }
+        }
+
+        #endregion
+
         private readonly ISettingsProvider<IFacebookOAuthSettings> _settingsProvider;
+        private readonly IUserService _userService;
+        private readonly IUtcTimeProvider _utcTimeProvider;
 
         public FacebookController(
-            ISettingsProvider<IFacebookOAuthSettings> settingsProvider)
+            ISettingsProvider<IFacebookOAuthSettings> settingsProvider,
+            IUserService userService,
+            IUtcTimeProvider utcTimeProvider)
         {
             if (settingsProvider == null)
             {
                 throw new ArgumentNullException(nameof(settingsProvider));
             }
+            if (userService == null)
+            {
+                throw new ArgumentNullException(nameof(userService));
+            }
+            if (utcTimeProvider == null)
+            {
+                throw new ArgumentNullException(nameof(utcTimeProvider));
+            }
 
             _settingsProvider = settingsProvider;
+            _userService = userService;
+            _utcTimeProvider = utcTimeProvider;
         }
 
         [HttpGet]
@@ -47,8 +88,21 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
             var tokenDto = GetFacebookToken(code, redirectUri);
-            var profile = GetFacebookProfile(tokenDto.Token);
-            return Ok(profile);
+            var profileDto = GetFacebookProfile(tokenDto.Token);
+
+            var tokenExpiration = _utcTimeProvider.UtcNow + TimeSpan.FromSeconds(tokenDto.ExpiredInSeconds);
+            
+            var connectionDto = new FacebookConnectionDto()
+            {
+                Id = profileDto.Id,
+                Name = profileDto.Name,
+                Token = tokenDto.Token,
+                TokenExpiration = tokenExpiration
+            };
+
+            _userService.RegisterFacebookUser(connectionDto);
+
+            return Ok(connectionDto);
         }
 
         private static IRestClientFactory GetFacebookGraphClientFactory()

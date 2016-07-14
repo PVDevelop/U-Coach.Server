@@ -8,6 +8,6 @@ namespace PVDevelop.UCoach.Server.Role.Service
         /// Регистрация нового пользователя из системы Facebook.
         /// Операция идемпотентная.
         /// </summary>
-        void RegisterFacebookUser(FacebookProfileDto facebookUserDto);
+        void RegisterFacebookUser(FacebookConnectionDto facebookConnection);
     }
 }

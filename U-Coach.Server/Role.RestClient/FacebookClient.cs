@@ -28,7 +28,7 @@ namespace PVDevelop.UCoach.Server.Role.RestClient
                 GetJsonContent<FacebookRedirectDto>();
         }
 
-        public FacebookProfileDto GetProfile(string code, string redirectUri)
+        public FacebookConnectionDto GetConnection(string code, string redirectUri)
         {
             return
                 _restClientFactory.
@@ -37,7 +37,7 @@ namespace PVDevelop.UCoach.Server.Role.RestClient
                 AddParameter("redirect_uri", redirectUri).
                 Execute().
                 CheckGetResult().
-                GetJsonContent<FacebookProfileDto>();
+                GetJsonContent<FacebookConnectionDto>();
         }
     }
 }

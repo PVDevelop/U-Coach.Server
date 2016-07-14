@@ -4,10 +4,10 @@ namespace PVDevelop.UCoach.Server.Role.Service
 {
     public interface IUserRepository
     {
-        bool Contains(UserId id);
+        bool TryGet(UserId id, out IUser user);
 
         void Insert(IUser user);
 
-        IUser Get(UserId id);
+        void Update(IUser user);
     }
 }

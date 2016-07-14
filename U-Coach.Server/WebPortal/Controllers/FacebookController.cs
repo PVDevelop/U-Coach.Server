@@ -25,12 +25,12 @@ namespace PVDevelop.UCoach.Server.WebPortal.Controllers
         }
 
         [HttpGet]
-        [Route("api/facebook/user_profile")]
+        [Route("api/facebook/connection")]
         public IHttpActionResult GetUserProfile(
             [FromUri] string code,
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
-            return Ok(_facebookClient.GetProfile(code, redirectUri));
+            return Ok(_facebookClient.GetConnection(code, redirectUri));
         }
     }
 }

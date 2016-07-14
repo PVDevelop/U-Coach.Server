@@ -26,12 +26,23 @@ namespace PVDevelop.UCoach.Server.Role.Service
             _repository = repository;
         }
 
-        public void RegisterFacebookUser(FacebookProfileDto facebookUserDto)
+        public void RegisterFacebookUser(FacebookConnectionDto facebookConnection)
         {
-            var userId = new UserId(AuthSystemHelper.FACEBOOK_SYSTEM_NAME, facebookUserDto.Id);
-            if (!_repository.Contains(userId))
+            var userId = new UserId(AuthSystemHelper.FACEBOOK_SYSTEM_NAME, facebookConnection.Id);
+            var token = new AuthToken(facebookConnection.Token, facebookConnection.TokenExpiration);
+
+            IUser user;
+            if (_repository.TryGet(userId, out user))
             {
-                var user = _factory.CreateUser(userId);
+                // обновляем имеюищегося пользователя
+                user.SetToken(token);
+                _repository.Update(user);
+            }
+            else
+            {
+                // создаем нового пользователя
+                user = _factory.CreateUser(userId);
+                user.SetToken(token);
                 _repository.Insert(user);
             }
         }

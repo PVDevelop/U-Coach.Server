@@ -59,19 +59,19 @@ namespace MvcAuthrorization.Controllers
         [HttpGet]
         public ActionResult FacebookCode(string code)
         {
-            var facebookUserProfile =
+            var facebookConnection =
                 _restClientFactory.
-                CreateGet("api/facebook/user_profile").
+                CreateGet("api/facebook/connection").
                 AddParameter("code", code).
                 AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
                 Execute().
                 CheckGetResult().
-                GetJsonContent<FacebookProfileDto>();
+                GetJsonContent<FacebookConnectionDto>();
 
             var profile = new UserProfileModel()
             {
                 AuthSystem = "Facebook",
-                Name = facebookUserProfile.Name
+                Name = facebookConnection.Name
             };
 
             return RedirectToProfile(profile);
