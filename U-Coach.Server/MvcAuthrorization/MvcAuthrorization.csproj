@@ -249,10 +249,6 @@
       <Project>{eadb72a9-5475-4592-a3e3-ca1174535c5f}</Project>
       <Name>Role.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Role.RestClient\Role.RestClient.csproj">
-      <Project>{d9610b42-3317-4886-a71d-6a9e17d7891c}</Project>
-      <Name>Role.RestClient</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

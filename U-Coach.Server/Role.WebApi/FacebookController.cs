@@ -90,7 +90,7 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
 
         [HttpGet]
         [Route(Routes.FACEBOOK_USER_PROFILE)]
-        public HttpResponseMessage GetUserProfile(
+        public IHttpActionResult GetUserProfile(
             [FromUri] string code,
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
@@ -123,7 +123,7 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
             cookie.Path = "/";
             response.Headers.AddCookies(new[] { cookie });
 
-            return response;
+            return ResponseMessage(response);
             //return Ok(connectionDto);
         }
 

@@ -75,10 +75,6 @@
       <Project>{0F8931B1-BE3D-4544-9D9E-A7616B736A28}</Project>
       <Name>RestClient</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Role.RestClient\Role.RestClient.csproj">
-      <Project>{D9610B42-3317-4886-A71D-6A9E17D7891C}</Project>
-      <Name>Role.RestClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Role.Service\Role.Service.csproj">
       <Project>{583BAA0F-D0E5-412A-9375-92F580B66327}</Project>
       <Name>Role.Service</Name>

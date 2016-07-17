@@ -2,9 +2,7 @@
 using System.Web.Http.Dispatcher;
 using PVDevelop.UCoach.Server.Auth.WebApi;
 using PVDevelop.UCoach.Server.Configuration;
-using PVDevelop.UCoach.Server.RestClient;
-using PVDevelop.UCoach.Server.Role.Contract;
-using PVDevelop.UCoach.Server.Role.RestClient;
+using PVDevelop.UCoach.Server.WebApi;
 using StructureMap;
 
 namespace WebPortal
@@ -25,9 +23,8 @@ namespace WebPortal
         {
             _container = new Container(x =>
             {
-                x.For<IFacebookClient>().Use<FacebookClient>();
-                x.For<IRestClientFactory>().Use<RestClientFactory>();
                 x.For<IConnectionStringProvider>().Use<ConfigurationConnectionStringProvider>().Ctor<string>().Is("role");
+                x.For<IActionResultBuilderFactory>().Use<ActionResultBuilderFactory>();
             });
 
             return _container;
