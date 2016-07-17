@@ -241,13 +241,13 @@
       <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
       <Name>Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RestClient\RestClient.csproj">
-      <Project>{0f8931b1-be3d-4544-9d9e-a7616b736a28}</Project>
-      <Name>RestClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Role.Contract\Role.Contract.csproj">
-      <Project>{eadb72a9-5475-4592-a3e3-ca1174535c5f}</Project>
+      <Project>{EADB72A9-5475-4592-A3E3-CA1174535C5F}</Project>
       <Name>Role.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApi\WebApi.csproj">
+      <Project>{A4594427-AD8C-424F-AEFD-F995EB99EE39}</Project>
+      <Name>WebApi</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,22 +1,23 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcAuthrorization.Models;
-using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Role.Contract;
+using PVDevelop.UCoach.Server.WebApi;
 
 namespace MvcAuthrorization.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private readonly IRestClientFactory _restClientFactory;
+        private readonly IActionResultBuilderFactory _actionResultBuilderFactory;
 
-        public AuthenticationController(IRestClientFactory restClientFactory)
+        public AuthenticationController(IActionResultBuilderFactory actionResultBuilderFactory)
         {
-            if(restClientFactory == null)
+            if(actionResultBuilderFactory == null)
             {
-                throw new ArgumentNullException(nameof(restClientFactory));
+                throw new ArgumentNullException(nameof(actionResultBuilderFactory));
             }
-            _restClientFactory = restClientFactory;
+            _actionResultBuilderFactory = actionResultBuilderFactory;
         }
 
         [HttpGet]
@@ -26,22 +27,56 @@ namespace MvcAuthrorization.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogonFacebook(LogonModel model)
+        public async Task<ActionResult> LogonFacebook(LogonModel model)
         {
-            var profile = new UserProfileModel()
+            using (var builder = _actionResultBuilderFactory.CreateActionResultBuilder())
             {
-                AuthSystem = "Facebook"
-            };
+                var result =
+                    (await builder.
+                    AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
+                    BuildAsync("api/facebook/authorization")).
+                    ToJson<FacebookRedirectDto>();
 
-            var facebookAuthUrl = 
-                _restClientFactory.
-                CreateGet("api/facebook/authorization").
-                AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
-                Execute().
-                CheckGetResult().
-                GetJsonContent<FacebookRedirectDto>();
+                return Redirect(result.Uri);
+            }
+        }
 
-            return Redirect(facebookAuthUrl.Uri);
+        [HttpGet]
+        public async Task<ActionResult> FacebookCode(string code)
+        {
+            using (var builder = _actionResultBuilderFactory.CreateActionResultBuilder())
+            {
+                var result =
+                    (await builder.
+                    AddParameter("code", code).
+                    AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
+                    BuildAsync("api/facebook/connection")).
+                    ToJson<FacebookConnectionDto>();
+
+                var profile = new UserProfileModel()
+                {
+                    AuthSystem = "Facebook",
+                    Name = result.Name
+                };
+
+                return RedirectToProfile(profile);
+            }
+            //var facebookConnection =
+            //    _restClientFactory.
+            //    CreateGet("api/facebook/connection").
+            //    AddParameter("code", code).
+            //    AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
+            //    Execute().
+            //    CheckGetResult().
+            //    GetJsonContent<FacebookConnectionDto>();
+
+            //var profile = new UserProfileModel()
+            //{
+            //    AuthSystem = "Facebook",
+            //    Name = facebookConnection.Name
+            //};
+
+            //return RedirectToProfile(profile);
         }
 
         [HttpPost]
@@ -51,27 +86,6 @@ namespace MvcAuthrorization.Controllers
             {
                 AuthSystem = "UCoach",
                 Name = "UNKNOWN"
-            };
-
-            return RedirectToProfile(profile);
-        }
-
-        [HttpGet]
-        public ActionResult FacebookCode(string code)
-        {
-            var facebookConnection =
-                _restClientFactory.
-                CreateGet("api/facebook/connection").
-                AddParameter("code", code).
-                AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
-                Execute().
-                CheckGetResult().
-                GetJsonContent<FacebookConnectionDto>();
-
-            var profile = new UserProfileModel()
-            {
-                AuthSystem = "Facebook",
-                Name = facebookConnection.Name
             };
 
             return RedirectToProfile(profile);

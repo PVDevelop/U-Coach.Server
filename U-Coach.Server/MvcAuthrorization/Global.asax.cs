@@ -2,7 +2,7 @@
 using System.Web.Optimization;
 using System.Web.Routing;
 using PVDevelop.UCoach.Server.Configuration;
-using PVDevelop.UCoach.Server.RestClient;
+using PVDevelop.UCoach.Server.WebApi;
 using StructureMap;
 
 namespace MvcAuthrorization
@@ -24,7 +24,7 @@ namespace MvcAuthrorization
             return new Container(x =>
             {
                 x.For<IConnectionStringProvider>().Use<ConfigurationConnectionStringProvider>().Ctor<string>().Is("portal");
-                x.For<IRestClientFactory>().Use<RestClientFactory>();
+                x.For<IActionResultBuilderFactory>().Use<ActionResultBuilderFactory>();
             });
         }
     }
