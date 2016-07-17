@@ -35,6 +35,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -57,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FacebookController.cs" />
+    <Compile Include="FacebookOAuthSettingsSection.cs" />
+    <Compile Include="IFacebookOAuthSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +78,10 @@
     <ProjectReference Include="..\Role.Contract\Role.Contract.csproj">
       <Project>{EADB72A9-5475-4592-A3E3-CA1174535C5F}</Project>
       <Name>Role.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Role.Domain\Role.Domain.csproj">
+      <Project>{EE2A484A-02B8-44AD-87EB-64E42B869933}</Project>
+      <Name>Role.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Role.Service\Role.Service.csproj">
       <Project>{583BAA0F-D0E5-412A-9375-92F580B66327}</Project>

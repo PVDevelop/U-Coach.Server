@@ -6,6 +6,7 @@ using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Role.Domain;
 using PVDevelop.UCoach.Server.Role.Mongo;
 using PVDevelop.UCoach.Server.Role.Service;
+using PVDevelop.UCoach.Server.Role.WebApi;
 using PVDevelop.UCoach.Server.Timing;
 using StructureMap;
 
@@ -28,8 +29,10 @@ namespace Role.IisWebApiHost
             _container = new Container(x =>
             {
                 x.For<IUserService>().Use<UserService>();
-                x.For<IUserFactory>().Use<UserFactory>();
+                x.For<ITokenGenerator>().Use<TokenGenerator>();
+                x.For<ITokenRepository>().Use<TokenRepository>();
                 x.For<IUserRepository>().Use<UserRepository>();
+                x.For<IMongoRepository<MongoToken>>().Use<MongoRepository<MongoToken>>();
                 x.For<IMongoRepository<MongoUser>>().Use<MongoRepository<MongoUser>>();
                 x.For<IConnectionStringProvider>().Use<ConfigurationConnectionStringProvider>().Ctor<string>().Is("mongo");
                 x.

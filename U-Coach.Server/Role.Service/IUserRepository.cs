@@ -4,10 +4,8 @@ namespace PVDevelop.UCoach.Server.Role.Service
 {
     public interface IUserRepository
     {
-        bool TryGet(UserId id, out IUser user);
+        bool TryGet(UserId id, out User user);
 
-        void Insert(IUser user);
-
-        void Update(IUser user);
+        void Insert(User user);
     }
 }

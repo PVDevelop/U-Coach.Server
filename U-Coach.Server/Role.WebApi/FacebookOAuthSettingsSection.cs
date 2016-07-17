@@ -1,7 +1,6 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 
-namespace PVDevelop.UCoach.Server.Role.Service
+namespace PVDevelop.UCoach.Server.Role.WebApi
 {
     public class FacebookOAuthSettingsSection :
         ConfigurationSection,
@@ -13,15 +12,6 @@ namespace PVDevelop.UCoach.Server.Role.Service
             get
             {
                 return (string)base["clientId"];
-            }
-        }
-
-        [ConfigurationProperty("uriRedirectCode")]
-        public string UriRedirectToCode
-        {
-            get
-            {
-                return (string)base["uriRedirectCode"];
             }
         }
 

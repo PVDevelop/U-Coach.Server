@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using Newtonsoft.Json;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Role.Contract;
+using PVDevelop.UCoach.Server.Role.Domain;
 using PVDevelop.UCoach.Server.Role.Service;
 using PVDevelop.UCoach.Server.Timing;
 
@@ -11,6 +16,8 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
 {
     public class FacebookController : ApiController
     {
+        public const string FACEBOOK_SYSTEM_NAME = "Facebook";
+
         #region dtos
 
         private class FacebookProfileDto
@@ -83,15 +90,23 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
 
         [HttpGet]
         [Route(Routes.FACEBOOK_USER_PROFILE)]
-        public IHttpActionResult GetUserProfile(
+        public HttpResponseMessage GetUserProfile(
             [FromUri] string code,
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
+            CookieHeaderValue requestCookie = Request.Headers.GetCookies("access_token").FirstOrDefault();
+            if (requestCookie != null)
+            {
+                var token = requestCookie["access_token"].Value;
+            }
+
             var tokenDto = GetFacebookToken(code, redirectUri);
             var profileDto = GetFacebookProfile(tokenDto.Token);
 
+            var authTokenParams = new AuthTokenParams(FACEBOOK_SYSTEM_NAME, profileDto.Id, tokenDto.Token);
+            var tokenId = _userService.RegisterUserToken(authTokenParams);
+
             var tokenExpiration = _utcTimeProvider.UtcNow + TimeSpan.FromSeconds(tokenDto.ExpiredInSeconds);
-            
             var connectionDto = new FacebookConnectionDto()
             {
                 Id = profileDto.Id,
@@ -100,9 +115,16 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
                 TokenExpiration = tokenExpiration
             };
 
-            _userService.RegisterFacebookUser(connectionDto);
+            var response = Request.CreateResponse(HttpStatusCode.OK, connectionDto);
 
-            return Ok(connectionDto);
+            var cookie = new CookieHeaderValue("access_token", tokenId.Token);
+            cookie.Expires = DateTimeOffset.Now.AddDays(1);
+            cookie.Domain = Request.RequestUri.Host;
+            cookie.Path = "/";
+            response.Headers.AddCookies(new[] { cookie });
+
+            return response;
+            //return Ok(connectionDto);
         }
 
         private static IRestClientFactory GetFacebookGraphClientFactory()

@@ -23,9 +23,6 @@ namespace Role.Mongo.Tests
             var mongoRepository = new MongoRepository<MongoUser>(settings);
             autoMocker.Inject(typeof(IMongoRepository<MongoUser>), mongoRepository);
 
-            var userFactory = new UserFactory();
-            autoMocker.Inject(typeof(IUserFactory), userFactory);
-
             return autoMocker;
         }
 
@@ -38,7 +35,7 @@ namespace Role.Mongo.Tests
                 var autoMocker = CreateRepository(settings);
 
                 var userId = new UserId("someSystem", "someId");
-                var user = autoMocker.Get<IUserFactory>().CreateUser(userId);
+                var user = new User(userId);
 
                 autoMocker.ClassUnderTest.Insert(user);
 
@@ -55,36 +52,6 @@ namespace Role.Mongo.Tests
         }
 
         [Test]
-        public void Update_UserExists_UpdatesUser()
-        {
-            var settings = TestMongoHelper.CreateSettings();
-            TestMongoHelper.WithDb(settings, db =>
-            {
-                var collection = MongoHelper.GetCollection<MongoUser>(settings);
-                var userId = new UserId("someSystem", "someId");
-                var mongoUser = new MongoUser()
-                {
-                    Id = userId
-                };
-                collection.InsertOne(mongoUser);
-
-                var user = new UserFactory().CreateUser(userId);
-                user.SetToken(new AuthToken("t1", DateTime.UtcNow));
-
-                var autoMocker = CreateRepository(settings);
-                autoMocker.ClassUnderTest.Update(user);
-
-                var updatedUser = collection.Find(u => u.Id.Equals(userId)).Single();
-                string comparison;
-                Assert.IsTrue(
-                    new TestComparer().
-                        WithMongoDateTimeComparer().
-                        Compare(updatedUser, user, out comparison),
-                    comparison);
-            });
-        }
-
-        [Test]
         public void Get_PrevioulsyAddUser_ReturnsValidUser()
         {
             var settings = TestMongoHelper.CreateSettings();
@@ -93,16 +60,11 @@ namespace Role.Mongo.Tests
                 var autoMocker = CreateRepository(settings);
 
                 var userId = new UserId("someSystem", "someId");
-                var token = new AuthToken("my_token", DateTime.UtcNow);
 
-                var userFactory = new UserFactory();
-                autoMocker.Inject(typeof(IUserFactory), userFactory);
-
-                var user = userFactory.CreateUser(userId);
-                user.SetToken(token);
+                var user = new User(userId);
 
                 autoMocker.ClassUnderTest.Insert(user);
-                IUser userAfterInsert;
+                User userAfterInsert;
                 var found = autoMocker.ClassUnderTest.TryGet(userId, out userAfterInsert);
 
                 Assert.IsTrue(found);

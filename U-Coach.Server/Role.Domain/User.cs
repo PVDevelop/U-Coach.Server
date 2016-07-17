@@ -2,13 +2,11 @@
 
 namespace PVDevelop.UCoach.Server.Role.Domain
 {
-    internal class User : IUser
+    public class User
     {
         public UserId Id { get; private set; }
 
-        public AuthToken Token { get; set; }
-
-        internal User(UserId id)
+        public User(UserId id)
         {
             if(id == null)
             {
@@ -16,16 +14,6 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             }
 
             Id = id;
-            Token = AuthToken.Empty;
-        }
-
-        public void SetToken(AuthToken token)
-        {
-            if(token == null)
-            {
-                throw new ArgumentNullException(nameof(token));
-            }
-            Token = token;
         }
     }
 }

@@ -1,13 +1,12 @@
-﻿using PVDevelop.UCoach.Server.Role.Contract;
+﻿using PVDevelop.UCoach.Server.Role.Domain;
 
 namespace PVDevelop.UCoach.Server.Role.Service
 {
     public interface IUserService
     {
         /// <summary>
-        /// Регистрация нового пользователя из системы Facebook.
-        /// Операция идемпотентная.
+        /// Регистрация нового пользователя из внешней системы аутентифакции и возвращает токен
         /// </summary>
-        void RegisterFacebookUser(FacebookConnectionDto facebookConnection);
+        TokenId RegisterUserToken(AuthTokenParams authTokenParams);
     }
 }

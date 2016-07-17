@@ -6,45 +6,59 @@ namespace PVDevelop.UCoach.Server.Role.Service
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _repository;
-        private readonly IUserFactory _factory;
+        private readonly IUserRepository _userRepository;
+        private readonly ITokenRepository _tokenRepository;
+        private readonly ITokenGenerator _tokenGenerator;
 
         public UserService(
-            IUserFactory factory,
-            IUserRepository repository)
+            ITokenGenerator tokenGenerator,
+            IUserRepository userRepository,
+            ITokenRepository tokenRepository)
         {
-            if(factory == null)
+            if(tokenGenerator == null)
             {
-                throw new ArgumentNullException(nameof(factory));
+                throw new ArgumentNullException(nameof(tokenGenerator));
             }
-            if (repository == null)
+            if (userRepository == null)
             {
-                throw new ArgumentNullException(nameof(repository));
+                throw new ArgumentNullException(nameof(userRepository));
+            }
+            if(tokenRepository == null)
+            {
+                throw new ArgumentNullException(nameof(tokenRepository));
             }
 
-            _factory = factory;
-            _repository = repository;
+            _tokenGenerator = tokenGenerator;
+            _userRepository = userRepository;
+            _tokenRepository = tokenRepository;
         }
 
-        public void RegisterFacebookUser(FacebookConnectionDto facebookConnection)
+        public TokenId RegisterUserToken(AuthTokenParams authTokenParams)
         {
-            var userId = new UserId(AuthSystemHelper.FACEBOOK_SYSTEM_NAME, facebookConnection.Id);
-            var token = new AuthToken(facebookConnection.Token, facebookConnection.TokenExpiration);
+            if(authTokenParams == null)
+            {
+                throw new ArgumentNullException(nameof(authTokenParams));
+            }
 
-            IUser user;
-            if (_repository.TryGet(userId, out user))
+            User user;
+            var userId = new UserId(authTokenParams.AuthSystemName, authTokenParams.AuthUserId);
+            if (!_userRepository.TryGet(userId, out user))
             {
-                // обновляем имеюищегося пользователя
-                user.SetToken(token);
-                _repository.Update(user);
+                user = new User(userId);
+                _userRepository.Insert(user);
             }
-            else
+
+            var generatedToken = _tokenGenerator.Generate(user, authTokenParams);
+            var tokenId = new TokenId(generatedToken);
+
+            Token token;
+            if (!_tokenRepository.TryGet(tokenId, out token))
             {
-                // создаем нового пользователя
-                user = _factory.CreateUser(userId);
-                user.SetToken(token);
-                _repository.Insert(user);
+                token = new Token(tokenId, userId, authTokenParams);
+                _tokenRepository.Insert(token);
             }
+
+            return token.Id;
         }
     }
 }

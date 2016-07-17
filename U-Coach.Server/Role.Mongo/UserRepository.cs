@@ -9,53 +9,34 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
     public class UserRepository : IUserRepository
     {
         private readonly IMongoRepository<MongoUser> _repository;
-        private readonly IUserFactory _userFactory;
 
         public UserRepository(
-            IMongoRepository<MongoUser> repository,
-            IUserFactory userFactory)
+            IMongoRepository<MongoUser> repository)
         {
             if (repository == null)
             {
                 throw new ArgumentNullException(nameof(repository));
             }
-            if(userFactory == null)
-            {
-                throw new ArgumentNullException(nameof(userFactory));
-            }
 
             _repository = repository;
-            _userFactory = userFactory;
         }
 
-        public void Insert(IUser user)
+        public void Insert(User user)
         {
             if(user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var mongoUser = MapperHelper.Map<IUser, MongoUser>(user);
+            var mongoUser = new MongoUser()
+            {
+                Id = user.Id
+            };
+
             _repository.Insert(mongoUser);
         }
 
-        public void Update(IUser user)
-        {
-            if(user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
-
-            var mongoUser = new MongoUser()
-            {
-                Id = user.Id,
-                Token = user.Token
-            };
-
-            _repository.ReplaceOne(u => u.Id.Equals(mongoUser.Id), mongoUser);
-        }
-
-        public bool TryGet(UserId id, out IUser user)
+        public bool TryGet(UserId id, out User user)
         {
             if(id == null)
             {
@@ -65,8 +46,7 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
             MongoUser mongoUser;
             if (_repository.TryFind(u => u.Id.Equals(id), out mongoUser))
             {
-                user = _userFactory.CreateUser(mongoUser.Id);
-                user.SetToken(mongoUser.Token);
+                user = new User(id);
                 return true;
             }
 
