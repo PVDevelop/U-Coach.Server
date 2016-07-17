@@ -9,7 +9,6 @@ using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.Role.Domain;
-using PVDevelop.UCoach.Server.Role.Service;
 using PVDevelop.UCoach.Server.Timing;
 
 namespace PVDevelop.UCoach.Server.Role.WebApi

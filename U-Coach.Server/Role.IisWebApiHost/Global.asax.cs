@@ -5,7 +5,6 @@ using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Role.Domain;
 using PVDevelop.UCoach.Server.Role.Mongo;
-using PVDevelop.UCoach.Server.Role.Service;
 using PVDevelop.UCoach.Server.Role.WebApi;
 using PVDevelop.UCoach.Server.Timing;
 using StructureMap;

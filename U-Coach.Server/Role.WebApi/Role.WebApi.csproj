@@ -83,10 +83,6 @@
       <Project>{EE2A484A-02B8-44AD-87EB-64E42B869933}</Project>
       <Name>Role.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Role.Service\Role.Service.csproj">
-      <Project>{583BAA0F-D0E5-412A-9375-92F580B66327}</Project>
-      <Name>Role.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Timing\Timing.csproj">
       <Project>{ED9532D4-7643-4A2F-AC6A-7EA11BBF2612}</Project>
       <Name>Timing</Name>

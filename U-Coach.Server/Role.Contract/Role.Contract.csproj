@@ -51,12 +51,6 @@
     <Compile Include="Routes.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RestClient\RestClient.csproj">
-      <Project>{0f8931b1-be3d-4544-9d9e-a7616b736a28}</Project>
-      <Name>RestClient</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

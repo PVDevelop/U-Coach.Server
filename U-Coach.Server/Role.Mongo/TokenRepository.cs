@@ -1,7 +1,6 @@
 ﻿using System;
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Role.Domain;
-using PVDevelop.UCoach.Server.Role.Service;
 
 namespace PVDevelop.UCoach.Server.Role.Mongo
 {

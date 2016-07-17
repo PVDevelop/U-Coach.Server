@@ -42,11 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthTokenParams.cs" />
+    <Compile Include="ITokenGenerator.cs" />
+    <Compile Include="ITokenRepository.cs" />
+    <Compile Include="IUserRepository.cs" />
+    <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Token.cs" />
+    <Compile Include="TokenGenerator.cs" />
     <Compile Include="TokenId.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserId.cs" />
+    <Compile Include="UserService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

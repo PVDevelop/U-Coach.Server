@@ -1,6 +1,6 @@
 ﻿using PVDevelop.UCoach.Server.Role.Domain;
 
-namespace PVDevelop.UCoach.Server.Role.Service
+namespace PVDevelop.UCoach.Server.Role.Domain
 {
     public interface ITokenRepository
     {

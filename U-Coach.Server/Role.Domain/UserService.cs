@@ -1,8 +1,6 @@
 ﻿using System;
-using PVDevelop.UCoach.Server.Role.Contract;
-using PVDevelop.UCoach.Server.Role.Domain;
 
-namespace PVDevelop.UCoach.Server.Role.Service
+namespace PVDevelop.UCoach.Server.Role.Domain
 {
     public class UserService : IUserService
     {

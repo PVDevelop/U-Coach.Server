@@ -1,10 +1,9 @@
 ﻿using NUnit.Framework;
 using PVDevelop.UCoach.Server.Role.Domain;
-using PVDevelop.UCoach.Server.Role.Service;
 using Rhino.Mocks;
 using StructureMap.AutoMocking;
 
-namespace Role.Service.Tests
+namespace Role.Domain.Tests
 {
     [TestFixture]
     public class UserServiceTests

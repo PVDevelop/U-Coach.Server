@@ -127,10 +127,6 @@
       <Project>{641DB0C5-30A5-45F4-B9D8-5275E14CB44F}</Project>
       <Name>Role.Mongo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Role.Service\Role.Service.csproj">
-      <Project>{583BAA0F-D0E5-412A-9375-92F580B66327}</Project>
-      <Name>Role.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Role.WebApi\Role.WebApi.csproj">
       <Project>{6ea06a84-7ee7-4dc8-9ebc-f266404b6c3c}</Project>
       <Name>Role.WebApi</Name>
