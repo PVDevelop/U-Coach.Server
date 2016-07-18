@@ -123,7 +123,6 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
             response.Headers.AddCookies(new[] { cookie });
 
             return ResponseMessage(response);
-            //return Ok(connectionDto);
         }
 
         private static IRestClientFactory GetFacebookGraphClientFactory()

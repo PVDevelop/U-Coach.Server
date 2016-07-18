@@ -61,22 +61,6 @@ namespace MvcAuthrorization.Controllers
 
                 return RedirectToProfile(profile);
             }
-            //var facebookConnection =
-            //    _restClientFactory.
-            //    CreateGet("api/facebook/connection").
-            //    AddParameter("code", code).
-            //    AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
-            //    Execute().
-            //    CheckGetResult().
-            //    GetJsonContent<FacebookConnectionDto>();
-
-            //var profile = new UserProfileModel()
-            //{
-            //    AuthSystem = "Facebook",
-            //    Name = facebookConnection.Name
-            //};
-
-            //return RedirectToProfile(profile);
         }
 
         [HttpPost]
