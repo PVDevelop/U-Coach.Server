@@ -20,10 +20,25 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         /// <returns>Токен аутентификации</returns>
         LogonUserResultDto Logon(LogonUserDto userParams);
 
+
+        ///<summary>
+        /// Выход пользователя с указаным токеном из системы.
+        /// </summary>
+        /// <param name="tokenParams">Токен пользователя</param>
+        void Logout(ValidateTokenDto tokenParams);
+
         /// <summary>
         /// Проверяет токен пользователя.
         /// </summary>
         /// <param name="tokenParams">Токен пользователя</param>
         void ValidateToken(ValidateTokenDto tokenParams);
+
+
+        /// <summary>
+        /// Подтверждение пользователя
+        /// <param name="login">имя пользователь</param>
+        /// <param name="key">ключ подтверждения</param>
+        /// </summary>
+        void Confirm(string login, string key);
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{8B643F85-8A84-4DDC-9B4D-C7CF10BF0296}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server.Core.Mail</RootNamespace>
-    <AssemblyName>PVDevelop.UCoach.Server.Core.Mail</AssemblyName>
+    <RootNamespace>PVDevelop.UCoach.Server.Auth.Mail</RootNamespace>
+    <AssemblyName>PVDevelop.UCoach.Server.Auth.Mail</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -53,13 +53,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
+      <Project>{EECD97C9-87B4-4E00-8455-A8C80ABFB66F}</Project>
+      <Name>Auth.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{9d893e1e-2741-4178-93fa-69c8f33110b1}</Project>
       <Name>Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Service\Core.Service.csproj">
-      <Project>{4cff0e68-8388-4998-8cca-2495277c3bd7}</Project>
-      <Name>Core.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -40,10 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IUserRepository.cs" />
-    <Compile Include="IUserService.cs" />
+    <Compile Include="Confirmation\IConfirmationProducer.cs" />
+    <Compile Include="Confirmation\IConfirmationRepository.cs" />
+    <Compile Include="Confirmation\IConfirmationService.cs" />
+    <Compile Include="Token\ITokenRepository.cs" />
+    <Compile Include="Token\ITokenService.cs" />
+    <Compile Include="Token\TokenService.cs" />
+    <Compile Include="User\IUserRepository.cs" />
+    <Compile Include="User\IUserService.cs" />
+    <Compile Include="Confirmation\ConfirmationKeyParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserService.cs" />
+    <Compile Include="Confirmation\ConfirmationService.cs" />
+    <Compile Include="User\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
@@ -61,6 +69,14 @@
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{e2725a5e-4eb9-4f79-b24c-f7598201c0f7}</Project>
       <Name>Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mapper\Mapper.csproj">
+      <Project>{6EBDCB84-95A9-417B-967E-37ACF7D4ABCA}</Project>
+      <Name>Mapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Timing\Timing.csproj">
+      <Project>{ED9532D4-7643-4A2F-AC6A-7EA11BBF2612}</Project>
+      <Name>Timing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

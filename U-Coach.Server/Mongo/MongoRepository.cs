@@ -37,6 +37,12 @@ namespace PVDevelop.UCoach.Server.Mongo
             coll.ReplaceOne<T>(predicate, document);
         }
 
+        public void TryRemove(T document)
+        {
+            //var coll = GetCollection();
+            //coll.DeleteOne(document);
+        }
+
         private IMongoCollection<T> GetCollection()
         {
             return MongoHelper.GetCollection<T>(_settings);

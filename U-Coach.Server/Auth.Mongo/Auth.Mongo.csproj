@@ -52,6 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MongoConfirmation.cs" />
+    <Compile Include="MongoConfirmationRepository.cs" />
+    <Compile Include="MongoToken.cs" />
+    <Compile Include="MongoTokenRepository.cs" />
     <Compile Include="MongoUser.cs" />
     <Compile Include="MongoUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

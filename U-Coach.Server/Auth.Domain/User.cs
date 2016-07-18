@@ -9,8 +9,13 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
     /// <summary>
     /// Доменная модель - пользователь
     /// </summary>
-    public class User : AAggregateRoot
+    public class User 
     {
+        /// <summary>
+        /// Идентификатор Id в системе. Уникален в БД.
+        /// </summary>
+        public string Id { get; private set; }
+
         /// <summary>
         /// Логин пользователя. Уникален в БД.
         /// </summary>
@@ -27,9 +32,9 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         public string Password { get; private set; }
 
         /// <summary>
-        /// Возвращает true, если пользователь залогинен
+        /// Подтвердил ли пользователь аккаунт
         /// </summary>
-        public bool IsLoggedIn { get; private set; }
+        public bool IsConfirmation { get; set; }
 
         internal User() { }
 
@@ -49,45 +54,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             Password = password;
         }
 
-        /// <summary>
-        /// Проверяет пароль и если задан правильно, то делает пользователя залогиненым
-        /// </summary>
-        /// <param name="plainPassword">Не кодированный пароль</param>
-        /// <returns>Токен аутентификации</returns>
-        public string Logon(string plainPassword)
-        {
-            CheckPassword(plainPassword);
-
-            IsLoggedIn = true;
-
-            var salt = BCryptHelper.GenerateSalt();
-            return BCryptHelper.HashPassword(Password, salt);
-        }
-
-        /// <summary>
-        /// Проверяет токен. Если не залогинен, кидает NotLoggedInException. Если токен неверный, кидает InvalidTokenException.
-        /// </summary>
-        public void ValidateToken(string token)
-        {
-            if(!IsLoggedIn)
-            {
-                throw new NotLoggedInException();
-            }
-
-            try
-            {
-                if (!BCryptHelper.CheckPassword(Password, token))
-                {
-                    throw new InvalidTokenException();
-                }
-            }
-            catch(ArgumentException)
-            {
-                throw new InvalidTokenException();
-            }
-        }
-
-        private void CheckPassword(string plainPassword)
+        public void CheckPassword(string plainPassword)
         {
             bool valid = BCryptHelper.CheckPassword(plainPassword, Password);
             if (!valid)

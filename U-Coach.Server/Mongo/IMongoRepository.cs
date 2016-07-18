@@ -14,6 +14,11 @@ namespace PVDevelop.UCoach.Server.Mongo
         void Insert(T document);
 
         /// <summary>
+        /// Удаляет документ из коллекции
+        /// </summary>
+        void TryRemove(T document);
+
+        /// <summary>
         /// Находит единственный объект по предикату
         /// </summary>
         T Find(Expression<Func<T, bool>> predicate);

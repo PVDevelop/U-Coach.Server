@@ -13,7 +13,7 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         /// </summary>
         public const int VERSION = 1;
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public int Version { get; set; }
 

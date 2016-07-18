@@ -80,16 +80,16 @@
       <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
       <Name>Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Mail\Core.Mail.csproj">
+    <ProjectReference Include="..\Core.Mail\Auth.Mail.csproj">
       <Project>{8B643F85-8A84-4DDC-9B4D-C7CF10BF0296}</Project>
-      <Name>Core.Mail</Name>
+      <Name>Auth.Mail</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Mongo\Core.Mongo.csproj">
       <Project>{B3DF8994-3835-4BEC-A11F-7D765413D37A}</Project>
       <Name>Core.Mongo</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Service\Core.Service.csproj">
-      <Project>{4CFF0E68-8388-4998-8CCA-2495277C3BD7}</Project>
+      <Project>{4cff0e68-8388-4998-8cca-2495277c3bd7}</Project>
       <Name>Core.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
