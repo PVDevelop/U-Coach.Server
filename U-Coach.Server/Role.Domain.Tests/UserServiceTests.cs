@@ -17,6 +17,8 @@ namespace Role.Domain.Tests
             // arrange
             var autoMocker = new RhinoAutoMocker<UserService>();
 
+            autoMocker.Get<IUtcTimeProvider>().Stub(t => t.UtcNow).Return(DateTime.UtcNow);
+
             var tokenGenerator = autoMocker.Get<ITokenGenerator>();
             tokenGenerator.Stub(t => t.Generate(null, null)).IgnoreArguments().Return("bbb");
 
@@ -36,6 +38,8 @@ namespace Role.Domain.Tests
         {
             // arrange
             var autoMocker = new RhinoAutoMocker<UserService>();
+
+            autoMocker.Get<IUtcTimeProvider>().Stub(t => t.UtcNow).Return(DateTime.UtcNow);
 
             var tokenGenerator = autoMocker.Get<ITokenGenerator>();
             tokenGenerator.Stub(t => t.Generate(null, null)).IgnoreArguments().Return("bbb");
