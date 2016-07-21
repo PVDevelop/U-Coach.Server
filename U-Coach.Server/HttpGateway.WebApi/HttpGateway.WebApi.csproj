@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A4594427-AD8C-424F-AEFD-F995EB99EE39}</ProjectGuid>
+    <ProjectGuid>{B529E273-56EA-490E-8C13-29FA9CADE9C1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server.WebApi</RootNamespace>
-    <AssemblyName>PVDevelop.UCoach.Server.WebApi</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>PVDevelop.UCoach.Server.HttpGateway.WebApi</RootNamespace>
+    <AssemblyName>PVDevelop.UCoach.Server.HttpGateway.WebApi</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,21 +34,12 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="StructureMap, Version=4.2.0.402, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\structuremap.4.2.0.402\lib\net40\StructureMap.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="StructureMap.Net4, Version=4.2.0.402, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\structuremap.4.2.0.402\lib\net40\StructureMap.Net4.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
       <Private>True</Private>
@@ -65,22 +56,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionResultBuilder.cs" />
-    <Compile Include="ActionResultBuilderFactory.cs" />
-    <Compile Include="HttpResponseMessageExtensions.cs" />
-    <Compile Include="IActionResultBuilder.cs" />
-    <Compile Include="IActionResultBuilderFactory.cs" />
+    <Compile Include="FacebookController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StructureMapControllerActivator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Configuration\Configuration.csproj">
-      <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
-      <Name>Configuration</Name>
+    <ProjectReference Include="..\HttpGateway.Contract\HttpGateway.Contract.csproj">
+      <Project>{49CFE59E-71C1-4775-ADEA-67D34EC20181}</Project>
+      <Name>HttpGateway.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RestClient\RestClient.csproj">
+      <Project>{0F8931B1-BE3D-4544-9D9E-A7616B736A28}</Project>
+      <Name>RestClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Role.Contract\Role.Contract.csproj">
+      <Project>{EADB72A9-5475-4592-A3E3-CA1174535C5F}</Project>
+      <Name>Role.Contract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

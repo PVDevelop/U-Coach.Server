@@ -2,7 +2,7 @@
 using System.Web.Http.Dispatcher;
 using PVDevelop.UCoach.Server.Auth.WebApi;
 using PVDevelop.UCoach.Server.Configuration;
-using PVDevelop.UCoach.Server.WebApi;
+using PVDevelop.UCoach.Server.RestClient;
 using StructureMap;
 
 namespace WebPortal
@@ -24,7 +24,7 @@ namespace WebPortal
             _container = new Container(x =>
             {
                 x.For<IConnectionStringProvider>().Use<ConfigurationConnectionStringProvider>().Ctor<string>().Is("role");
-                x.For<IActionResultBuilderFactory>().Use<ActionResultBuilderFactory>();
+                x.For<IRestClientFactory>().Use<RestClientFactory>();
             });
 
             return _container;

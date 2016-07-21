@@ -88,41 +88,23 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
         }
 
         [HttpGet]
-        [Route(Routes.FACEBOOK_USER_PROFILE)]
+        [Route(Routes.FACEBOOK_TOKEN)]
         public IHttpActionResult GetUserProfile(
             [FromUri] string code,
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
-            CookieHeaderValue requestCookie = Request.Headers.GetCookies("access_token").FirstOrDefault();
-            if (requestCookie != null)
-            {
-                var token = requestCookie["access_token"].Value;
-            }
+            var facebookTokenDto = GetFacebookToken(code, redirectUri);
+            var profileDto = GetFacebookProfile(facebookTokenDto.Token);
 
-            var tokenDto = GetFacebookToken(code, redirectUri);
-            var profileDto = GetFacebookProfile(tokenDto.Token);
-
-            var authTokenParams = new AuthTokenParams(FACEBOOK_SYSTEM_NAME, profileDto.Id, tokenDto.Token);
+            var authTokenParams = new AuthTokenParams(FACEBOOK_SYSTEM_NAME, profileDto.Id, facebookTokenDto.Token);
             var tokenId = _userService.RegisterUserToken(authTokenParams);
 
-            var tokenExpiration = _utcTimeProvider.UtcNow + TimeSpan.FromSeconds(tokenDto.ExpiredInSeconds);
-            var connectionDto = new FacebookConnectionDto()
+            var tokenDto = new TokenDto
             {
-                Id = profileDto.Id,
-                Name = profileDto.Name,
-                Token = tokenDto.Token,
-                TokenExpiration = tokenExpiration
+                Token = tokenId.Token
             };
 
-            var response = Request.CreateResponse(HttpStatusCode.OK, connectionDto);
-
-            var cookie = new CookieHeaderValue("access_token", tokenId.Token);
-            cookie.Expires = DateTimeOffset.Now.AddDays(1);
-            cookie.Domain = Request.RequestUri.Host;
-            cookie.Path = "/";
-            response.Headers.AddCookies(new[] { cookie });
-
-            return ResponseMessage(response);
+            return Ok(tokenDto);
         }
 
         private static IRestClientFactory GetFacebookGraphClientFactory()

@@ -123,7 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,6 +142,14 @@
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
       <Name>Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HttpGateway.WebApi\HttpGateway.WebApi.csproj">
+      <Project>{b529e273-56ea-490e-8c13-29fa9cade9c1}</Project>
+      <Name>HttpGateway.WebApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RestClient\RestClient.csproj">
+      <Project>{0F8931B1-BE3D-4544-9D9E-A7616B736A28}</Project>
+      <Name>RestClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\Role.Contract\Role.Contract.csproj">
       <Project>{EADB72A9-5475-4592-A3E3-CA1174535C5F}</Project>

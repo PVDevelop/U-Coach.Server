@@ -1,7 +1,7 @@
-﻿namespace PVDevelop.UCoach.Server.Role.Contract
+﻿namespace PVDevelop.UCoach.Server.HttpGateway.Contract
 {
     public static class Routes
-    {
+    {        
         /// <summary>
         /// Адрес ресурса авторизации пользователя facebook
         /// </summary>

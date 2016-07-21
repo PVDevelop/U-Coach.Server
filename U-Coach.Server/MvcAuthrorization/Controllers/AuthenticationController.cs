@@ -4,6 +4,9 @@ using System.Web.Mvc;
 using MvcAuthrorization.Models;
 using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.WebApi;
+using System.Collections.Generic;
+using System.Web;
+using System.Net.Http.Headers;
 
 namespace MvcAuthrorization.Controllers
 {
@@ -34,7 +37,8 @@ namespace MvcAuthrorization.Controllers
                 var result =
                     (await builder.
                     AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
-                    BuildAsync("api/facebook/authorization")).
+                    BuildAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.FACEBOOK_REDIRECT_URI)).
+                    EnsureSuccessStatusCode().
                     ToJson<FacebookRedirectDto>();
 
                 return Redirect(result.Uri);
@@ -50,13 +54,14 @@ namespace MvcAuthrorization.Controllers
                     (await builder.
                     AddParameter("code", code).
                     AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
-                    BuildAsync("api/facebook/connection")).
-                    ToJson<FacebookConnectionDto>();
+                    BuildAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.FACEBOOK_TOKEN)).
+                    EnsureSuccessStatusCode();
+
+                result.CopyCookies(HttpContext.Response);
 
                 var profile = new UserProfileModel()
                 {
-                    AuthSystem = "Facebook",
-                    Name = result.Name
+                    AuthSystem = "Facebook"
                 };
 
                 return RedirectToProfile(profile);
@@ -68,8 +73,7 @@ namespace MvcAuthrorization.Controllers
         {
             var profile = new UserProfileModel()
             {
-                AuthSystem = "UCoach",
-                Name = "UNKNOWN"
+                AuthSystem = "UCoach"
             };
 
             return RedirectToProfile(profile);
