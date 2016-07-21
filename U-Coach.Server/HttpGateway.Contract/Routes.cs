@@ -16,5 +16,10 @@
         /// Команда на логаут текущего пользователя
         /// </summary>
         public const string LOGOUT = "api/logout";
+
+        /// <summary>
+        /// GET-запрос на получение пользователя по токену
+        /// </summary>
+        public const string USER_INFO = "api/users/{token}";
     }
 }

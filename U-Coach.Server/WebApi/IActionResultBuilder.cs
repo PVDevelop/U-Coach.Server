@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -10,6 +11,11 @@ namespace PVDevelop.UCoach.Server.WebApi
         /// Добавить параметр в Url
         /// </summary>
         IActionResultBuilder AddParameter(string key, string value);
+
+        /// <summary>
+        /// Добавить cookies в запрос
+        /// </summary>
+        IActionResultBuilder AddCookies(CookieCollection cookies);
 
         /// <summary>
         /// Возвращает асинхронный http-get ответ

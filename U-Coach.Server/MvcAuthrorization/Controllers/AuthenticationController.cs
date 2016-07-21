@@ -58,31 +58,21 @@ namespace MvcAuthrorization.Controllers
                     BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.FACEBOOK_TOKEN)).
                     EnsureSuccessStatusCode();
 
-                result.CopyCookies(HttpContext.Response);
+                result.CopyCookies(Response);
 
-                var profile = new UserProfileModel()
-                {
-                    AuthSystem = "Facebook"
-                };
-
-                return RedirectToProfile(profile);
+                return RedirectToHome();
             }
         }
 
         [HttpPost]
         public ActionResult LogonUCoach(LogonModel model)
         {
-            var profile = new UserProfileModel()
-            {
-                AuthSystem = "UCoach"
-            };
-
-            return RedirectToProfile(profile);
+            return RedirectToHome();
         }
 
-        private ActionResult RedirectToProfile(UserProfileModel model)
+        private ActionResult RedirectToHome()
         {
-            return RedirectToAction("Index", "UserProfile", model);
+            return RedirectToAction("Index", "Home");
         }
 
         private string GetFacebookCodeRedirectUri()

@@ -18,11 +18,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
                 throw new ArgumentNullException(nameof(authToken));
             }
 
-            var decodedToken = string.Format(
-                "{0}.{1}.{2}", 
-                user.Id.AuthSystemName,
-                user.Id.AuthId, 
-                authToken.Token);
+            var decodedToken = Guid.NewGuid().ToString();
 
             var bytes = Encoding.UTF8.GetBytes(decodedToken);
             return Convert.ToBase64String(bytes);

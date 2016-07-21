@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcAuthrorization.Models;
+using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.WebApi;
 
 namespace MvcAuthrorization.Controllers
@@ -21,8 +22,24 @@ namespace MvcAuthrorization.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(UserProfileModel profileModel)
+        public async Task<ActionResult> Index()
         {
+            UserInfoDto userInfoDto;
+            using (var builder = _actionResultBuilderFactory.CreateActionResultBuilder())
+            {
+                userInfoDto = (await 
+                    builder.
+                    AddCookies(Request.ToCookieCollection()).
+                    BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.USER_INFO)).
+                    EnsureSuccessStatusCode().
+                    ToJson<UserInfoDto>();
+            }
+
+            var profileModel = new UserProfileModel()
+            {
+                Id = userInfoDto.Id
+            };
+
             return View(profileModel);
         }
 
@@ -31,9 +48,13 @@ namespace MvcAuthrorization.Controllers
         {
             using (var builder = _actionResultBuilderFactory.CreateActionResultBuilder())
             {
-                (await builder.
+                var result = (await 
+                    builder.
+                    AddCookies(Request.ToCookieCollection()).
                     BuildPostAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.LOGOUT, new ByteArrayContent(new byte[0]))).
                     EnsureSuccessStatusCode();
+
+                result.CopyCookies(Response);
             }
 
             return RedirectToAction("Index", "Home");

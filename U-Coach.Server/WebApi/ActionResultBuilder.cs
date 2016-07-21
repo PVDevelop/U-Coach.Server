@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace PVDevelop.UCoach.Server.WebApi
     {
         private bool _disposed;
         private readonly HttpClient _client;
+        private readonly HttpClientHandler _clientHandler;
         private readonly List<Tuple<string, string>> _parameters = new List<Tuple<string, string>>();
 
         public ActionResultBuilder(string baseAddress)
@@ -21,14 +23,35 @@ namespace PVDevelop.UCoach.Server.WebApi
                 throw new ArgumentNullException(nameof(baseAddress));
             }
 
-            _client = new HttpClient();
+            _clientHandler = new HttpClientHandler();
+            _client = new HttpClient(_clientHandler);
             _client.BaseAddress = new Uri(baseAddress);
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        public IActionResultBuilder AddCookies(CookieCollection cookies)
+        {
+            if(cookies == null)
+            {
+                throw new ArgumentNullException(nameof(cookies));
+            }
+
+            _clientHandler.CookieContainer.Add(cookies);
+            return this;
+        }
+
         public IActionResultBuilder AddParameter(string key, string value)
         {
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
             _parameters.Add(new Tuple<string, string>(key, value));
             return this;
         }
@@ -62,6 +85,7 @@ namespace PVDevelop.UCoach.Server.WebApi
             }
 
             _client.Dispose();
+            _clientHandler.Dispose();
 
             _disposed = true;
         }

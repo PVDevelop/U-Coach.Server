@@ -55,5 +55,10 @@ namespace PVDevelop.UCoach.Server.Role.Domain
                 AuthSystemName == userId.AuthSystemName &&
                 AuthId == userId.AuthId;
         }
+
+        public override string ToString()
+        {
+            return string.Join(".", AuthSystemName, AuthId);
+        }
     }
 }

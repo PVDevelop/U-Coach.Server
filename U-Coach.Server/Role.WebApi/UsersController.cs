@@ -1,0 +1,34 @@
+﻿using System;
+using System.Web.Http;
+using PVDevelop.UCoach.Server.Role.Contract;
+using PVDevelop.UCoach.Server.Role.Domain;
+
+namespace PVDevelop.UCoach.Server.Role.WebApi
+{
+    public class UsersController : ApiController
+    {
+        private readonly IUserService _userService;
+
+        public UsersController(IUserService userService)
+        {
+            if (userService == null)
+            {
+                throw new ArgumentNullException(nameof(userService));
+            }
+            _userService = userService;
+        }
+
+        [HttpGet]
+        [Route(Routes.USER_INFO)]
+        public IHttpActionResult GetUserInfo([FromUri(Name = "token")]string token)
+        {
+            var tokenId = new TokenId(token);
+            var user = _userService.GetUserByToken(tokenId);
+
+            var userId = string.Format("{0}.{1}", user.Id.AuthSystemName, user.Id.AuthId);
+            var userInfoDto = new UserInfoDto(userId);
+
+            return Ok(userInfoDto);
+        }
+    }
+}

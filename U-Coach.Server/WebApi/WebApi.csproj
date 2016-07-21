@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="ActionResultBuilder.cs" />
     <Compile Include="ActionResultBuilderFactory.cs" />
+    <Compile Include="HttpRequestBaseExtension.cs" />
     <Compile Include="HttpResponseMessageExtensions.cs" />
     <Compile Include="IActionResultBuilder.cs" />
     <Compile Include="IActionResultBuilderFactory.cs" />

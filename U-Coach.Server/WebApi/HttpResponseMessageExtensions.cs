@@ -8,7 +8,8 @@ namespace PVDevelop.UCoach.Server.WebApi
 {
     public static class HttpResponseMessageExtensions
     {
-        public static T ToJson<T>(this HttpResponseMessage message)
+        public static T ToJson<T>(
+            this HttpResponseMessage message)
         {
             var result = message.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<T>(result);
