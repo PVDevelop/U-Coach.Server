@@ -45,10 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TokenDto.cs" />
-    <Compile Include="FacebookRedirectDto.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AuthUserRegisterDto.cs" />
     <Compile Include="Routes.cs" />
+    <Compile Include="TokenDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

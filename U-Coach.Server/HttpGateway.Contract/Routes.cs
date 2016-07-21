@@ -11,5 +11,10 @@
         /// Адрес ресура с профиля пользователя facebook
         /// </summary>
         public const string FACEBOOK_TOKEN = "api/facebook/token";
+
+        /// <summary>
+        /// Команда на логаут текущего пользователя
+        /// </summary>
+        public const string LOGOUT = "api/logout";
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PVDevelop.UCoach.Server.Role.Contract
+namespace PVDevelop.UCoach.Server.HttpGateway.Contract
 {
     public class FacebookRedirectDto
     {

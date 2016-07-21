@@ -155,6 +155,10 @@
       <Project>{EADB72A9-5475-4592-A3E3-CA1174535C5F}</Project>
       <Name>Role.Contract</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Timing\Timing.csproj">
+      <Project>{ED9532D4-7643-4A2F-AC6A-7EA11BBF2612}</Project>
+      <Name>Timing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebApi\WebApi.csproj">
       <Project>{A4594427-AD8C-424F-AEFD-F995EB99EE39}</Project>
       <Name>WebApi</Name>

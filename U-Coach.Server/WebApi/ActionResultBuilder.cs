@@ -33,14 +33,25 @@ namespace PVDevelop.UCoach.Server.WebApi
             return this;
         }
 
-        public async Task<HttpResponseMessage> BuildAsync(string resource)
+        public async Task<HttpResponseMessage> BuildGetAsync(string resource)
+        {
+            return await _client.GetAsync(GetResource(resource));
+        }
+
+        public async Task<HttpResponseMessage> BuildPostAsync(string resource, HttpContent content)
+        {
+            return await _client.PostAsync(GetResource(resource), content);
+        }
+
+        private string GetResource(string resource)
         {
             if (_parameters.Any())
             {
                 var parametersStr = _parameters.Select(t => string.Format("{0}={1}", t.Item1, t.Item2));
                 resource += string.Format("?{0}", string.Join("&", parametersStr));
             }
-            return await _client.GetAsync(resource);
+
+            return resource;
         }
 
         public void Dispose()

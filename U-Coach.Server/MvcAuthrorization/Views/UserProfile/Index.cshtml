@@ -7,3 +7,8 @@
 
 @Html.LabelFor(p=>p.AuthSystem)
 @Html.DisplayTextFor(p=>p.AuthSystem)
+
+@using (Html.BeginForm("Logout", "UserProfile", FormMethod.Post))
+{
+    <input type="submit" value="Logout" />
+}

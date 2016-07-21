@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 namespace PVDevelop.UCoach.Server.Role.Contract
 {
     /// <summary>
-    /// Токена пользователя системы авторизации
+    /// Dto для регистрации пользователя в системе по токену внешней системы
     /// </summary>
-    public class TokenDto
+    public class AuthUserRegisterDto
     {
         [JsonProperty("token")]
         public string Token { get; private set; }
@@ -14,7 +14,7 @@ namespace PVDevelop.UCoach.Server.Role.Contract
         [JsonProperty("expiration")]
         public DateTime Expiration { get; private set; }
 
-        public TokenDto(string token, DateTime expiration)
+        public AuthUserRegisterDto(string token, DateTime expiration)
         {
             if (token == null)
             {

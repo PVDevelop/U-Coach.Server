@@ -12,8 +12,13 @@ namespace PVDevelop.UCoach.Server.WebApi
         IActionResultBuilder AddParameter(string key, string value);
 
         /// <summary>
-        /// Возвращает асинхронный http ответ
+        /// Возвращает асинхронный http-get ответ
         /// </summary>
-        Task<HttpResponseMessage> BuildAsync(string resource);
+        Task<HttpResponseMessage> BuildGetAsync(string resource);
+
+        /// <summary>
+        /// Возвращает асинхронный http-post ответ
+        /// </summary>
+        Task<HttpResponseMessage> BuildPostAsync(string resource, HttpContent content);
     }
 }

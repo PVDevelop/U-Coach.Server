@@ -7,6 +7,7 @@ using PVDevelop.UCoach.Server.WebApi;
 using System.Collections.Generic;
 using System.Web;
 using System.Net.Http.Headers;
+using PVDevelop.UCoach.Server.HttpGateway.Contract;
 
 namespace MvcAuthrorization.Controllers
 {
@@ -37,7 +38,7 @@ namespace MvcAuthrorization.Controllers
                 var result =
                     (await builder.
                     AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
-                    BuildAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.FACEBOOK_REDIRECT_URI)).
+                    BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.FACEBOOK_REDIRECT_URI)).
                     EnsureSuccessStatusCode().
                     ToJson<FacebookRedirectDto>();
 
@@ -54,7 +55,7 @@ namespace MvcAuthrorization.Controllers
                     (await builder.
                     AddParameter("code", code).
                     AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
-                    BuildAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.FACEBOOK_TOKEN)).
+                    BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.FACEBOOK_TOKEN)).
                     EnsureSuccessStatusCode();
 
                 result.CopyCookies(HttpContext.Response);

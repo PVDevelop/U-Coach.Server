@@ -57,9 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FacebookController.cs" />
-    <Compile Include="FacebookOAuthSettingsSection.cs" />
-    <Compile Include="IFacebookOAuthSettings.cs" />
+    <Compile Include="AuthSystemsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
