@@ -1,5 +1,4 @@
-﻿using PVDevelop.UCoach.Server.Role.Domain;
-
+﻿
 namespace PVDevelop.UCoach.Server.Role.Domain
 {
     public interface IUserService
@@ -7,6 +6,6 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         /// <summary>
         /// Регистрация нового пользователя из внешней системы аутентифакции и возвращает токен
         /// </summary>
-        TokenId RegisterUserToken(AuthTokenParams authTokenParams);
+        Token RegisterUserToken(UserId userId, AuthSystemToken authToken);
     }
 }

@@ -96,13 +96,13 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
             var facebookTokenDto = GetFacebookToken(code, redirectUri);
             var profileDto = GetFacebookProfile(facebookTokenDto.Token);
 
-            var authTokenParams = new AuthTokenParams(FACEBOOK_SYSTEM_NAME, profileDto.Id, facebookTokenDto.Token);
-            var tokenId = _userService.RegisterUserToken(authTokenParams);
+            var expiration = _utcTimeProvider.UtcNow.AddSeconds(facebookTokenDto.ExpiredInSeconds);
 
-            var tokenDto = new TokenDto
-            {
-                Token = tokenId.Token
-            };
+            var userId = new UserId(FACEBOOK_SYSTEM_NAME, profileDto.Id);
+            var authToken = new AuthSystemToken(facebookTokenDto.Token, expiration);
+            var token = _userService.RegisterUserToken(userId, authToken);
+
+            var tokenDto = new TokenDto(token.Id.Token, token.Expiration);
 
             return Ok(tokenDto);
         }

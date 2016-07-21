@@ -1,7 +1,10 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using PVDevelop.UCoach.Server.Role.Domain;
+using PVDevelop.UCoach.Server.Timing;
 using Rhino.Mocks;
 using StructureMap.AutoMocking;
+using TestComparisonUtilities;
 
 namespace Role.Domain.Tests
 {
@@ -22,8 +25,7 @@ namespace Role.Domain.Tests
             userRepository.Expect(r => r.Insert(Arg<User>.Matches(u => u.Id.Equals(userId))));
 
             // act
-            var tokenParams = new AuthTokenParams(userId.AuthSystemName, userId.AuthId, "token");
-            autoMocker.ClassUnderTest.RegisterUserToken(tokenParams);
+            autoMocker.ClassUnderTest.RegisterUserToken(userId, new AuthSystemToken("token", DateTime.UtcNow));
 
             // assert
             userRepository.VerifyAllExpectations();
@@ -46,8 +48,7 @@ namespace Role.Domain.Tests
             userRepository.Expect(r => r.Insert(Arg<User>.Matches(u => u.Id.Equals(userId)))).Repeat.Never();
 
             // act
-            var tokenParams = new AuthTokenParams(userId.AuthSystemName, userId.AuthId, "token");
-            autoMocker.ClassUnderTest.RegisterUserToken(tokenParams);
+            autoMocker.ClassUnderTest.RegisterUserToken(userId, new AuthSystemToken("token", DateTime.UtcNow));
 
             // assert
             userRepository.VerifyAllExpectations();
@@ -62,15 +63,29 @@ namespace Role.Domain.Tests
             var tokenGenerator = autoMocker.Get<ITokenGenerator>();
             tokenGenerator.Stub(t => t.Generate(null, null)).IgnoreArguments().Return("aaa");
 
+            var dateTime = DateTime.UtcNow;
+
+            var timeProvider = autoMocker.Get<IUtcTimeProvider>();
+            timeProvider.Stub(t => t.UtcNow).Return(dateTime);
+
+            var tokenid = new TokenId("aaa");
+            var userId = new UserId("system", "id");
+            var authSystemToken = new AuthSystemToken("token", dateTime);
+            var expiration = dateTime + UserService.TokenDuration;
+            var expectedToken = new Token(tokenid, userId, authSystemToken, expiration);
+
             var tokenRepository = autoMocker.Get<ITokenRepository>();
-            var expectedTokenId = new TokenId("aaa");
-            tokenRepository.Expect(r => r.Insert(Arg<Token>.Matches(t => t.Id.Equals(expectedTokenId))));
+            string expectationComparison;
+            tokenRepository.Expect(r => r.Insert(Arg<Token>.Matches(t => new TestComparer().Compare(expectedToken, t, out expectationComparison))));
 
             // act
-            var tokenId = autoMocker.ClassUnderTest.RegisterUserToken(new AuthTokenParams("system", "user", "token"));
+            var token = autoMocker.ClassUnderTest.RegisterUserToken(
+                userId, 
+                authSystemToken);
 
             // assert
-            Assert.AreEqual(expectedTokenId, tokenId);
+            string comparison;
+            Assert.IsTrue(new TestComparer().Compare(expectedToken, token, out comparison), comparison);
             tokenRepository.VerifyAllExpectations();
         }
 
@@ -86,13 +101,13 @@ namespace Role.Domain.Tests
             var tokenRepository = autoMocker.Get<ITokenRepository>();
             var tokenId = new TokenId("aaa");
             var userId = new UserId("system", "user");
-            var tokenParams = new AuthTokenParams(userId.AuthSystemName, userId.AuthId, "token");
-            var token = new Token(tokenId, userId, tokenParams);
+            var authSystemToken = new AuthSystemToken("token", DateTime.UtcNow);
+            var token = new Token(tokenId, userId, authSystemToken, DateTime.UtcNow);
             tokenRepository.Stub(r => r.TryGet(Arg<TokenId>.Is.Equal(tokenId), out Arg<Token>.Out(token).Dummy)).Return(true);
             tokenRepository.Expect(r => r.Insert(null)).IgnoreArguments().Repeat.Never();
 
             // act
-            autoMocker.ClassUnderTest.RegisterUserToken(tokenParams);
+            autoMocker.ClassUnderTest.RegisterUserToken(userId, authSystemToken);
 
             // assert
             tokenRepository.VerifyAllExpectations();

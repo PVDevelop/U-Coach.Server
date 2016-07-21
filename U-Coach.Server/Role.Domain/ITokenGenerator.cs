@@ -10,6 +10,6 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         /// <summary>
         /// Сгенерировать токен
         /// </summary>
-        string Generate(User user, AuthTokenParams tokenParams);
+        string Generate(User user, AuthSystemToken authToken);
     }
 }

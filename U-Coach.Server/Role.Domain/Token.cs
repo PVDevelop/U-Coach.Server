@@ -17,12 +17,18 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         /// <summary>
         /// Параметры токена внешней системы
         /// </summary>
-        public AuthTokenParams TokenParams { get; private set; }
+        public AuthSystemToken AuthToken { get; private set; }
+
+        /// <summary>
+        /// Время окончания действия токена
+        /// </summary>
+        public DateTime Expiration { get; private set; }
 
         public Token(
             TokenId id,
             UserId userId,
-            AuthTokenParams tokenParams)
+            AuthSystemToken authToken,
+            DateTime expiration)
         {
             if(id == null)
             {
@@ -32,14 +38,23 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             {
                 throw new ArgumentNullException(nameof(userId));
             }
-            if (tokenParams == null)
+            if (authToken == null)
             {
-                throw new ArgumentNullException(nameof(tokenParams));
+                throw new ArgumentNullException(nameof(authToken));
+            }
+            if(expiration == default(DateTime))
+            {
+                throw new ArgumentException("Not set", nameof(expiration));
+            }
+            if(expiration.Kind != DateTimeKind.Utc)
+            {
+                throw new ArgumentException("Not UTC", nameof(expiration));
             }
 
             Id = id;
             UserId = userId;
-            TokenParams = tokenParams;
+            AuthToken = authToken;
+            Expiration = expiration;
         }
     }
 }

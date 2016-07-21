@@ -30,7 +30,8 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
             {
                 Id = token.Id,
                 UserId = token.UserId,
-                TokenParams = token.TokenParams
+                AuthToken = token.AuthToken,
+                Expiration = token.Expiration
             };
 
             _repository.Insert(mongoToken);
@@ -46,7 +47,7 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
             MongoToken mongoToken;
             if (_repository.TryFind(t => t.Id.Equals(id), out mongoToken))
             {
-                token = new Token(mongoToken.Id, mongoToken.UserId, mongoToken.TokenParams);
+                token = new Token(mongoToken.Id, mongoToken.UserId, mongoToken.AuthToken, mongoToken.Expiration);
                 return true;
             }
 
