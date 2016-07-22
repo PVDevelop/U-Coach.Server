@@ -58,8 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\AuthrorizationController.cs" />
     <Compile Include="Controller\FacebookController.cs" />
+    <Compile Include="Controller\UCoachAuthenticationController.cs" />
     <Compile Include="Settings\FacebookOAuthSettingsSection.cs" />
     <Compile Include="Settings\IFacebookOAuthSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +71,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
+      <Project>{12E06B20-78EC-4B54-8B43-81202F618E62}</Project>
+      <Name>Auth.Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
       <Name>Configuration</Name>
@@ -80,7 +84,7 @@
       <Name>HttpGateway.Contract</Name>
     </ProjectReference>
     <ProjectReference Include="..\RestClient\RestClient.csproj">
-      <Project>{0F8931B1-BE3D-4544-9D9E-A7616B736A28}</Project>
+      <Project>{0f8931b1-be3d-4544-9d9e-a7616b736a28}</Project>
       <Name>RestClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\Role.Contract\Role.Contract.csproj">

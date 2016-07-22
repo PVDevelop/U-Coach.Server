@@ -8,17 +8,22 @@
         public const string FACEBOOK_REDIRECT_URI = "api/facebook/authorization_uri";
 
         /// <summary>
-        /// Адрес ресура с профиля пользователя facebook
+        /// Адрес токена пользователя facebook
         /// </summary>
         public const string FACEBOOK_TOKEN = "api/facebook/token";
 
         /// <summary>
-        /// Команда на логаут текущего пользователя
+        /// Адрес токена пользователя UCoach 
         /// </summary>
-        public const string LOGOUT = "api/logout";
+        public const string UCOACH_TOKEN = "api/ucoach/token";
 
         /// <summary>
-        /// GET-запрос на получение пользователя по токену
+        /// Команда на логаут текущего пользователя
+        /// </summary>
+        public const string LOGOUT = "api/current_user/logout";
+
+        /// <summary>
+        /// Адрес ресурса инфы текущего пользователя
         /// </summary>
         public const string USER_INFO = "api/current_user";
     }

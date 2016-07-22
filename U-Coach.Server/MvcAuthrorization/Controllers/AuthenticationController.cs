@@ -67,9 +67,24 @@ namespace MvcAuthrorization.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogonUCoach(LogonModel model)
+        public async Task<ActionResult> LogonUCoach(LogonModel model)
         {
-            return RedirectToHome();
+            using (var builder = _actionResultBuilderFactory.CreateActionResultBuilder())
+            {
+                var response =
+                    await builder.
+                    AddParameter("login", model.Login).
+                    AddParameter("password", model.Password).
+                    BuildGetAsync(Routes.UCOACH_TOKEN);
+
+                var result =
+                    response.
+                    EnsureSuccessStatusCode();
+
+                result.CopyCookies(Response);
+
+                return RedirectToHome();
+            }
         }
 
         private ActionResult RedirectToHome()

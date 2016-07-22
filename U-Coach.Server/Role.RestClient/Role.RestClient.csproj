@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EADB72A9-5475-4592-A3E3-CA1174535C5F}</ProjectGuid>
+    <ProjectGuid>{0EAD8612-66C8-4BD2-A289-7857C793AF6D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server.Role.Contract</RootNamespace>
-    <AssemblyName>PVDevelop.UCoach.Server.Role.Contract</AssemblyName>
+    <RootNamespace>PVDevelop.UCoach.Server.Role.RestClient</RootNamespace>
+    <AssemblyName>PVDevelop.UCoach.Server.Role.RestClient</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,15 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthUserRegisterDto.cs" />
-    <Compile Include="IUsersClient.cs" />
-    <Compile Include="Routes.cs" />
-    <Compile Include="TokenDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInfoDto.cs" />
+    <Compile Include="RestUsersClient.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\RestClient\RestClient.csproj">
+      <Project>{0f8931b1-be3d-4544-9d9e-a7616b736a28}</Project>
+      <Name>RestClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Role.Contract\Role.Contract.csproj">
+      <Project>{eadb72a9-5475-4592-a3e3-ca1174535c5f}</Project>
+      <Name>Role.Contract</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -66,6 +66,11 @@ namespace PVDevelop.UCoach.Server.WebApi
             return await _client.PostAsync(GetResource(resource), content);
         }
 
+        public async Task<HttpResponseMessage> BuildPutAsync(string resource, HttpContent content)
+        {
+            return await _client.PutAsync(GetResource(resource), content);
+        }
+
         private string GetResource(string resource)
         {
             if (_parameters.Any())

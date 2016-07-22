@@ -40,20 +40,18 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
 
         #endregion
 
-        public const string FACEBOOK_SYSTEM_NAME = "Facebook";
-
-        private readonly IRestClientFactory _restClientFactory;
+        private readonly IUsersClient _roleUsersClient;
         private readonly ISettingsProvider<IFacebookOAuthSettings> _settingsProvider;
         private readonly IUtcTimeProvider _utcTimeProvider;
 
         public FacebookController(
-            IRestClientFactory restClientFactory,
+            IUsersClient roleUsersClient,
             ISettingsProvider<IFacebookOAuthSettings> settingsProvider,
             IUtcTimeProvider utcTimeProvider)
         {
-            if(restClientFactory == null)
+            if(roleUsersClient == null)
             {
-                throw new ArgumentNullException(nameof(restClientFactory));
+                throw new ArgumentNullException(nameof(roleUsersClient));
             }
             if (settingsProvider == null)
             {
@@ -64,7 +62,7 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
                 throw new ArgumentNullException(nameof(utcTimeProvider));
             }
 
-            _restClientFactory = restClientFactory;
+            _roleUsersClient = roleUsersClient;
             _settingsProvider = settingsProvider;
             _utcTimeProvider = utcTimeProvider;
         }
@@ -93,7 +91,7 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
 
         [HttpGet]
         [Route(Contract.Routes.FACEBOOK_TOKEN)]
-        public IHttpActionResult GetUserProfile(
+        public IHttpActionResult GetToken(
             [FromUri] string code,
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
@@ -104,12 +102,11 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
             var authRegisterDto = new AuthUserRegisterDto(facebookTokenDto.Token, expiration);
 
             var tokenDto = 
-                _restClientFactory.
-                CreatePut(Role.Contract.Routes.REGISTER_USER, FACEBOOK_SYSTEM_NAME, profileDto.Id).
-                AddBody(authRegisterDto).
-                Execute().
-                CheckPutResult().
-                GetJsonContent<TokenDto>();
+                _roleUsersClient.
+                RegisterUser(
+                    AuthSystems.FACEBOOK_SYSTEM_NAME, 
+                    profileDto.Id,
+                    authRegisterDto);
 
             // заполняем cookie
             var response = new HttpResponseMessage(HttpStatusCode.OK);

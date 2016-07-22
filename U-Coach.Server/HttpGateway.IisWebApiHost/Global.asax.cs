@@ -25,13 +25,51 @@ namespace PVDevelop.UCoach.Server.HttpGateway.IisWebApiHost
         {
             _container = new Container(x =>
             {
-                x.For<IConnectionStringProvider>().Use<ConfigurationConnectionStringProvider>().Ctor<string>().Is("role");
-                x.For<IRestClientFactory>().Use<RestClientFactory>();
+                x.
+                    For<IConnectionStringProvider>().
+                    Use<ConfigurationConnectionStringProvider>().
+                    Ctor<string>().
+                    Is("role").
+                    Named("role_settings");
+
+                x.
+                    For<IConnectionStringProvider>().
+                    Use<ConfigurationConnectionStringProvider>().
+                    Ctor<string>().
+                    Is("auth").
+                    Named("auth_settings");
+
+                x.
+                    For<IRestClientFactory>().
+                    Use<RestClientFactory>().
+                    Ctor<IConnectionStringProvider>().
+                    IsNamedInstance("role_settings").
+                    Named("role_rest_client_factory");
+
+                x.
+                    For<IRestClientFactory>().
+                    Use<RestClientFactory>().
+                    Ctor<IConnectionStringProvider>().
+                    IsNamedInstance("auth_settings").
+                    Named("auth_rest_client_factory");
+
+                x.
+                    For<Auth.Contract.IUsersClient>().
+                    Use<Auth.RestClient.RestUsersClient>().
+                    Ctor<IRestClientFactory>().
+                    IsNamedInstance("auth_rest_client_factory");
+
+                x.For<Role.Contract.IUsersClient>().
+                    Use<Role.RestClient.RestUsersClient>().
+                    Ctor<IRestClientFactory>().
+                    IsNamedInstance("role_rest_client_factory");
+
                 x.
                     For<ISettingsProvider<IFacebookOAuthSettings>>().
                     Use<ConfigurationSectionSettingsProvider<IFacebookOAuthSettings>>().
                     Ctor<string>().
                     Is("facebookSettings");
+
                 x.For<IFacebookOAuthSettings>().Use<FacebookOAuthSettingsSection>();
                 x.For<IUtcTimeProvider>().Use<UtcTimeProvider>();
             });
