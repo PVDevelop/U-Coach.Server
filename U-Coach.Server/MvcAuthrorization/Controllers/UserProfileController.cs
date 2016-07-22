@@ -25,22 +25,30 @@ namespace MvcAuthrorization.Controllers
         public async Task<ActionResult> Index()
         {
             UserInfoDto userInfoDto;
-            using (var builder = _actionResultBuilderFactory.CreateActionResultBuilder())
+
+            try
             {
-                userInfoDto = (await 
-                    builder.
-                    AddCookies(Request.ToCookieCollection()).
-                    BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.USER_INFO)).
-                    EnsureSuccessStatusCode().
-                    ToJson<UserInfoDto>();
+                using (var builder = _actionResultBuilderFactory.CreateActionResultBuilder())
+                {
+                    userInfoDto = (await
+                        builder.
+                        AddCookies(Request.ToCookieCollection()).
+                        BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.USER_INFO)).
+                        EnsureSuccessStatusCode().
+                        ToJson<UserInfoDto>();
+                }
+
+                var profileModel = new UserProfileModel()
+                {
+                    Id = userInfoDto.Id
+                };
+
+                return View(profileModel);
             }
-
-            var profileModel = new UserProfileModel()
+            catch
             {
-                Id = userInfoDto.Id
-            };
-
-            return View(profileModel);
+                return RedirectToAction("Index", "Authentication");
+            }
         }
 
         [HttpPost]

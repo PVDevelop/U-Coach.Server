@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using PVDevelop.UCoach.Server.Role.Contract;
+using PVDevelop.UCoach.Server.Timing;
 
 namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
 {
@@ -26,10 +27,11 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
 
         public static void DeleteToken(
             this ApiController controller,
-            HttpResponseHeaders headers)
+            HttpResponseHeaders headers,
+            IUtcTimeProvider utcTimeProvider)
         {
             var cookie = new CookieHeaderValue(TOKEN_NAME, string.Empty);
-            cookie.Expires = new DateTime(0, DateTimeKind.Utc);
+            cookie.Expires = utcTimeProvider.UtcNow.AddDays(-1);
             cookie.Domain = controller.Request.RequestUri.Host;
             cookie.Path = "/";
             headers.AddCookies(new[] { cookie });
@@ -46,9 +48,13 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
                 OrderByDescending(c => c.Expires).
                 FirstOrDefault();
 
+
             if (tokenCookie == null)
             {
-                throw new NotAuthorizedException("Cookies for token not found");
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized)
+                {
+                    ReasonPhrase = "Token cookie not found"
+                });
             }
 
             var token = tokenCookie[TOKEN_NAME].Value;
