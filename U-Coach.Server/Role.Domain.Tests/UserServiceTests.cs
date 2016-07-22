@@ -116,5 +116,66 @@ namespace Role.Domain.Tests
             // assert
             tokenRepository.VerifyAllExpectations();
         }
+
+        [Test]
+        public void GetUserByToken_TokenNotFound_ThrowsException()
+        {
+            // arrange
+            var autoMocker = new RhinoAutoMocker<UserService>();
+
+            // act / assert
+            var tokenId = new TokenId("t");
+            Assert.Throws<NotAuthorizedException>(() => autoMocker.ClassUnderTest.GetUserByToken(tokenId));
+        }
+
+        [Test]
+        public void GetUserByToken_UserNotFound_ThrowsException()
+        {
+            // arrange
+            var autoMocker = new RhinoAutoMocker<UserService>();
+
+            var tokenId = new TokenId("t");
+            var token = new Token(
+                tokenId, 
+                new UserId("1", "2"), 
+                new AuthSystemToken("t", DateTime.UtcNow.AddDays(1)), 
+                DateTime.UtcNow.AddDays(2));
+
+            var tokenRepository = autoMocker.Get<ITokenRepository>();
+            tokenRepository.Stub(t => t.TryGet(Arg<TokenId>.Is.Equal(tokenId), out Arg<Token>.Out(token).Dummy)).Return(true);
+
+            // act / assert
+            Assert.Throws<ApplicationException>(() => autoMocker.ClassUnderTest.GetUserByToken(tokenId));
+        }
+
+        [Test]
+        public void GetUserByToken_TokenAndUserExist_ReturnsExpectedUser()
+        {
+            // arrange
+            var autoMocker = new RhinoAutoMocker<UserService>();
+
+            var tokenId = new TokenId("t");
+            var userId = new UserId("1", "2");
+
+            var token = new Token(
+                tokenId,
+                userId,
+                new AuthSystemToken("t", DateTime.UtcNow.AddDays(1)),
+                DateTime.UtcNow.AddDays(2));
+
+            var tokenRepository = autoMocker.Get<ITokenRepository>();
+            tokenRepository.Stub(t => t.TryGet(Arg<TokenId>.Is.Equal(tokenId), out Arg<Token>.Out(token).Dummy)).Return(true);
+
+            var expectedUser = new User(userId);
+
+            var userRepository = autoMocker.Get<IUserRepository>();
+            userRepository.Stub(u => u.TryGet(Arg<UserId>.Is.Equal(userId), out Arg<User>.Out(expectedUser).Dummy)).Return(true);
+
+            // act
+            var user = autoMocker.ClassUnderTest.GetUserByToken(tokenId);
+
+            // assert
+            Assert.AreSame(expectedUser, user);
+        }
     }
 }

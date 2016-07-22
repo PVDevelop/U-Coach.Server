@@ -21,7 +21,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             ITokenRepository tokenRepository,
             IUtcTimeProvider timeProvider)
         {
-            if(tokenGenerator == null)
+            if (tokenGenerator == null)
             {
                 throw new ArgumentNullException(nameof(tokenGenerator));
             }
@@ -29,7 +29,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             {
                 throw new ArgumentNullException(nameof(userRepository));
             }
-            if(tokenRepository == null)
+            if (tokenRepository == null)
             {
                 throw new ArgumentNullException(nameof(tokenRepository));
             }
@@ -48,7 +48,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             UserId userId,
             AuthSystemToken authToken)
         {
-            if(userId == null)
+            if (userId == null)
             {
                 throw new ArgumentNullException(nameof(userId));
             }
@@ -78,22 +78,21 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             return privateToken;
         }
 
-#warning протестировать
         public User GetUserByToken(TokenId tokenId)
         {
-            if(tokenId == null)
+            if (tokenId == null)
             {
                 throw new ArgumentNullException(nameof(tokenId));
             }
 
             Token token;
-            if(!_tokenRepository.TryGet(tokenId, out token))
+            if (!_tokenRepository.TryGet(tokenId, out token))
             {
                 throw new NotAuthorizedException(string.Format("Token {0} not found", tokenId.Token));
             }
 
             User user;
-            if(!_userRepository.TryGet(token.UserId, out user))
+            if (!_userRepository.TryGet(token.UserId, out user))
             {
                 // Ошибка - токен есть, а пользователя нет!
                 throw new ApplicationException(string.Format("User {0} not found", tokenId.Token));
