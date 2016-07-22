@@ -19,6 +19,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         private readonly ITokenRepository _tokenRepository;
         private readonly IConfirmationFactory _confirmationFactory;
         private readonly IConfirmationRepository _confirmationRepository;
+        private readonly IConfirmationProducer _confirmationProducer;
         private readonly IKeyGeneratorService _keyGeneratorService;
         private readonly IUtcTimeProvider _utcTimeProvider;
 
@@ -29,6 +30,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             ITokenRepository tokenRepository,
             IConfirmationFactory confirmationFactory,
             IConfirmationRepository confirmationRepository,
+            IConfirmationProducer confirmationProducer,
             IKeyGeneratorService keyGeneratorService,
             IUtcTimeProvider utcTimeProvider)
         {
@@ -38,6 +40,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             tokenRepository.NullValidate(nameof(tokenRepository));
             confirmationFactory.NullValidate(nameof(confirmationFactory));
             confirmationRepository.NullValidate(nameof(confirmationRepository));
+            confirmationProducer.NullValidate(nameof(confirmationProducer));
             keyGeneratorService.NullValidate(nameof(keyGeneratorService));
             utcTimeProvider.NullValidate(nameof(utcTimeProvider));
             
@@ -47,6 +50,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _tokenRepository = tokenRepository;
             _confirmationFactory = confirmationFactory;
             _confirmationRepository = confirmationRepository;
+            _confirmationProducer = confirmationProducer;
             _keyGeneratorService = keyGeneratorService;
             _utcTimeProvider = utcTimeProvider;
         }
@@ -63,6 +67,9 @@ namespace PVDevelop.UCoach.Server.Auth.Service
                 _logger.Debug("Создаю ключ подтверждения для пользователя '{0}'.", login);
                 var confirmation = _confirmationFactory.CreateConfirmation(user.Id, _keyGeneratorService.GenerateConfirmationKey());
                 _confirmationRepository.Replace(confirmation);
+
+                _logger.Debug("Отправление ключ пользователю");
+                _confirmationProducer.Produce(login, confirmation.Key);
 
                 _logger.Debug("Создаю токен доступа для пользователя '{0}'.", login);
                 var token = _tokenFactory.CreateToken(user.Id, _keyGeneratorService.GenerateTokenKey());

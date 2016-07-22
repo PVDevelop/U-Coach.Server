@@ -1,12 +1,12 @@
 ﻿namespace PVDevelop.UCoach.Server.Auth.Service
 {
     /// <summary>
-    /// Осуществляет доставку ключа подтверждения спортсмена.
+    /// Осуществляет доставку ключа подтверждения.
     /// </summary>
     public interface IConfirmationProducer
     {
         /// <summary>
-        /// Доставляет ключ спортсмена.
+        /// Доставляет ключ.
         /// </summary>
         void Produce(string address, string key);
     }
