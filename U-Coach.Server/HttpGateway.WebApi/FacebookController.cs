@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using Newtonsoft.Json;
 using PVDevelop.UCoach.Server.Configuration;
@@ -74,15 +75,18 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
         {
             var settings = _settingsProvider.Settings;
 
-#warning переделать на uri_builder
+            var uriBuilder = new UriBuilder("https://www.facebook.com/dialog/oauth");
+            var parameters = HttpUtility.ParseQueryString(string.Empty);
+            parameters["client_id"] = settings.ClientId;
+            parameters["redirect_uri"] = redirectUri;
+            parameters["scope"] = "public_profile";
+            uriBuilder.Query = parameters.ToString();
+
             var resultDto = new FacebookRedirectDto()
             {
-                Uri = string.Format(
-                "https://www.facebook.com/dialog/oauth?client_id={0}&redirect_uri={1}&scope={2}",
-                settings.ClientId,
-                redirectUri,
-                "public_profile")
+                Uri = uriBuilder.ToString()
             };
+
             return base.Ok(resultDto);
         }
 
