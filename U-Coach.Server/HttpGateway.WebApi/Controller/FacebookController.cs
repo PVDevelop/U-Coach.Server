@@ -6,11 +6,12 @@ using System.Web.Http;
 using Newtonsoft.Json;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.HttpGateway.Contract;
+using PVDevelop.UCoach.Server.HttpGateway.WebApi.Settings;
 using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.Timing;
 
-namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
+namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
 {
     public class FacebookController : ApiController
     {

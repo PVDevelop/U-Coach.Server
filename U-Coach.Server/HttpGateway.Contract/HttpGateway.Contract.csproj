@@ -7,8 +7,8 @@
     <ProjectGuid>{49CFE59E-71C1-4775-ADEA-67D34EC20181}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PVDevelop.UCoach.Server.HttpGateway.IisWebApiHost</RootNamespace>
-    <AssemblyName>HttpGateway.IisWebApiHost</AssemblyName>
+    <RootNamespace>PVDevelop.UCoach.Server.HttpGateway.Contract</RootNamespace>
+    <AssemblyName>PVDevelop.UCoach.Server.HttpGateway.Contract</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

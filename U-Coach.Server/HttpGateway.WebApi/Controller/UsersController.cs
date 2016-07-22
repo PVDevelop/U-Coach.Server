@@ -3,7 +3,7 @@ using System.Web.Http;
 using PVDevelop.UCoach.Server.HttpGateway.Contract;
 using PVDevelop.UCoach.Server.RestClient;
 
-namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
+namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
 {
     public class UsersController : ApiController
     {

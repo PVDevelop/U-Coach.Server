@@ -5,7 +5,7 @@ using System.Web.Http;
 using PVDevelop.UCoach.Server.HttpGateway.Contract;
 using PVDevelop.UCoach.Server.Timing;
 
-namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
+namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
 {
     public class AuthrorizationController : ApiController
     {

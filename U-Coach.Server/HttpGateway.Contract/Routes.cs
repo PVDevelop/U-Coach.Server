@@ -20,6 +20,6 @@
         /// <summary>
         /// GET-запрос на получение пользователя по токену
         /// </summary>
-        public const string USER_INFO = "api/users/{token}";
+        public const string USER_INFO = "api/current_user";
     }
 }

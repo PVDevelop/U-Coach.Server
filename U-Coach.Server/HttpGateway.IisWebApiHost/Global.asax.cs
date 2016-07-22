@@ -2,12 +2,12 @@
 using System.Web.Http.Dispatcher;
 using PVDevelop.UCoach.Server.WebApi;
 using PVDevelop.UCoach.Server.Configuration;
-using PVDevelop.UCoach.Server.HttpGateway.WebApi;
 using PVDevelop.UCoach.Server.RestClient;
 using StructureMap;
 using PVDevelop.UCoach.Server.Timing;
+using PVDevelop.UCoach.Server.HttpGateway.WebApi.Settings;
 
-namespace WebPortal
+namespace PVDevelop.UCoach.Server.HttpGateway.IisWebApiHost
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

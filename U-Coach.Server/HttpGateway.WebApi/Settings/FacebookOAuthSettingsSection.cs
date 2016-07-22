@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
+namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Settings
 {
     public class FacebookOAuthSettingsSection :
         ConfigurationSection,

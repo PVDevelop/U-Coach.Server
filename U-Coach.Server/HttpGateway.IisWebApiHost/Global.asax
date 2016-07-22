@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="WebPortal.WebApiApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="PVDevelop.UCoach.Server.HttpGateway.IisWebApiHost.WebApiApplication" Language="C#" %>
