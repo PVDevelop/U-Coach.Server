@@ -110,7 +110,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcAuthrorization", "MvcAut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Role.Contract", "Role.Contract\Role.Contract.csproj", "{EADB72A9-5475-4592-A3E3-CA1174535C5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpGateway.IisWebApiHost", "WebPortal\HttpGateway.IisWebApiHost.csproj", "{9B5CED69-46F7-4603-8DA9-BD36B1F8D3E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpGateway.IisWebApiHost", "HttpGateway.IisWebApiHost\HttpGateway.IisWebApiHost.csproj", "{9B5CED69-46F7-4603-8DA9-BD36B1F8D3E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Role.Domain.Tests", "Role.Domain.Tests\Role.Domain.Tests.csproj", "{4DD89D01-350E-4CDA-96F8-A6515E3C88AB}"
 EndProject
