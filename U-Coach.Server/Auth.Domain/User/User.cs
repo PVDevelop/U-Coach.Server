@@ -17,7 +17,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         public string Id { get; private set; }
 
         /// <summary>
-        /// Логин пользователя. Уникален в БД.
+        /// Логин пользователя = почта. Уникален в БД.
         /// </summary>
         public string Login { get; internal set; }
 
@@ -34,9 +34,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// <summary>
         /// Подтвердил ли пользователь аккаунт
         /// </summary>
-        public bool IsConfirmation { get; set; }
-
-        internal User() { }
+        public UserStatus Status { get; set; }
 
         /// <summary>
         /// Кодирует и устанавливает указанный пароль
@@ -54,10 +52,13 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             Password = password;
         }
 
+        /// <summary>
+        /// Проверка пароля.
+        /// </summary>
+        /// <param name="plainPassword"></param>
         public void CheckPassword(string plainPassword)
         {
-            bool valid = BCryptHelper.CheckPassword(plainPassword, Password);
-            if (!valid)
+            if (!BCryptHelper.CheckPassword(plainPassword, Password))
             {
                 throw new InvalidPasswordException();
             }

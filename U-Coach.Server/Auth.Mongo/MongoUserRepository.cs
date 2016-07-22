@@ -52,6 +52,17 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             return MapperHelper.Map<MongoUser, User>(mongoUser);
         }
 
+        public User FindById(string id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var mongoUser = _repository.Find(u => u.Id == id);
+            return MapperHelper.Map<MongoUser, User>(mongoUser);
+        }
+
         public void Update(User user)
         {
             if (user == null)

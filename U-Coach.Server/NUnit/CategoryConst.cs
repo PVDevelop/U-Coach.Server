@@ -10,5 +10,6 @@ namespace TestNUnit
     {
         public const string INTEGRATION = "Integration";
         public const string REST = "RESTful";
+        public const string UNIT = "Unit";
     }
 }

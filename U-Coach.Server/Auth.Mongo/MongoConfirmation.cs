@@ -26,7 +26,7 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         /// <summary>
         /// Ключ подтверждения создания спортсмена
         /// </summary>
-        public string ConfirmationKey { get; set; }
+        public string Key { get; set; }
 
         /// <summary>
         /// Время генерации ключа

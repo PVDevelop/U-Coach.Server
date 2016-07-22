@@ -25,7 +25,5 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// Срок годности токена
         /// </summary>
         public DateTime ExpiryDate { get; set; }
-
-        internal Token() { }
     }
 }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PVDevelop.UCoach.Server.Auth.Domain
+namespace PVDevelop.UCoach.Server.Auth.Domain.Exceptions
 {
-    public interface ITokenFactory
+    public class UserNotFoundException: Exception
     {
-        Token CreateToken(string userID, string key);
     }
 }

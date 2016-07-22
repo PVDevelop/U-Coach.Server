@@ -17,21 +17,19 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         public string UserId { get; private set; }
 
         /// <summary>
-        /// Ключ подтверждения создания спортсмена
+        /// Ключ подтверждения
         /// </summary>
-        public string ConfirmationKey { get; private set; }
+        public string Key { get; private set; }
 
         /// <summary>
         /// Время генерации ключа
         /// </summary>
         public DateTime CreationTime { get; private set; }
 
-        public Confirmation() { }
-
         public Confirmation(string userId, string key, DateTime creationTime)
         {
             this.UserId = UserId;
-            this.ConfirmationKey = key;
+            this.Key = key;
             this.CreationTime = creationTime;
         }
     }

@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmailConfirmationProducer.cs" />
+    <Compile Include="ConfirmationProducer.cs" />
     <Compile Include="IEmailProducerSettings.cs" />
     <Compile Include="EmailProducerSettingsSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
-      <Project>{EECD97C9-87B4-4E00-8455-A8C80ABFB66F}</Project>
+      <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
       <Name>Auth.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Configuration\Configuration.csproj">

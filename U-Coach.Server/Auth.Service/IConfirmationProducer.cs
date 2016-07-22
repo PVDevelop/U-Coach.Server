@@ -8,7 +8,6 @@
         /// <summary>
         /// Доставляет ключ спортсмена.
         /// </summary>
-        /// <param name="user">Параметры доставки ключа.</param>
-        void Produce(ConfirmationKeyParams user);
+        void Produce(string address, string key);
     }
 }

@@ -16,12 +16,6 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         void AddToken(Token token);
 
         /// <summary>
-        /// Закрытие токена доступа
-        /// </summary>
-        /// <param name="token">Токен доступа</param>
-        void CloseToken(string token);
-
-        /// <summary>
         /// Получить нужный токен
         /// </summary>
         /// <param name="localToken"></param>

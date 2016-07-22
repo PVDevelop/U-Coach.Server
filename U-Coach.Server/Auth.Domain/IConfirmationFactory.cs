@@ -8,6 +8,6 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
 {
     public interface IConfirmationFactory
     {
-        Confirmation CreateConfirmation(string userID);
+        Confirmation CreateConfirmation(string userID, string key);
     }
 }

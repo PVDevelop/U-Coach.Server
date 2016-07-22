@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace PVDevelop.UCoach.Server.Auth.Domain
 {
-    public class ConfirmationFactory : IConfirmationFactory
+    public class ConfirmationFactory : 
+        IConfirmationFactory
     {
         private readonly IUtcTimeProvider _utcTimeProvider;
 
@@ -21,14 +22,14 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             _utcTimeProvider = utcTimeProvider;
         }
 
-        public Confirmation CreateConfirmation(string userID)
+        public Confirmation CreateConfirmation(string userID, string key)
         {
-            if (string.IsNullOrWhiteSpace(userID))
+            if (String.IsNullOrEmpty(userID))
             {
-                throw new LoginNotSetException();
+                throw new ArgumentException(nameof(userID));
             }
 
-            var confirmation = new Confirmation(userId: userID, key: Guid.NewGuid().ToString(), creationTime: _utcTimeProvider.UtcNow);
+            var confirmation = new Confirmation(userId: userID, key : key, creationTime: _utcTimeProvider.UtcNow);
 
             return confirmation;
         }

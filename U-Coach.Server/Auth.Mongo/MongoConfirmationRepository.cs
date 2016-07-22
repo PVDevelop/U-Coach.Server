@@ -34,13 +34,8 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             _versionCollectionValidator = versionCollectionValidator;
         }
 
-        public Confirmation FindByConfirmation(string userId, string key)
+        public Confirmation FindByConfirmation(string key)
         {
-            if (String.IsNullOrEmpty(userId))
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
             if (String.IsNullOrEmpty(key))
             {
                 throw new ArgumentNullException(nameof(key));
@@ -48,11 +43,11 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
 
             _versionCollectionValidator.Validate<MongoConfirmation>();
 
-            var mongoConfirmation = _repository.Find(u => u.UserId == userId && u.ConfirmationKey == key);
+            var mongoConfirmation = _repository.Find(u => u.Key == key);
             return MapperHelper.Map<MongoConfirmation, Confirmation>(mongoConfirmation);
         }
 
-        public void Obtain(Confirmation confirmation)
+        public void Replace(Confirmation confirmation)
         {
             if (confirmation == null)
             {
@@ -62,6 +57,16 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             var mongoConfirmation = MapperHelper.Map<Confirmation, MongoConfirmation>(confirmation);
 
             _repository.ReplaceOne(u => u.UserId == mongoConfirmation.UserId, mongoConfirmation);
+        }
+
+        public void Delete(string key)
+        {
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+            _versionCollectionValidator.Validate<MongoConfirmation>();
+            _repository.Remove(u => u.Key == key);
         }
     }
 }

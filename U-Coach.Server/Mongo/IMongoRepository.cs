@@ -16,7 +16,7 @@ namespace PVDevelop.UCoach.Server.Mongo
         /// <summary>
         /// Удаляет документ из коллекции
         /// </summary>
-        void TryRemove(T document);
+        void Remove(Expression<Func<T, bool>> predicate);
 
         /// <summary>
         /// Находит единственный объект по предикату

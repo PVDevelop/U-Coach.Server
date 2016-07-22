@@ -7,27 +7,35 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
     public class UserFactory : IUserFactory
     {
         private readonly IUtcTimeProvider _utcTimeProvider;
+        private readonly IUserValidator _userValidator;
 
-        public UserFactory(IUtcTimeProvider utcTimeProvider)
+        public UserFactory(
+            IUtcTimeProvider utcTimeProvider,
+            IUserValidator userValidator)
         {
             if(utcTimeProvider == null)
             {
                 throw new ArgumentNullException(nameof(utcTimeProvider));
             }
+            if (userValidator == null)
+            {
+                throw new ArgumentNullException(nameof(userValidator));
+            }
+
             _utcTimeProvider = utcTimeProvider;
+            _userValidator = userValidator;
         }
 
         public User CreateUser(string login, string password)
         {
-            if (string.IsNullOrWhiteSpace(login))
-            {
-                throw new LoginNotSetException();
-            }
+            _userValidator.ValidateLogin(login);
+            _userValidator.ValidatePassword(password);
 
             var user = new User()
             {
                 Login = login,
-                CreationTime = _utcTimeProvider.UtcNow
+                CreationTime = _utcTimeProvider.UtcNow,
+                Status = UserStatus.Unconfirm
             };
 
             user.SetPassword(password);

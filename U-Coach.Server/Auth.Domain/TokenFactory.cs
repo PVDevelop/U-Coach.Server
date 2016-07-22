@@ -21,13 +21,13 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             _utcTimeProvider = utcTimeProvider;
         }
 
-        public Token CreateToken(string userID)
+        public Token CreateToken(string userID, string key)
         {
             return new Token()
             {
                 UserId = userID,
                 ExpiryDate = _utcTimeProvider.UtcNow.Date.AddDays(60).AddHours(2),
-                Key = Guid.NewGuid().ToString()
+                Key = key
             };
         }
     }

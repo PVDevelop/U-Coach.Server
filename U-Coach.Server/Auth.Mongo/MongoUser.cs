@@ -38,6 +38,8 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         /// </summary>
         public DateTime CreationTime { get; set; }
 
+        public Domain.UserStatus Status { get; set; }
+
         public MongoUser()
         {
             Version = VERSION;

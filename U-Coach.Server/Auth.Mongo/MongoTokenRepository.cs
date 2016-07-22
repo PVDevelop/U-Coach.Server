@@ -46,19 +46,6 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             _repository.Insert(mongotoken);
         }
 
-        public void CloseToken(string token)
-        {
-            if (token == null)
-            {
-                throw new ArgumentNullException(nameof(token));
-            }
-
-            _versionCollectionValidator.Validate<MongoToken>();
-
-            var mongoToken = _repository.Find(it => it.Key == token);
-            _repository.TryRemove(mongoToken);
-        }
-
         public Token GetToken(string token)
         {
             if (token == null)

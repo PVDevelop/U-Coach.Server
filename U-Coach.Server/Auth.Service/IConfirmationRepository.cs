@@ -8,14 +8,18 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         /// Вставить новоe подтверждение.
         /// </summary>
         /// <param name="confirmation">Подтверждение создание спортсмена.</param>
-        void Obtain(Confirmation confirmation);
+        void Replace(Confirmation confirmation);
 
         /// <summary>
-        /// Находит пользователя по ключу подтверждения.
+        /// Поиск объкста подтверждения по его ключу.
         /// </summary>
-        /// <param name="userId">Id пользователя.</param>
         /// <param name="key">Ключ подтверждения.</param>
-        /// <returns></returns>
-        Confirmation FindByConfirmation(string userId, string key);
+        Confirmation FindByConfirmation(string key);
+
+        /// <summary>
+        /// Удаляет подтверждение по ключу
+        /// </summary>
+        /// <param name="key"></param>
+        void Delete(string key);
     }
 }
