@@ -1,12 +1,14 @@
-﻿using PVDevelop.UCoach.Server.Core.Service;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Mail;
+using PVDevelop.UCoach.Server.Auth.Service;
 using PVDevelop.UCoach.Server.Configuration;
+using PVDevelop.UCoach.Server.Auth.Mail;
+using System.Resources;
 
-namespace PVDevelop.UCoach.Server.Core.Mail
+namespace PVDevelop.UCoach.Server.Auth.Mail
 {
-    public class EmailConfirmationProducer : ISportsmanConfirmationProducer
+    public class EmailConfirmationProducer : IConfirmationProducer
     {
         private readonly ISettingsProvider<IEmailProducerSettings> _settingsProvider;
 
@@ -20,14 +22,14 @@ namespace PVDevelop.UCoach.Server.Core.Mail
             _settingsProvider = settingsProvider;
         }
 
-        public void Produce(ProduceConfirmationKeyParams user)
+        public void Produce(string address, string key)
         {
             var settings = _settingsProvider.Settings;
             using (var mail = new MailMessage(
-                settings.SenderAddress, 
-                user.Address, 
+                settings.SenderAddress,
+                address,
                 Properties.Resources.NewUserConfirmationHeader,
-                string.Format(Properties.Resources.NewUserConfirmationBody, user.ConfirmationKey)))
+                string.Format(Properties.Resources.NewUserConfirmationBody, key)))
             {
                 var client = new SmtpClient(settings.SmtpHost, settings.SmtpPort)
                 {

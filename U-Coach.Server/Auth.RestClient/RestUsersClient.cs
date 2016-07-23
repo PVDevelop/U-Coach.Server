@@ -1,6 +1,7 @@
 ﻿using System;
 using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.RestClient;
+using PVDevelop.UCoach.Server.Auth.Domain;
 
 namespace PVDevelop.UCoach.Server.Auth.RestClient
 {
@@ -17,33 +18,34 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
             _restClientFactory = restClientFactory;
         }
 
-        public CreateUserResultDto Create(CreateUserDto createUserDto)
+        public Token Create(string login, string password)
         {
             return
                 _restClientFactory.
                 CreatePost(Routes.CREATE_USER).
-                AddBody(createUserDto).
+                AddBody(login).
+                AddBody(password).
                 Execute().
                 CheckPostResult().
                 GetJsonContent<CreateUserResultDto>();
         }
 
-        public LogonUserResultDto Logon(LogonUserDto logonUserDto)
+        public Token Logon(string login, string password)
         {
             return
                 _restClientFactory.
-                CreatePut(Routes.LOGON_USER, logonUserDto.Login).
-                AddBody(logonUserDto.Password).
+                CreatePut(Routes.LOGON_USER, login).
+                AddBody(password).
                 Execute().
                 CheckPutResult().
                 GetJsonContent<LogonUserResultDto>();
         }
 
-        public void ValidateToken(ValidateTokenDto tokenDto)
+        public void ValidateToken(string token)
         {
             _restClientFactory.
-                CreatePut(Routes.VALIDATE_USER_TOKEN, tokenDto.Login).
-                AddBody(tokenDto.Token).
+                CreatePut(Routes.VALIDATE_USER_TOKEN).
+                AddBody(token).
                 Execute().
                 CheckPutResult();
         }

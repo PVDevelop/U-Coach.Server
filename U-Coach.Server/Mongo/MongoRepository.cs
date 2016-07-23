@@ -50,6 +50,12 @@ namespace PVDevelop.UCoach.Server.Mongo
             coll.ReplaceOne<T>(predicate, document);
         }
 
+        public void Remove(Expression<Func<T, bool>> predicate)
+        {
+            var coll = GetCollection();
+            coll.DeleteMany(predicate);
+        }
+
         private IMongoCollection<T> GetCollection()
         {
             return MongoHelper.GetCollection<T>(_settings);

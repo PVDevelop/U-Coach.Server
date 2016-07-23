@@ -21,9 +21,9 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
 
         [HttpPost]
         [Route(Routes.CREATE_USER)]
-        public IHttpActionResult CreateUser([FromBody] CreateUserDto createUserDto)
+        public IHttpActionResult CreateUser([FromUri]string login, [FromBody] string passwor)
         {
-            var result = _userService.Create(createUserDto);
+            var result = _userService.Create(login, passwor);
             return Content(HttpStatusCode.Created, result);
         }
 
@@ -31,27 +31,15 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
         [Route(Routes.LOGON_USER)]
         public IHttpActionResult LogonUser([FromUri] string login, [FromBody] string password)
         {
-            var dto = new LogonUserDto()
-            {
-                Login = login,
-                Password = password
-            };
-
-            var result = _userService.Logon(dto);
+            var result = _userService.Logon(login, password);
             return Ok(result);
         }
 
         [HttpPut]
         [Route(Routes.VALIDATE_USER_TOKEN)]
-        public IHttpActionResult ValidateToken([FromUri] string login, [FromBody] string token)
+        public IHttpActionResult ValidateToken([FromBody] string token)
         {
-            var dto = new ValidateTokenDto()
-            {
-                Login = login,
-                Token = token
-            };
-
-            _userService.ValidateToken(dto);
+            _userService.ValidateToken(token);
             return Ok();
         }
     }

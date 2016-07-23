@@ -81,14 +81,6 @@
       <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
       <Name>Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Domain\Core.Domain.csproj">
-      <Project>{306e3c51-e72e-4543-9f58-b65990cc8437}</Project>
-      <Name>Core.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Mongo\Core.Mongo.csproj">
-      <Project>{b3df8994-3835-4bec-a11f-7d765413d37a}</Project>
-      <Name>Core.Mongo</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{6d80ea1d-b7bf-422a-8577-824cc4a87f2e}</Project>
       <Name>Domain</Name>

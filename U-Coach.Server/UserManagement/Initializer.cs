@@ -5,13 +5,13 @@ using System.Reflection;
 using PVDevelop.UCoach.Server.UserManagement.Executor;
 using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.Mongo;
-using PVDevelop.UCoach.Server.Core.Mongo;
-using PVDevelop.UCoach.Server.Core.Service;
 using PVDevelop.UCoach.Server.Logging;
-using PVDevelop.UCoach.Server.Core.Mail;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Auth.RestClient;
+using PVDevelop.UCoach.Server.Auth.Mail;
+//using PVDevelop.UCoach.Server.Core.Service;
+
 
 namespace PVDevelop.UCoach.Server.UserManagement
 {
@@ -85,21 +85,6 @@ namespace PVDevelop.UCoach.Server.UserManagement
 
             x.For<IMongoCollectionVersionValidator>().
                 Use<MongoCollectionVersionValidatorByClassAttribute>();
-
-            x.For<IMongoInitializer>().
-                Use<MongoSportsmanConfirmationCollectionInitializer>();
-
-            x.For<IMongoRepository<MongoSportsmanConfirmation>>().
-                Use<MongoRepository<MongoSportsmanConfirmation>>();
-
-            x.For<ISportsmanConfirmationRepository>().
-                Use<MongoSportsmanConfirmationRepository>();
-
-            x.For<ISportsmanConfirmationService>().
-                Use<SportsmanConfirmationService>();
-
-            x.For<ISportsmanConfirmationProducer>().
-                Use<EmailConfirmationProducer>();
 
             x.For<IEmailProducerSettings>().
                 Use<EmailProducerSettingsSection>();

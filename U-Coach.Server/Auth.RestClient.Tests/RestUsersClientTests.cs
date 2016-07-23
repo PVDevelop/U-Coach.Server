@@ -10,6 +10,7 @@ using StructureMap.AutoMocking;
 using TestComparisonUtilities;
 using TestNUnit;
 using TestWebApiUtilities;
+using PVDevelop.UCoach.Server.Auth.Domain;
 
 namespace Auth.RestClient.Tests
 {
@@ -54,83 +55,44 @@ namespace Auth.RestClient.Tests
         [Test]
         public void Create_MockAuthService_CallsCreate()
         {
-            // arrange
-            var userDto = new CreateUserDto()
-            {
-                Login = "l1",
-                Password = "p1"
-            };
-
-            var expectedResult = new CreateUserResultDto()
-            {
-                Id = "SomeId"
-            };
-
             var mockUserService = MockRepository.GenerateMock<IUserService>();
             mockUserService.
-                Expect(us => us.Create(Arg<CreateUserDto>.Matches(dto =>
-                      dto.Login == userDto.Login &&
-                      dto.Password == userDto.Password))).
-                Return(expectedResult);
+                Expect(us => us.Create("l1", "p1")).
+                Return(new Token() { Key = "SomeId" });
 
             // act
-            var result = WithServer(5000, mockUserService, client => client.Create(userDto));
+            var result = WithServer(5000, mockUserService, client => client.Create("l1", "p1"));
 
             // assert
             mockUserService.VerifyAllExpectations();
-            string comparison;
-            Assert.IsTrue(new TestComparer().Compare(expectedResult, result, out comparison), comparison);
+            Assert.Equals("SomeId", result.Key);
         }
 
         [Test]
         public void Logon_MockAuthService_CallsLogon()
         {
-            // arrange
-            var logonDto = new LogonUserDto()
-            {
-                Login = "l1",
-                Password = "password"
-            };
-
-            var expectedResult = new LogonUserResultDto()
-            {
-                Token = "some_token"
-            };
-
             var mockUserService = MockRepository.GenerateMock<IUserService>();
             mockUserService.
-                Expect(us => us.Logon(Arg<LogonUserDto>.Matches(dto =>
-                      dto.Login == logonDto.Login &&
-                      dto.Password == logonDto.Password))).
-                Return(expectedResult);
+                Expect(us => us.Logon("l1", "password")).
+                Return(new Token() { Key = "some_token" });
 
             // act
-            var result = WithServer(5001, mockUserService, client => client.Logon(logonDto));
+            var result = WithServer(5001, mockUserService, client => client.Logon("l1", "password"));
 
             // assert
             mockUserService.VerifyAllExpectations();
-            string comparison;
-            Assert.IsTrue(new TestComparer().Compare(expectedResult, result, out comparison), comparison);
+            Assert.Equals("some_token", result.Key);
         }
 
         [Test]
         public void Validate_MockAuthService_CallsValidate()
         {
-            // arrange
-            var tokenDto = new ValidateTokenDto()
-            {
-                Login = "l1",
-                Token = "token"
-            };
-
             var mockUserService = MockRepository.GenerateMock<IUserService>();
             mockUserService.
-                Expect(us => us.ValidateToken(Arg<ValidateTokenDto>.Matches(dto =>
-                      dto.Login == tokenDto.Login &&
-                      dto.Token == tokenDto.Token)));
+                Expect(us => us.ValidateToken("token"));
 
             // act
-            WithServer(5002, mockUserService, client => client.ValidateToken(tokenDto));
+            WithServer(5002, mockUserService, client => client.ValidateToken("token"));
 
             // assert
             mockUserService.VerifyAllExpectations();
