@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using PVDevelop.UCoach.Server.HttpGateway.Contract;
 
@@ -13,11 +15,11 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
             Auth.Contract.IUsersClient authUsersClient,
             Role.Contract.IUsersClient roleUsersClient)
         {
-            if(authUsersClient == null)
+            if (authUsersClient == null)
             {
                 throw new ArgumentNullException(nameof(authUsersClient));
             }
-            if(roleUsersClient == null)
+            if (roleUsersClient == null)
             {
                 throw new ArgumentNullException(nameof(roleUsersClient));
             }
@@ -33,8 +35,17 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
             [FromUri(Name = "password")] string password)
         {
             var authToken = _authUsersClient.Logon(login, password);
-#warning тут надо доработать
-            throw new NotImplementedException();
+
+            var userRegisterDto = new Role.Contract.AuthUserRegisterDto(authToken.Key, authToken.ExpiryDate);
+            var roleTokenDto =
+                _roleUsersClient.
+                RegisterUser(AuthSystems.UCOACH_SYSTEM_NAME, authToken.UserId, userRegisterDto);
+
+            // заполняем cookie
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            this.SetToken(response.Headers, roleTokenDto);
+
+            return ResponseMessage(response);
         }
     }
 }

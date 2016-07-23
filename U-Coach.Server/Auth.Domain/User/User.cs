@@ -36,6 +36,11 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// </summary>
         public UserStatus Status { get; set; }
 
+        public User()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+
         /// <summary>
         /// Кодирует и устанавливает указанный пароль
         /// </summary>

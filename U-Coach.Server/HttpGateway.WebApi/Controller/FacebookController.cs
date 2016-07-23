@@ -49,7 +49,7 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
             ISettingsProvider<IFacebookOAuthSettings> settingsProvider,
             IUtcTimeProvider utcTimeProvider)
         {
-            if(roleUsersClient == null)
+            if (roleUsersClient == null)
             {
                 throw new ArgumentNullException(nameof(roleUsersClient));
             }
@@ -99,14 +99,11 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
             var profileDto = GetFacebookProfile(facebookTokenDto.Token);
 
             var expiration = _utcTimeProvider.UtcNow.AddSeconds(facebookTokenDto.ExpiredInSeconds);
-            var authRegisterDto = new AuthUserRegisterDto(facebookTokenDto.Token, expiration);
+            var userRegisterDto = new AuthUserRegisterDto(facebookTokenDto.Token, expiration);
 
-            var tokenDto = 
+            var tokenDto =
                 _roleUsersClient.
-                RegisterUser(
-                    AuthSystems.FACEBOOK_SYSTEM_NAME, 
-                    profileDto.Id,
-                    authRegisterDto);
+                RegisterUser(AuthSystems.FACEBOOK_SYSTEM_NAME, profileDto.Id, userRegisterDto);
 
             // заполняем cookie
             var response = new HttpResponseMessage(HttpStatusCode.OK);

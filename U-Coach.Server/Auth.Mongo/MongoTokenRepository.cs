@@ -14,23 +14,16 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         ITokenRepository
     {
         private readonly IMongoRepository<MongoToken> _repository;
-        private readonly IMongoCollectionVersionValidator _versionCollectionValidator;
 
         public MongoTokenRepository(
-            IMongoRepository<MongoToken> repository,
-            IMongoCollectionVersionValidator versionCollectionValidator)
+            IMongoRepository<MongoToken> repository)
         {
             if (repository == null)
             {
                 throw new ArgumentNullException(nameof(repository));
             }
-            if (versionCollectionValidator == null)
-            {
-                throw new ArgumentNullException(nameof(versionCollectionValidator));
-            }
 
             _repository = repository;
-            _versionCollectionValidator = versionCollectionValidator;
         }
 
         public void AddToken(Token token)
@@ -39,8 +32,6 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             {
                 throw new ArgumentNullException(nameof(token));
             }
-
-            _versionCollectionValidator.Validate<MongoToken>();
 
             var mongotoken = MapperHelper.Map<Token, MongoToken>(token);
             _repository.Insert(mongotoken);
@@ -52,8 +43,6 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             {
                 throw new ArgumentNullException(nameof(token));
             }
-
-            _versionCollectionValidator.Validate<MongoToken>();
 
             var mongotoken = _repository.Find((u) => u.Key == token);
             return MapperHelper.Map<MongoToken, Token>(mongotoken);
