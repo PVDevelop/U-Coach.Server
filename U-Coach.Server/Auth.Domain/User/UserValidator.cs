@@ -16,10 +16,10 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             {
                 throw new ValidateLoginException();
             }
-            //if (!System.Text.RegularExpressions.Regex.IsMatch(login, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
-            //{
-            //    throw new ValidateLoginException();
-            //}
+            if (!System.Text.RegularExpressions.Regex.IsMatch(login, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
+            {
+                throw new ValidateLoginException();
+            }
         }
 
         public void ValidatePassword(string password)
@@ -28,10 +28,10 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             {
                 throw new ValidatePasswordException();
             }
-            //if (!System.Text.RegularExpressions.Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{7,15}$", RegexOptions.IgnoreCase))
-            //{
-            //    throw new ValidatePasswordException();
-            //}
+            if (!System.Text.RegularExpressions.Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{7,15}$", RegexOptions.IgnoreCase))
+            {
+                throw new ValidatePasswordException();
+            }
         }
     }
 }
