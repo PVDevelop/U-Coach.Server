@@ -2,6 +2,7 @@
 
 namespace PVDevelop.UCoach.Server.Auth.Contract
 {
+#warning агрегаты не должны возвращаться из клиента, надо делать TokenDto
     /// <summary>
     /// Интерфейс доступа к пользователям
     /// </summary>

@@ -4,6 +4,7 @@ using PVDevelop.UCoach.Server.Timing;
 
 namespace PVDevelop.UCoach.Server.Auth.Domain
 {
+#warning грохаем фабрику и переносим логику в агрегат
     public class UserFactory : IUserFactory
     {
         private readonly IUtcTimeProvider _utcTimeProvider;

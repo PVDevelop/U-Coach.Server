@@ -26,6 +26,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         {
             if (String.IsNullOrEmpty(userID))
             {
+#warning в ArgumentException требуется message, а не имя аргумента
                 throw new ArgumentException(nameof(userID));
             }
 

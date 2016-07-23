@@ -6,6 +6,7 @@ using PVDevelop.UCoach.Server.Auth.Domain.Exceptions;
 using PVDevelop.UCoach.Server.Timing;
 using Utilities;
 
+#warning Давай этот проект сольем в Auth.Domain
 namespace PVDevelop.UCoach.Server.Auth.Service
 {
     public class UserService : 
@@ -55,6 +56,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _utcTimeProvider = utcTimeProvider;
         }
 
+#warning Из названия не понятно, Create чего. И еще странно, что создается токен еще не подтвержденного пользователя
         public Token Create(string login, string password)
         {
             try
@@ -86,6 +88,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             }
         }
 
+#warning не учитывается статус пользователя
         public Token Logon(string login, string password)
         {
             _logger.Debug("Логиню пользователя {0}.", login);
@@ -111,6 +114,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             return token;
         }
 
+#warning валидация не учитывает состояние пользователя. Мне кажется, что должна.
         public void ValidateToken(string token)
         {
             _logger.Debug("Валидирую токен пользователя");
@@ -135,6 +139,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             
             if (String.IsNullOrEmpty(key))
             {
+#warning message
                 throw new ArgumentException(nameof(key));
             }
 
@@ -146,12 +151,14 @@ namespace PVDevelop.UCoach.Server.Auth.Service
 
             var user = _userRepository.FindById(confiramtion.UserId);
 
+#warning операция идемпотентна? Если кто-то уже подтвердил, а потом подтвердили еще раз, может кидать ошибку?
             if (user.Status != UserStatus.Confirm)
             {
                 user.Status = UserStatus.Confirm;
                 _userRepository.Update(user);
             }
 
+#warning вроде, лишняя операция, мне кажется, лучше вообще ничего не удалять
             _confirmationRepository.Delete(key);
 
             _logger.Info("Подтверждение пользователя завершено.");

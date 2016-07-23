@@ -28,6 +28,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
 
         public Confirmation(string userId, string key, DateTime creationTime)
         {
+#warning проверка аргументов
             this.UserId = UserId;
             this.Key = key;
             this.CreationTime = creationTime;

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace PVDevelop.UCoach.Server.Auth.Domain
 {
+#warning логика агрегата
     public class UserValidator : IUserValidator
     {
         public void ValidateLogin(string login)

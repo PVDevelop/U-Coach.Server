@@ -16,6 +16,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// </summary>
         public string Id { get; private set; }
 
+#warning если login - почта, то давай так и назовом, email
         /// <summary>
         /// Логин пользователя = почта. Уникален в БД.
         /// </summary>

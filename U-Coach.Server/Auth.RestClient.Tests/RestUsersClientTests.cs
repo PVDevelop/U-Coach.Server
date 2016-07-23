@@ -52,6 +52,7 @@ namespace Auth.RestClient.Tests
             }
         }
 
+#warning не проходит
         [Test]
         public void Create_MockAuthService_CallsCreate()
         {
@@ -68,6 +69,7 @@ namespace Auth.RestClient.Tests
             Assert.Equals("SomeId", result.Key);
         }
 
+#warning не проходит
         [Test]
         public void Logon_MockAuthService_CallsLogon()
         {

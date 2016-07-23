@@ -13,6 +13,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             return Guid.NewGuid().ToString();
         }
 
+#warning почему TokenKey, вроде просто Token?
         public string GenerateTokenKey()
         {
             return Guid.NewGuid().ToString();

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PVDevelop.UCoach.Server.Auth.Domain
 {
+#warning свойсвта private set и конструктор с параметрами и проверкой
     /// <summary>
     /// Доменная модель - токен
     /// </summary>
