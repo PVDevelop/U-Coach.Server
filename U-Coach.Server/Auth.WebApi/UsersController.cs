@@ -21,11 +21,9 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
 
         [HttpPost]
         [Route(Routes.CREATE_USER)]
-        public IHttpActionResult CreateUser(
-            [FromUri(Name = "login")]string login, 
-            [FromUri(Name = "password")]string password)
+        public IHttpActionResult CreateUser([FromBody] CreateUserDto createUserDto)
         {
-            var result = _userService.Create(login, password);
+            var result = _userService.Create(createUserDto.Login, createUserDto.Password);
             return Content(HttpStatusCode.Created, result);
         }
 

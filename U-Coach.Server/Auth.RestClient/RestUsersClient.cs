@@ -20,11 +20,16 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
 
         public Token Create(string login, string password)
         {
+            var createUserDto = new CreateUserDto()
+            {
+                Login = login,
+                Password = password
+            };
+
             return
                 _restClientFactory.
                 CreatePost(Routes.CREATE_USER).
-                AddParameter("login", login).
-                AddParameter("password", password).
+                AddBody(createUserDto).
                 Execute().
                 CheckPostResult().
                 GetJsonContent<Token>();

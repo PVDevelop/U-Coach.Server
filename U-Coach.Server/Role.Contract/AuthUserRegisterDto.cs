@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace PVDevelop.UCoach.Server.Role.Contract
 {
-    /// <summary>
+    /// <summary>   
     /// Dto для регистрации пользователя в системе по токену внешней системы
     /// </summary>
     public class AuthUserRegisterDto

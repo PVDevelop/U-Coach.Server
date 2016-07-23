@@ -11,6 +11,7 @@ using PVDevelop.UCoach.Server.Auth.Domain;
 using System;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.WebApi;
+using PVDevelop.UCoach.Server.Auth.Mail;
 
 namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 {
@@ -64,6 +65,18 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 
             x.For<IUserRepository>().
                 Use<MongoUserRepository>();
+
+            x.For<IMongoRepository<MongoToken>>().
+                Use<MongoRepository<MongoToken>>();
+
+            x.For<ITokenRepository>().
+                Use<MongoTokenRepository>();
+
+            x.For<IMongoRepository<MongoConfirmation>>().
+                Use<MongoRepository<MongoConfirmation>>();
+
+            x.For<IConfirmationRepository>().
+                Use<MongoConfirmationRepository>();
         }
 
         private void ConfigureUserService(ConfigurationExpression x)
@@ -73,6 +86,29 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 
             x.For<IUserFactory>().
                 Use<UserFactory>();
+
+            x.For<IUserValidator>().
+                Use<UserValidator>();
+
+            x.For<ITokenFactory>().
+                Use<TokenFactory>();
+
+            x.For<IConfirmationFactory>().
+                Use<ConfirmationFactory>();
+
+            x.For<IConfirmationProducer>().
+                Use<EmailConfirmationProducer>();
+
+            x.For<IKeyGeneratorService>().
+                Use<KeyGeneratorService>();
+
+            x.For<IEmailProducerSettings>().
+                Use<EmailProducerSettingsSection>();
+
+            x.For<ISettingsProvider<IEmailProducerSettings>>().
+                Use<ConfigurationSectionSettingsProvider<IEmailProducerSettings>>().
+                Ctor<string>().
+                Is("emailProducerSettings");
         }
 
         private void InitializeSystem()

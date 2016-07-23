@@ -65,7 +65,7 @@ namespace Auth.RestClient.Tests
 
             // assert
             mockUserService.VerifyAllExpectations();
-            Assert.Equals("SomeId", result.Key);
+            Assert.AreEqual("SomeId", result.Key);
         }
 
         [Test]
