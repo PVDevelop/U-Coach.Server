@@ -23,11 +23,11 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
             return
                 _restClientFactory.
                 CreatePost(Routes.CREATE_USER).
-                AddBody(login).
-                AddBody(password).
+                AddParameter("login", login).
+                AddParameter("password", password).
                 Execute().
                 CheckPostResult().
-                GetJsonContent<CreateUserResultDto>();
+                GetJsonContent<Token>();
         }
 
         public Token Logon(string login, string password)
@@ -38,7 +38,7 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
                 AddBody(password).
                 Execute().
                 CheckPutResult().
-                GetJsonContent<LogonUserResultDto>();
+                GetJsonContent<Token>();
         }
 
         public void ValidateToken(string token)

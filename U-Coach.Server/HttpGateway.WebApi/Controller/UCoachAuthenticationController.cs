@@ -27,18 +27,12 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
         }
 
         [HttpGet]
-        [Route(Contract.Routes.UCOACH_TOKEN)]
+        [Route(Routes.UCOACH_TOKEN)]
         public IHttpActionResult GetToken(
             [FromUri(Name = "login")] string login,
             [FromUri(Name = "password")] string password)
         {
-            var logonUserDto = new Auth.Contract.LogonUserDto()
-            {
-                Login = login,
-                Password = password
-            };
-
-            var authToken = _authUsersClient.Logon(logonUserDto);
+            var authToken = _authUsersClient.Logon(login, password);
 #warning тут надо доработать
             throw new NotImplementedException();
         }

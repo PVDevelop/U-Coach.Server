@@ -81,7 +81,7 @@ namespace Auth.RestClient.Tests
 
             // assert
             mockUserService.VerifyAllExpectations();
-            Assert.Equals("some_token", result.Key);
+            Assert.AreEqual("some_token", result.Key);
         }
 
         [Test]
