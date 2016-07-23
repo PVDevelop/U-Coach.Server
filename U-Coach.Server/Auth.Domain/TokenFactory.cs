@@ -26,6 +26,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             return new Token()
             {
                 UserId = userID,
+#warning что это за магическая дата, почему не просто _utcTimeProvider.UtcNow.AddDays(60)?
                 ExpiryDate = _utcTimeProvider.UtcNow.Date.AddDays(60).AddHours(2),
                 Key = key
             };
