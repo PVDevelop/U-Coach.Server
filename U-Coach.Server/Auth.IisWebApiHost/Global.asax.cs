@@ -28,6 +28,7 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
             InitializeSystem();
         }
 
+#warning контейнер не настроен, приложение не запускается
         private Container SetupContainer()
         {
             _container = new Container(x =>
