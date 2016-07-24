@@ -106,6 +106,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Mail", "Core.Mail\Auth
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{3E5BAE26-7F6F-4471-807C-59492F18EE58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Role.RestCient.Tests", "Role.RestCient.Tests\Role.RestCient.Tests.csproj", "{CEF74759-8471-4B96-AA5F-427118C079DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -272,6 +274,10 @@ Global
 		{3E5BAE26-7F6F-4471-807C-59492F18EE58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E5BAE26-7F6F-4471-807C-59492F18EE58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E5BAE26-7F6F-4471-807C-59492F18EE58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEF74759-8471-4B96-AA5F-427118C079DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEF74759-8471-4B96-AA5F-427118C079DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEF74759-8471-4B96-AA5F-427118C079DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEF74759-8471-4B96-AA5F-427118C079DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -320,5 +326,6 @@ Global
 		{0EAD8612-66C8-4BD2-A289-7857C793AF6D} = {54ED0C13-36DF-4BD8-A7E9-B9CB72AC9F3A}
 		{8B643F85-8A84-4DDC-9B4D-C7CF10BF0296} = {45BACE28-DAFF-44E1-8528-B6196986B8F3}
 		{3E5BAE26-7F6F-4471-807C-59492F18EE58} = {48F3FE18-D7E9-48D0-80A1-720D40342D54}
+		{CEF74759-8471-4B96-AA5F-427118C079DC} = {3C41792F-6734-4E52-AC0E-21E665B63EB0}
 	EndGlobalSection
 EndGlobal
