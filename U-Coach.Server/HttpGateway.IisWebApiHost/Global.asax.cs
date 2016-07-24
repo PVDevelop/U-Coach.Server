@@ -6,6 +6,7 @@ using PVDevelop.UCoach.Server.RestClient;
 using StructureMap;
 using PVDevelop.UCoach.Server.Timing;
 using PVDevelop.UCoach.Server.HttpGateway.WebApi.Settings;
+using PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller;
 
 namespace PVDevelop.UCoach.Server.HttpGateway.IisWebApiHost
 {
@@ -72,6 +73,7 @@ namespace PVDevelop.UCoach.Server.HttpGateway.IisWebApiHost
 
                 x.For<IFacebookOAuthSettings>().Use<FacebookOAuthSettingsSection>();
                 x.For<IUtcTimeProvider>().Use<UtcTimeProvider>();
+                x.For<ITokenManager>().Use<CookiesTokenManager>();
             });
 
             return _container;

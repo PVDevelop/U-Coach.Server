@@ -71,6 +71,11 @@ namespace PVDevelop.UCoach.Server.WebApi
             return await _client.PutAsync(GetResource(resource), content);
         }
 
+        public async Task<HttpResponseMessage> BuildDeleteAsync(string resource)
+        {
+            return await _client.DeleteAsync(GetResource(resource));
+        }
+
         private string GetResource(string resource)
         {
             if (_parameters.Any())

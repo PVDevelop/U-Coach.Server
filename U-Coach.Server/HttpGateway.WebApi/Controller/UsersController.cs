@@ -10,32 +10,31 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
     public class UsersController : ApiController
     {
         private readonly IUsersClient _usersClient;
-        private readonly IUtcTimeProvider _utcTimeProvider;
+        private readonly ITokenManager _tokenManager;
 
         public UsersController(
             IUsersClient usersClient,
-            IUtcTimeProvider utcTimeProvider)
+            ITokenManager tokenManager)
         {
             if (usersClient == null)
             {
                 throw new ArgumentNullException(nameof(usersClient));
             }
-            if (utcTimeProvider == null)
+            if(tokenManager == null)
             {
-                throw new ArgumentNullException(nameof(utcTimeProvider));
+                throw new ArgumentNullException(nameof(tokenManager));
             }
 
             _usersClient = usersClient;
-            _utcTimeProvider = utcTimeProvider;
+            _tokenManager = tokenManager;
         }
 
         [HttpGet]
         [Route(Contract.Routes.USER_INFO)]
         public IHttpActionResult GetUserInfo()
         {
-            var token = this.GetToken();
-
-            if(string.IsNullOrWhiteSpace(token))
+            string token;
+            if(!_tokenManager.TryGet(this, out token))
             {
                 throw new ApplicationException("Empty token in cookies");
             }
@@ -44,12 +43,12 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
             return Ok(userInfo);
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route(Contract.Routes.LOGOUT)]
         public IHttpActionResult Logout()
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            this.DeleteToken(response.Headers, _utcTimeProvider);
+            _tokenManager.Delete(this, response.Headers);
             return ResponseMessage(response);
         }
     }

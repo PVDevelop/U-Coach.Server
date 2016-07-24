@@ -43,11 +43,13 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
         private readonly IUsersClient _roleUsersClient;
         private readonly ISettingsProvider<IFacebookOAuthSettings> _settingsProvider;
         private readonly IUtcTimeProvider _utcTimeProvider;
+        private readonly ITokenManager _tokenManager;
 
         public FacebookController(
             IUsersClient roleUsersClient,
             ISettingsProvider<IFacebookOAuthSettings> settingsProvider,
-            IUtcTimeProvider utcTimeProvider)
+            IUtcTimeProvider utcTimeProvider,
+            ITokenManager tokenManager)
         {
             if (roleUsersClient == null)
             {
@@ -61,10 +63,15 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
             {
                 throw new ArgumentNullException(nameof(utcTimeProvider));
             }
+            if (tokenManager == null)
+            {
+                throw new ArgumentNullException(nameof(tokenManager));
+            }
 
             _roleUsersClient = roleUsersClient;
             _settingsProvider = settingsProvider;
             _utcTimeProvider = utcTimeProvider;
+            _tokenManager = tokenManager;
         }
 
         [HttpGet]
@@ -107,7 +114,7 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
 
             // заполняем cookie
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            this.SetToken(response.Headers, tokenDto);
+            _tokenManager.SetToken(this, response.Headers, tokenDto);
 
             return ResponseMessage(response);
         }

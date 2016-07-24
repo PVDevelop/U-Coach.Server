@@ -59,9 +59,7 @@ namespace MvcAuthrorization.Controllers
                 var result = (await 
                     builder.
                     AddCookies(Request.ToCookieCollection()).
-                    BuildPutAsync(
-                        PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.LOGOUT, 
-                        new ByteArrayContent(new byte[0]))).
+                    BuildDeleteAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.LOGOUT)).
                     EnsureSuccessStatusCode();
 
                 result.CopyCookies(Response);

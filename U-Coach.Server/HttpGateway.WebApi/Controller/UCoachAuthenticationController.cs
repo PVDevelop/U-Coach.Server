@@ -10,10 +10,12 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
     {
         private readonly Role.Contract.IUsersClient _roleUsersClient;
         private readonly Auth.Contract.IUsersClient _authUsersClient;
+        private readonly ITokenManager _tokenManager;
 
         public UCoachAuthenticationController(
             Auth.Contract.IUsersClient authUsersClient,
-            Role.Contract.IUsersClient roleUsersClient)
+            Role.Contract.IUsersClient roleUsersClient,
+            ITokenManager tokenManager)
         {
             if (authUsersClient == null)
             {
@@ -23,9 +25,14 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
             {
                 throw new ArgumentNullException(nameof(roleUsersClient));
             }
+            if(tokenManager == null)
+            {
+                throw new ArgumentNullException(nameof(tokenManager));
+            }
 
             _authUsersClient = authUsersClient;
             _roleUsersClient = roleUsersClient;
+            _tokenManager = tokenManager;
         }
 
         [HttpGet]
@@ -43,7 +50,7 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
 
             // заполняем cookie
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            this.SetToken(response.Headers, roleTokenDto);
+            _tokenManager.SetToken(this, response.Headers, roleTokenDto);
 
             return ResponseMessage(response);
         }
