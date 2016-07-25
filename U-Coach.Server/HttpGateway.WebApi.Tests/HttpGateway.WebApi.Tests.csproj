@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UCoachAuthenticationControllerTests.cs" />
     <Compile Include="UsersControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +81,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
+      <Project>{12e06b20-78ec-4b54-8b43-81202f618e62}</Project>
+      <Name>Auth.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
+      <Project>{fc2614c3-74ed-4e9f-a8b9-98d18a59d0c0}</Project>
+      <Name>Auth.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HttpGateway.Contract\HttpGateway.Contract.csproj">
+      <Project>{49CFE59E-71C1-4775-ADEA-67D34EC20181}</Project>
+      <Name>HttpGateway.Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HttpGateway.WebApi\HttpGateway.WebApi.csproj">
       <Project>{B529E273-56EA-490E-8C13-29FA9CADE9C1}</Project>
       <Name>HttpGateway.WebApi</Name>
