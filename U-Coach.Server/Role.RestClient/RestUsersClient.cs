@@ -8,7 +8,8 @@ namespace PVDevelop.UCoach.Server.Role.RestClient
     {
         private readonly IRestClientFactory _restClientFactory;
 
-        public RestUsersClient(IRestClientFactory restClientFactory)
+        public RestUsersClient(
+            IRestClientFactory restClientFactory)
         {
             if(restClientFactory == null)
             {

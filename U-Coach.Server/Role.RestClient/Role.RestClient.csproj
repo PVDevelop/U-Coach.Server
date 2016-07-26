@@ -54,6 +54,10 @@
       <Project>{eadb72a9-5475-4592-a3e3-ca1174535c5f}</Project>
       <Name>Role.Contract</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Role.Domain\Role.Domain.csproj">
+      <Project>{EE2A484A-02B8-44AD-87EB-64E42B869933}</Project>
+      <Name>Role.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

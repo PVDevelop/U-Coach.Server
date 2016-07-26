@@ -12,6 +12,7 @@ using PVDevelop.UCoach.Server.RestClient;
 using System;
 using PVDevelop.UCoach.Server.Role.FacebookRestClient;
 using PVDevelop.UCoach.Server.Role.FacebookContract;
+using PVDevelop.UCoach.Server.Role.Domain.Validator;
 
 namespace Role.IisWebApiHost
 {
@@ -38,16 +39,10 @@ namespace Role.IisWebApiHost
                 SetupMongo(x);
                 SetupAuth(x);
                 SetupFacebook(x);
+                SetupValidation(x);
             });
 
             return _container;
-        }
-
-        private static void SetupFacebook(ConfigurationExpression x)
-        {
-            x.For<ISettingsProvider<IFacebookOAuthSettings>>().Use<ConfigurationSectionSettingsProvider<IFacebookOAuthSettings>>().Ctor<string>().Is("facebookSettings");
-            x.For<IFacebookOAuthSettings>().Use<FacebookOAuthSettingsSection>();
-            x.For<IFacebookClient>().Use<RestFacebookClient>();
         }
 
         private static void SetupMongo(ConfigurationExpression x)
@@ -75,6 +70,13 @@ namespace Role.IisWebApiHost
             x.For<IUserRepository>().Use<UserRepository>();
         }
 
+        private static void SetupFacebook(ConfigurationExpression x)
+        {
+            x.For<ISettingsProvider<IFacebookOAuthSettings>>().Use<ConfigurationSectionSettingsProvider<IFacebookOAuthSettings>>().Ctor<string>().Is("facebookSettings");
+            x.For<IFacebookOAuthSettings>().Use<FacebookOAuthSettingsSection>();
+            x.For<IFacebookClient>().Use<RestFacebookClient>();
+        }
+
         private static void SetupAuth(ConfigurationExpression x)
         {
             x.
@@ -96,6 +98,20 @@ namespace Role.IisWebApiHost
                     Use<PVDevelop.UCoach.Server.Auth.RestClient.RestUsersClient>().
                     Ctor<IRestClientFactory>().
                     IsNamedInstance("auth_rest_client_factory");
+        }
+
+        private static void SetupValidation(ConfigurationExpression x)
+        {
+            x.For<IAuthTokenValidator>().Use<FacebookValidatorAdapter>().Named("facebook_validator");
+            x.For<IAuthTokenValidator>().Use<UCoachValidatorAdapter>().Named("ucoach_validator");
+            x.
+                For<IAuthTokenValidatorContainer>().
+                Use<AuthTokenValidatorContainer>().
+                Ctor<IAuthTokenValidator>("facebookValidator").
+                IsNamedInstance("facebook_validator").
+                Ctor<IAuthTokenValidator>("uCoachValidator").
+                IsNamedInstance("ucoach_validator");
+
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace PVDevelop.UCoach.Server.Auth.Mongo
 {
@@ -15,6 +16,8 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         /// Текущая версия документа
         /// </summary>
         public const int VERSION = 1;
+
+        public ObjectId Id { get; set; }
 
         public int Version { get; set; }
 

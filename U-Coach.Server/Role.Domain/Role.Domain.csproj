@@ -42,6 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthSystemToken.cs" />
+    <Compile Include="Validator\AuthTokenValidatorContainer.cs" />
+    <Compile Include="Validator\FacebookValidatorAdapter.cs" />
+    <Compile Include="Validator\IAuthTokenValidator.cs" />
+    <Compile Include="Validator\IAuthTokenValidatorContainer.cs" />
     <Compile Include="ITokenGenerator.cs" />
     <Compile Include="ITokenRepository.cs" />
     <Compile Include="IUserRepository.cs" />
@@ -54,8 +58,21 @@
     <Compile Include="User.cs" />
     <Compile Include="UserId.cs" />
     <Compile Include="UserService.cs" />
+    <Compile Include="Validator\UCoachValidatorAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
+      <Project>{12e06b20-78ec-4b54-8b43-81202f618e62}</Project>
+      <Name>Auth.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Role.Contract\Role.Contract.csproj">
+      <Project>{EADB72A9-5475-4592-A3E3-CA1174535C5F}</Project>
+      <Name>Role.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Role.FacebookContract\Role.FacebookContract.csproj">
+      <Project>{BB2F0F17-D294-4D46-A034-CE71620904FF}</Project>
+      <Name>Role.FacebookContract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Timing\Timing.csproj">
       <Project>{ED9532D4-7643-4A2F-AC6A-7EA11BBF2612}</Project>
       <Name>Timing</Name>

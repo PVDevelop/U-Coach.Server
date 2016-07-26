@@ -2,6 +2,7 @@
 using System.Web.Http;
 using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.Role.Domain;
+using PVDevelop.UCoach.Server.Role.Domain.Validator;
 
 namespace PVDevelop.UCoach.Server.Role.WebApi
 {
@@ -9,12 +10,14 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
     {
         private readonly IUserService _userService;
 
-        public UsersController(IUserService userService)
+        public UsersController(
+            IUserService userService)
         {
             if (userService == null)
             {
                 throw new ArgumentNullException(nameof(userService));
             }
+
             _userService = userService;
         }
 
@@ -24,7 +27,6 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
         {
             var tokenId = new TokenId(token);
             var user = _userService.GetUserByToken(tokenId);
-
             var userInfoDto = new UserInfoDto(user.Id.ToString());
 
             return Ok(userInfoDto);
