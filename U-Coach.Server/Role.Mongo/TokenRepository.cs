@@ -39,7 +39,7 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
             }
 
             MongoToken mongoToken;
-            if (_repository.TryFind(t => !t.IsDeleted && t.Id.Equals(id), out mongoToken))
+            if (_repository.TryFind(t => t.Id.Equals(id), out mongoToken))
             {
                 token = Mapper.MapperHelper.Map<MongoToken, Token>(mongoToken);
                 return true;

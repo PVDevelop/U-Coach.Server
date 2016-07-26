@@ -20,12 +20,7 @@
         /// <summary>
         /// Адрес пользователя по токену
         /// </summary>
-        public const string USER_INFO = "api/users/{token}";
-
-        /// <summary>
-        /// PUT - запрос на валидацию токена
-        /// </summary>
-        public const string VALIDATE_TOKEN = "api/tokens/{token}/validate";
+        public const string USER_INFO = "api/users";
 
         /// <summary>
         /// DELETE - запрос на удаление токена

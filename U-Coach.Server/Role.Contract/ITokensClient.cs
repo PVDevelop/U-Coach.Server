@@ -2,8 +2,6 @@
 {
     public interface ITokensClient
     {
-        void Validate(string token);
-
         void Delete(string token);
     }
 }

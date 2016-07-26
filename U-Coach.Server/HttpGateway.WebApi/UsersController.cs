@@ -45,8 +45,6 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
                 throw new ApplicationException("Empty token in cookies");
             }
 
-            _tokensClient.Validate(token);
-
             var userInfo = _usersClient.GetUserInfo(token);
             return Ok(userInfo);
         }

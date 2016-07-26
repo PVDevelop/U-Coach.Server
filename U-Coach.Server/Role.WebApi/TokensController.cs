@@ -27,16 +27,6 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
             _tokenValidationService = tokenValidationService;
         }
 
-        [HttpPut]
-        [Route(Routes.VALIDATE_TOKEN)]
-        public IHttpActionResult ValidateToken(
-            [FromUri(Name = "token")] string token)
-        {
-            var tokenId = new TokenId(token);
-            _tokenValidationService.Validate(tokenId);
-            return Ok();
-        }
-
         [HttpDelete]
         [Route(Routes.DELETE_TOKEN)]
         public IHttpActionResult DeleteToken(

@@ -18,14 +18,6 @@ namespace PVDevelop.UCoach.Server.Role.RestClient
             _restClientFactory = restClientFactory;
         }
 
-        public void Validate(string token)
-        {
-            _restClientFactory.
-                CreatePut(Routes.VALIDATE_TOKEN, token).
-                Execute().
-                CheckPutResult();
-        }
-
         public void Delete(string token)
         {
             _restClientFactory.

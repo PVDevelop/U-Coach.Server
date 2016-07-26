@@ -23,7 +23,8 @@ namespace PVDevelop.UCoach.Server.Role.RestClient
         {
             return
                 _restClientFactory.
-                CreateGet(Routes.USER_INFO, token).
+                CreateGet(Routes.USER_INFO).
+                AddParameter("token", token).
                 Execute().
                 CheckGetResult().
                 GetJsonContent<UserInfoDto>();

@@ -15,11 +15,13 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         private readonly ITokenRepository _tokenRepository;
         private readonly ITokenGenerator _tokenGenerator;
         private readonly IUtcTimeProvider _timeProvider;
+        private readonly ITokenValidationService _tokenValidator;
 
         public UserService(
             ITokenGenerator tokenGenerator,
             IUserRepository userRepository,
             ITokenRepository tokenRepository,
+            ITokenValidationService tokenValidator,
             IUtcTimeProvider timeProvider)
         {
             if (tokenGenerator == null)
@@ -34,6 +36,10 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             {
                 throw new ArgumentNullException(nameof(tokenRepository));
             }
+            if(tokenValidator == null)
+            {
+                throw new ArgumentNullException(nameof(tokenValidator));
+            }
             if (timeProvider == null)
             {
                 throw new ArgumentNullException(nameof(timeProvider));
@@ -42,6 +48,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             _tokenGenerator = tokenGenerator;
             _userRepository = userRepository;
             _tokenRepository = tokenRepository;
+            _tokenValidator = tokenValidator;
             _timeProvider = timeProvider;
         }
 
@@ -91,6 +98,8 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             {
                 throw new NotAuthorizedException(string.Format("Token {0} not found", tokenId.Token));
             }
+
+            _tokenValidator.Validate(token);
 
             User user;
             if (!_userRepository.TryGet(token.UserId, out user))

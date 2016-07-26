@@ -66,5 +66,17 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         {
             IsDeleted = true;
         }
+
+        public void Validate(DateTime utcNow)
+        {
+            if(IsDeleted)
+            {
+                throw new NotAuthorizedException(string.Format("Token {0} has been removed", Id));
+            }
+            if(utcNow > Expiration)
+            {
+                throw new NotAuthorizedException(string.Format("Token {0} has been expired", Id));
+            }
+        }
     }
 }

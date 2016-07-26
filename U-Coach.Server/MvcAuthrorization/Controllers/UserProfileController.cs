@@ -24,10 +24,9 @@ namespace MvcAuthrorization.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            UserInfoDto userInfoDto;
-
             try
             {
+                UserInfoDto userInfoDto;
                 using (var builder = _actionResultBuilderFactory.CreateActionResultBuilder())
                 {
                     userInfoDto = (await
