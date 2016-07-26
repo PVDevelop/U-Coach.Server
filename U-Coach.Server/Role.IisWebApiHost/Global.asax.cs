@@ -10,6 +10,8 @@ using StructureMap;
 using PVDevelop.UCoach.Server.Role.WebApi;
 using PVDevelop.UCoach.Server.RestClient;
 using System;
+using PVDevelop.UCoach.Server.Role.FacebookRestClient;
+using PVDevelop.UCoach.Server.Role.FacebookContract;
 
 namespace Role.IisWebApiHost
 {
@@ -45,6 +47,7 @@ namespace Role.IisWebApiHost
         {
             x.For<ISettingsProvider<IFacebookOAuthSettings>>().Use<ConfigurationSectionSettingsProvider<IFacebookOAuthSettings>>().Ctor<string>().Is("facebookSettings");
             x.For<IFacebookOAuthSettings>().Use<FacebookOAuthSettingsSection>();
+            x.For<IFacebookClient>().Use<RestFacebookClient>();
         }
 
         private static void SetupMongo(ConfigurationExpression x)

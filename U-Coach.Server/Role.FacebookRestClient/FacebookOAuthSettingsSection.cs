@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace PVDevelop.UCoach.Server.Role.WebApi
+namespace PVDevelop.UCoach.Server.Role.FacebookRestClient
 {
     public class FacebookOAuthSettingsSection :
         ConfigurationSection,

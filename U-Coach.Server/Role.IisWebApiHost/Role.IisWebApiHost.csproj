@@ -135,6 +135,14 @@
       <Project>{EE2A484A-02B8-44AD-87EB-64E42B869933}</Project>
       <Name>Role.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Role.FacebookContract\Role.FacebookContract.csproj">
+      <Project>{bb2f0f17-d294-4d46-a034-ce71620904ff}</Project>
+      <Name>Role.FacebookContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Role.FacebookRestClient\Role.FacebookRestClient.csproj">
+      <Project>{2EE065B5-8922-4FDD-B15B-5CB832D9B2B2}</Project>
+      <Name>Role.FacebookRestClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Role.Mongo\Role.Mongo.csproj">
       <Project>{641DB0C5-30A5-45F4-B9D8-5275E14CB44F}</Project>
       <Name>Role.Mongo</Name>

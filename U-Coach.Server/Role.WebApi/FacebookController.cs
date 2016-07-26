@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Web;
 using System.Web.Http;
-using Newtonsoft.Json;
-using PVDevelop.UCoach.Server.Configuration;
-using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.Role.Domain;
 using PVDevelop.UCoach.Server.Timing;
@@ -12,47 +8,22 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
 {
     public class FacebookController : ApiController
     {
-        #region dtos
-
-        private class FacebookProfileDto
-        {
-            [JsonProperty("id")]
-            public string Id { get; set; }
-
-            [JsonProperty("name")]
-            public string Name { get; set; }
-        }
-
-        private class FacebookTokenDto
-        {
-            [JsonProperty(PropertyName = "access_token")]
-            public string Token { get; set; }
-
-            [JsonProperty(PropertyName = "expires_in")]
-            public int ExpiredInSeconds { get; set; }
-
-            [JsonProperty(PropertyName = "token_type")]
-            public string Type { get; set; }
-        }
-
-        #endregion
-
         private readonly IUserService _userService;
-        private readonly ISettingsProvider<IFacebookOAuthSettings> _settingsProvider;
+        private readonly FacebookContract.IFacebookClient _facebookClient;
         private readonly IUtcTimeProvider _utcTimeProvider;
 
         public FacebookController(
             IUserService userService,
-            ISettingsProvider<IFacebookOAuthSettings> settingsProvider,
+            FacebookContract.IFacebookClient facebookClient,
             IUtcTimeProvider utcTimeProvider)
         {
             if (userService == null)
             {
                 throw new ArgumentNullException(nameof(userService));
             }
-            if (settingsProvider == null)
+            if (facebookClient == null)
             {
-                throw new ArgumentNullException(nameof(settingsProvider));
+                throw new ArgumentNullException(nameof(facebookClient));
             }
             if (utcTimeProvider == null)
             {
@@ -60,7 +31,7 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
             }
 
             _userService = userService;
-            _settingsProvider = settingsProvider;
+            _facebookClient = facebookClient;
             _utcTimeProvider = utcTimeProvider;
         }
 
@@ -69,18 +40,10 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
         public IHttpActionResult RedirectToAuthorization(
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
-            var settings = _settingsProvider.Settings;
-
-            var uriBuilder = new UriBuilder("https://www.facebook.com/dialog/oauth");
-            var parameters = HttpUtility.ParseQueryString(string.Empty);
-            parameters["client_id"] = settings.ClientId;
-            parameters["redirect_uri"] = redirectUri;
-            parameters["scope"] = "public_profile";
-            uriBuilder.Query = parameters.ToString();
-
+            var uri = _facebookClient.GetAuthorizationUri(redirectUri);
             var resultDto = new FacebookRedirectDto()
             {
-                Uri = uriBuilder.ToString()
+                Uri = uri.ToString()
             };
 
             return base.Ok(resultDto);
@@ -92,8 +55,8 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
             [FromUri(Name = "code")] string code,
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
-            var facebookTokenDto = GetFacebookToken(code, redirectUri);
-            var profileDto = GetFacebookProfile(facebookTokenDto.Token);
+            var facebookTokenDto = _facebookClient.GetFacebookToken(code, redirectUri);
+            var profileDto = _facebookClient.GetFacebookProfile(facebookTokenDto.Token);
 
             var expiration = _utcTimeProvider.UtcNow.AddSeconds(facebookTokenDto.ExpiredInSeconds);
 
@@ -104,40 +67,6 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
             var tokenDto = new TokenDto(token.Id.Token, token.Expiration);
 
             return Ok(tokenDto);
-        }
-
-        private static IRestClientFactory GetFacebookGraphClientFactory()
-        {
-            var connectionStringProvider = new SimpleConnectionStringProvider("https://graph.facebook.com");
-            return new RestClientFactory(connectionStringProvider);
-        }
-
-        private FacebookTokenDto GetFacebookToken(
-            string code,
-            string redirectUri)
-        {
-            var settings = _settingsProvider.Settings;
-            return
-                GetFacebookGraphClientFactory().
-                CreateGet("v2.5/oauth/access_token").
-                AddParameter("client_id", settings.ClientId).
-                AddParameter("redirect_uri", redirectUri).
-                AddParameter("client_secret", settings.ClientSecret).
-                AddParameter("code", code).
-                Execute().
-                CheckGetResult().
-                GetJsonContent<FacebookTokenDto>();
-        }
-
-        private FacebookProfileDto GetFacebookProfile(string token)
-        {
-            return
-                GetFacebookGraphClientFactory().
-                CreateGet("me").
-                AddParameter("access_token", token).
-                Execute().
-                CheckGetResult().
-                GetJsonContent<FacebookProfileDto>();
         }
     }
 }

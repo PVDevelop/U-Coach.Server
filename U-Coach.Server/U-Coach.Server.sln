@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mongo", "Mongo\Mongo.csproj", "{6B3139F0-9F1E-4D3A-9303-1EF9B43A4FCB}"
 EndProject
@@ -111,6 +111,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HttpGateway", "HttpGateway", "{08D0508B-1640-4C27-9E78-267AC647D946}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpGateway.WebApi.Tests", "HttpGateway.WebApi.Tests\HttpGateway.WebApi.Tests.csproj", "{081554B6-FC26-4888-BFFD-1A58B9D62BC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Role.FacebookContract", "Role.FacebookContract\Role.FacebookContract.csproj", "{BB2F0F17-D294-4D46-A034-CE71620904FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Role.FacebookRestClient", "Role.FacebookRestClient\Role.FacebookRestClient.csproj", "{2EE065B5-8922-4FDD-B15B-5CB832D9B2B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -286,6 +290,14 @@ Global
 		{081554B6-FC26-4888-BFFD-1A58B9D62BC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{081554B6-FC26-4888-BFFD-1A58B9D62BC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{081554B6-FC26-4888-BFFD-1A58B9D62BC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB2F0F17-D294-4D46-A034-CE71620904FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB2F0F17-D294-4D46-A034-CE71620904FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB2F0F17-D294-4D46-A034-CE71620904FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB2F0F17-D294-4D46-A034-CE71620904FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EE065B5-8922-4FDD-B15B-5CB832D9B2B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE065B5-8922-4FDD-B15B-5CB832D9B2B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE065B5-8922-4FDD-B15B-5CB832D9B2B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE065B5-8922-4FDD-B15B-5CB832D9B2B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -337,5 +349,7 @@ Global
 		{CEF74759-8471-4B96-AA5F-427118C079DC} = {3C41792F-6734-4E52-AC0E-21E665B63EB0}
 		{08D0508B-1640-4C27-9E78-267AC647D946} = {1AA7B04F-1FD5-4E32-B612-D9217A16B5B2}
 		{081554B6-FC26-4888-BFFD-1A58B9D62BC5} = {08D0508B-1640-4C27-9E78-267AC647D946}
+		{BB2F0F17-D294-4D46-A034-CE71620904FF} = {54ED0C13-36DF-4BD8-A7E9-B9CB72AC9F3A}
+		{2EE065B5-8922-4FDD-B15B-5CB832D9B2B2} = {54ED0C13-36DF-4BD8-A7E9-B9CB72AC9F3A}
 	EndGlobalSection
 EndGlobal
