@@ -26,13 +26,7 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
                 throw new ArgumentNullException(nameof(token));
             }
 
-            var mongoToken = new MongoToken()
-            {
-                Id = token.Id,
-                UserId = token.UserId,
-                AuthToken = token.AuthToken,
-                Expiration = token.Expiration
-            };
+            var mongoToken = MapToMongoToken(token);
 
             _repository.Insert(mongoToken);
         }
@@ -45,14 +39,30 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
             }
 
             MongoToken mongoToken;
-            if (_repository.TryFind(t => t.Id.Equals(id), out mongoToken))
+            if (_repository.TryFind(t => !t.IsDeleted && t.Id.Equals(id), out mongoToken))
             {
-                token = new Token(mongoToken.Id, mongoToken.UserId, mongoToken.AuthToken, mongoToken.Expiration);
+                token = Mapper.MapperHelper.Map<MongoToken, Token>(mongoToken);
                 return true;
             }
 
             token = null;
             return false;
+        }
+
+        public void Update(Token token)
+        {
+            if (token == null)
+            {
+                throw new ArgumentNullException(nameof(token));
+            }
+
+            var mongoToken = MapToMongoToken(token);
+            _repository.ReplaceOne(t => t.Id.Equals(mongoToken.Id), mongoToken);
+        }
+
+        private MongoToken MapToMongoToken(Token token)
+        {
+            return Mapper.MapperHelper.Map<Token, MongoToken>(token);
         }
     }
 }

@@ -42,12 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthSystemToken.cs" />
-    <Compile Include="Validator\AuthTokenValidatorContainer.cs" />
-    <Compile Include="Validator\FacebookValidatorAdapter.cs" />
-    <Compile Include="Validator\IAuthTokenValidator.cs" />
-    <Compile Include="Validator\IAuthTokenValidatorContainer.cs" />
+    <Compile Include="AuthTokenValidation\AuthTokenValidatorContainer.cs" />
+    <Compile Include="AuthTokenValidation\FacebookValidatorAdapter.cs" />
+    <Compile Include="AuthTokenValidation\IAuthTokenValidator.cs" />
+    <Compile Include="AuthTokenValidation\IAuthTokenValidatorContainer.cs" />
     <Compile Include="ITokenGenerator.cs" />
     <Compile Include="ITokenRepository.cs" />
+    <Compile Include="ITokenValidationService.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="NotAuthorizedException.cs" />
@@ -55,10 +56,11 @@
     <Compile Include="Token.cs" />
     <Compile Include="TokenGenerator.cs" />
     <Compile Include="TokenId.cs" />
+    <Compile Include="TokenValidationService.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserId.cs" />
     <Compile Include="UserService.cs" />
-    <Compile Include="Validator\UCoachValidatorAdapter.cs" />
+    <Compile Include="AuthTokenValidation\UCoachValidatorAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">

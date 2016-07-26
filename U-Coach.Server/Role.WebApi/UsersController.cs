@@ -2,7 +2,6 @@
 using System.Web.Http;
 using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.Role.Domain;
-using PVDevelop.UCoach.Server.Role.Domain.Validator;
 
 namespace PVDevelop.UCoach.Server.Role.WebApi
 {

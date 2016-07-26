@@ -7,12 +7,11 @@ using PVDevelop.UCoach.Server.Role.Domain;
 using PVDevelop.UCoach.Server.Role.Mongo;
 using PVDevelop.UCoach.Server.Timing;
 using StructureMap;
-using PVDevelop.UCoach.Server.Role.WebApi;
 using PVDevelop.UCoach.Server.RestClient;
 using System;
 using PVDevelop.UCoach.Server.Role.FacebookRestClient;
 using PVDevelop.UCoach.Server.Role.FacebookContract;
-using PVDevelop.UCoach.Server.Role.Domain.Validator;
+using PVDevelop.UCoach.Server.Role.Domain.AuthTokenValidation;
 
 namespace Role.IisWebApiHost
 {
@@ -33,6 +32,7 @@ namespace Role.IisWebApiHost
             _container = new Container(x =>
             {
                 x.For<IUserService>().Use<UserService>();
+                x.For<ITokenValidationService>().Use<TokenValidationService>();
                 x.For<ITokenGenerator>().Use<TokenGenerator>();
                 x.For<IUtcTimeProvider>().Use<UtcTimeProvider>();
 

@@ -21,6 +21,11 @@ namespace PVDevelop.UCoach.Server.RestClient
             return Create(resource, RestSharp.Method.GET, segments);
         }
 
+        public IRestClient CreateDelete(string resource, params string[] segments)
+        {
+            return Create(resource, RestSharp.Method.DELETE, segments);
+        }
+
         public IRestClient CreatePost(string resource, params string[] segments)
         {
             return Create(resource, RestSharp.Method.POST, segments);

@@ -49,6 +49,7 @@
     <Compile Include="AuthUserRegisterDto.cs" />
     <Compile Include="FacebookRedirectDto.cs" />
     <Compile Include="IFacebookClient.cs" />
+    <Compile Include="ITokensClient.cs" />
     <Compile Include="IUCoachAuthClient.cs" />
     <Compile Include="IUsersClient.cs" />
     <Compile Include="Routes.cs" />

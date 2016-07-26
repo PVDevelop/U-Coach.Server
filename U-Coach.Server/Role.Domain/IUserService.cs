@@ -12,5 +12,10 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         /// Возвращает пользователя по токену
         /// </summary>
         User GetUserByToken(TokenId tokenId);
+
+        /// <summary>
+        /// Удаляет токен
+        /// </summary>
+        void DeleteToken(TokenId tokenId);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace PVDevelop.UCoach.Server.Role.Domain.Validator
+﻿namespace PVDevelop.UCoach.Server.Role.Domain.AuthTokenValidation
 {
     public interface IAuthTokenValidator
     {

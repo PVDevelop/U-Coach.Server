@@ -9,10 +9,12 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
     public class UsersController : ApiController
     {
         private readonly IUsersClient _usersClient;
+        private readonly ITokensClient _tokensClient;
         private readonly ITokenManager _tokenManager;
 
         public UsersController(
             IUsersClient usersClient,
+            ITokensClient tokensClient,
             ITokenManager tokenManager)
         {
             if (usersClient == null)
@@ -23,9 +25,14 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
             {
                 throw new ArgumentNullException(nameof(tokenManager));
             }
+            if(tokensClient == null)
+            {
+                throw new ArgumentNullException(nameof(tokensClient));
+            }
 
             _usersClient = usersClient;
             _tokenManager = tokenManager;
+            _tokensClient = tokensClient;
         }
 
         [HttpGet]
@@ -38,6 +45,8 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
                 throw new ApplicationException("Empty token in cookies");
             }
 
+            _tokensClient.Validate(token);
+
             var userInfo = _usersClient.GetUserInfo(token);
             return Ok(userInfo);
         }
@@ -47,7 +56,14 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
         public IHttpActionResult Logout()
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            _tokenManager.Delete(this, response.Headers);
+
+            string token;
+            if (_tokenManager.TryGet(this, out token))
+            {
+                _tokensClient.Delete(token);
+                _tokenManager.Delete(this, response.Headers);
+            }
+
             return ResponseMessage(response);
         }
     }

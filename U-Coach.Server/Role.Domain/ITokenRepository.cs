@@ -7,5 +7,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         void Insert(Token token);
 
         bool TryGet(TokenId id, out Token token);
+
+        void Update(Token token);
     }
 }

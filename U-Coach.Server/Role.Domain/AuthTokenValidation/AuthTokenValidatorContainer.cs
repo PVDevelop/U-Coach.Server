@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using PVDevelop.UCoach.Server.Role.Contract;
 
-namespace PVDevelop.UCoach.Server.Role.Domain.Validator
+namespace PVDevelop.UCoach.Server.Role.Domain.AuthTokenValidation
 {
     public class AuthTokenValidatorContainer : IAuthTokenValidatorContainer
     {

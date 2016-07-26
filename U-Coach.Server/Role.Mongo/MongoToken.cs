@@ -20,6 +20,8 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
 
         public AuthSystemToken AuthToken { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public MongoToken()
         {
             Version = VERSION;

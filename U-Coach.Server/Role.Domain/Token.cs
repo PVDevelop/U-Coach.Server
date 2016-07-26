@@ -24,6 +24,11 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         /// </summary>
         public DateTime Expiration { get; private set; }
 
+        /// <summary>
+        /// Признак того, что токен был удален
+        /// </summary>
+        public bool IsDeleted { get; private set; }
+
         public Token(
             TokenId id,
             UserId userId,
@@ -55,6 +60,11 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             UserId = userId;
             AuthToken = authToken;
             Expiration = expiration;
+        }
+
+        public void Delete()
+        {
+            IsDeleted = true;
         }
     }
 }

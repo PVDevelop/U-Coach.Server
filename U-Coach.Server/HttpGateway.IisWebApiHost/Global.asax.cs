@@ -56,6 +56,11 @@ namespace PVDevelop.UCoach.Server.HttpGateway.IisWebApiHost
                 Ctor<IRestClientFactory>().
                 IsNamedInstance("role_rest_client_factory");
 
+            x.For<Role.Contract.ITokensClient>().
+                Use<Role.RestClient.RestTokensClient>().
+                Ctor<IRestClientFactory>().
+                IsNamedInstance("role_rest_client_factory");
+
             x.For<Role.Contract.IFacebookClient>().
                 Use<Role.RestClient.RestFacebookClient>().
                 Ctor<IRestClientFactory>().

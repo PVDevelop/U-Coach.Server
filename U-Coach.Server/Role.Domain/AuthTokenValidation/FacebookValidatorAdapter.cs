@@ -1,7 +1,7 @@
 ﻿using System;
 using PVDevelop.UCoach.Server.Role.FacebookContract;
 
-namespace PVDevelop.UCoach.Server.Role.Domain.Validator
+namespace PVDevelop.UCoach.Server.Role.Domain.AuthTokenValidation
 {
     public class FacebookValidatorAdapter : IAuthTokenValidator
     {

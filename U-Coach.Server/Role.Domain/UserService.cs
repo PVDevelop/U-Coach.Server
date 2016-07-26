@@ -1,5 +1,5 @@
 ﻿using System;
-using PVDevelop.UCoach.Server.Role.Domain.Validator;
+using PVDevelop.UCoach.Server.Role.Domain.AuthTokenValidation;
 using PVDevelop.UCoach.Server.Timing;
 
 namespace PVDevelop.UCoach.Server.Role.Domain
@@ -15,14 +15,12 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         private readonly ITokenRepository _tokenRepository;
         private readonly ITokenGenerator _tokenGenerator;
         private readonly IUtcTimeProvider _timeProvider;
-        private readonly IAuthTokenValidatorContainer _validatorContainer;
 
         public UserService(
             ITokenGenerator tokenGenerator,
             IUserRepository userRepository,
             ITokenRepository tokenRepository,
-            IUtcTimeProvider timeProvider,
-            IAuthTokenValidatorContainer validatorContainer)
+            IUtcTimeProvider timeProvider)
         {
             if (tokenGenerator == null)
             {
@@ -40,16 +38,11 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             {
                 throw new ArgumentNullException(nameof(timeProvider));
             }
-            if (validatorContainer == null)
-            {
-                throw new ArgumentNullException(nameof(validatorContainer));
-            }
 
             _tokenGenerator = tokenGenerator;
             _userRepository = userRepository;
             _tokenRepository = tokenRepository;
             _timeProvider = timeProvider;
-            _validatorContainer = validatorContainer;
         }
 
         public Token RegisterUserToken(
@@ -99,8 +92,6 @@ namespace PVDevelop.UCoach.Server.Role.Domain
                 throw new NotAuthorizedException(string.Format("Token {0} not found", tokenId.Token));
             }
 
-            ValidateToken(token);
-
             User user;
             if (!_userRepository.TryGet(token.UserId, out user))
             {
@@ -111,10 +102,21 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             return user;
         }
 
-        private void ValidateToken(Token token)
+        public void DeleteToken(TokenId tokenId)
         {
-            var validator = _validatorContainer.GetValidator(token.UserId.AuthSystemName);
-            validator.Validate(token.AuthToken);
+            if(tokenId == null)
+            {
+                throw new ArgumentNullException(nameof(tokenId));
+            }
+
+            Token token;
+            if (!_tokenRepository.TryGet(tokenId, out token))
+            {
+                return;
+            }
+
+            token.Delete();
+            _tokenRepository.Update(token);
         }
     }
 }

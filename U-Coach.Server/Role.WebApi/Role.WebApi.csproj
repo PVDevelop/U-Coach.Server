@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="FacebookController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TokensController.cs" />
     <Compile Include="UCoachAuthenticationController.cs" />
     <Compile Include="UsersController.cs" />
   </ItemGroup>
