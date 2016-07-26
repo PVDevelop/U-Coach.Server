@@ -7,7 +7,7 @@ using System.Web.Http;
 using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.Timing;
 
-namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
+namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
 {
     public class CookiesTokenManager : ITokenManager
     {

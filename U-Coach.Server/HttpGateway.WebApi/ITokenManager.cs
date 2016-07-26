@@ -2,7 +2,7 @@
 using System.Web.Http;
 using PVDevelop.UCoach.Server.Role.Contract;
 
-namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
+namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
 {
     public interface ITokenManager
     {

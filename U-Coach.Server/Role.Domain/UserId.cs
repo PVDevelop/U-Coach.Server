@@ -7,6 +7,18 @@ namespace PVDevelop.UCoach.Server.Role.Domain
     /// </summary>
     public class UserId
     {
+        public const string SPLITTER = "%40";
+
+        public static UserId Parse(string str)
+        {
+            var subStrings = str.Split(new[] { SPLITTER }, StringSplitOptions.None);
+            if(subStrings.Length != 2)
+            {
+                throw new ArgumentException("Does not meet id format", nameof(str));
+            }
+            return new UserId(subStrings[0], subStrings[1]);
+        }
+
         /// <summary>
         /// Имя системы, в которой аутентифицируется пользователь
         /// </summary>
@@ -58,7 +70,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
 
         public override string ToString()
         {
-            return string.Join(".", AuthSystemName, AuthId);
+            return string.Join(SPLITTER, AuthSystemName, AuthId);
         }
     }
 }

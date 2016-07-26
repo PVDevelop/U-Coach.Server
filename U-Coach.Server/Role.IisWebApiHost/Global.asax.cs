@@ -7,6 +7,9 @@ using PVDevelop.UCoach.Server.Role.Domain;
 using PVDevelop.UCoach.Server.Role.Mongo;
 using PVDevelop.UCoach.Server.Timing;
 using StructureMap;
+using PVDevelop.UCoach.Server.Role.WebApi;
+using PVDevelop.UCoach.Server.RestClient;
+using System;
 
 namespace Role.IisWebApiHost
 {
@@ -28,15 +31,68 @@ namespace Role.IisWebApiHost
             {
                 x.For<IUserService>().Use<UserService>();
                 x.For<ITokenGenerator>().Use<TokenGenerator>();
-                x.For<ITokenRepository>().Use<TokenRepository>();
-                x.For<IUserRepository>().Use<UserRepository>();
-                x.For<IMongoRepository<MongoToken>>().Use<MongoRepository<MongoToken>>();
-                x.For<IMongoRepository<MongoUser>>().Use<MongoRepository<MongoUser>>();
-                x.For<IConnectionStringProvider>().Use<ConfigurationConnectionStringProvider>().Ctor<string>().Is("mongo");
                 x.For<IUtcTimeProvider>().Use<UtcTimeProvider>();
+
+                SetupMongo(x);
+                SetupAuth(x);
+                SetupFacebook(x);
             });
 
             return _container;
+        }
+
+        private static void SetupFacebook(ConfigurationExpression x)
+        {
+            x.For<ISettingsProvider<IFacebookOAuthSettings>>().Use<ConfigurationSectionSettingsProvider<IFacebookOAuthSettings>>().Ctor<string>().Is("facebookSettings");
+            x.For<IFacebookOAuthSettings>().Use<FacebookOAuthSettingsSection>();
+        }
+
+        private static void SetupMongo(ConfigurationExpression x)
+        {
+            x.
+                For<IConnectionStringProvider>().
+                Use<ConfigurationConnectionStringProvider>().
+                Ctor<string>().
+                Is("mongo").
+                Named("mongo_settings");
+
+            x.
+                For<IMongoRepository<MongoToken>>().
+                Use<MongoRepository<MongoToken>>().
+                Ctor<IConnectionStringProvider>().
+                IsNamedInstance("mongo_settings");
+
+            x.
+                For<IMongoRepository<MongoUser>>().
+                Use<MongoRepository<MongoUser>>().
+                Ctor<IConnectionStringProvider>().
+                IsNamedInstance("mongo_settings");
+
+            x.For<ITokenRepository>().Use<TokenRepository>();
+            x.For<IUserRepository>().Use<UserRepository>();
+        }
+
+        private static void SetupAuth(ConfigurationExpression x)
+        {
+            x.
+                For<IConnectionStringProvider>().
+                Use<ConfigurationConnectionStringProvider>().
+                Ctor<string>().
+                Is("auth").
+                Named("auth_settings");
+
+            x.
+                For<IRestClientFactory>().
+                Use<RestClientFactory>().
+                Ctor<IConnectionStringProvider>().
+                IsNamedInstance("auth_settings").
+                Named("auth_rest_client_factory");
+
+            x.
+                For<PVDevelop.UCoach.Server.Auth.Contract.IUsersClient>().
+                    Use<PVDevelop.UCoach.Server.Auth.RestClient.RestUsersClient>().
+                    Ctor<IRestClientFactory>().
+                    IsNamedInstance("auth_rest_client_factory");
         }
     }
 }

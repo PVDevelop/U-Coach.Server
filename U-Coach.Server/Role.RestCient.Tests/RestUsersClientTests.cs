@@ -39,37 +39,6 @@ namespace Role.RestCient.Tests
         }
 
         [Test]
-        public void RegisterUser_MockUserService_CallsRegisterUserToken()
-        {
-            // arrange
-            var userService = MockRepository.GenerateMock<IUserService>();
-
-            var userId = new UserId("system", "id");
-            var authToken = new AuthSystemToken("token", DateTime.UtcNow);
-
-            var token = new Token(new TokenId("tokenId"), userId, authToken, DateTime.UtcNow.AddDays(1));
-
-            userService.
-                Expect(us => 
-                    us.RegisterUserToken(
-                        Arg<UserId>.Is.Equal(userId), 
-                        Arg<AuthSystemToken>.Matches(t => t.Token == authToken.Token && t.Expiration == authToken.Expiration))).
-                Return(token);
-
-            // act
-            var tokenDto = WithServer(6000, userService, client =>
-            {
-                var authUserRegisterDto = new AuthUserRegisterDto(authToken.Token, authToken.Expiration);
-                return client.RegisterUser(userId.AuthSystemName, userId.AuthId, authUserRegisterDto);
-            });
-
-            // assert
-            userService.VerifyAllExpectations();
-            Assert.AreEqual(token.Id.Token, tokenDto.Token);
-            Assert.AreEqual(token.Expiration, tokenDto.Expiration);
-        }
-
-        [Test]
         public void GetUserInfo_MockUserService_CallsGetUserByToken()
         {
             // arrange
@@ -92,7 +61,7 @@ namespace Role.RestCient.Tests
 
             // assert
             userService.VerifyAllExpectations();
-            var expectedUserId = string.Format("{0}.{1}", user.Id.AuthSystemName, user.Id.AuthId);
+            var expectedUserId = userId.ToString();
             Assert.AreEqual(expectedUserId, userInfoDto.Id);
         }
     }

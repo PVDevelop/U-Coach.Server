@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Newtonsoft.Json;
 using PVDevelop.UCoach.Server.Configuration;
-using PVDevelop.UCoach.Server.HttpGateway.Contract;
-using PVDevelop.UCoach.Server.HttpGateway.WebApi.Settings;
 using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Role.Contract;
+using PVDevelop.UCoach.Server.Role.Domain;
 using PVDevelop.UCoach.Server.Timing;
 
-namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
+namespace PVDevelop.UCoach.Server.Role.WebApi
 {
     public class FacebookController : ApiController
     {
@@ -40,20 +37,18 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
 
         #endregion
 
-        private readonly IUsersClient _roleUsersClient;
+        private readonly IUserService _userService;
         private readonly ISettingsProvider<IFacebookOAuthSettings> _settingsProvider;
         private readonly IUtcTimeProvider _utcTimeProvider;
-        private readonly ITokenManager _tokenManager;
 
         public FacebookController(
-            IUsersClient roleUsersClient,
+            IUserService userService,
             ISettingsProvider<IFacebookOAuthSettings> settingsProvider,
-            IUtcTimeProvider utcTimeProvider,
-            ITokenManager tokenManager)
+            IUtcTimeProvider utcTimeProvider)
         {
-            if (roleUsersClient == null)
+            if (userService == null)
             {
-                throw new ArgumentNullException(nameof(roleUsersClient));
+                throw new ArgumentNullException(nameof(userService));
             }
             if (settingsProvider == null)
             {
@@ -63,19 +58,14 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
             {
                 throw new ArgumentNullException(nameof(utcTimeProvider));
             }
-            if (tokenManager == null)
-            {
-                throw new ArgumentNullException(nameof(tokenManager));
-            }
 
-            _roleUsersClient = roleUsersClient;
+            _userService = userService;
             _settingsProvider = settingsProvider;
             _utcTimeProvider = utcTimeProvider;
-            _tokenManager = tokenManager;
         }
 
         [HttpGet]
-        [Route(Contract.Routes.FACEBOOK_REDIRECT_URI)]
+        [Route(Routes.FACEBOOK_REDIRECT_URI)]
         public IHttpActionResult RedirectToAuthorization(
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
@@ -97,26 +87,23 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Controller
         }
 
         [HttpGet]
-        [Route(Contract.Routes.FACEBOOK_TOKEN)]
+        [Route(Routes.FACEBOOK_TOKEN)]
         public IHttpActionResult GetToken(
-            [FromUri] string code,
+            [FromUri(Name = "code")] string code,
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
             var facebookTokenDto = GetFacebookToken(code, redirectUri);
             var profileDto = GetFacebookProfile(facebookTokenDto.Token);
 
             var expiration = _utcTimeProvider.UtcNow.AddSeconds(facebookTokenDto.ExpiredInSeconds);
-            var userRegisterDto = new AuthUserRegisterDto(facebookTokenDto.Token, expiration);
 
-            var tokenDto =
-                _roleUsersClient.
-                RegisterUser(AuthSystems.FACEBOOK_SYSTEM_NAME, profileDto.Id, userRegisterDto);
+            var userId = new UserId(AuthSystems.FACEBOOK_SYSTEM_NAME, profileDto.Id);
+            var authSystemToken = new AuthSystemToken(facebookTokenDto.Token, expiration);
+            var token = _userService.RegisterUserToken(userId, authSystemToken);
 
-            // заполняем cookie
-            var response = new HttpResponseMessage(HttpStatusCode.OK);
-            _tokenManager.SetToken(this, response.Headers, tokenDto);
+            var tokenDto = new TokenDto(token.Id.Token, token.Expiration);
 
-            return ResponseMessage(response);
+            return Ok(tokenDto);
         }
 
         private static IRestClientFactory GetFacebookGraphClientFactory()

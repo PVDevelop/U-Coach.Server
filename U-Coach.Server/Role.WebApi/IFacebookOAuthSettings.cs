@@ -1,4 +1,4 @@
-﻿namespace PVDevelop.UCoach.Server.HttpGateway.WebApi.Settings
+﻿namespace PVDevelop.UCoach.Server.Role.WebApi
 {
     public interface IFacebookOAuthSettings
     {

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcAuthrorization.Models;
 using PVDevelop.UCoach.Server.WebApi;
+using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.HttpGateway.Contract;
 
 namespace MvcAuthrorization.Controllers
@@ -34,7 +35,7 @@ namespace MvcAuthrorization.Controllers
                 var response =
                     await builder.
                     AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
-                    BuildGetAsync(Routes.FACEBOOK_REDIRECT_URI);
+                    BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.FACEBOOK_REDIRECT_URI);
 
                 var result =
                     response.
@@ -54,7 +55,7 @@ namespace MvcAuthrorization.Controllers
                     await builder.
                     AddParameter("code", code).
                     AddParameter("redirect_uri", GetFacebookCodeRedirectUri()).
-                    BuildGetAsync(Routes.FACEBOOK_TOKEN);
+                    BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.FACEBOOK_TOKEN);
 
                 var result = 
                     response.
@@ -75,7 +76,7 @@ namespace MvcAuthrorization.Controllers
                     await builder.
                     AddParameter("login", model.Login).
                     AddParameter("password", model.Password).
-                    BuildGetAsync(Routes.UCOACH_TOKEN);
+                    BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.UCOACH_TOKEN);
 
                 var result =
                     response.

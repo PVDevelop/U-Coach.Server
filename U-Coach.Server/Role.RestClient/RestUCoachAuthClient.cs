@@ -4,13 +4,13 @@ using PVDevelop.UCoach.Server.Role.Contract;
 
 namespace PVDevelop.UCoach.Server.Role.RestClient
 {
-    public class RestUsersClient : IUsersClient
+    public class RestUCoachAuthClient : IUCoachAuthClient
     {
         private readonly IRestClientFactory _restClientFactory;
 
-        public RestUsersClient(IRestClientFactory restClientFactory)
+        public RestUCoachAuthClient(IRestClientFactory restClientFactory)
         {
-            if(restClientFactory == null)
+            if (restClientFactory == null)
             {
                 throw new ArgumentNullException(nameof(restClientFactory));
             }
@@ -18,14 +18,16 @@ namespace PVDevelop.UCoach.Server.Role.RestClient
             _restClientFactory = restClientFactory;
         }
 
-        public UserInfoDto GetUserInfo(string token)
+        public TokenDto GetToken(string login, string password)
         {
             return
                 _restClientFactory.
-                CreateGet(Routes.USER_INFO, token).
+                CreateGet(Routes.UCOACH_TOKEN).
+                AddParameter("login", login).
+                AddParameter("password", password).
                 Execute().
                 CheckGetResult().
-                GetJsonContent<UserInfoDto>();
+                GetJsonContent<TokenDto>();
         }
     }
 }
