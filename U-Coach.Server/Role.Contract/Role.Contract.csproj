@@ -55,7 +55,7 @@
     <Compile Include="Routes.cs" />
     <Compile Include="TokenDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInfoDto.cs" />
+    <Compile Include="UserIdDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

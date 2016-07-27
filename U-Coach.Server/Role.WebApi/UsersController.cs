@@ -26,7 +26,7 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
         {
             var tokenId = new TokenId(token);
             var user = _userService.GetUserByToken(tokenId);
-            var userInfoDto = new UserInfoDto(user.Id.ToString());
+            var userInfoDto = new UserIdDto(user.Id.Id);
 
             return Ok(userInfoDto);
         }

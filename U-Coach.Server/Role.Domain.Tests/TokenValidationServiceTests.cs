@@ -18,19 +18,20 @@ namespace Role.Domain.Tests
             var autoMocker = new RhinoAutoMocker<TokenValidationService>();
 
             var tokenId = new TokenId("token");
-            var userId = new UserId("system", "id");
+            var userId = new UserId(Guid.NewGuid());
+            var authUserId = new AuthUserId("system", "id");
             var authSystemToken = new AuthSystemToken("authToken", DateTime.UtcNow.AddDays(1));
 
             var validator = autoMocker.Get<IAuthTokenValidator>();
             validator.Expect(v => v.Validate(authSystemToken));
 
             var validatorContainer = autoMocker.Get<IAuthTokenValidatorContainer>();
-            validatorContainer.Stub(c => c.GetValidator(userId.AuthSystemName)).Return(validator);
+            validatorContainer.Stub(c => c.GetValidator(authUserId.AuthSystemName)).Return(validator);
 
             var token = new Token(tokenId, userId, authSystemToken, DateTime.UtcNow.AddDays(1));
 
             // act
-            autoMocker.ClassUnderTest.Validate(token);
+            autoMocker.ClassUnderTest.Validate(token, authUserId.AuthSystemName);
 
             // assert
             validator.VerifyAllExpectations();
@@ -47,13 +48,13 @@ namespace Role.Domain.Tests
             utcTimeProvider.Stub(t => t.UtcNow).Return(dateTime);
 
             var tokenId = new TokenId("token");
-            var userId = new UserId("system", "id");
+            var userId = new UserId(Guid.NewGuid());
             var authSystemToken = new AuthSystemToken("authToken", dateTime.AddDays(1));
 
             var token = new Token(tokenId, userId, authSystemToken, dateTime.AddDays(-1));
 
             // act
-            Assert.Throws<NotAuthorizedException>(() => autoMocker.ClassUnderTest.Validate(token));
+            Assert.Throws<NotAuthorizedException>(() => autoMocker.ClassUnderTest.Validate(token, "some_system"));
         }
     }
 }

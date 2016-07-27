@@ -6,7 +6,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         /// <summary>
         /// Регистрация нового пользователя из внешней системы аутентифакции и возвращает токен
         /// </summary>
-        Token RegisterUserToken(UserId userId, AuthSystemToken authToken);
+        Token RegisterUserToken(AuthUserId authUserId, AuthSystemToken authToken);
 
         /// <summary>
         /// Возвращает пользователя по токену

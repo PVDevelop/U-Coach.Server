@@ -1,5 +1,4 @@
 ﻿using System;
-using PVDevelop.UCoach.Server.Role.Domain.AuthTokenValidation;
 using PVDevelop.UCoach.Server.Timing;
 
 namespace PVDevelop.UCoach.Server.Role.Domain
@@ -53,22 +52,19 @@ namespace PVDevelop.UCoach.Server.Role.Domain
         }
 
         public Token RegisterUserToken(
-            UserId userId,
+            AuthUserId authUserId,
             AuthSystemToken authToken)
         {
-            if (userId == null)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
             if (authToken == null)
             {
                 throw new ArgumentNullException(nameof(authToken));
             }
 
             User user;
-            if (!_userRepository.TryGet(userId, out user))
+            if (!_userRepository.TryGetByAuthUserId(authUserId, out user))
             {
-                user = new User(userId);
+                var userId = new UserId(Guid.NewGuid());
+                user = new User(userId, authUserId);
                 _userRepository.Insert(user);
             }
 
@@ -79,7 +75,7 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             if (!_tokenRepository.TryGet(tokenId, out privateToken))
             {
                 var expiration = _timeProvider.UtcNow + TokenDuration;
-                privateToken = new Token(tokenId, userId, authToken, expiration);
+                privateToken = new Token(tokenId, user.Id, authToken, expiration);
                 _tokenRepository.Insert(privateToken);
             }
 
@@ -99,14 +95,14 @@ namespace PVDevelop.UCoach.Server.Role.Domain
                 throw new NotAuthorizedException(string.Format("Token {0} not found", tokenId.Token));
             }
 
-            _tokenValidator.Validate(token);
-
             User user;
             if (!_userRepository.TryGet(token.UserId, out user))
             {
                 // Ошибка - токен есть, а пользователя нет!
                 throw new ApplicationException(string.Format("User {0} not found", tokenId.Token));
             }
+
+            _tokenValidator.Validate(token, user.AuthUserId.AuthSystemName);
 
             return user;
         }

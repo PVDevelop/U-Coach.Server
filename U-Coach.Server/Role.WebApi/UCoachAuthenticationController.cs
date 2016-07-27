@@ -35,9 +35,9 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
         {
             var authToken = _authUsersClient.Logon(login, password);
 
-            var userId = new UserId(AuthSystems.UCOACH_SYSTEM_NAME, authToken.UserId);
+            var authUserId = new AuthUserId(AuthSystems.UCOACH_SYSTEM_NAME, authToken.UserId);
             var authSystemToken = new AuthSystemToken(authToken.Key, authToken.ExpiryDate);
-            var token = _userService.RegisterUserToken(userId, authSystemToken);
+            var token = _userService.RegisterUserToken(authUserId, authSystemToken);
 
             var tokenDto = new TokenDto(token.Id.Token, token.Expiration);
 

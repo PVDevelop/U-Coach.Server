@@ -2,75 +2,42 @@
 
 namespace PVDevelop.UCoach.Server.Role.Domain
 {
-    /// <summary>
-    /// Идентификатор пользователя
-    /// </summary>
     public class UserId
     {
-        public const string SPLITTER = "%40";
-
-        public static UserId Parse(string str)
-        {
-            var subStrings = str.Split(new[] { SPLITTER }, StringSplitOptions.None);
-            if(subStrings.Length != 2)
-            {
-                throw new ArgumentException("Does not meet id format", nameof(str));
-            }
-            return new UserId(subStrings[0], subStrings[1]);
-        }
-
         /// <summary>
         /// Имя системы, в которой аутентифицируется пользователь
         /// </summary>
-        public string AuthSystemName { get; set; }
+        public Guid Id { get; set; }
 
-        /// <summary>
-        /// Идентификатор пользователя в системе, в которой аутентифицируется пользователь
-        /// </summary>
-        public string AuthId { get; set; }
-
-        public UserId(string authSystemName, string authId)
+        public UserId(Guid id)
         {
-            if (authSystemName == null)
+            if(id == default(Guid))
             {
-                throw new ArgumentNullException(nameof(authSystemName));
-            }
-            if (authId == null)
-            {
-                throw new ArgumentNullException(nameof(authId));
+                throw new ArgumentException("Is empty", nameof(id));
             }
 
-            AuthSystemName = authSystemName;
-            AuthId = authId;
+            Id = id;
         }
 
         public override int GetHashCode()
         {
-            return
-                AuthSystemName.GetHashCode() ^ AuthId.GetHashCode();
+            return Id.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
-            if(ReferenceEquals(this, obj))
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
 
             var userId = obj as UserId;
-            if(userId == null)
+            if (userId == null)
             {
                 return false;
             }
 
-            return
-                AuthSystemName == userId.AuthSystemName &&
-                AuthId == userId.AuthId;
-        }
-
-        public override string ToString()
-        {
-            return string.Join(SPLITTER, AuthSystemName, AuthId);
+            return Id == userId.Id;
         }
     }
 }

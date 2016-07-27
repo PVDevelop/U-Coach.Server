@@ -5,6 +5,6 @@
         /// <summary>
         /// Валидирует токен и в случае невалидности кидает NotAuthorizedException
         /// </summary>
-        void Validate(Token token);
+        void Validate(Token token, string authSystemName);
     }
 }

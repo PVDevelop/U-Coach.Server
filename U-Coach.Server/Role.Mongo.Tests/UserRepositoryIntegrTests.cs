@@ -34,15 +34,16 @@ namespace Role.Mongo.Tests
             {
                 var autoMocker = CreateRepository(settings);
 
-                var userId = new UserId("someSystem", "someId");
-                var user = new User(userId);
+                var userId = new UserId(Guid.NewGuid());
+                var authUserId = new AuthUserId("system", "id");
+                var user = new User(userId, authUserId);
 
                 autoMocker.ClassUnderTest.Insert(user);
 
                 var collection = MongoHelper.GetCollection<MongoUser>(settings);
                 var mongoUser = 
                     collection.
-                    Find(u => u.Id.AuthId == userId.AuthId && u.Id.AuthSystemName == userId.AuthSystemName).
+                    Find(u => u.Id.Equals(user.Id)).
                     SingleOrDefault();
 
                 Assert.NotNull(mongoUser);
@@ -52,20 +53,48 @@ namespace Role.Mongo.Tests
         }
 
         [Test]
-        public void Get_PrevioulsyAddUser_ReturnsValidUser()
+        public void TryGet_PrevioulsyAddUser_ReturnsValidUser()
         {
             var settings = TestMongoHelper.CreateSettings();
             TestMongoHelper.WithDb(settings, db =>
             {
                 var autoMocker = CreateRepository(settings);
 
-                var userId = new UserId("someSystem", "someId");
+                var userId = new UserId(Guid.NewGuid());
+                var authUserId = new AuthUserId("someSystem", "someId");
 
-                var user = new User(userId);
+                var user = new User(userId, authUserId);
 
                 autoMocker.ClassUnderTest.Insert(user);
                 User userAfterInsert;
                 var found = autoMocker.ClassUnderTest.TryGet(userId, out userAfterInsert);
+
+                Assert.IsTrue(found);
+                Assert.NotNull(userAfterInsert);
+                string comparisonResult;
+                Assert.IsTrue(
+                    new TestComparer().
+                    WithMongoDateTimeComparer().
+                    Compare(user, userAfterInsert, out comparisonResult), comparisonResult);
+            });
+        }
+
+        [Test]
+        public void TryGetByAuthUserId_PrevioulsyAddUser_ReturnsValidUser()
+        {
+            var settings = TestMongoHelper.CreateSettings();
+            TestMongoHelper.WithDb(settings, db =>
+            {
+                var autoMocker = CreateRepository(settings);
+
+                var userId = new UserId(Guid.NewGuid());
+                var authUserId = new AuthUserId("someSystem", "someId");
+
+                var user = new User(userId, authUserId);
+
+                autoMocker.ClassUnderTest.Insert(user);
+                User userAfterInsert;
+                var found = autoMocker.ClassUnderTest.TryGetByAuthUserId(authUserId, out userAfterInsert);
 
                 Assert.IsTrue(found);
                 Assert.NotNull(userAfterInsert);

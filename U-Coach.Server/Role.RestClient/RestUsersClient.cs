@@ -19,7 +19,7 @@ namespace PVDevelop.UCoach.Server.Role.RestClient
             _restClientFactory = restClientFactory;
         }
 
-        public UserInfoDto GetUserInfo(string token)
+        public UserIdDto GetUserInfo(string token)
         {
             return
                 _restClientFactory.
@@ -27,7 +27,7 @@ namespace PVDevelop.UCoach.Server.Role.RestClient
                 AddParameter("token", token).
                 Execute().
                 CheckGetResult().
-                GetJsonContent<UserInfoDto>();
+                GetJsonContent<UserIdDto>();
         }
     }
 }

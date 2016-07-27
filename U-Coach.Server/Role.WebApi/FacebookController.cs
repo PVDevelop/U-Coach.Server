@@ -60,9 +60,9 @@ namespace PVDevelop.UCoach.Server.Role.WebApi
 
             var expiration = _utcTimeProvider.UtcNow.AddSeconds(facebookTokenDto.ExpiredInSeconds);
 
-            var userId = new UserId(AuthSystems.FACEBOOK_SYSTEM_NAME, profileDto.Id);
+            var authUserId = new AuthUserId(AuthSystems.FACEBOOK_SYSTEM_NAME, profileDto.Id);
             var authSystemToken = new AuthSystemToken(facebookTokenDto.Token, expiration);
-            var token = _userService.RegisterUserToken(userId, authSystemToken);
+            var token = _userService.RegisterUserToken(authUserId, authSystemToken);
 
             var tokenDto = new TokenDto(token.Id.Token, token.Expiration);
 

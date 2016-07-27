@@ -26,23 +26,22 @@ namespace MvcAuthrorization.Controllers
         {
             try
             {
-                UserInfoDto userInfoDto;
                 using (var builder = _actionResultBuilderFactory.CreateActionResultBuilder())
                 {
-                    userInfoDto = (await
+                    var userIdDto = (await
                         builder.
                         AddCookies(Request.ToCookieCollection()).
                         BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.USER_INFO)).
                         EnsureSuccessStatusCode().
-                        ToJson<UserInfoDto>();
+                        ToJson<UserIdDto>();
+
+                    var profileModel = new UserProfileModel()
+                    {
+                        Id = userIdDto.Id.ToString()
+                    };
+
+                    return View(profileModel);
                 }
-
-                var profileModel = new UserProfileModel()
-                {
-                    Id = userInfoDto.Id
-                };
-
-                return View(profileModel);
             }
             catch
             {

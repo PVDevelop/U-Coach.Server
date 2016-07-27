@@ -58,6 +58,7 @@
     <Compile Include="TokenId.cs" />
     <Compile Include="TokenValidationService.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="AuthUserId.cs" />
     <Compile Include="UserId.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="AuthTokenValidation\UCoachValidatorAdapter.cs" />

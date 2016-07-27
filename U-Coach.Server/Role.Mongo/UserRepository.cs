@@ -26,11 +26,7 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var mongoUser = new MongoUser()
-            {
-                Id = user.Id
-            };
-
+            var mongoUser = Mapper.MapperHelper.Map<User, MongoUser>(user);
             _repository.Insert(mongoUser);
         }
 
@@ -44,7 +40,26 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
             MongoUser mongoUser;
             if (_repository.TryFind(u => u.Id.Equals(id), out mongoUser))
             {
-                user = new User(id);
+                user = Mapper.MapperHelper.Map<MongoUser, User>(mongoUser);
+                return true;
+            }
+
+            user = null;
+            return false;
+        }
+
+#warning протестировать
+        public bool TryGetByAuthUserId(AuthUserId authUserId, out User user)
+        {
+            if (authUserId == null)
+            {
+                throw new ArgumentNullException(nameof(authUserId));
+            }
+
+            MongoUser mongoUser;
+            if (_repository.TryFind(u => u.AuthUserId.Equals(authUserId), out mongoUser))
+            {
+                user = Mapper.MapperHelper.Map<MongoUser, User>(mongoUser);
                 return true;
             }
 

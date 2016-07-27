@@ -44,10 +44,11 @@ namespace Role.RestCient.Tests
             // arrange
             var userService = MockRepository.GenerateMock<IUserService>();
 
-            var userId = new UserId("system", "id");
+            var userId = new UserId(Guid.NewGuid());
+            var authUserId = new AuthUserId("system", "id");
             var tokenId = new TokenId("some_tokenId");
 
-            var user = new User(userId);
+            var user = new User(userId, authUserId);
 
             userService.
                 Expect(us => us.GetUserByToken(tokenId)).
@@ -61,8 +62,7 @@ namespace Role.RestCient.Tests
 
             // assert
             userService.VerifyAllExpectations();
-            var expectedUserId = userId.ToString();
-            Assert.AreEqual(expectedUserId, userInfoDto.Id);
+            Assert.AreEqual(userId.Id, userInfoDto.Id);
         }
     }
 }

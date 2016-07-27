@@ -6,7 +6,7 @@
         /// Возвращает инфо пользователя по токену
         /// </summary>
         /// <param name="token">Токен доступа</param>
-        UserInfoDto GetUserInfo(
+        UserIdDto GetUserInfo(
             string token);
     }
 }

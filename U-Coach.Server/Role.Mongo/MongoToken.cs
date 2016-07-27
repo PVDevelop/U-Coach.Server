@@ -16,6 +16,8 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
 
         public UserId UserId { get; set; }
 
+        public AuthUserId AuthUserId { get; set; } 
+
         public DateTime Expiration { get; set; }
 
         public AuthSystemToken AuthToken { get; set; }

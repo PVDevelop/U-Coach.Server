@@ -26,11 +26,11 @@ namespace PVDevelop.UCoach.Server.Role.Domain
             _utcTimeProvider = utcTimeProvider;
         }
 
-        public void Validate(Token token)
+        public void Validate(Token token, string authSystemName)
         {
             token.Validate(_utcTimeProvider.UtcNow);
 
-            var validator = _validatorContainer.GetValidator(token.UserId.AuthSystemName);
+            var validator = _validatorContainer.GetValidator(authSystemName);
             validator.Validate(token.AuthToken);
         }
     }
