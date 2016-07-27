@@ -48,7 +48,6 @@ namespace PVDevelop.UCoach.Server.Role.Mongo
             return false;
         }
 
-#warning протестировать
         public bool TryGetByAuthUserId(AuthUserId authUserId, out User user)
         {
             if (authUserId == null)
