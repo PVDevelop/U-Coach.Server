@@ -10,7 +10,7 @@
         /// <summary>
         /// Адрес токена пользователя facebook
         /// </summary>
-        public const string FACEBOOK_TOKEN = "api/facebook/token";
+        public const string FACEBOOK_LOGON = "api/facebook/logon";
 
         /// <summary>
         /// Адрес токена пользователя UCoach 

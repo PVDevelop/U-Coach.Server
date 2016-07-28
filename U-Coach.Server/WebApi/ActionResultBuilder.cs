@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PVDevelop.UCoach.Server.WebApi
 {
@@ -61,14 +63,14 @@ namespace PVDevelop.UCoach.Server.WebApi
             return await _client.GetAsync(GetResource(resource));
         }
 
-        public async Task<HttpResponseMessage> BuildPostAsync(string resource, HttpContent content)
+        public async Task<HttpResponseMessage> BuildPostAsync(string resource, object content)
         {
-            return await _client.PostAsync(GetResource(resource), content);
+            return await _client.PostAsync(GetResource(resource), ToJsonContent(content));
         }
 
-        public async Task<HttpResponseMessage> BuildPutAsync(string resource, HttpContent content)
+        public async Task<HttpResponseMessage> BuildPutAsync(string resource, object content)
         {
-            return await _client.PutAsync(GetResource(resource), content);
+            return await _client.PutAsync(GetResource(resource), ToJsonContent(content));
         }
 
         public async Task<HttpResponseMessage> BuildDeleteAsync(string resource)
@@ -98,6 +100,15 @@ namespace PVDevelop.UCoach.Server.WebApi
             _clientHandler.Dispose();
 
             _disposed = true;
+        }
+
+        private HttpContent ToJsonContent(object content)
+        {
+            var jContent = JsonConvert.SerializeObject(content);
+            return new StringContent(
+                jContent,
+                Encoding.UTF8,
+                "application/json");
         }
     }
 }

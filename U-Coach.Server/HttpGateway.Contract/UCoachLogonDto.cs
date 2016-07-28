@@ -2,7 +2,7 @@
 
 namespace PVDevelop.UCoach.Server.HttpGateway.Contract
 {
-    public class LogonDto
+    public class UCoachLogonDto
     {
         [JsonProperty("login")]
         public string Login { get; set; }

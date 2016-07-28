@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PVDevelop.UCoach.Server.Configuration;
+using PVDevelop.UCoach.Server.HttpGateway.Contract;
 using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Role.Contract;
 
@@ -39,13 +40,16 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
             return base.Ok(redirectDto);
         }
 
-        [HttpGet]
-        [Route(Contract.Routes.FACEBOOK_TOKEN)]
-        public IHttpActionResult GetToken(
-            [FromUri(Name = "code")] string code,
-            [FromUri(Name = "redirect_uri")]string redirectUri)
+        [HttpPut]
+        [Route(Contract.Routes.FACEBOOK_LOGON)]
+        public IHttpActionResult GetToken([FromBody] FacebookLogonDto logonDto)
         {
-            var tokenDto = _facebookClient.ExchangeCodeByToken(code, redirectUri);
+            if(logonDto == null)
+            {
+                throw new ArgumentNullException(nameof(logonDto));
+            }
+
+            var tokenDto = _facebookClient.ExchangeCodeByToken(logonDto.Code, logonDto.RedirectUri);
 
             // заполняем cookie
             var response = new HttpResponseMessage(HttpStatusCode.OK);

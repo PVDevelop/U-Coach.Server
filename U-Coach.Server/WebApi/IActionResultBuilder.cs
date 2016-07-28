@@ -25,12 +25,12 @@ namespace PVDevelop.UCoach.Server.WebApi
         /// <summary>
         /// Возвращает асинхронный http-post ответ
         /// </summary>
-        Task<HttpResponseMessage> BuildPostAsync(string resource, HttpContent content);
+        Task<HttpResponseMessage> BuildPostAsync(string resource, object content);
 
         /// <summary>
         /// Возвращает асинхронный http-put ответ
         /// </summary>
-        Task<HttpResponseMessage> BuildPutAsync(string resource, HttpContent content);
+        Task<HttpResponseMessage> BuildPutAsync(string resource, object content);
 
         /// <summary>
         /// Возвращает асинхронный http-delete ответ

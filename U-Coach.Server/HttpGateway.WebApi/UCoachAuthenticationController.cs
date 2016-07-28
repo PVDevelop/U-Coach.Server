@@ -31,7 +31,7 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
 
         [HttpPut]
         [Route(Contract.Routes.UCOACH_LOGON)]
-        public IHttpActionResult GetToken([FromBody] LogonDto logonDto)
+        public IHttpActionResult GetToken([FromBody] UCoachLogonDto logonDto)
         {
             if (logonDto == null) throw new ArgumentNullException(nameof(logonDto));
 
