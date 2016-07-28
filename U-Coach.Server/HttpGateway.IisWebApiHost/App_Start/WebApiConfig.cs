@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace PVDevelop.UCoach.Server.HttpGateway.IisWebApiHost
 {
@@ -6,9 +7,6 @@ namespace PVDevelop.UCoach.Server.HttpGateway.IisWebApiHost
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-
-            // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -16,6 +14,8 @@ namespace PVDevelop.UCoach.Server.HttpGateway.IisWebApiHost
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
         }
     }
 }

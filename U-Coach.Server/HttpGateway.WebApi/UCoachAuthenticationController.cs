@@ -29,13 +29,13 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
             _tokenManager = tokenManager;
         }
 
-        [HttpGet]
-        [Route(Contract.Routes.UCOACH_TOKEN)]
-        public IHttpActionResult GetToken(
-            [FromUri(Name = "login")] string login,
-            [FromUri(Name = "password")] string password)
+        [HttpPut]
+        [Route(Contract.Routes.UCOACH_LOGON)]
+        public IHttpActionResult GetToken([FromBody] LogonDto logonDto)
         {
-            var tokenDto = _ucAuthClient.GetToken(login, password);
+            if (logonDto == null) throw new ArgumentNullException(nameof(logonDto));
+
+            var tokenDto = _ucAuthClient.GetToken(logonDto.Login, logonDto.Password);
 
             // заполняем cookie
             var response = new HttpResponseMessage(HttpStatusCode.OK);

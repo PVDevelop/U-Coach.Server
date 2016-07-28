@@ -15,7 +15,7 @@
         /// <summary>
         /// Адрес токена пользователя UCoach 
         /// </summary>
-        public const string UCOACH_TOKEN = "api/ucoach/token";
+        public const string UCOACH_LOGON = "api/ucoach/logon";
 
         /// <summary>
         /// Команда на логаут текущего пользователя

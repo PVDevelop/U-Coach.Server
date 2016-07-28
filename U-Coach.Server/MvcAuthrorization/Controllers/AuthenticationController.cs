@@ -1,7 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcAuthrorization.Models;
+using Newtonsoft.Json;
 using PVDevelop.UCoach.Server.WebApi;
 using PVDevelop.UCoach.Server.Role.Contract;
 using PVDevelop.UCoach.Server.HttpGateway.Contract;
@@ -72,11 +75,28 @@ namespace MvcAuthrorization.Controllers
         {
             using (var builder = _actionResultBuilderFactory.CreateActionResultBuilder())
             {
+#warning не работает
+                var logonDto = new LogonDto()
+                {
+                    Login = model.Login,
+                    Password = model.Password
+                };
+
+                ByteArrayContent byteArrayContent;
+                using (var memoryStream = new MemoryStream())
+                {
+                    using (var streamWriter = new StreamWriter(memoryStream))
+                    {
+                        var jsonSerializer = new JsonSerializer();
+                        jsonSerializer.Serialize(streamWriter, logonDto);
+
+                        byteArrayContent = new ByteArrayContent(memoryStream.ToArray());
+                    }
+                }
+
                 var response =
                     await builder.
-                    AddParameter("login", model.Login).
-                    AddParameter("password", model.Password).
-                    BuildGetAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.UCOACH_TOKEN);
+                    BuildPutAsync(PVDevelop.UCoach.Server.HttpGateway.Contract.Routes.UCOACH_LOGON, byteArrayContent);
 
                 var result =
                     response.
