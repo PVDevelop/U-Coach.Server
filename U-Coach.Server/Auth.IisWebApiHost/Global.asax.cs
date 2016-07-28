@@ -11,6 +11,7 @@ using PVDevelop.UCoach.Server.Auth.Domain;
 using System;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.Auth.WebApi;
+using PVDevelop.UCoach.Server.Auth.Mail;
 
 namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 {
@@ -65,6 +66,12 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 
             x.For<IUserRepository>().
                 Use<MongoUserRepository>();
+
+            x.For<ITokenRepository>().
+                Use<MongoTokenRepository>();
+
+            x.For<IConfirmationRepository>().
+                Use<MongoConfirmationRepository>();
         }
 
         private void ConfigureUserService(ConfigurationExpression x)
@@ -72,8 +79,17 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
             x.For<IUserService>().
                 Use<UserService>();
 
-            x.For<IUserFactory>().
-                Use<UserFactory>();
+            x.For<IUserValidator>().
+                Use<UserValidator>();
+
+            x.For<IKeyGeneratorService>().
+                Use<KeyGeneratorService>();
+
+            x.For<IUtcTimeProvider>().
+                Use<UtcTimeProvider>();
+
+            x.For<IConfirmationProducer>().
+                Use<EmailConfirmationProducer>();
         }
 
         private void InitializeSystem()

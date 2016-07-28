@@ -11,6 +11,7 @@ using TestComparisonUtilities;
 using TestNUnit;
 using TestWebApiUtilities;
 using PVDevelop.UCoach.Server.Auth.Domain;
+using Auth.Domain.Tests;
 
 namespace Auth.RestClient.Tests
 {
@@ -58,11 +59,11 @@ namespace Auth.RestClient.Tests
         {
             var mockUserService = MockRepository.GenerateMock<IUserService>();
             mockUserService.
-                Expect(us => us.Create("l1", "p1")).
-                Return(new Token() { Key = "SomeId" });
+                Expect(us => us.CreateUser("l1", "p1")).
+                Return(new Token("11", "SomeId", new TestUtcTimeProvider()));
 
             // act
-            var result = WithServer(5000, mockUserService, client => client.Create("l1", "p1"));
+            var result = WithServer(5000, mockUserService, client => client.Create(new UserDto("l1", "p1")));
 
             // assert
             mockUserService.VerifyAllExpectations();
@@ -76,10 +77,10 @@ namespace Auth.RestClient.Tests
             var mockUserService = MockRepository.GenerateMock<IUserService>();
             mockUserService.
                 Expect(us => us.Logon("l1", "password")).
-                Return(new Token() { Key = "some_token" });
+                Return(new Token("l1", "some_token", new TestUtcTimeProvider()));
 
             // act
-            var result = WithServer(5001, mockUserService, client => client.Logon("l1", "password"));
+            var result = WithServer(5001, mockUserService, client => client.Logon("l1", new PasswordDto("password")));
 
             // assert
             mockUserService.VerifyAllExpectations();
@@ -94,7 +95,7 @@ namespace Auth.RestClient.Tests
                 Expect(us => us.ValidateToken("token"));
 
             // act
-            WithServer(5002, mockUserService, client => client.ValidateToken("token"));
+            WithServer(5002, mockUserService, client => client.ValidateToken(new TokenDto("token")));
 
             // assert
             mockUserService.VerifyAllExpectations();

@@ -11,22 +11,20 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
     /// </summary>
     public class User 
     {
-#warning id не назначается
         /// <summary>
         /// Идентификатор Id в системе. Уникален в БД.
         /// </summary>
         public string Id { get; private set; }
 
-#warning если login - почта, то давай так и назовом, email
         /// <summary>
         /// Логин пользователя = почта. Уникален в БД.
         /// </summary>
-        public string Login { get; internal set; }
+        public string Login { get; set; }
 
         /// <summary>
         /// Время создания пользователя
         /// </summary>
-        public DateTime CreationTime { get; internal set; }
+        public DateTime CreationTime { get; set; }
 
         /// <summary>
         /// Пароль пользователя. Закодирован.
@@ -38,11 +36,16 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// </summary>
         public UserStatus Status { get; set; }
 
+        public User(string id)
+        {
+            this.Id = id;
+        }
+
         /// <summary>
         /// Кодирует и устанавливает указанный пароль
         /// </summary>
         /// <param name="plainPassword">Не кодированный пароль</param>
-        internal void SetPassword(string plainPassword)
+        public void SetPassword(string plainPassword)
         {
             if (string.IsNullOrWhiteSpace(plainPassword))
             {

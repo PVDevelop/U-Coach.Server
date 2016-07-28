@@ -1,84 +1,91 @@
 ﻿using System;
 using PVDevelop.UCoach.Server.Logging;
 using PVDevelop.UCoach.Server.Auth.Domain;
-using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.Auth.Domain.Exceptions;
 using PVDevelop.UCoach.Server.Timing;
 using Utilities;
 
 #warning Давай этот проект сольем в Auth.Domain
+#warning возможно нужно учитывать статус пользователя
 namespace PVDevelop.UCoach.Server.Auth.Service
 {
+
     public class UserService : 
         IUserService
     {
         private readonly ILogger _logger = LoggerFactory.CreateLogger<UserService>();
 
-        private readonly IUserFactory _userFactory;
+        private readonly IUserValidator _userValidator;
         private readonly IUserRepository _userRepository;
-        private readonly ITokenFactory _tokenFactory;
         private readonly ITokenRepository _tokenRepository;
-        private readonly IConfirmationFactory _confirmationFactory;
         private readonly IConfirmationRepository _confirmationRepository;
+
         private readonly IConfirmationProducer _confirmationProducer;
         private readonly IKeyGeneratorService _keyGeneratorService;
         private readonly IUtcTimeProvider _utcTimeProvider;
 
         public UserService(
-            IUserFactory userFactory,
+            IUserValidator userValidator,
             IUserRepository userRepository,
-            ITokenFactory tokenFactory,
             ITokenRepository tokenRepository,
-            IConfirmationFactory confirmationFactory,
             IConfirmationRepository confirmationRepository,
             IConfirmationProducer confirmationProducer,
             IKeyGeneratorService keyGeneratorService,
             IUtcTimeProvider utcTimeProvider)
         {
-            userFactory.NullValidate(nameof(userFactory));
+            userValidator.NullValidate(nameof(userValidator));
             userRepository.NullValidate(nameof(userRepository));
-            tokenFactory.NullValidate(nameof(tokenFactory));
             tokenRepository.NullValidate(nameof(tokenRepository));
-            confirmationFactory.NullValidate(nameof(confirmationFactory));
             confirmationRepository.NullValidate(nameof(confirmationRepository));
             confirmationProducer.NullValidate(nameof(confirmationProducer));
             keyGeneratorService.NullValidate(nameof(keyGeneratorService));
             utcTimeProvider.NullValidate(nameof(utcTimeProvider));
-            
-            _userFactory = userFactory;
+
+            _userValidator = userValidator;
             _userRepository = userRepository;
-            _tokenFactory = tokenFactory;
             _tokenRepository = tokenRepository;
-            _confirmationFactory = confirmationFactory;
             _confirmationRepository = confirmationRepository;
             _confirmationProducer = confirmationProducer;
             _keyGeneratorService = keyGeneratorService;
             _utcTimeProvider = utcTimeProvider;
         }
 
-#warning Из названия не понятно, Create чего. И еще странно, что создается токен еще не подтвержденного пользователя
-        public Token Create(string login, string password)
+        public Token CreateUser(string login, string password)
         {
             try
             {
+                _userValidator.ValidateLogin(login);
+                _userValidator.ValidatePassword(password);
+
                 _logger.Debug("Создаю пользователя '{0}'.", login);
 
-                var user = _userFactory.CreateUser(login, password);
+                var user = new User(_keyGeneratorService.GenerateUserId())
+                {
+                    Login = login,
+                    CreationTime = _utcTimeProvider.UtcNow,
+                    Status = UserStatus.Unconfirmed
+                };
+                user.SetPassword(password);
                 _userRepository.Insert(user);
 
                 _logger.Debug("Создаю ключ подтверждения для пользователя '{0}'.", login);
-                var confirmation = _confirmationFactory.CreateConfirmation(user.Id, _keyGeneratorService.GenerateConfirmationKey());
+                var confirmation = new Confirmation(
+                    userId: user.Id, 
+                    key: _keyGeneratorService.GenerateUserId(),
+                    creationTime: _utcTimeProvider.UtcNow);
                 _confirmationRepository.Replace(confirmation);
 
                 _logger.Debug("Отправление ключ пользователю");
                 _confirmationProducer.Produce(login, confirmation.Key);
 
                 _logger.Debug("Создаю токен доступа для пользователя '{0}'.", login);
-                var token = _tokenFactory.CreateToken(user.Id, _keyGeneratorService.GenerateTokenKey());
+                var token = new Token(
+                    userId: user.Id,
+                    key: _keyGeneratorService.GenerateTokenKey(),
+                    utcTimeProvider: _utcTimeProvider);
                 _tokenRepository.AddToken(token);
 
                 _logger.Info("Пользователь {0} создан.", login);
-
                 return token;
             }
             catch
@@ -88,7 +95,6 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             }
         }
 
-#warning не учитывается статус пользователя
         public Token Logon(string login, string password)
         {
             _logger.Debug("Логиню пользователя {0}.", login);
@@ -106,7 +112,10 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             user.CheckPassword(password);
 
             _logger.Debug("Создаю токен доступа для пользователя '{0}'.", login);
-            var token = _tokenFactory.CreateToken(user.Id, _keyGeneratorService.GenerateTokenKey());
+            var token = new Token(
+                    userId: user.Id,
+                    key: _keyGeneratorService.GenerateTokenKey(),
+                    utcTimeProvider: _utcTimeProvider);
             _tokenRepository.AddToken(token);
 
             _logger.Info("Пользователь {0} залогинен.", login);
@@ -114,7 +123,6 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             return token;
         }
 
-#warning валидация не учитывает состояние пользователя. Мне кажется, что должна.
         public void ValidateToken(string token)
         {
             _logger.Debug("Валидирую токен пользователя");
@@ -136,12 +144,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         public void Confirm(string key)
         {
             _logger.Debug("Подтверждение пользователя");
-            
-            if (String.IsNullOrEmpty(key))
-            {
-#warning message
-                throw new ArgumentException(nameof(key));
-            }
+            key.NullOrEmptyValidate(nameof(key));
 
             var confiramtion = _confirmationRepository.FindByConfirmation(key);
             if (confiramtion == null)
@@ -151,15 +154,11 @@ namespace PVDevelop.UCoach.Server.Auth.Service
 
             var user = _userRepository.FindById(confiramtion.UserId);
 
-#warning операция идемпотентна? Если кто-то уже подтвердил, а потом подтвердили еще раз, может кидать ошибку?
-            if (user.Status != UserStatus.Confirm)
+            if (user.Status != UserStatus.Confirmed)
             {
-                user.Status = UserStatus.Confirm;
+                user.Status = UserStatus.Confirmed;
                 _userRepository.Update(user);
             }
-
-#warning вроде, лишняя операция, мне кажется, лучше вообще ничего не удалять
-            _confirmationRepository.Delete(key);
 
             _logger.Info("Подтверждение пользователя завершено.");
         }

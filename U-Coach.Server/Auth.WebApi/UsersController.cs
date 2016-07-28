@@ -19,30 +19,27 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
             _userService = userService;
         }
 
-#warning в Post запросе передается body в виде JSON - объекта, поэтому здесь надо сделать класс Dtoб в котором будут login, password
         [HttpPost]
         [Route(Routes.CREATE_USER)]
-        public IHttpActionResult CreateUser([FromUri]string login, [FromBody] string passwor)
+        public IHttpActionResult CreateUser([FromBody] UserDto user)
         {
-            var result = _userService.Create(login, passwor);
+            var result = _userService.CreateUser(user.Login, user.Password);
             return Content(HttpStatusCode.Created, result);
         }
 
-#warning здесь password передается в body, поэтому его надо в отдельный Dto
         [HttpPut]
         [Route(Routes.LOGON_USER)]
-        public IHttpActionResult LogonUser([FromUri] string login, [FromBody] string password)
+        public IHttpActionResult LogonUser([FromUri] string login, [FromBody] PasswordDto password)
         {
-            var result = _userService.Logon(login, password);
+            var result = _userService.Logon(login, password.Password);
             return Ok(result);
         }
 
-#warning здесь token передается в body, поэтому его надо в отдельный Dto
         [HttpPut]
         [Route(Routes.VALIDATE_USER_TOKEN)]
-        public IHttpActionResult ValidateToken([FromBody] string token)
+        public IHttpActionResult ValidateToken([FromBody] TokenDto token)
         {
-            _userService.ValidateToken(token);
+            _userService.ValidateToken(token.Key);
             return Ok();
         }
     }

@@ -69,6 +69,10 @@
       <Project>{12e06b20-78ec-4b54-8b43-81202f618e62}</Project>
       <Name>Auth.Contract</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Auth.Domain.Tests\Auth.Domain.Tests.csproj">
+      <Project>{0D862F9E-FDB7-416E-8621-6D7F28E21AEB}</Project>
+      <Name>Auth.Domain.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
       <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
       <Name>Auth.Domain</Name>
@@ -104,6 +108,10 @@
     <ProjectReference Include="..\TestWebApiUtilities\TestWebApiUtilities.csproj">
       <Project>{70C9ABF7-A821-4759-837D-C85B0A56D018}</Project>
       <Name>TestWebApiUtilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Timing\Timing.csproj">
+      <Project>{ed9532d4-7643-4a2f-ac6a-7ea11bbf2612}</Project>
+      <Name>Timing</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebApi\WebApi.csproj">
       <Project>{A4594427-AD8C-424F-AEFD-F995EB99EE39}</Project>

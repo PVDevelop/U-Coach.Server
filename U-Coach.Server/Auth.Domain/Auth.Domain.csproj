@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Confirmation.cs" />
-    <Compile Include="ConfirmationFactory.cs" />
     <Compile Include="Exceptions\ConfirmationNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidPasswordException.cs" />
     <Compile Include="Exceptions\InvalidPasswordFormatException.cs" />
@@ -54,17 +53,12 @@
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\ValidateLoginException.cs" />
     <Compile Include="Exceptions\ValidatePasswordException.cs" />
-    <Compile Include="IConfirmationFactory.cs" />
-    <Compile Include="ITokenFactory.cs" />
-    <Compile Include="User\IUserFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Token.cs" />
-    <Compile Include="TokenFactory.cs" />
-    <Compile Include="User\IUserValidator.cs" />
-    <Compile Include="User\User.cs" />
-    <Compile Include="User\UserFactory.cs" />
-    <Compile Include="User\UserStatus.cs" />
-    <Compile Include="User\UserValidator.cs" />
+    <Compile Include="IUserValidator.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserStatus.cs" />
+    <Compile Include="UserValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
@@ -79,9 +73,16 @@
       <Project>{ed9532d4-7643-4a2f-ac6a-7ea11bbf2612}</Project>
       <Name>Timing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{3E5BAE26-7F6F-4471-807C-59492F18EE58}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="User\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

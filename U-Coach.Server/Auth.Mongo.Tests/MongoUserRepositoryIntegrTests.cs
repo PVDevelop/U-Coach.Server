@@ -27,21 +27,21 @@ namespace Auth.Mongo.Tests
             Assert.IsTrue(builder.Compare(user, mongoUser, out result), result);
         }
 
-        [Test]
-        public void Insert_CollectionNotInitialized_ThrowsException()
-        {
-            var settings = TestMongoHelper.CreateSettings();
-            TestMongoHelper.WithDb(settings, db =>
-            {
-                var autoMocker = new RhinoAutoMocker<MongoUserRepository>();
+        //[Test]
+        //public void Insert_CollectionNotInitialized_ThrowsException()
+        //{
+        //    var settings = TestMongoHelper.CreateSettings();
+        //    TestMongoHelper.WithDb(settings, db =>
+        //    {
+        //        var autoMocker = new RhinoAutoMocker<MongoUserRepository>();
 
-                var validator = new MongoCollectionVersionValidatorByClassAttribute(settings);
-                autoMocker.Inject(typeof(IMongoCollectionVersionValidator), validator);
+        //        var validator = new MongoCollectionVersionValidatorByClassAttribute(settings);
+        //        autoMocker.Inject(typeof(IMongoCollectionVersionValidator), validator);
 
-                var user = new TestUserFactory().CreateUser("login", "pwd");
-                Assert.Throws<MongoCollectionNotInitializedException>(() => autoMocker.ClassUnderTest.Insert(user));
-            });
-        }
+        //        var user = new TestUserFactory().CreateUser("login", "pwd");
+        //        Assert.Throws<MongoCollectionNotInitializedException>(() => autoMocker.ClassUnderTest.Insert(user));
+        //    });
+        //}
 
         //[Test]
         //public void Insert_NewUser_InsertsUser()
@@ -66,21 +66,21 @@ namespace Auth.Mongo.Tests
         //    });
         //}
 
-        [Test]
-        public void Update_CollectionNotInitialized_ThrowsException()
-        {
-            var settings = TestMongoHelper.CreateSettings();
-            TestMongoHelper.WithDb(settings, db =>
-            {
-                var autoMocker = new RhinoAutoMocker<MongoUserRepository>();
+        //[Test]
+        //public void Update_CollectionNotInitialized_ThrowsException()
+        //{
+        //    var settings = TestMongoHelper.CreateSettings();
+        //    TestMongoHelper.WithDb(settings, db =>
+        //    {
+        //        var autoMocker = new RhinoAutoMocker<MongoUserRepository>();
 
-                var validator = new MongoCollectionVersionValidatorByClassAttribute(settings);
-                autoMocker.Inject(typeof(IMongoCollectionVersionValidator), validator);
+        //        var validator = new MongoCollectionVersionValidatorByClassAttribute(settings);
+        //        autoMocker.Inject(typeof(IMongoCollectionVersionValidator), validator);
 
-                var user = new TestUserFactory().CreateUser("login", "pwd");
-                Assert.Throws<MongoCollectionNotInitializedException>(() => autoMocker.ClassUnderTest.Update(user));
-            });
-        }
+        //        var user = new TestUserFactory().CreateUser("login", "pwd");
+        //        Assert.Throws<MongoCollectionNotInitializedException>(() => autoMocker.ClassUnderTest.Update(user));
+        //    });
+        //}
 
         //[Test]
         //public void Update_ExistingUser_UpdatesUser()
@@ -115,31 +115,31 @@ namespace Auth.Mongo.Tests
         //    });
         //}
 
-        [Test]
-        public void FindByLogin_ExistingUser_FindsUser()
-        {
-            var settings = TestMongoHelper.CreateSettings();
-            TestMongoHelper.WithDb(settings, db =>
-            {
-                var autoMocker = new RhinoAutoMocker<MongoUserRepository>();
+        //[Test]
+        //public void FindByLogin_ExistingUser_FindsUser()
+        //{
+        //    var settings = TestMongoHelper.CreateSettings();
+        //    TestMongoHelper.WithDb(settings, db =>
+        //    {
+        //        var autoMocker = new RhinoAutoMocker<MongoUserRepository>();
 
-                var mongoRepository = new MongoRepository<MongoUser>(settings);
-                autoMocker.Inject(typeof(IMongoRepository<MongoUser>), mongoRepository);
+        //        var mongoRepository = new MongoRepository<MongoUser>(settings);
+        //        autoMocker.Inject(typeof(IMongoRepository<MongoUser>), mongoRepository);
 
-                var mongoUser = new MongoUser()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Login = "login"
-                };
+        //        var mongoUser = new MongoUser()
+        //        {
+        //            Id = Guid.NewGuid().ToString(),
+        //            Login = "login"
+        //        };
 
-                var coll = MongoHelper.GetCollection<MongoUser>(settings);
-                coll.InsertOne(mongoUser);
+        //        var coll = MongoHelper.GetCollection<MongoUser>(settings);
+        //        coll.InsertOne(mongoUser);
 
-                var foundUser = autoMocker.ClassUnderTest.FindByLogin(mongoUser.Login);
+        //        var foundUser = autoMocker.ClassUnderTest.FindByLogin(mongoUser.Login);
 
-                Assert.NotNull(foundUser);
-                Assert.AreEqual(mongoUser.Id, foundUser.Id);
-            });
-        }
+        //        Assert.NotNull(foundUser);
+        //        Assert.AreEqual(mongoUser.Id, foundUser.Id);
+        //    });
+        //}
     }
 }

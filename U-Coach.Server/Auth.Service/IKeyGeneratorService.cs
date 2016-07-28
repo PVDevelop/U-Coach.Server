@@ -17,5 +17,10 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         /// Генерация ключа для токена
         /// </summary>
         string GenerateTokenKey();
+
+        /// <summary>
+        /// Генерация Id для пользователя
+        /// </summary>
+        string GenerateUserId();
     }
 }

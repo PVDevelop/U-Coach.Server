@@ -2,6 +2,7 @@
 using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Auth.Domain;
+using PVDevelop.UCoach.Server.Auth.WebApi;
 
 namespace PVDevelop.UCoach.Server.Auth.RestClient
 {
@@ -18,19 +19,18 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
             _restClientFactory = restClientFactory;
         }
 
-        public Token Create(string login, string password)
+        public TokenDto Create(UserDto user)
         {
             return
                 _restClientFactory.
                 CreatePost(Routes.CREATE_USER).
-                AddBody(login).
-                AddBody(password).
+                AddBody(user).
                 Execute().
                 CheckPostResult().
-                GetContent<Token>();
+                GetContent<TokenDto>();
         }
 
-        public Token Logon(string login, string password)
+        public TokenDto Logon(string login, PasswordDto password)
         {
             return
                 _restClientFactory.
@@ -38,10 +38,10 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
                 AddBody(password).
                 Execute().
                 CheckPutResult().
-                GetContent<Token>();
+                GetContent<TokenDto>();
         }
 
-        public void ValidateToken(string token)
+        public void ValidateToken(TokenDto token)
         {
             _restClientFactory.
                 CreatePut(Routes.VALIDATE_USER_TOKEN).

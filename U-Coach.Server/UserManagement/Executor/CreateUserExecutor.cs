@@ -52,7 +52,7 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
 
         public void Execute()
         {
-            _usersClient.Create(Login, Password);
+            _usersClient.Create( new UserDto(Login, Password));
         }
 
         public string GetSuccessString()

@@ -15,5 +15,13 @@ namespace Utilities
                 throw new ArgumentNullException(name);
             }
         }
+
+        public static void NullOrEmptyValidate(this string obj, string name)
+        {
+            if (String.IsNullOrEmpty(obj))
+            {
+                throw new ArgumentException($"Object with name {obj} is null or empty");
+            }
+        }
     }
 }
