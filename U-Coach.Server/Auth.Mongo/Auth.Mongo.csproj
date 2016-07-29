@@ -53,8 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MongoConfirmation.cs" />
+    <Compile Include="MongoConfirmationCollectionInitializer.cs" />
     <Compile Include="MongoConfirmationRepository.cs" />
     <Compile Include="MongoToken.cs" />
+    <Compile Include="MongoTokenCollectionInitializer.cs" />
     <Compile Include="MongoTokenRepository.cs" />
     <Compile Include="MongoUser.cs" />
     <Compile Include="MongoUserRepository.cs" />

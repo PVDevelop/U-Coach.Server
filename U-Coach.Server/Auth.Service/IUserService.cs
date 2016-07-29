@@ -14,7 +14,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         /// <param name="login">Логин нового пользователя.</param>
         /// <param name="password">Пароль нового пользователя.</param>
         /// <returns>Токен доступа</returns>
-        Token CreateUser(string login, string password);
+        void CreateUser(string login, string password);
 
         /// <summary>
         /// Проверяет параметры пользователя и если они верны, аутентифицирует его.

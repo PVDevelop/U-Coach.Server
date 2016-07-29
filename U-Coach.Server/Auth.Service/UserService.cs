@@ -6,7 +6,6 @@ using PVDevelop.UCoach.Server.Timing;
 using Utilities;
 
 #warning Давай этот проект сольем в Auth.Domain
-#warning возможно нужно учитывать статус пользователя
 namespace PVDevelop.UCoach.Server.Auth.Service
 {
 
@@ -50,7 +49,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             _utcTimeProvider = utcTimeProvider;
         }
 
-        public Token CreateUser(string login, string password)
+        public void CreateUser(string login, string password)
         {
             try
             {
@@ -59,12 +58,10 @@ namespace PVDevelop.UCoach.Server.Auth.Service
 
                 _logger.Debug("Создаю пользователя '{0}'.", login);
 
-                var user = new User(_keyGeneratorService.GenerateUserId())
-                {
-                    Login = login,
-                    CreationTime = _utcTimeProvider.UtcNow,
-                    Status = UserStatus.Unconfirmed
-                };
+                var user = new User(
+                    _keyGeneratorService.GenerateUserId(),
+                    _utcTimeProvider.UtcNow);
+
                 user.SetPassword(password);
                 _userRepository.Insert(user);
 
@@ -78,15 +75,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
                 _logger.Debug("Отправление ключ пользователю");
                 _confirmationProducer.Produce(login, confirmation.Key);
 
-                _logger.Debug("Создаю токен доступа для пользователя '{0}'.", login);
-                var token = new Token(
-                    userId: user.Id,
-                    key: _keyGeneratorService.GenerateTokenKey(),
-                    utcTimeProvider: _utcTimeProvider);
-                _tokenRepository.AddToken(token);
-
                 _logger.Info("Пользователь {0} создан.", login);
-                return token;
             }
             catch
             {
@@ -110,6 +99,12 @@ namespace PVDevelop.UCoach.Server.Auth.Service
                 throw new UserNotFoundException();
             }
             user.CheckPassword(password);
+
+            if (user.Status == UserStatus.Unspecified ||
+                user.Status == UserStatus.Unconfirmed)
+            {
+                throw new UserUnconfirmationException();
+            }
 
             _logger.Debug("Создаю токен доступа для пользователя '{0}'.", login);
             var token = new Token(
@@ -156,7 +151,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
 
             if (user.Status != UserStatus.Confirmed)
             {
-                user.Status = UserStatus.Confirmed;
+                user.SetStatus(UserStatus.Confirmed);
                 _userRepository.Update(user);
             }
 

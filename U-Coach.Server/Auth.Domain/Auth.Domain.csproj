@@ -51,6 +51,7 @@
     <Compile Include="Exceptions\InvalidTokenException.cs" />
     <Compile Include="Exceptions\LoginNotSetException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
+    <Compile Include="Exceptions\UserUnconfirmationException.cs" />
     <Compile Include="Exceptions\ValidateLoginException.cs" />
     <Compile Include="Exceptions\ValidatePasswordException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,9 +82,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="User\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

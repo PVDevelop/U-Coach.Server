@@ -23,8 +23,8 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
         [Route(Routes.CREATE_USER)]
         public IHttpActionResult CreateUser([FromBody] UserDto user)
         {
-            var result = _userService.CreateUser(user.Login, user.Password);
-            return Content(HttpStatusCode.Created, result);
+            _userService.CreateUser(user.Login, user.Password);
+            return Ok();
         }
 
         [HttpPut]

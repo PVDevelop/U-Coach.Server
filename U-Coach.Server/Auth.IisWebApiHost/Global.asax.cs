@@ -61,8 +61,20 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
             x.For<IMongoInitializer>().
                 Use<MongoUserCollectionInitializer>();
 
+            x.For<IMongoInitializer>().
+                Use<MongoTokenCollectionInitializer>();
+
+            x.For<IMongoInitializer>().
+                Use<MongoConfirmationCollectionInitializer>();
+
             x.For<IMongoRepository<MongoUser>>().
                 Use<MongoRepository<MongoUser>>();
+
+            x.For<IMongoRepository<MongoToken>>().
+                Use<MongoRepository<MongoToken>>();
+
+            x.For<IMongoRepository<MongoConfirmation>>().
+                Use<MongoRepository<MongoConfirmation>>();
 
             x.For<IUserRepository>().
                 Use<MongoUserRepository>();
@@ -90,6 +102,11 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 
             x.For<IConfirmationProducer>().
                 Use<EmailConfirmationProducer>();
+
+            x.For<ISettingsProvider<IEmailProducerSettings>>().
+                Use<ConfigurationSectionSettingsProvider<IEmailProducerSettings>>().
+                Ctor<string>().
+                Is("emailProducerSettings");
         }
 
         private void InitializeSystem()

@@ -59,8 +59,7 @@ namespace Auth.RestClient.Tests
         {
             var mockUserService = MockRepository.GenerateMock<IUserService>();
             mockUserService.
-                Expect(us => us.CreateUser("l1", "p1")).
-                Return(new Token("11", "SomeId", new TestUtcTimeProvider()));
+                Expect(us => us.CreateUser("l1", "p1"));
 
             // act
             var result = WithServer(5000, mockUserService, client => client.Create(new UserDto("l1", "p1")));
