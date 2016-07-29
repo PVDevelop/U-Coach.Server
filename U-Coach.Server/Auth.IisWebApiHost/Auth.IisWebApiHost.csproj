@@ -121,10 +121,6 @@
       <Project>{141873A9-7298-45BA-88DE-AC8C49492E95}</Project>
       <Name>Auth.Mongo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
-      <Project>{EECD97C9-87B4-4E00-8455-A8C80ABFB66F}</Project>
-      <Name>Auth.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Auth.WebApi\Auth.WebApi.csproj">
       <Project>{c92f3088-b5c6-4095-8d49-c13a55f42577}</Project>
       <Name>Auth.WebApi</Name>

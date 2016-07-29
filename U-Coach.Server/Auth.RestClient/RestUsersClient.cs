@@ -19,15 +19,13 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
             _restClientFactory = restClientFactory;
         }
 
-        public TokenDto Create(UserDto user)
+        public void Create(UserDto user)
         {
-            return
-                _restClientFactory.
+            _restClientFactory.
                 CreatePost(Routes.CREATE_USER).
                 AddBody(user).
                 Execute().
-                CheckPostResult().
-                GetContent<TokenDto>();
+                CheckPutResult();
         }
 
         public TokenDto Logon(string login, PasswordDto password)

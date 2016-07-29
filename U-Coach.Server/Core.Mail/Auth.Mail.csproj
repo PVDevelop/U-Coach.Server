@@ -53,9 +53,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
-      <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
-      <Name>Auth.Service</Name>
+    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
+      <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
+      <Name>Auth.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{9d893e1e-2741-4178-93fa-69c8f33110b1}</Project>

@@ -81,10 +81,6 @@
       <Project>{e65ffb0d-ba55-4724-9d65-7fb88baf81dd}</Project>
       <Name>Auth.RestClient</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
-      <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
-      <Name>Auth.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Auth.WebApi\Auth.WebApi.csproj">
       <Project>{c92f3088-b5c6-4095-8d49-c13a55f42577}</Project>
       <Name>Auth.WebApi</Name>

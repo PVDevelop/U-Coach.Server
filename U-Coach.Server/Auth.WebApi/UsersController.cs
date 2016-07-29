@@ -2,7 +2,7 @@
 using System.Net;
 using System.Web.Http;
 using PVDevelop.UCoach.Server.Auth.Contract;
-using PVDevelop.UCoach.Server.Auth.Service;
+using PVDevelop.UCoach.Server.Auth.Domain;
 
 namespace PVDevelop.UCoach.Server.Auth.WebApi
 {

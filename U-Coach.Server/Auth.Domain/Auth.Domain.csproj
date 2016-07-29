@@ -54,10 +54,18 @@
     <Compile Include="Exceptions\UserUnconfirmationException.cs" />
     <Compile Include="Exceptions\ValidateLoginException.cs" />
     <Compile Include="Exceptions\ValidatePasswordException.cs" />
+    <Compile Include="IConfirmationProducer.cs" />
+    <Compile Include="IConfirmationRepository.cs" />
+    <Compile Include="IKeyGeneratorService.cs" />
+    <Compile Include="ITokenRepository.cs" />
+    <Compile Include="IUserRepository.cs" />
+    <Compile Include="IUserService.cs" />
+    <Compile Include="KeyGeneratorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="IUserValidator.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserService.cs" />
     <Compile Include="UserStatus.cs" />
     <Compile Include="UserValidator.cs" />
   </ItemGroup>

@@ -76,10 +76,6 @@
       <Project>{141873a9-7298-45ba-88de-ac8c49492e95}</Project>
       <Name>Auth.Mongo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
-      <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
-      <Name>Auth.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mapper\Mapper.csproj">
       <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
       <Name>Mapper</Name>

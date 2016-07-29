@@ -10,7 +10,7 @@ namespace PVDevelop.UCoach.Server.Auth.Contract
         /// <summary>
         /// Создать нового пользователя и вернуть его идентификатор.
         /// </summary>
-        TokenDto Create(UserDto password);
+        void Create(UserDto password);
 
         /// <summary>
         /// Проверяет параметры пользователя и если они верны, аутентифицирует его.

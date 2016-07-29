@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net;
 using System.Net.Mail;
-using PVDevelop.UCoach.Server.Auth.Service;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.Auth.Mail;
 using System.Resources;
+using PVDevelop.UCoach.Server.Auth.Domain;
 
 namespace PVDevelop.UCoach.Server.Auth.Mail
 {

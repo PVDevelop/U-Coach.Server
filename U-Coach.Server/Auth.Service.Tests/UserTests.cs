@@ -2,13 +2,13 @@
 using NUnit.Framework;
 using PVDevelop.UCoach.Server.Auth.Domain;
 using PVDevelop.UCoach.Server.Auth.Domain.Exceptions;
-using PVDevelop.UCoach.Server.Auth.Service;
 using TestNUnit;
 using Rhino.Mocks;
 using PVDevelop.UCoach.Server.Timing;
 
 namespace AuthService.Tests
 {
+#warning написать правильные тесты
     [TestFixture]
     [Category(CategoryConst.UNIT)]
     public class UserTests
@@ -47,22 +47,6 @@ namespace AuthService.Tests
         {
             var userService = GenerateUserService();
             Assert.Throws(typeof(InvalidPasswordFormatException), () => userService.CreateUser("a", password));
-        }
-
-        [Test]
-        public void Logon_InvalidPassword_ThrowsException()
-        {
-            var userService = GenerateUserService();
-            userService.CreateUser("abc", "pwd");
-            Assert.Throws(typeof(InvalidPasswordException), () => userService.Logon("abc", "invalid_password"));
-        }
-
-        [Test]
-        public void ValidateToken_ValidPassword_DoesNothing()
-        {
-            var userService = GenerateUserService();
-            userService.CreateUser("abc", "pwd");
-            userService.Logon("abc", "pwd");
         }
     }
 }

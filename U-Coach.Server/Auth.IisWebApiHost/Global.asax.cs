@@ -6,7 +6,6 @@ using System.Web.Http.Dispatcher;
 using PVDevelop.UCoach.Server.Timing;
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Auth.Mongo;
-using PVDevelop.UCoach.Server.Auth.Service;
 using PVDevelop.UCoach.Server.Auth.Domain;
 using System;
 using PVDevelop.UCoach.Server.Configuration;
@@ -29,7 +28,6 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
             InitializeSystem();
         }
 
-#warning контейнер не настроен, приложение не запускается
         private Container SetupContainer()
         {
             _container = new Container(x =>
