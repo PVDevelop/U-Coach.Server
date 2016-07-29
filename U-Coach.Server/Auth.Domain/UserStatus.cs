@@ -8,13 +8,12 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
 {
     /// <summary>
     /// Статус жизненого цикла для пользователя.
-    /// Создался пользователь (Unspecified) -> выслали подтверждение на почту (Unconfirm) -> подтвердили (Confirm)
+    /// Создался пользователь (Unconfirmed) -> подтвердили (Confirmed)
     /// </summary>
-    public enum UserStatus
+    public enum ConfirmationStatus
     {
-        Unspecified = 0,
-        Unconfirmed = 1,
-        Confirmed = 2
+        Unconfirmed = 0,
+        Confirmed = 1
     }
 }
 

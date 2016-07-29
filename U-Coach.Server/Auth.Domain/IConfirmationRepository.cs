@@ -15,6 +15,12 @@
         Confirmation FindByConfirmation(string key);
 
         /// <summary>
+        /// Поиск объкста подтверждения по Id пользователя
+        /// </summary>
+        /// <param name="userID">Id пользователя.</param>
+        Confirmation FindByConfirmationByUserId(string userID);
+
+        /// <summary>
         /// Удаляет подтверждение по ключу
         /// </summary>
         /// <param name="key"></param>

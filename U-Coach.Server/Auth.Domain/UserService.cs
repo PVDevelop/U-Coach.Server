@@ -69,7 +69,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
                         creationTime: _utcTimeProvider.UtcNow);
                     _confirmationRepository.Replace(confirmation);
 
-                    _logger.Debug("Отправление ключ пользователю");
+                    _logger.Debug("Отправление ключа пользователю");
                     _confirmationProducer.Produce(login, confirmation.Key);
                 }
                 catch
@@ -102,8 +102,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             }
             user.CheckPassword(password);
 
-            if (user.Status == UserStatus.Unspecified ||
-                user.Status == UserStatus.Unconfirmed)
+            if (user.ConfirmationStatus == ConfirmationStatus.Unconfirmed)
             {
                 throw new UserUnconfirmationException();
             }
@@ -114,7 +113,6 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
                     key: _keyGeneratorService.GenerateTokenKey(),
                     utcTimeProvider: _utcTimeProvider);
             _tokenRepository.AddToken(token);
-
             _logger.Info("Пользователь {0} залогинен.", login);
 
             return token;
@@ -153,7 +151,38 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             user.Confirm();
             _userRepository.Update(user);
 
+            ///нужно чтобы 2 раза нельзя было подвердить по 1 ключу
+            _confirmationRepository.Delete(key);
+
             _logger.Info("Подтверждение пользователя завершено.");
+        }
+
+        public void ResendConfirmation(string login)
+        {
+            _logger.Debug("Повторное отпраление ключа подтверждения пользователю");
+            login.NullOrEmptyValidate(nameof(login));
+
+            var user = _userRepository.FindByLogin(login);
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
+
+            var confirmation = _confirmationRepository.FindByConfirmationByUserId(user.Id);
+            if (confirmation == null)
+            {
+                confirmation = new Confirmation(
+                    userId: user.Id,
+                    key: _keyGeneratorService.GenerateUserId(),
+                    creationTime: _utcTimeProvider.UtcNow);
+
+                _confirmationRepository.Replace(confirmation);
+            }
+
+            _logger.Debug("Отправление ключа пользователю");
+            _confirmationProducer.Produce(login, confirmation.Key);
+
+            _logger.Debug("Повторное отпраление ключа подтверждения пользователю завершено успешно");
         }
     }
 }

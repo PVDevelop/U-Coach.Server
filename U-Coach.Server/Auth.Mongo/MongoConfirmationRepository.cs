@@ -46,6 +46,19 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             return MapperHelper.Map<MongoConfirmation, Confirmation>(mongoConfirmation);
         }
 
+        public Confirmation FindByConfirmationByUserId(string userId)
+        {
+            if (String.IsNullOrEmpty(userId))
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            _versionCollectionValidator.Validate<MongoConfirmation>();
+
+            var mongoConfirmation = _repository.Find(u => u.UserId == userId);
+            return MapperHelper.Map<MongoConfirmation, Confirmation>(mongoConfirmation);
+        }
+
         public void Replace(Confirmation confirmation)
         {
             if (confirmation == null)

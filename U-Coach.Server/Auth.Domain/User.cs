@@ -34,7 +34,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// <summary>
         /// Подтвердил ли пользователь аккаунт
         /// </summary>
-        public UserStatus Status { get; private set; }
+        public ConfirmationStatus ConfirmationStatus { get; private set; }
 
         public User(
             string id,
@@ -42,7 +42,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         {
             this.Id = id;
             this.CreationTime = creationTime;
-            this.Status = UserStatus.Unconfirmed;
+            this.ConfirmationStatus = ConfirmationStatus.Unconfirmed;
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// </summary>
         public void Confirm()
         {
-            this.Status = UserStatus.Confirmed;
+            this.ConfirmationStatus = ConfirmationStatus.Confirmed;
         }
     }
 }

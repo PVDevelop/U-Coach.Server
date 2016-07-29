@@ -32,5 +32,11 @@
         /// <param name="key">ключ подтверждения</param>
         /// </summary>
         void Confirm(string key);
+
+        /// <summary>
+        /// Повторно отправляет код подтверждения для указанного пользователя
+        /// </summary>
+        /// <param name="login">логин пользователя</param>
+        void ResendConfirmation(string login);
     }
 }
