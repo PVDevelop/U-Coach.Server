@@ -37,9 +37,7 @@ namespace Auth.RestClient.Tests
             Func<RestUsersClient, T> callback)
         {
             // act
-            using (var server = new TestWebApiSelfHost(port, x => {
-                x.For<IUserService>().Use(ctx => userService);
-            }))
+            using (var server = new TestWebApiSelfHost(port, x => { x.For<IUserService>().Use(ctx => userService); }))
             {
                 var autoMocker = new RhinoAutoMocker<RestUsersClient>();
 

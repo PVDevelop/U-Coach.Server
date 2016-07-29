@@ -74,12 +74,11 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         }
 
         /// <summary>
-        /// Установка необходимого статуса
+        /// Установка статуса подтверждение
         /// </summary>
-        /// <param name="status">устанавливаемый статус</param>
-        public void SetStatus(UserStatus status)
+        public void Confirm()
         {
-            this.Status = status;
+            this.Status = UserStatus.Confirmed;
         }
     }
 }

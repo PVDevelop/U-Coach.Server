@@ -8,17 +8,14 @@ using Utilities;
 #warning Давай этот проект сольем в Auth.Domain
 namespace PVDevelop.UCoach.Server.Auth.Service
 {
-
     public class UserService : 
         IUserService
     {
         private readonly ILogger _logger = LoggerFactory.CreateLogger<UserService>();
-
         private readonly IUserValidator _userValidator;
         private readonly IUserRepository _userRepository;
         private readonly ITokenRepository _tokenRepository;
         private readonly IConfirmationRepository _confirmationRepository;
-
         private readonly IConfirmationProducer _confirmationProducer;
         private readonly IKeyGeneratorService _keyGeneratorService;
         private readonly IUtcTimeProvider _utcTimeProvider;
@@ -65,15 +62,22 @@ namespace PVDevelop.UCoach.Server.Auth.Service
                 user.SetPassword(password);
                 _userRepository.Insert(user);
 
-                _logger.Debug("Создаю ключ подтверждения для пользователя '{0}'.", login);
-                var confirmation = new Confirmation(
-                    userId: user.Id, 
-                    key: _keyGeneratorService.GenerateUserId(),
-                    creationTime: _utcTimeProvider.UtcNow);
-                _confirmationRepository.Replace(confirmation);
+                try
+                {
+                    _logger.Debug("Создаю ключ подтверждения для пользователя '{0}'.", login);
+                    var confirmation = new Confirmation(
+                        userId: user.Id,
+                        key: _keyGeneratorService.GenerateUserId(),
+                        creationTime: _utcTimeProvider.UtcNow);
+                    _confirmationRepository.Replace(confirmation);
 
-                _logger.Debug("Отправление ключ пользователю");
-                _confirmationProducer.Produce(login, confirmation.Key);
+                    _logger.Debug("Отправление ключ пользователю");
+                    _confirmationProducer.Produce(login, confirmation.Key);
+                }
+                catch
+                {
+                    _logger.Debug("Отправление ключа пользователя произошло с ошибкой");
+                }
 
                 _logger.Info("Пользователь {0} создан.", login);
             }
@@ -148,12 +152,8 @@ namespace PVDevelop.UCoach.Server.Auth.Service
             }
 
             var user = _userRepository.FindById(confiramtion.UserId);
-
-            if (user.Status != UserStatus.Confirmed)
-            {
-                user.SetStatus(UserStatus.Confirmed);
-                _userRepository.Update(user);
-            }
+            user.Confirm();
+            _userRepository.Update(user);
 
             _logger.Info("Подтверждение пользователя завершено.");
         }

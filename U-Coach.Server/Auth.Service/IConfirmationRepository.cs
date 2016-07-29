@@ -7,7 +7,7 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         /// <summary>
         /// Вставить новоe подтверждение.
         /// </summary>
-        /// <param name="confirmation">Подтверждение создание спортсмена.</param>
+        /// <param name="confirmation">Подтверждение</param>
         void Replace(Confirmation confirmation);
 
         /// <summary>
