@@ -42,5 +42,21 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
             _userService.ValidateToken(token.Key);
             return Ok();
         }
+
+        [HttpPut]
+        [Route(Routes.CONFIRM_USER)]
+        public IHttpActionResult ConfirmUser([FromBody] ConfirmationDto confirmation)
+        {
+            _userService.Confirm(confirmation.Key);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route(Routes.RESEND_CONFIRM)]
+        public IHttpActionResult ResendConfirmation([FromUri] string login)
+        {
+            _userService.ResendConfirmation(login);
+            return Ok();
+        }
     }
 }

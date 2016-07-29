@@ -47,5 +47,22 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
                 Execute().
                 CheckPutResult();
         }
+
+        public void Confirm(ConfirmationDto confirmation)
+        {
+            _restClientFactory.
+                CreatePut(Routes.CONFIRM_USER).
+                AddBody(confirmation).
+                Execute().
+                CheckPutResult();
+        }
+
+        public void ResendConfirmation(string login)
+        {
+            _restClientFactory.
+                CreatePut(Routes.RESEND_CONFIRM).
+                Execute().
+                CheckPutResult();
+        }
     }
 }

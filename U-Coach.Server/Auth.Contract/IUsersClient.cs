@@ -23,5 +23,16 @@ namespace PVDevelop.UCoach.Server.Auth.Contract
         /// </summary>
         /// <param name="tokenDto">Токен пользователя</param>
         void ValidateToken(TokenDto token);
+
+        /// <summary>
+        /// Операция подтверждение пользователя (ввод ключа проверки).
+        /// </summary>
+        /// <param name="confirmation">Код подтверждения</param>
+        void Confirm(ConfirmationDto confirmation);
+
+        /// <summary>
+        /// Операция повторного отправления кода подтверждения.
+        /// </summary>
+        void ResendConfirmation(string login);
     }
 }
