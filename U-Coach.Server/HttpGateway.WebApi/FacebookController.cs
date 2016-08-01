@@ -37,7 +37,7 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
             [FromUri(Name = "redirect_uri")]string redirectUri)
         {
             var redirectDto = _facebookClient.GetAuthPageUri(redirectUri);
-            return base.Ok(redirectDto);
+            return Ok(redirectDto);
         }
 
         [HttpPut]
@@ -56,12 +56,6 @@ namespace PVDevelop.UCoach.Server.HttpGateway.WebApi
             _tokenManager.SetToken(this, response.Headers, tokenDto);
 
             return ResponseMessage(response);
-        }
-
-        private static IRestClientFactory GetFacebookGraphClientFactory()
-        {
-            var connectionStringProvider = new SimpleConnectionStringProvider("https://graph.facebook.com");
-            return new RestClientFactory(connectionStringProvider);
         }
     }
 }
