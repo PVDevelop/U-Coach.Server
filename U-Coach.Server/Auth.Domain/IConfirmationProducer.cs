@@ -8,6 +8,8 @@
         /// <summary>
         /// Доставляет ключ.
         /// </summary>
-        void Produce(string address, string key);
+        /// <param name="address">почтовый адресс</param>
+        /// <param name="url">ссылка для подтверждения</param>
+        void Produce(string address, string url);
     }
 }

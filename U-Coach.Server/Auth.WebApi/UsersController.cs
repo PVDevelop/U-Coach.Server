@@ -23,7 +23,7 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
         [Route(Routes.CREATE_USER)]
         public IHttpActionResult CreateUser([FromBody] UserDto user)
         {
-            _userService.CreateUser(user.Login, user.Password);
+            _userService.CreateUser(user.Login, user.Password, user.Url4Confirmation);
             return Ok();
         }
 
@@ -53,9 +53,9 @@ namespace PVDevelop.UCoach.Server.Auth.WebApi
 
         [HttpPut]
         [Route(Routes.RESEND_CONFIRM)]
-        public IHttpActionResult ResendConfirmation([FromUri] string login)
+        public IHttpActionResult ResendConfirmation([FromUri] string login, [FromBody] ConfirmUrlDTO url)
         {
-            _userService.ResendConfirmation(login);
+            _userService.ResendConfirmation(login, url.Url);
             return Ok();
         }
     }

@@ -50,6 +50,7 @@
     <Compile Include="Exceptions\InvalidPasswordFormatException.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
     <Compile Include="Exceptions\LoginNotSetException.cs" />
+    <Compile Include="Exceptions\UrlValidateException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\UserUnconfirmationException.cs" />
     <Compile Include="Exceptions\ValidateLoginException.cs" />

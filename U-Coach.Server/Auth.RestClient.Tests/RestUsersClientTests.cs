@@ -55,10 +55,10 @@ namespace Auth.RestClient.Tests
         {
             var mockUserService = MockRepository.GenerateMock<IUserService>();
             mockUserService.
-                Expect(us => us.CreateUser("l1", "p1"));
+                Expect(us => us.CreateUser("l1", "p1", "url{0}"));
 
             // act
-            WithServer(5000, mockUserService, client => client.Create(new UserDto("l1", "p1")));
+            WithServer(5000, mockUserService, client => client.Create(new UserDto("l1", "p1", "url{0}")));
 
             // assert
             mockUserService.VerifyAllExpectations();

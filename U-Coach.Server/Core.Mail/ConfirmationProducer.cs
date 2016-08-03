@@ -22,14 +22,14 @@ namespace PVDevelop.UCoach.Server.Auth.Mail
             _settingsProvider = settingsProvider;
         }
 
-        public void Produce(string address, string key)
+        public void Produce(string address, string url)
         {
             var settings = _settingsProvider.Settings;
             using (var mail = new MailMessage(
                 settings.SenderAddress,
                 address,
                 Properties.Resources.NewUserConfirmationHeader,
-                string.Format(Properties.Resources.NewUserConfirmationBody, key)))
+                string.Format(Properties.Resources.NewUserConfirmationBody, url)))
             {
                 var client = new SmtpClient(settings.SmtpHost, settings.SmtpPort)
                 {

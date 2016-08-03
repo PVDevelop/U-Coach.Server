@@ -44,12 +44,17 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             _utcTimeProvider = utcTimeProvider;
         }
 
-        public void CreateUser(string login, string password)
+        public void CreateUser(string login, string password, string url4Confirmation)
         {
             try
             {
                 _userValidator.ValidateLogin(login);
                 _userValidator.ValidatePassword(password);
+
+                if (String.IsNullOrEmpty(url4Confirmation))
+                {
+                    throw new UrlValidateException();
+                }
 
                 _logger.Debug("Создаю пользователя '{0}'.", login);
 
@@ -70,7 +75,18 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
                     _confirmationRepository.Replace(confirmation);
 
                     _logger.Debug("Отправление ключа пользователю");
-                    _confirmationProducer.Produce(login, confirmation.Key);
+
+                    string url;
+                    try
+                    {
+                        url = String.Format(url4Confirmation, confirmation.Key);
+                    }
+                    catch
+                    {
+                        throw new UrlValidateException();
+                    }
+
+                    _confirmationProducer.Produce(login, url);
                 }
                 catch
                 {
@@ -136,7 +152,7 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             _logger.Info("Токен валиден.");
         }
 
-        public void Confirm(string key)
+        public Token Confirm(string key)
         {
             _logger.Debug("Подтверждение пользователя");
             key.NullOrEmptyValidate(nameof(key));
@@ -154,20 +170,34 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             ///нужно чтобы 2 раза нельзя было подвердить по 1 ключу
             _confirmationRepository.Delete(key);
 
+            _logger.Debug("Создаю токен доступа для пользователя '{0}'.", user.Login);
+            var token = new Token(
+                    userId: user.Id,
+                    key: _keyGeneratorService.GenerateTokenKey(),
+                    utcTimeProvider: _utcTimeProvider);
+            _tokenRepository.AddToken(token);
+            _logger.Info("Пользователь {0} залогинен.", user.Login);
+
             _logger.Info("Подтверждение пользователя завершено.");
+
+            return token;
         }
 
-        public void ResendConfirmation(string login)
+        public void ResendConfirmation(string login, string url4Confirmation)
         {
             _logger.Debug("Повторное отпраление ключа подтверждения пользователю");
             login.NullOrEmptyValidate(nameof(login));
+
+            if (string.IsNullOrEmpty(url4Confirmation))
+            {
+                throw new UrlValidateException();
+            }
 
             var user = _userRepository.FindByLogin(login);
             if (user == null)
             {
                 throw new UserNotFoundException();
             }
-
             var confirmation = _confirmationRepository.FindByConfirmationByUserId(user.Id);
             if (confirmation == null)
             {
@@ -180,7 +210,17 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             }
 
             _logger.Debug("Отправление ключа пользователю");
-            _confirmationProducer.Produce(login, confirmation.Key);
+
+            string url = null;
+            try
+            {
+                url = String.Format(url4Confirmation, confirmation.Key);
+            }
+            catch
+            {
+                throw new UrlValidateException();
+            }
+            _confirmationProducer.Produce(login, url);
 
             _logger.Debug("Повторное отпраление ключа подтверждения пользователю завершено успешно");
         }

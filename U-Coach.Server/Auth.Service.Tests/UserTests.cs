@@ -37,7 +37,7 @@ namespace AuthService.Tests
         public void Ctor_ValidLogin_SetsCreationTime()
         {
             var userService = GenerateUserService();
-            userService.CreateUser("u", "pwd");
+            userService.CreateUser("u", "pwd", "url{0}");
         }
 
         [TestCase(null)]
@@ -46,7 +46,7 @@ namespace AuthService.Tests
         public void SetPassword_InvalidPasswordFormat_ThrowsException(string password)
         {
             var userService = GenerateUserService();
-            Assert.Throws(typeof(InvalidPasswordFormatException), () => userService.CreateUser("a", password));
+            Assert.Throws(typeof(InvalidPasswordFormatException), () => userService.CreateUser("a", password, "url{0}"));
         }
     }
 }
