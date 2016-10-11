@@ -9,64 +9,71 @@ using PVDevelop.UCoach.Server.Mapper;
 
 namespace PVDevelop.UCoach.Server.Auth.Mongo
 {
-    public sealed class MongoConfirmationRepository :
-        IConfirmationRepository
-    {
-        private readonly IMongoRepository<MongoConfirmation> _repository;
+	public sealed class MongoConfirmationRepository :
+		IConfirmationRepository
+	{
+		private readonly IMongoRepository<MongoConfirmation> _repository;
+		private readonly IMongoCollectionVersionValidator _versionCollectionValidator;
 
-        public MongoConfirmationRepository(
-            IMongoRepository<MongoConfirmation> repository)
-        {
-            if (repository == null)
-            {
-                throw new ArgumentNullException(nameof(repository));
-            }
+		public MongoConfirmationRepository(
+			IMongoRepository<MongoConfirmation> repository,
+			IMongoCollectionVersionValidator versionCollectionValidator)
+		{
+			if (repository == null)
+			{
+				throw new ArgumentNullException(nameof(repository));
+			}
+			if (versionCollectionValidator == null)
+			{
+				throw new ArgumentNullException(nameof(versionCollectionValidator));
+			}
 
-            _repository = repository;
-        }
+			_repository = repository;
+			_versionCollectionValidator = versionCollectionValidator;
+		}
 
-        public Confirmation FindByConfirmation(string key)
-        {
-            if (String.IsNullOrEmpty(key))
-            {
-                throw new ArgumentNullException(nameof(key));
-            }
+		public Confirmation FindByConfirmation(string key)
+		{
+			if (String.IsNullOrEmpty(key))
+			{
+				throw new ArgumentNullException(nameof(key));
+			}
 
-            var mongoConfirmation = _repository.Find(u => u.Key == key);
-            return MapperHelper.Map<MongoConfirmation, Confirmation>(mongoConfirmation);
-        }
+			var mongoConfirmation = _repository.Find(u => u.Key == key);
+			return MapperHelper.Map<MongoConfirmation, Confirmation>(mongoConfirmation);
+		}
 
-        public Confirmation FindByConfirmationByUserId(string userId)
-        {
-            if (String.IsNullOrEmpty(userId))
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
+		public Confirmation FindByConfirmationByUserId(string userId)
+		{
+			if (String.IsNullOrEmpty(userId))
+			{
+				throw new ArgumentNullException(nameof(userId));
+			}
 
-            _versionCollectionValidator.Validate<MongoConfirmation>();
+			_versionCollectionValidator.Validate<MongoConfirmation>();
 
-            var mongoConfirmation = _repository.Find(u => u.UserId == userId);
-            return MapperHelper.Map<MongoConfirmation, Confirmation>(mongoConfirmation);
-        }
+			var mongoConfirmation = _repository.Find(u => u.UserId == userId);
+			return MapperHelper.Map<MongoConfirmation, Confirmation>(mongoConfirmation);
+		}
 
-        public void Replace(Confirmation confirmation)
-        {
-            if (confirmation == null)
-            {
-                throw new ArgumentNullException(nameof(confirmation));
-            }
-            var mongoConfirmation = MapperHelper.Map<Confirmation, MongoConfirmation>(confirmation);
+		public void Replace(Confirmation confirmation)
+		{
+			if (confirmation == null)
+			{
+				throw new ArgumentNullException(nameof(confirmation));
+			}
+			var mongoConfirmation = MapperHelper.Map<Confirmation, MongoConfirmation>(confirmation);
 
-            _repository.ReplaceOne(u => u.UserId == mongoConfirmation.UserId, mongoConfirmation);
-        }
+			_repository.ReplaceOne(u => u.UserId == mongoConfirmation.UserId, mongoConfirmation);
+		}
 
-        public void Delete(string key)
-        {
-            if (key == null)
-            {
-                throw new ArgumentNullException(nameof(key));
-            }
-            _repository.Remove(u => u.Key == key);
-        }
-    }
+		public void Delete(string key)
+		{
+			if (key == null)
+			{
+				throw new ArgumentNullException(nameof(key));
+			}
+			_repository.Remove(u => u.Key == key);
+		}
+	}
 }

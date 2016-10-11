@@ -36,7 +36,7 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
                 AddBody(password).
                 Execute().
                 CheckPutResult().
-                GetContent<TokenDto>();
+                GetJsonContent<TokenDto>();
         }
 
         public void ValidateToken(TokenDto token)

@@ -11,6 +11,7 @@ using System;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.Auth.WebApi;
 using PVDevelop.UCoach.Server.Auth.Mail;
+using PVDevelop.UCoach.Server.WebApi;
 
 namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
 {
@@ -52,7 +53,7 @@ namespace PVDevelop.UCoach.Server.Auth.IisWebApiHost
                 Use<MongoCollectionVersionValidatorByClassAttribute>();
 
             x.For<IConnectionStringProvider>().
-                Use<ConnectionStringProvider>().
+                Use<ConfigurationConnectionStringProvider>().
                 Ctor<string>().
                 Is("mongo");
 
