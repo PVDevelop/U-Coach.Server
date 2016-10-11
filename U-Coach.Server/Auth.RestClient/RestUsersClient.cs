@@ -2,6 +2,7 @@
 using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.RestClient;
 using PVDevelop.UCoach.Server.Auth.Domain;
+using PVDevelop.UCoach.Server.Auth.WebApi;
 
 namespace PVDevelop.UCoach.Server.Auth.RestClient
 {
@@ -18,24 +19,16 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
             _restClientFactory = restClientFactory;
         }
 
-        public Token Create(string login, string password)
+        public void Create(UserDto user)
         {
-            var createUserDto = new CreateUserDto()
-            {
-                Login = login,
-                Password = password
-            };
-
-            return
-                _restClientFactory.
+            _restClientFactory.
                 CreatePost(Routes.CREATE_USER).
-                AddBody(createUserDto).
+                AddBody(user).
                 Execute().
-                CheckPostResult().
-                GetJsonContent<Token>();
+                CheckPutResult();
         }
 
-        public Token Logon(string login, string password)
+        public TokenDto Logon(string login, PasswordDto password)
         {
             return
                 _restClientFactory.
@@ -43,14 +36,31 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
                 AddBody(password).
                 Execute().
                 CheckPutResult().
-                GetJsonContent<Token>();
+                GetContent<TokenDto>();
         }
 
-        public void ValidateToken(string token)
+        public void ValidateToken(TokenDto token)
         {
             _restClientFactory.
                 CreatePut(Routes.VALIDATE_USER_TOKEN).
                 AddBody(token).
+                Execute().
+                CheckPutResult();
+        }
+
+        public void Confirm(ConfirmationDto confirmation)
+        {
+            _restClientFactory.
+                CreatePut(Routes.CONFIRM_USER).
+                AddBody(confirmation).
+                Execute().
+                CheckPutResult();
+        }
+
+        public void ResendConfirmation(string login)
+        {
+            _restClientFactory.
+                CreatePut(Routes.RESEND_CONFIRM).
                 Execute().
                 CheckPutResult();
         }

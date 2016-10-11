@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PVDevelop.UCoach.Server.Auth.Service
+namespace PVDevelop.UCoach.Server.Auth.Domain
 {
     public interface IKeyGeneratorService
     {

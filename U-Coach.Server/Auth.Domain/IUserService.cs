@@ -1,7 +1,4 @@
-﻿using PVDevelop.UCoach.Server.Auth.Contract;
-using PVDevelop.UCoach.Server.Auth.Domain;
-
-namespace PVDevelop.UCoach.Server.Auth.Service
+﻿namespace PVDevelop.UCoach.Server.Auth.Domain
 {
     /// <summary>
     /// Интерфейс сервиса взаимодейтсвия с пользователем.
@@ -13,8 +10,9 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         /// </summary>
         /// <param name="login">Логин нового пользователя.</param>
         /// <param name="password">Пароль нового пользователя.</param>
+        /// <param name="url4Confirm">Url для отправки пользовательского подтверждения</param>
         /// <returns>Токен доступа</returns>
-        void CreateUser(string login, string password);
+        void CreateUser(string login, string password, string url4Confirm);
 
         /// <summary>
         /// Проверяет параметры пользователя и если они верны, аутентифицирует его.
@@ -34,6 +32,13 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         /// Подтверждение пользователя
         /// <param name="key">ключ подтверждения</param>
         /// </summary>
-        void Confirm(string key);
+        Token Confirm(string key);
+
+        /// <summary>
+        /// Повторно отправляет код подтверждения для указанного пользователя
+        /// </summary>
+        /// <param name="login">логин пользователя</param>
+        /// <param name="url4Confirm">Url для отправки пользовательского подтверждения</param>
+        void ResendConfirmation(string login, string url4Confirm);
     }
 }

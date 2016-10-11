@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities;
 
 namespace PVDevelop.UCoach.Server.Auth.Domain
 {
@@ -28,6 +29,9 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
 
         public Confirmation(string userId, string key, DateTime creationTime)
         {
+            userId.NullOrEmptyValidate(nameof(UserId));
+            key.NullOrEmptyValidate(nameof(key));
+
             this.UserId = UserId;
             this.Key = key;
             this.CreationTime = creationTime;

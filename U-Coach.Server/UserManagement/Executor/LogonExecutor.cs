@@ -47,7 +47,7 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
 
         public void Execute()
         {
-            _usersClient.Logon(Login, Password);
+            _usersClient.Logon(Login, new PasswordDto(Password));
         }
 
         public void Setup(string[] arguments)

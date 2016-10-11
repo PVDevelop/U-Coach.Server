@@ -19,12 +19,12 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// <summary>
         /// Логин пользователя = почта. Уникален в БД.
         /// </summary>
-        public string Login { get; internal set; }
+        public string Login { get; private set; }
 
         /// <summary>
         /// Время создания пользователя
         /// </summary>
-        public DateTime CreationTime { get; internal set; }
+        public DateTime CreationTime { get; private set; }
 
         /// <summary>
         /// Пароль пользователя. Закодирован.
@@ -34,18 +34,22 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         /// <summary>
         /// Подтвердил ли пользователь аккаунт
         /// </summary>
-        public UserStatus Status { get; set; }
+        public ConfirmationStatus ConfirmationStatus { get; private set; }
 
-        public User()
+        public User(
+            string id,
+            DateTime creationTime)
         {
-            Id = Guid.NewGuid().ToString();
+            this.Id = id;
+            this.CreationTime = creationTime;
+            this.ConfirmationStatus = ConfirmationStatus.Unconfirmed;
         }
 
         /// <summary>
         /// Кодирует и устанавливает указанный пароль
         /// </summary>
         /// <param name="plainPassword">Не кодированный пароль</param>
-        internal void SetPassword(string plainPassword)
+        public void SetPassword(string plainPassword)
         {
             if (string.IsNullOrWhiteSpace(plainPassword))
             {
@@ -67,6 +71,14 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
             {
                 throw new InvalidPasswordException();
             }
+        }
+
+        /// <summary>
+        /// Установка статуса подтверждение
+        /// </summary>
+        public void Confirm()
+        {
+            this.ConfirmationStatus = ConfirmationStatus.Confirmed;
         }
     }
 }

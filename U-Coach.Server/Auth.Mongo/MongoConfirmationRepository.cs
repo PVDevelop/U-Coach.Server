@@ -1,5 +1,4 @@
-﻿using PVDevelop.UCoach.Server.Auth.Service;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +33,19 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             }
 
             var mongoConfirmation = _repository.Find(u => u.Key == key);
+            return MapperHelper.Map<MongoConfirmation, Confirmation>(mongoConfirmation);
+        }
+
+        public Confirmation FindByConfirmationByUserId(string userId)
+        {
+            if (String.IsNullOrEmpty(userId))
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            _versionCollectionValidator.Validate<MongoConfirmation>();
+
+            var mongoConfirmation = _repository.Find(u => u.UserId == userId);
             return MapperHelper.Map<MongoConfirmation, Confirmation>(mongoConfirmation);
         }
 

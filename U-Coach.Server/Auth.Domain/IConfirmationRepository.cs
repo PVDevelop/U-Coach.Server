@@ -1,6 +1,4 @@
-﻿using PVDevelop.UCoach.Server.Auth.Domain;
-
-namespace PVDevelop.UCoach.Server.Auth.Service
+﻿namespace PVDevelop.UCoach.Server.Auth.Domain
 {
     public interface IConfirmationRepository
     {
@@ -15,6 +13,12 @@ namespace PVDevelop.UCoach.Server.Auth.Service
         /// </summary>
         /// <param name="key">Ключ подтверждения.</param>
         Confirmation FindByConfirmation(string key);
+
+        /// <summary>
+        /// Поиск объкста подтверждения по Id пользователя
+        /// </summary>
+        /// <param name="userID">Id пользователя.</param>
+        Confirmation FindByConfirmationByUserId(string userID);
 
         /// <summary>
         /// Удаляет подтверждение по ключу

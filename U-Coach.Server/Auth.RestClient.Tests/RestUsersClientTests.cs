@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.Auth.RestClient;
-using PVDevelop.UCoach.Server.Auth.Service;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.RestClient;
 using Rhino.Mocks;
@@ -11,6 +10,7 @@ using TestComparisonUtilities;
 using TestNUnit;
 using TestWebApiUtilities;
 using PVDevelop.UCoach.Server.Auth.Domain;
+using Auth.Domain.Tests;
 
 namespace Auth.RestClient.Tests
 {
@@ -35,21 +35,19 @@ namespace Auth.RestClient.Tests
             IUserService userService,
             Func<RestUsersClient, T> callback)
         {
-            return TestWebApiHelper.WithServer(
-                port,
-                x => x.For<IUserService>().Use(ctx => userService),
-                server =>
-                {
-                    var autoMocker = new RhinoAutoMocker<RestUsersClient>();
+            // act
+            using (var server = new TestWebApiSelfHost(port, x => { x.For<IUserService>().Use(ctx => userService); }))
+            {
+                var autoMocker = new RhinoAutoMocker<RestUsersClient>();
 
-                    var webConnString = autoMocker.Get<IConnectionStringProvider>();
-                    webConnString.Stub(sp => sp.ConnectionString).Return(server.ConnectionString);
+                var webConnString = MockRepository.GenerateStub<IConnectionStringProvider>();
+                webConnString.Stub(sp => sp.ConnectionString).Return(server.ConnectionString);
 
-                    var clientFactory = new RestClientFactory(webConnString);
-                    autoMocker.Inject(typeof(IRestClientFactory), clientFactory);
+                var clientFactory = new RestClientFactory(webConnString);
+                autoMocker.Inject(typeof(IRestClientFactory), clientFactory);
 
-                    return callback(autoMocker.ClassUnderTest);
-                });
+                return callback(autoMocker.ClassUnderTest);
+            }
         }
 
         [Test]
@@ -57,15 +55,13 @@ namespace Auth.RestClient.Tests
         {
             var mockUserService = MockRepository.GenerateMock<IUserService>();
             mockUserService.
-                Expect(us => us.Create("l1", "p1")).
-                Return(new Token() { Key = "SomeId" });
+                Expect(us => us.CreateUser("l1", "p1", "url{0}"));
 
             // act
-            var result = WithServer(5000, mockUserService, client => client.Create("l1", "p1"));
+            WithServer(5000, mockUserService, client => client.Create(new UserDto("l1", "p1", "url{0}")));
 
             // assert
             mockUserService.VerifyAllExpectations();
-            Assert.AreEqual("SomeId", result.Key);
         }
 
         [Test]
@@ -74,10 +70,10 @@ namespace Auth.RestClient.Tests
             var mockUserService = MockRepository.GenerateMock<IUserService>();
             mockUserService.
                 Expect(us => us.Logon("l1", "password")).
-                Return(new Token() { Key = "some_token" });
+                Return(new Token("l1", "some_token", new TestUtcTimeProvider()));
 
             // act
-            var result = WithServer(5001, mockUserService, client => client.Logon("l1", "password"));
+            var result = WithServer(5001, mockUserService, client => client.Logon("l1", new PasswordDto("password")));
 
             // assert
             mockUserService.VerifyAllExpectations();
@@ -92,7 +88,7 @@ namespace Auth.RestClient.Tests
                 Expect(us => us.ValidateToken("token"));
 
             // act
-            WithServer(5002, mockUserService, client => client.ValidateToken("token"));
+            WithServer(5002, mockUserService, client => client.ValidateToken(new TokenDto("token")));
 
             // assert
             mockUserService.VerifyAllExpectations();

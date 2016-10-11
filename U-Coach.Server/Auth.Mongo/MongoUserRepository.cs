@@ -2,7 +2,6 @@
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Mapper;
 using PVDevelop.UCoach.Server.Auth.Domain;
-using PVDevelop.UCoach.Server.Auth.Service;
 
 namespace PVDevelop.UCoach.Server.Auth.Mongo
 {

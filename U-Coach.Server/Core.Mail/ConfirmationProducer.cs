@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net;
 using System.Net.Mail;
-using PVDevelop.UCoach.Server.Auth.Service;
 using PVDevelop.UCoach.Server.Configuration;
 using PVDevelop.UCoach.Server.Auth.Mail;
 using System.Resources;
+using PVDevelop.UCoach.Server.Auth.Domain;
 
 namespace PVDevelop.UCoach.Server.Auth.Mail
 {
@@ -22,14 +22,14 @@ namespace PVDevelop.UCoach.Server.Auth.Mail
             _settingsProvider = settingsProvider;
         }
 
-        public void Produce(string address, string key)
+        public void Produce(string address, string url)
         {
             var settings = _settingsProvider.Settings;
             using (var mail = new MailMessage(
                 settings.SenderAddress,
                 address,
                 Properties.Resources.NewUserConfirmationHeader,
-                string.Format(Properties.Resources.NewUserConfirmationBody, key)))
+                string.Format(Properties.Resources.NewUserConfirmationBody, url)))
             {
                 var client = new SmtpClient(settings.SmtpHost, settings.SmtpPort)
                 {
