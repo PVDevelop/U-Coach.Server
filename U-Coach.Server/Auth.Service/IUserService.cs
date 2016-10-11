@@ -1,4 +1,5 @@
 ﻿using PVDevelop.UCoach.Server.Auth.Contract;
+using PVDevelop.UCoach.Server.Auth.Domain;
 
 namespace PVDevelop.UCoach.Server.Auth.Service
 {
@@ -8,22 +9,31 @@ namespace PVDevelop.UCoach.Server.Auth.Service
     public interface IUserService
     {
         /// <summary>
-        /// Создать нового пользователя и вернуть его идентификатор.
+        /// Создать нового пользователя
         /// </summary>
-        /// <param name="userParams">Логин/пароль нового пользователя.</param>
-        CreateUserResultDto Create(CreateUserDto userParams);
+        /// <param name="login">Логин нового пользователя.</param>
+        /// <param name="password">Пароль нового пользователя.</param>
+        /// <returns>Токен доступа</returns>
+        void CreateUser(string login, string password);
 
         /// <summary>
         /// Проверяет параметры пользователя и если они верны, аутентифицирует его.
         /// </summary>
-        /// <param name="userParams">Параметры аутентификацити</param>
+        /// <param name="login">Параметры аутентификацити, логин</param>
+        /// <param name="password">Параметры аутентификацити, пароль</param>
         /// <returns>Токен аутентификации</returns>
-        LogonUserResultDto Logon(LogonUserDto userParams);
+        Token Logon(string login, string password);
 
         /// <summary>
-        /// Проверяет токен пользователя.
+        /// Проверка ключа доступа
         /// </summary>
         /// <param name="tokenParams">Токен пользователя</param>
-        void ValidateToken(ValidateTokenDto tokenParams);
+        void ValidateToken(string token);
+
+        /// <summary>
+        /// Подтверждение пользователя
+        /// <param name="key">ключ подтверждения</param>
+        /// </summary>
+        void Confirm(string key);
     }
 }

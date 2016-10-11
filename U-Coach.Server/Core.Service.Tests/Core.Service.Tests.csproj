@@ -82,18 +82,6 @@
       <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
       <Name>Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Domain\Core.Domain.csproj">
-      <Project>{306e3c51-e72e-4543-9f58-b65990cc8437}</Project>
-      <Name>Core.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Mail\Core.Mail.csproj">
-      <Project>{8b643f85-8a84-4ddc-9b4d-c7cf10bf0296}</Project>
-      <Name>Core.Mail</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Service\Core.Service.csproj">
-      <Project>{4cff0e68-8388-4998-8cca-2495277c3bd7}</Project>
-      <Name>Core.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mapper\Mapper.csproj">
       <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>
       <Name>Mapper</Name>

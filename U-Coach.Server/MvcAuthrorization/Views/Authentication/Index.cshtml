@@ -1,0 +1,22 @@
+﻿@model MvcAuthrorization.Models.LogonModel
+@{
+    ViewBag.Title = "Authentication";
+}
+
+<h2>Authentication</h2>
+
+@using (Html.BeginForm("LogonUCoach", "Authentication", FormMethod.Post))
+{
+    @Html.LabelFor(m => m.Login)
+    @Html.EditorFor(m => m.Login)
+
+    @Html.LabelFor(m => m.Password)
+    @Html.EditorFor(m => m.Password)
+
+    <input type="submit" value="Logon"/>
+}
+
+@using (Html.BeginForm("LogonFacebook", "Authentication", FormMethod.Post))
+{
+    <input type="submit" value="Facebook"/>
+}

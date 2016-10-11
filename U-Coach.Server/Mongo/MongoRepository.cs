@@ -25,6 +25,13 @@ namespace PVDevelop.UCoach.Server.Mongo
             return coll.Find(predicate).Any();
         }
 
+        public bool TryFind(Expression<Func<T, bool>> predicate, out T item)
+        {
+            var coll = GetCollection();
+            item = coll.Find(predicate).SingleOrDefault();
+            return item != null;
+        }
+
         public T Find(Expression<Func<T, bool>> predicate)
         {
             var coll = GetCollection();
@@ -41,6 +48,12 @@ namespace PVDevelop.UCoach.Server.Mongo
         {
             var coll = GetCollection();
             coll.ReplaceOne<T>(predicate, document);
+        }
+
+        public void Remove(Expression<Func<T, bool>> predicate)
+        {
+            var coll = GetCollection();
+            coll.DeleteMany(predicate);
         }
 
         private IMongoCollection<T> GetCollection()

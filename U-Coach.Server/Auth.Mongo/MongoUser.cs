@@ -13,9 +13,9 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         /// </summary>
         public const int VERSION = 1;
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
-        public int Version { get; set; }
+        public int Version { get; private set; }
 
         [MongoIndexName("login")]
         /// <summary>
@@ -37,6 +37,8 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
         /// Время создания пользователя
         /// </summary>
         public DateTime CreationTime { get; set; }
+
+        public Domain.ConfirmationStatus Status { get; set; }
 
         public MongoUser()
         {

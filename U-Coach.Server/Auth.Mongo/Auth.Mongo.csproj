@@ -52,6 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MongoConfirmation.cs" />
+    <Compile Include="MongoConfirmationCollectionInitializer.cs" />
+    <Compile Include="MongoConfirmationRepository.cs" />
+    <Compile Include="MongoToken.cs" />
+    <Compile Include="MongoTokenCollectionInitializer.cs" />
+    <Compile Include="MongoTokenRepository.cs" />
     <Compile Include="MongoUser.cs" />
     <Compile Include="MongoUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,10 +67,6 @@
     <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
       <Project>{fc2614c3-74ed-4e9f-a8b9-98d18a59d0c0}</Project>
       <Name>Auth.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
-      <Project>{eecd97c9-87b4-4e00-8455-a8c80abfb66f}</Project>
-      <Name>Auth.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>

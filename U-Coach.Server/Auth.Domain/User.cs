@@ -9,17 +9,22 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
     /// <summary>
     /// Доменная модель - пользователь
     /// </summary>
-    public class User : AAggregateRoot
+    public class User 
     {
         /// <summary>
-        /// Логин пользователя. Уникален в БД.
+        /// Идентификатор Id в системе. Уникален в БД.
         /// </summary>
-        public string Login { get; internal set; }
+        public string Id { get; private set; }
+
+        /// <summary>
+        /// Логин пользователя = почта. Уникален в БД.
+        /// </summary>
+        public string Login { get; private set; }
 
         /// <summary>
         /// Время создания пользователя
         /// </summary>
-        public DateTime CreationTime { get; internal set; }
+        public DateTime CreationTime { get; private set; }
 
         /// <summary>
         /// Пароль пользователя. Закодирован.
@@ -27,17 +32,24 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         public string Password { get; private set; }
 
         /// <summary>
-        /// Возвращает true, если пользователь залогинен
+        /// Подтвердил ли пользователь аккаунт
         /// </summary>
-        public bool IsLoggedIn { get; private set; }
+        public ConfirmationStatus ConfirmationStatus { get; private set; }
 
-        internal User() { }
+        public User(
+            string id,
+            DateTime creationTime)
+        {
+            this.Id = id;
+            this.CreationTime = creationTime;
+            this.ConfirmationStatus = ConfirmationStatus.Unconfirmed;
+        }
 
         /// <summary>
         /// Кодирует и устанавливает указанный пароль
         /// </summary>
         /// <param name="plainPassword">Не кодированный пароль</param>
-        internal void SetPassword(string plainPassword)
+        public void SetPassword(string plainPassword)
         {
             if (string.IsNullOrWhiteSpace(plainPassword))
             {
@@ -50,50 +62,23 @@ namespace PVDevelop.UCoach.Server.Auth.Domain
         }
 
         /// <summary>
-        /// Проверяет пароль и если задан правильно, то делает пользователя залогиненым
+        /// Проверка пароля.
         /// </summary>
-        /// <param name="plainPassword">Не кодированный пароль</param>
-        /// <returns>Токен аутентификации</returns>
-        public string Logon(string plainPassword)
+        /// <param name="plainPassword"></param>
+        public void CheckPassword(string plainPassword)
         {
-            CheckPassword(plainPassword);
-
-            IsLoggedIn = true;
-
-            var salt = BCryptHelper.GenerateSalt();
-            return BCryptHelper.HashPassword(Password, salt);
-        }
-
-        /// <summary>
-        /// Проверяет токен. Если не залогинен, кидает NotLoggedInException. Если токен неверный, кидает InvalidTokenException.
-        /// </summary>
-        public void ValidateToken(string token)
-        {
-            if(!IsLoggedIn)
-            {
-                throw new NotLoggedInException();
-            }
-
-            try
-            {
-                if (!BCryptHelper.CheckPassword(Password, token))
-                {
-                    throw new InvalidTokenException();
-                }
-            }
-            catch(ArgumentException)
-            {
-                throw new InvalidTokenException();
-            }
-        }
-
-        private void CheckPassword(string plainPassword)
-        {
-            bool valid = BCryptHelper.CheckPassword(plainPassword, Password);
-            if (!valid)
+            if (!BCryptHelper.CheckPassword(plainPassword, Password))
             {
                 throw new InvalidPasswordException();
             }
+        }
+
+        /// <summary>
+        /// Установка статуса подтверждение
+        /// </summary>
+        public void Confirm()
+        {
+            this.ConfirmationStatus = ConfirmationStatus.Confirmed;
         }
     }
 }

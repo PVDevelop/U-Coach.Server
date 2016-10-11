@@ -53,6 +53,14 @@
       <Project>{12e06b20-78ec-4b54-8b43-81202f618e62}</Project>
       <Name>Auth.Contract</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
+      <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
+      <Name>Auth.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.WebApi\Auth.WebApi.csproj">
+      <Project>{C92F3088-B5C6-4095-8D49-C13A55F42577}</Project>
+      <Name>Auth.WebApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RestClient\RestClient.csproj">
       <Project>{0F8931B1-BE3D-4544-9D9E-A7616B736A28}</Project>
       <Name>RestClient</Name>

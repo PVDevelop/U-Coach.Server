@@ -7,6 +7,7 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
     {
         public string Login { get; private set; }
         public string Password { get; private set; }
+        public string Url { get; private set; }
 
         public string Command
         {
@@ -48,17 +49,12 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
         {
             Login = arguments[0];
             Password = arguments[1];
+            Url = arguments[2];
         }
 
         public void Execute()
         {
-            var userParams = new CreateUserDto()
-            {
-                Login = Login,
-                Password = Password
-            };
-
-            _usersClient.Create(userParams);
+            _usersClient.Create( new UserDto(Login, Password, Url));
         }
 
         public string GetSuccessString()

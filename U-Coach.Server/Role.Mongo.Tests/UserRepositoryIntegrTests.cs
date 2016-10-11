@@ -23,9 +23,6 @@ namespace Role.Mongo.Tests
             var mongoRepository = new MongoRepository<MongoUser>(settings);
             autoMocker.Inject(typeof(IMongoRepository<MongoUser>), mongoRepository);
 
-            var userFactory = new UserFactory();
-            autoMocker.Inject(typeof(IUserFactory), userFactory);
-
             return autoMocker;
         }
 
@@ -37,15 +34,16 @@ namespace Role.Mongo.Tests
             {
                 var autoMocker = CreateRepository(settings);
 
-                var userId = new UserId("someSystem", "someId");
-                var user = autoMocker.Get<IUserFactory>().CreateUser(userId);
+                var userId = new UserId(Guid.NewGuid());
+                var authUserId = new AuthUserId("system", "id");
+                var user = new User(userId, authUserId);
 
                 autoMocker.ClassUnderTest.Insert(user);
 
                 var collection = MongoHelper.GetCollection<MongoUser>(settings);
                 var mongoUser = 
                     collection.
-                    Find(u => u.Id.AuthId == userId.AuthId && u.Id.AuthSystemName == userId.AuthSystemName).
+                    Find(u => u.Id.Equals(user.Id)).
                     SingleOrDefault();
 
                 Assert.NotNull(mongoUser);
@@ -55,46 +53,50 @@ namespace Role.Mongo.Tests
         }
 
         [Test]
-        public void Contains_UserExists_ReturnsTrue()
+        public void TryGet_PrevioulsyAddUser_ReturnsValidUser()
         {
             var settings = TestMongoHelper.CreateSettings();
             TestMongoHelper.WithDb(settings, db =>
             {
-                var collection = MongoHelper.GetCollection<MongoUser>(settings);
-                var userId = new UserId("someSystem", "someId");
-                var mongoUser = new MongoUser()
-                {
-                    Id = userId
-                };
-                collection.InsertOne(mongoUser);
-
                 var autoMocker = CreateRepository(settings);
-                bool contains = autoMocker.ClassUnderTest.Contains(userId);
 
-                Assert.IsTrue(contains);
+                var userId = new UserId(Guid.NewGuid());
+                var authUserId = new AuthUserId("someSystem", "someId");
+
+                var user = new User(userId, authUserId);
+
+                autoMocker.ClassUnderTest.Insert(user);
+                User userAfterInsert;
+                var found = autoMocker.ClassUnderTest.TryGet(userId, out userAfterInsert);
+
+                Assert.IsTrue(found);
+                Assert.NotNull(userAfterInsert);
+                string comparisonResult;
+                Assert.IsTrue(
+                    new TestComparer().
+                    WithMongoDateTimeComparer().
+                    Compare(user, userAfterInsert, out comparisonResult), comparisonResult);
             });
         }
 
         [Test]
-        public void Get_PrevioulsyAddUser_ReturnsValidUser()
+        public void TryGetByAuthUserId_PrevioulsyAddUser_ReturnsValidUser()
         {
             var settings = TestMongoHelper.CreateSettings();
             TestMongoHelper.WithDb(settings, db =>
             {
                 var autoMocker = CreateRepository(settings);
 
-                var userId = new UserId("someSystem", "someId");
-                var token = new AuthToken("my_token", DateTime.UtcNow);
+                var userId = new UserId(Guid.NewGuid());
+                var authUserId = new AuthUserId("someSystem", "someId");
 
-                var userFactory = new UserFactory();
-                autoMocker.Inject(typeof(IUserFactory), userFactory);
-
-                var user = userFactory.CreateUser(userId);
-                user.SetToken(token);
+                var user = new User(userId, authUserId);
 
                 autoMocker.ClassUnderTest.Insert(user);
-                var userAfterInsert = autoMocker.ClassUnderTest.Get(userId);
+                User userAfterInsert;
+                var found = autoMocker.ClassUnderTest.TryGetByAuthUserId(authUserId, out userAfterInsert);
 
+                Assert.IsTrue(found);
                 Assert.NotNull(userAfterInsert);
                 string comparisonResult;
                 Assert.IsTrue(

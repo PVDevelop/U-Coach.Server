@@ -1,4 +1,6 @@
-﻿namespace PVDevelop.UCoach.Server.Auth.Contract
+﻿using PVDevelop.UCoach.Server.Auth.Domain;
+
+namespace PVDevelop.UCoach.Server.Auth.Contract
 {
     /// <summary>
     /// Интерфейс доступа к пользователям
@@ -8,20 +10,29 @@
         /// <summary>
         /// Создать нового пользователя и вернуть его идентификатор.
         /// </summary>
-        /// <param name="createUserDto">Параметры создания.</param>
-        CreateUserResultDto Create(CreateUserDto createUserDto);
+        void Create(UserDto password);
 
         /// <summary>
         /// Проверяет параметры пользователя и если они верны, аутентифицирует его.
         /// </summary>
-        /// <param name="logonUserDto">Параметры аутентификацити</param>
         /// <returns>Токен аутентификации</returns>
-        LogonUserResultDto Logon(LogonUserDto logonUserDto);
+        TokenDto Logon(string login, PasswordDto password);
 
         /// <summary>
         /// Проверяет токен пользователя.
         /// </summary>
         /// <param name="tokenDto">Токен пользователя</param>
-        void ValidateToken(ValidateTokenDto tokenDto);
+        void ValidateToken(TokenDto token);
+
+        /// <summary>
+        /// Операция подтверждение пользователя (ввод ключа проверки).
+        /// </summary>
+        /// <param name="confirmation">Код подтверждения</param>
+        void Confirm(ConfirmationDto confirmation);
+
+        /// <summary>
+        /// Операция повторного отправления кода подтверждения.
+        /// </summary>
+        void ResendConfirmation(string login);
     }
 }

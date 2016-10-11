@@ -53,8 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MongoToken.cs" />
     <Compile Include="MongoUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TokenRepository.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,10 +74,6 @@
     <ProjectReference Include="..\Role.Domain\Role.Domain.csproj">
       <Project>{ee2a484a-02b8-44ad-87eb-64e42b869933}</Project>
       <Name>Role.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Role.Service\Role.Service.csproj">
-      <Project>{583baa0f-d0e5-412a-9375-92f580b66327}</Project>
-      <Name>Role.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

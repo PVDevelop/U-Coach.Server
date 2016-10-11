@@ -4,6 +4,8 @@
     {
         IRestClient CreateGet(string resource, params string[] segments);
 
+        IRestClient CreateDelete(string resource, params string[] segments);
+
         IRestClient CreatePost(string resources, params string[] segments);
 
         IRestClient CreatePut(string resource, params string[] segments);

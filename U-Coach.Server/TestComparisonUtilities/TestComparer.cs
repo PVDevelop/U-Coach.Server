@@ -21,6 +21,12 @@ namespace TestComparisonUtilities
             return this;
         }
 
+        public bool Compare(object left, object right)
+        {
+            string comparison;
+            return Compare(left, right, out comparison);
+        }
+
         public bool Compare(object left, object right, out string comparisonResult)
         {
             var context = new ComparisonContext();

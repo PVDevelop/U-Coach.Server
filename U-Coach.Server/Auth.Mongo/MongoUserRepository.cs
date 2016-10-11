@@ -2,7 +2,6 @@
 using PVDevelop.UCoach.Server.Mongo;
 using PVDevelop.UCoach.Server.Mapper;
 using PVDevelop.UCoach.Server.Auth.Domain;
-using PVDevelop.UCoach.Server.Auth.Service;
 
 namespace PVDevelop.UCoach.Server.Auth.Mongo
 {
@@ -49,6 +48,17 @@ namespace PVDevelop.UCoach.Server.Auth.Mongo
             }
 
             var mongoUser = _repository.Find(u => u.Login == login);
+            return MapperHelper.Map<MongoUser, User>(mongoUser);
+        }
+
+        public User FindById(string id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var mongoUser = _repository.Find(u => u.Id == id);
             return MapperHelper.Map<MongoUser, User>(mongoUser);
         }
 

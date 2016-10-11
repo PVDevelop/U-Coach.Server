@@ -47,13 +47,7 @@ namespace PVDevelop.UCoach.Server.UserManagement.Executor
 
         public void Execute()
         {
-            var userParams = new LogonUserDto()
-            {
-                Login = Login,
-                Password = Password
-            };
-
-            _usersClient.Logon(userParams);
+            _usersClient.Logon(Login, new PasswordDto(Password));
         }
 
         public void Setup(string[] arguments)

@@ -40,14 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreateUserDto.cs" />
-    <Compile Include="CreateUserResultDto.cs" />
+    <Compile Include="ConfirmationDto.cs" />
+    <Compile Include="ConfirmUrlDTO.cs" />
     <Compile Include="IUsersClient.cs" />
-    <Compile Include="LogonUserDto.cs" />
-    <Compile Include="LogonUserResultDto.cs" />
+    <Compile Include="PasswordDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routes.cs" />
-    <Compile Include="ValidateTokenDto.cs" />
+    <Compile Include="TokenDto.cs" />
+    <Compile Include="UserDto.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj">
+      <Project>{FC2614C3-74ED-4E9F-A8B9-98D18A59D0C0}</Project>
+      <Name>Auth.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{3E5BAE26-7F6F-4471-807C-59492F18EE58}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -121,10 +121,6 @@
       <Project>{141873A9-7298-45BA-88DE-AC8C49492E95}</Project>
       <Name>Auth.Mongo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
-      <Project>{EECD97C9-87B4-4E00-8455-A8C80ABFB66F}</Project>
-      <Name>Auth.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Auth.WebApi\Auth.WebApi.csproj">
       <Project>{c92f3088-b5c6-4095-8d49-c13a55f42577}</Project>
       <Name>Auth.WebApi</Name>
@@ -132,6 +128,10 @@
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{9D893E1E-2741-4178-93FA-69C8F33110B1}</Project>
       <Name>Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Mail\Auth.Mail.csproj">
+      <Project>{8B643F85-8A84-4DDC-9B4D-C7CF10BF0296}</Project>
+      <Name>Auth.Mail</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mapper\Mapper.csproj">
       <Project>{6ebdcb84-95a9-417b-967e-37acf7d4abca}</Project>

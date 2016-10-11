@@ -5,11 +5,26 @@
         /// <summary>
         /// Адрес ресурса авторизации пользователя facebook
         /// </summary>
-        public const string FACEBOOK_REDIRECT_URI = "api/facebook/authorization";
+        public const string FACEBOOK_REDIRECT_URI = "api/facebook/authorization_uri";
 
         /// <summary>
-        /// Адрес ресурас профиля пользователя facebook
+        /// Адрес токена пользователя facebook
         /// </summary>
-        public const string FACEBOOK_USER_PROFILE = "api/facebook/user_profile";
+        public const string FACEBOOK_TOKEN = "api/facebook/token";
+
+        /// <summary>
+        /// Адрес токена пользователя UCoach 
+        /// </summary>
+        public const string UCOACH_TOKEN = "api/ucoach/token";
+
+        /// <summary>
+        /// Адрес пользователя по токену
+        /// </summary>
+        public const string USER_INFO = "api/users";
+
+        /// <summary>
+        /// DELETE - запрос на удаление токена
+        /// </summary>
+        public const string DELETE_TOKEN = "api/tokens/{token}";
     }
 }

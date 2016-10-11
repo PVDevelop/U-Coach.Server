@@ -1,6 +1,8 @@
 ﻿using System;
 using PVDevelop.UCoach.Server.Auth.Contract;
 using PVDevelop.UCoach.Server.RestClient;
+using PVDevelop.UCoach.Server.Auth.Domain;
+using PVDevelop.UCoach.Server.Auth.WebApi;
 
 namespace PVDevelop.UCoach.Server.Auth.RestClient
 {
@@ -17,33 +19,48 @@ namespace PVDevelop.UCoach.Server.Auth.RestClient
             _restClientFactory = restClientFactory;
         }
 
-        public CreateUserResultDto Create(CreateUserDto createUserDto)
-        {
-            return
-                _restClientFactory.
-                CreatePost(Routes.CREATE_USER).
-                AddBody(createUserDto).
-                Execute().
-                CheckPostResult().
-                GetJsonContent<CreateUserResultDto>();
-        }
-
-        public LogonUserResultDto Logon(LogonUserDto logonUserDto)
-        {
-            return
-                _restClientFactory.
-                CreatePut(Routes.LOGON_USER, logonUserDto.Login).
-                AddBody(logonUserDto.Password).
-                Execute().
-                CheckPutResult().
-                GetJsonContent<LogonUserResultDto>();
-        }
-
-        public void ValidateToken(ValidateTokenDto tokenDto)
+        public void Create(UserDto user)
         {
             _restClientFactory.
-                CreatePut(Routes.VALIDATE_USER_TOKEN, tokenDto.Login).
-                AddBody(tokenDto.Token).
+                CreatePost(Routes.CREATE_USER).
+                AddBody(user).
+                Execute().
+                CheckPutResult();
+        }
+
+        public TokenDto Logon(string login, PasswordDto password)
+        {
+            return
+                _restClientFactory.
+                CreatePut(Routes.LOGON_USER, login).
+                AddBody(password).
+                Execute().
+                CheckPutResult().
+                GetJsonContent<TokenDto>();
+        }
+
+        public void ValidateToken(TokenDto token)
+        {
+            _restClientFactory.
+                CreatePut(Routes.VALIDATE_USER_TOKEN).
+                AddBody(token).
+                Execute().
+                CheckPutResult();
+        }
+
+        public void Confirm(ConfirmationDto confirmation)
+        {
+            _restClientFactory.
+                CreatePut(Routes.CONFIRM_USER).
+                AddBody(confirmation).
+                Execute().
+                CheckPutResult();
+        }
+
+        public void ResendConfirmation(string login)
+        {
+            _restClientFactory.
+                CreatePut(Routes.RESEND_CONFIRM).
                 Execute().
                 CheckPutResult();
         }

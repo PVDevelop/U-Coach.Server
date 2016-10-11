@@ -2,7 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using System.Web.Http.SelfHost;
-using PVDevelop.UCoach.Server.Auth.WebApi;
+using PVDevelop.UCoach.Server.WebApi;
 using StructureMap;
 
 namespace TestWebApiUtilities

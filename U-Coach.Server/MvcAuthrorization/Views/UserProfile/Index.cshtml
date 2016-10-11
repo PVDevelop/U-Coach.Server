@@ -1,0 +1,14 @@
+﻿@model MvcAuthrorization.Models.UserProfileModel
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+<h2>UserProfile</h2>
+
+@Html.LabelFor(p=>p.Id)
+@Html.DisplayTextFor(p=>p.Id)
+
+@using (Html.BeginForm("Logout", "UserProfile", FormMethod.Post))
+{
+    <input type="submit" value="Logout" />
+}

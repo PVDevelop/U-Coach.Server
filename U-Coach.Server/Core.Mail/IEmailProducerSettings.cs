@@ -1,4 +1,4 @@
-﻿namespace PVDevelop.UCoach.Server.Core.Mail
+﻿namespace PVDevelop.UCoach.Server.Auth.Mail
 {
     public interface IEmailProducerSettings
     {
